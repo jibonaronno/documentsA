@@ -83,12 +83,24 @@ div[id=div-001] {
       }
   </style>
   
-  <h2><label for="toggle-002">Article 002</label></h2>
+  <h2><label for="toggle-002">Setting up Ubuntu Linux Host. Install SDK Toolchain & more</label></h2>
   <input type="checkbox" id="toggle-002" style="display: none;">
   
   <div id="div-002">
-      <tab></tab>      
-      <br>
+    Follow this <a href="https://software-dl.ti.com/processor-sdk-linux/esd/docs/05_02_00_10/linux/Overview_Getting_Started_Guide.html#id21"> 1.1.3. Download and Install the SDK </a>
+    to setup an environment to develop ti processor apps. <br>
+    <img alt="NO IMAGE" width="50%" src="img/img001.jpg"><br />
+    After download <code>ti-processor-sdk-linux-rt-am57xx-evm-08_02_01_00-Linux-x86-Install.bin</code> file 
+    we have to run it in Ubuntu. 
+    <br>
+    After installing the binary: <br>
+    Following article at <a href="https://software-dl.ti.com/processor-sdk-linux/esd/docs/05_02_00_10/linux/Overview_Getting_Started_Guide.html#gcc-toolchain">GCC</a> <code>1.1.7 GCC Toolchain</code> states various folder locations of the toolchain. <br>
+      <img alt="NO IMAGE" width="50%" src="img/img008.jpg"><br />
+
+      It looks like <p5>ti-processor-linux-..../linux-devkit/sysroots/x86_64-arago-linux/</p5> location has the cross compiler tools. <br>
+      <img alt="NO IMAGE" width="50%" src="img/img009.jpg"><br />
+
+
   </div>
   <!-- SHOW HIDE SEND 002  -->
 
@@ -102,11 +114,23 @@ div[id=div-001] {
       }
   </style>
   
-  <h2><label for="toggle-003">Article 003</label></h2>
+  <h2><label for="toggle-003">NFS Mount</label></h2>
   <input type="checkbox" id="toggle-003" style="display: none;">
   
   <div id="div-003">
       <tab></tab>
+      Making a NFS from online guide did not goes well. Install by <code>sudo apt install nfs-kernel-server</code>.
+      edit <p5>/etc/exports</p5> for setting up the folder for nfs. <br>
+      <code>/var/nfs/general  *(rw,nohide,insecure,no_subtree_check,no_root_squash)</code> <br>
+      Create a folder <p5>/var/nfs/general</p5> . After any change to /etc/exports restart the service 
+      as <code>sudo systemctl restart nfs-kernel-server</code> . You also need to setup ufw firewall 
+      commands as <br>
+      <code>sudo ufw allow from 203.0.113.24 to any port nfs</code> . <br> <br>
+
+      In the client create a folder (my folder is general) use command <code>mount 192.168.10.16:/var/nfs/general general</code> <br>
+
+      This <a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-an-nfs-mount-on-ubuntu-18-04">docs</a> could help a small . 
+      
       <br>
   </div>
   <!-- SHOW HIDE SEND 003  -->
