@@ -108,11 +108,153 @@ div[id=div-001] {
     Later I compiled a helloworld.c by using following command. <br>
     <code>~/ti-processor-sdk...../linux-devkit/sysroots/x86_64-arago..../usr/bin/arm-none-linux-gnueabihf-gcc hello.c -o hello</code> <br>
     There is also a pthread example is in <p3>1.1.7 GCC Toolchain</p3> section. <br>
-    
 
+    <pre class="brush:js;">
+      #include <unistd.h>;
+      #include <sys/types.h>;
+      #include <errno.h>;
+      #include <stdio.h>;
+      #include <stdlib.h>;
+      #include <pthread.h>;
+      #include <string.h>;
+      
+      int print_message_function(void *ptr);
+      
+      /* struct to hold data to be passed to a thread
+      this shows how multiple data items can be passed to a thread */
+      typedef struct str_thdata
+      {
+          int thread_no;
+          char message[100];
+      } thdata;
+      
+      int main(int argc, void **argv)
+      {
+          pthread_t thread1, thread2;
+          thdata data1, data2;
+      
+          data1.thread_no = 1;
+          strcpy(data1.message, "Hello!");
+      
+          data2.thread_no = 2;
+          strcpy(data2.message, "Hi!");
+      
+          pthread_create (&thread1, NULL, (void *) &print_message_function, (void *) &data1);
+          pthread_create (&thread2, NULL, (void *) &print_message_function, (void *) &data2);
+      
+          pthread_join(thread1, NULL);
+          pthread_join(thread2, NULL);
+      
+          exit(0);
+      }
+      
+      int print_message_function ( void *ptr )
+      {
+          thdata *data;
+          data = (thdata *) ptr;  /* type cast to a pointer to thdata */
+      
+          /* do the work */
+          printf("Thread %d says%s \n", data->thread_no, data->message);
+      
+          return 0;
+      }
+    </pre><br /><br />
+    <p3> Another code with loops: </p3><br>
+    <pre class="brush:js;">
+      #include <unistd.h>
+      #include <sys/types.h>
+      #include <errno.h>
+      #include <stdio.h>
+      #include <stdlib.h>
+      #include <pthread.h>
+      #include <string.h>
+      
+      int printmsgfunc(void *func);
+      
+      typedef struct str_thdata
+      {
+        int thread_no;
+        char msg[120];
+      
+      }thdata;
+      
+      int main(int argc, void **argv)
+      {
+        pthread_t thread1, thread2;
+        thdata data1, data2;
+      
+        data1.thread_no = 1;
+        strcpy(data1.msg, "This Text from T1");
+      
+        data2.thread_no = 2;
+        strcpy(data2.msg, "Second Thread MSG T2");
+      
+        pthread_create(&thread1, NULL, (void *)&printmsgfunc, (void *)&data1);
+        pthread_create(&thread2, NULL, (void *)&printmsgfunc, (void *)&data2);
+      
+        pthread_join(thread1, NULL);
+        pthread_join(thread2, NULL);
+      
+        while(1)
+        {
+          ;
+        }
+      
+        exit(0);
+      }
+      
+      int printmsgfunc(void *ptr)
+      {
+        thdata *data;
+        data = (thdata *)ptr;
+      
+        while(1)
+        {
+          printf("Thread %d Out %s \n", data->thread_no, data->msg);
+          sleep(1);
+        }
+        return 0;
+      }        
+    </pre><br /><br />
+    <pp>Command</pp> <code>~/ti-processor-sdk...../linux-devkit/sysroots/x86_64-arago..../usr/bin/arm-none-linux-gnueabihf-gcc threadxA.c -o threadxA</code> <br>
 
   </div>
   <!-- SHOW HIDE SEND 002  -->
+
+<!-- SHOW HIDE START 002A  -->
+<style type="text/css">
+  div[id=div-002A] {
+    display: none;
+  }
+    input[id=toggle-002A]:checked ~ div[id=div-002A] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-002A">1.2. Building the SDK <a href="https://software-dl.ti.com/processor-sdk-linux/esd/docs/05_02_00_10/linux/Overview_Building_the_SDK.html#building-the-sdk">Link</a> </label></h2>
+  <input type="checkbox" id="toggle-002A" style="display: none;">
+  
+  <div id="div-002A">
+      <tab></tab>
+      Though I am not sure why another process of building SDK is required. <br>
+      <img alt="NO IMAGE" width="50%" src="img/img010.jpg"><br />
+      So there are a number of tools that needed to install or download. <br>
+      <code>$ sudo apt-get install git build-essential python diffstat texinfo gawk chrpath dos2unix wget unzip socat doxygen libc6:i386 libncurses5:i386 libstdc++6:i386 libz1:i386</code> <br>
+
+      <div class="title_b">Cross-Compile Toolchain</div>
+      <pre class="brush:js;">
+      Run the following commands to install the Linaro Toolchain. <br>
+      $ wget https://releases.linaro.org/components/toolchain/binaries/7.2-2017.11/arm-linux-gnueabihf/gcc-linaro-7.2.1-2017.11-x86_64_arm-linux-gnueabihf.tar.xz
+      $ tar -Jxvf gcc-linaro-7.2.1-2017.11-x86_64_arm-linux-gnueabihf.tar.xz -C $HOME
+      $ wget https://releases.linaro.org/components/toolchain/binaries/7.2-2017.11/aarch64-linux-gnu/gcc-linaro-7.2.1-2017.11-x86_64_aarch64-linux-gnu.tar.xz
+      $ tar -Jxvf gcc-linaro-7.2.1-2017.11-x86_64_aarch64-linux-gnu.tar.xz -C $HOME
+      </pre>
+
+
+
+      <br>
+  </div>
+  <!-- SHOW HIDE SEND 002A  -->
 
 <!-- SHOW HIDE START 003  -->
 <style type="text/css">
@@ -179,12 +321,113 @@ div[id=div-001] {
       }
   </style>
   
-  <h2><label for="toggle-005">Title</label></h2>
+  <h2><label for="toggle-005">Using Micro Modbus Library with PDA LU software</label></h2>
   <input type="checkbox" id="toggle-005" style="display: none;">
   
   <div id="div-005">
       <tab></tab>
-      Docs.
+      <p5>Step 1</p5><pp>Cross Compile MicroModbus Library</pp> <br>
+      Modify Makefile to crosscompile the library. <br>
+
+      <pre class="brush:js;">
+
+        ### BUILD ###
+
+        export TI_SDK_PATH=/opt/ti-processor-sdk-linux-rt-am57xx-evm-05.02.00.10
+        
+        TOOL_PREFIX := arm-linux-gnueabihf-
+        CC := $(TOOL_PREFIX)gcc
+        LD := $(TOOL_PREFIX)ld
+        STRIP := $(TOOL_PREFIX)strip
+        
+        LINUX_DEVKIT_PATH := $(TI_SDK_PATH)/linux-devkit
+        
+        CC := $(TOOL_PREFIX)gcc
+        CPP := $(TOOL_PREFIX)cpp
+        LD := $(TOOL_PREFIX)ld
+        STRIP := $(TOOL_PREFIX)strip
+        
+        #CC=gcc
+        #CPP=g++
+        
+        #CFLAGS= -Wall -O2 -g -D_REENTRANT -fPIC
+        #CFLAGS= -Wall -O2 -g -D_REENTRANT -fPIC -DDEBUG
+        #CFLAGS= -Wall -O2 -fno-defer-pop -g -D_REENTRANT -fPIC -DDEBUG
+        CFLAGS= -Wall -g -D_REENTRANT -fPIC -DDEBUG
+        #CFLAGS= -Wall -g -D_REENTRANT -fPIC -mtune=generic
+        #CFLAGS= -Wall -g -D_REENTRANT -fPIC -m486
+        #CFLAGS= -Wall -g -D_REENTRANT -fPIC
+        CPPFLAGS=$(CFLAGS)
+        
+        LIB_OBJS=modbus.o modbus_serial.o modbus_asc.o modbus_rtu.o modbus_tcp.o 
+        
+        all: libmodbus.so libmodbus.a example example2 
+        #	mb_read mb_analyzer mb_responder
+        #     example example2 
+        
+        clean:
+          rm -f example example.o example2 example2.o mb_read mb_read.o mb_analyzer mb_analyzer.o mb_responder mb_responder.o $(LIB_OBJS) libmodbus.so libmodbus.a
+        
+        
+        
+        ### C Library and archive
+        
+        # a shared library
+        # if you want this, copy the library to some system-wide library directory and run ldconfig
+        libmodbus.so: $(LIB_OBJS)
+          $(CC) -shared -Wl,-soname,$@ -o $@ $(LIB_OBJS)
+        
+        # a "static" library, also known as an "archive"
+        libmodbus.a: $(LIB_OBJS)
+          ar cruv $@ $(LIB_OBJS)
+          ranlib $@
+        
+        # the rest gets taken care of by the implicit rule of .c.o
+        
+        
+        
+        
+        ### INSTALL ###
+        
+        MY_LIBDIR=/usr/lib
+        MY_INCLDIR=/usr/include
+        
+        MY_LIBS=libmodbus.so libmodbus.a
+        MY_HEADERS=modbus_serial.h modbus_asc.h modbus_rtu.h modbus_tcp.h modbus.h modbus_list.h
+        
+        install: $(MY_LIBS)
+          cp -dpR $(MY_LIBS) $(MY_LIBDIR)/
+          cp $(MY_HEADERS) $(MY_INCLDIR)/
+        
+        uninstall:
+          for file in $(MY_LIBS); do rm $(MY_LIBDIR)/$$file; done
+          for file in $(MY_HEADERS); do rm $(MY_INCLDIR)/$$file; done
+        
+        ### EXAMPLES ###
+        
+        #example.o: example.c
+        #	$(CC) $(CFLAGS) -c -o $@ $<
+        
+        example: example.o libmodbus.a
+          $(CC) -o $@ example.o -L. -lmodbus -lpthread
+        
+        example2: example2.o libmodbus.a
+          $(CC) -o $@ example2.o -L. -lmodbus -lpthread
+        
+        mb_read: mb_read.o
+          $(CPP) -o $@ -L. -lmodbus -lpthread -lpcre $<
+        
+        mb_analyzer: mb_analyzer.o
+          $(CPP) -o $@ -L. -lmodbus -lpthread -lpcre $<
+        
+        mb_responder: mb_responder.o
+          $(CPP) -o $@ -L. -lmodbus -lpthread -lpcre $<
+        
+        
+      </pre><br />
+
+      <img alt="NO IMAGE" width="70%" src="img/img011.jpg"><br />
+
       <br>
   </div>
   <!-- SHOW HIDE SEND 005  -->
