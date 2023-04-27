@@ -270,6 +270,8 @@ div[id=div-001] {
   <input type="checkbox" id="toggle-003" style="display: none;">
   
   <div id="div-003">
+
+    <div class="title_b">Following NFS folder /var/nfs/general is created in the newly created Ubuntu VM. It is /nfs_resource in the older VM </div>
       <tab></tab>
       Making a NFS from online guide did not goes well. Install by <code>sudo apt install nfs-kernel-server</code>.
       edit <p5>/etc/exports</p5> for setting up the folder for nfs. <br>
@@ -428,9 +430,143 @@ div[id=div-001] {
 
       <img alt="NO IMAGE" width="70%" src="img/img011.jpg"><br />
 
+      <p5>Step 2</p5><pp>Receive data over modbus master - slave</pp> <br>
+
+      In <p3>MTrMonitoring.c</p3> I wrote a function called <code>getVolts(...)</code> as below :
+
+      <pre class="brush:js;">
+int getVolts(float *ret)
+{
+	int tmp_result;
+ 	struct modbus_c* bus = NULL;
+	int i;
+	u16 my_response_data[VOLTS_SIZE];
+	char *response = (char *)my_response_data;
+   modbus_init();
+   bus = new_modbus_tcp_master_hostname( "192.168.10.100", 100, 0, NULL);
+
+   if (bus == NULL)
+   {
+	  printf("Error - 1\n");
+	  return 1;
+   }
+
+   adjust_pend_timeout(bus, 4000000); // 4 s, default is 2 s
+
+   if ( modbus_open(bus,0,1) != 0)
+   {
+      modbus_destroy(bus);
+	    printf("Error 2\n");
+	    return 1;
+   }
+   else
+   {
+      printf("Modbus Opened \n");
+   }
+
+
+
+   tmp_result = read_holding_registers(
+                 bus,   // modbus to use
+                 1,    // device ID to ask
+                 1100,     // start address 
+                 24,     // datapoint count
+                 my_response_data
+                );
+
+	  if (tmp_result == 0)
+   	{
+  		memcpy((void *)ret, (void *)my_response_data, 24);
+   	}
+   	else
+   	{
+
+      	printf("Hmm... error? : %s\n", modbus_error(tmp_result) );
+    		return 1;
+   	}
+
+	  modbus_close(bus);
+	  modbus_destroy(bus);
+   	modbus_cleanup();
+    return 0;
+}
+      </pre><br /><br />
+
       <br>
   </div>
   <!-- SHOW HIDE SEND 005  -->
+
+  <!-- SHOW HIDE START 006  -->
+  <style type="text/css">
+    div[id=div-006] {
+      display: none;
+    }
+      input[id=toggle-006]:checked ~ div[id=div-006] {
+        display: block;
+        }
+    </style>
+    
+    <h2><label for="toggle-006">Existing scripts or additinal codes</label></h2>
+    <input type="checkbox" id="toggle-006" style="display: none;">
+    
+    <div id="div-006">
+        <tab></tab>
+        Script appstart.sh from a new LU Unit. <br>
+        <img alt="NO IMAGE" width="70%" src="img/img013.jpg"><br />
+        <pre class="brush:js;">
+root@SLU-IED:/apps$
+root@SLU-IED:/apps$ cat appstart.sh
+#!/bin/sh
+
+
+echo "";
+echo "";
+echo "appstart script start!!!";
+echo "";
+echo "";
+
+### QT Environment Variables ###
+export SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
+export LD_LIBRARY_PATH="/lib:/apps:/usr/tslib/lib";
+export QT_PLUGIN_PATH=/usr/lib/qt5/plugins;
+export QT_QPA_PLATFORM=linuxfb;
+export QT_QPA_PLUGIN="tslib";
+export QT_QPA_FB_TSLIB="1";
+export QT_QPA_FONTDIR="/usr/share/fonts/ttf";
+export QT_QPA_GENERIC_PLUGINS=tslib:/dev/input/event0;
+export QT_QPA_EVDEV_TOUCHSCREEN_PARAMETERS=/dev/input/event0;
+export QWS_DISPLAY="LinuxFB:mmWidth=800:mmHeight=480";
+export QWS_MOUSE_PROTO=tslib:$TSLIB_TSDEVICE
+export LANG="ko_KR.UTF-8";
+
+
+fbset -g 800 480 800 480 32;
+
+### TSLIB Env Setting ####
+export PS1="\u@\h:\w\$ "
+export TSLIB_TSDEVICE=/dev/input/event0
+export TSLIB_CONFFILE=/usr/tslib/etc/ts.conf
+export TSLIB_CALIBFILE=/data/pointercal
+export TSLIB_PLUGINDIR=/usr/tslib/lib/ts
+export TSLIB_TSEVENTTYPE='INPUT'
+export TSLIB_FBDEVICE='/dev/fb0'
+
+#ethtool -s eth0 autoneg on speed 100 duplex full;
+sleep 2;
+ifconfig eth0 192.168.10.104 up;
+
+
+cd /apps;
+#./LU_MPU_FW;
+
+
+#/bin/login -f root
+/bin/sh
+root@SLU-IED:/apps$
+        </pre><br /><br />
+    </div>
+
+  <!-- SHOW HIDE END 006  -->
 
 <!--   -->
 
