@@ -365,10 +365,11 @@ tmpfs                /media/ram           tmpfs      defaults,size=16M     0  0
       }
   </style>
   
-  <h2><label for="toggle-005">Using Micro Modbus Library with PDA LU software</label></h2>
+  <h2><label for="toggle-005">Using Micro Modbus Library with PDA LU software <p3>( Depricated )</p3> </label></h2>
   <input type="checkbox" id="toggle-005" style="display: none;">
   
   <div id="div-005">
+    <p3>This library cannot run continiously and breaks at some point. But the Makefile Compilation knowledge is important.</p3> <br>
       <tab></tab>
       <p5>Step 1</p5><pp>Cross Compile MicroModbus Library</pp> <br>
       Modify Makefile to crosscompile the library. <br>
@@ -615,6 +616,55 @@ root@SLU-IED:/apps$
     </div>
 
   <!-- SHOW HIDE END 006  -->
+
+  <!-- SHOW HIDE START 007  -->
+  <style type="text/css">
+    div[id=div-007] {
+      display: none;
+    }
+      input[id=toggle-007]:checked ~ div[id=div-007] {
+        display: block;
+        }
+    </style>
+    
+    <h2><label for="toggle-007">PD data stores in /COMTRADE tmpfs Location sync with PC ClientProc</label></h2>
+    <input type="checkbox" id="toggle-007" style="display: none;">
+    
+    <div id="div-007">
+        <tab></tab>
+        The file location is hard coded in the source code of <code>lib61850.so</code> <br>
+        <img alt="NO IMAGE" width="50%" src="img/img018.jpg"><br />
+        <code>cd /apps</code><br>
+        <code>grep -rnw '.' -e '\data\COMTRADE'</code><br>
+        This command found that <pp>lib61850.so</pp> has a text "\data\COMTRADE" . <br>
+        So source code of lib61850.so has been changed for "\COMTRADE" location. In the LU machine \etc\fstab is changed as below <br>
+
+<pre class="brush:js;">
+# stock fstab - you probably want to override this with a machine specific one
+
+/dev/root            /                    auto       defaults,rw           1  1
+proc                 /proc                proc       defaults              0  0
+devpts               /dev/pts             devpts     mode=0620,gid=5       0  0
+usbdevfs             /proc/bus/usb        usbdevfs   noauto                0  0
+tmpfs                /run                 tmpfs      mode=0755,nodev,nosuid,strictatime 0  0
+tmpfs                /var/volatile        tmpfs      defaults,size=50M     0  0
+tmpfs                /media/ram           tmpfs      defaults,size=16M     0  0
+tmpfs                /COMTRADE            tmpfs      defaults,size=100M    0  0
+
+# uncomment this if your device has a SD/MMC/Transflash slot
+/dev/mmcblk0p2       /upgrade             ext4       defaults,sync,noauto  1  2
+/dev/mmcblk0p3       /data                ext4       defaults,sync,noauto  1  2
+</pre><br /><br />
+
+PD data accusition is happened in <pp>sensorcomm.c</pp><p5>void sensorfunc(int sockfd)</p5> function. It is a Thread worker function. Before calling 
+this thread worker <p5>void sensorserverrun()</p5> was called, it connects to PD TCP server on <p5>192.168.10.142 Port:5000</p5> and prepare a socket for 
+continious data reception. In the <pp>void sensorfunc(int sockfd)</pp> function only <code>CalibratePDdatthread</code> thread is activated and 
+<code>CreatePDdatthread</code> was deactivated or comment out. Because file saving operation has now been added to <code>CalibratePDdatthread</code> 
+thread function. <br>
+
+    </div>
+  <!-- SHOW HIDE END 007  -->
+
 
 <!--   -->
 

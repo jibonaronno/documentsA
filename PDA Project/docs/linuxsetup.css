@@ -30,7 +30,11 @@ h1{
 
 h2{
     font-family: 'Gruppo', cursive;
-    font-weight: 800;
+    font-weight: 700;
+    font-size: medium;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    line-height: 20px;
     }
 
 h3{
