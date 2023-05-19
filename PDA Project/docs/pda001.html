@@ -665,7 +665,26 @@ thread function. <br>
     </div>
   <!-- SHOW HIDE END 007  -->
 
-
+<!-- SHOW HIDE START 008  -->
+<style type="text/css">
+  div[id=div-008] {
+    display: none;
+  }
+    input[id=toggle-008]:checked ~ div[id=div-008] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-008">Acq Modbus Development from linuxmodbus scratch</label></h2>
+  <input type="checkbox" id="toggle-008" style="display: none;">
+  
+  <div id="div-008">
+      <tab></tab>
+      Discussed in the previous section "Using Micro Modbus Library with PDA LU software <p3>( Depricated )</p3>" we modified the Makefile to work it with
+      arm-linux architechture. That modbus library works but break after few seconds both on PC and Arm machines. We are trying to build a basic Modbus-tcp 
+      program only to receive ACQ tables. Most commands are <p5>read_holding_registers (0X03)</p5> and Write Holding Registers. 
+  </div>
+<!-- SHOW HIDE END 008  -->
 <!--   -->
 
 </div>
