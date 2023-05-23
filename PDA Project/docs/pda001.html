@@ -675,7 +675,7 @@ thread function. <br>
       }
   </style>
   
-  <h2><label for="toggle-008">Acq Modbus Development from linuxmodbus scratch</label></h2>
+  <h2><label for="toggle-008">Acq Modbus Development from linuxmodbus scratch <p3>Halted. Need Longer Time to develop.</p3> </label></h2>
   <input type="checkbox" id="toggle-008" style="display: none;">
   
   <div id="div-008">
@@ -685,6 +685,50 @@ thread function. <br>
       program only to receive ACQ tables. Most commands are <p5>read_holding_registers (0X03)</p5> and Write Holding Registers. 
   </div>
 <!-- SHOW HIDE END 008  -->
+
+<!-- SHOW HIDE START 009  -->
+<style type="text/css">
+  div[id=div-009] {
+    display: none;
+  }
+    input[id=toggle-009]:checked ~ div[id=div-009] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-009">Acq Modbus Development using libmodbus-3.1.10 </label></h2>
+  <input type="checkbox" id="toggle-009" style="display: none;">
+  
+  <div id="div-009">
+      <tab></tab>
+      <p5>Building Library from source</p5>
+      Source Code <a href="https://github.com/stephane/libmodbus/releases">Link</a>. <br>
+      During compilation for arm-linux platform it shows some error. But I built it as static library. The the library <code>libmodbus.a</code> is 
+      generated in /src/.libs directory. Then I copied the .a file into /home/taki/LocalUnit/sdk/libs directory, and assigned <code>-lmodbus</code> 
+      <br>
+      Autogen Configur Make. <br>
+      <pre>
+        ./autogen.sh
+
+        ./configure CC=arm-linux-gnueabihf-gcc \
+            CXX=arm-linux-gnueabihf-g++ \
+            AR=arm-linux-gnueabihf-ar \
+            LD=arm-linux-gnueabihf-ld \
+            RANLIB=arm-linux-gnueabihf-ranlib \
+            --host=arm-linux-gnueabihf \
+            --target=arm \
+            --enable-static
+
+        make
+
+        # some errors may occur
+        # Env variable sets to /opt/ti-processor-sdk-linux-rt-am57xx-evm-05.02.00.10/linux-devkit/sysroots/x86_64-arago-linux/usr/bin/
+        # So crosscompiler arm-linux-gnueabihf-gcc and others are on that location. 
+        # files in /src/.libs/libmodbus.a . it is a static library. No need to copy .so file to target /usr/lib . 
+      </pre>
+  </div>
+<!-- SHOW HIDE END 008  -->
+
 <!--   -->
 
 </div>
