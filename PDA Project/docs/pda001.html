@@ -662,6 +662,15 @@ continious data reception. In the <pp>void sensorfunc(int sockfd)</pp> function 
 <code>CreatePDdatthread</code> was deactivated or comment out. Because file saving operation has now been added to <code>CalibratePDdatthread</code> 
 thread function. <br>
 
+<p5>ClientProc</p5><pp>Visual Studio Code</pp><br>
+61850 messages are called mms data. It can be low level API. ClientProc Actually send commands through mms messages. It also 
+receives/create/delete files in or from remote devices. <br>
+<code>C:\Users\jibon\develop\61850Lib\libiec61850-0.9.0.2_2017_x64\src\mms\iso_mms\client\mms_client_connection.c</code> <br>
+The function <p5>CDlgIedSts::OnDeleteFile(CString sFile)</p5>  evetually calls to 
+<p5>MmsConnection_fileDelete(MmsConnection self, MmsError* mmsError, const char* fileName)</p5> in <p3>mms_client_connection.c</p3> . <br>
+
+
+
     </div>
   <!-- SHOW HIDE END 007  -->
 
@@ -709,7 +718,7 @@ thread function. <br>
       <br>
       <p5>NOTE:</p5><pp>Must assign the device address in modbus-tcp.h </pp> before make . <br>
       <br>
-      Autogen Configur Make. <br>
+      Autogen Configure Make. <br>
       <pre>
         ./autogen.sh
 
@@ -729,8 +738,104 @@ thread function. <br>
         # So crosscompiler arm-linux-gnueabihf-gcc and others are on that location. 
         # files in /src/.libs/libmodbus.a . it is a static library. No need to copy .so file to target /usr/lib . 
       </pre>
+<br>
+      A Test project was made in <pp>/home/taki/acq_code_modbus</pp> to see this library 
+      implementation. See Makefile below. Makefile took me a day. <br>
+      <pre>
+        export TI_SDK_PATH=/opt/ti-processor-sdk-linux-rt-am57xx-evm-05.02.00.10
+        TOOL_PREFIX := arm-linux-gnueabihf-
+        #TOOL_PREFIX := 
+        CC := $(TOOL_PREFIX)gcc
+        LD := $(TOOL_PREFIX)ld
+        STRIP := $(TOOL_PREFIX)strip
+        #LINUX_DEVKIT_PATH := $(TI_SDK_PATH)/linux-devkit
+        CC := $(TOOL_PREFIX)gcc
+        CPP := $(TOOL_PREFIX)cpp
+        LD := $(TOOL_PREFIX)ld
+        STRIP := $(TOOL_PREFIX)strip
+        DEST_DIR=/nfs_resource/
+        #CC=gcc
+        #CPP=g++
+        #CFLAGS= -Wall -O2 -g -D_REENTRANT -fPIC
+        #CFLAGS= -Wall -O2 -g -D_REENTRANT -fPIC -DDEBUG
+        #CFLAGS= -Wall -O2 -fno-defer-pop -g -D_REENTRANT -fPIC -DDEBUG
+        CFLAGS= -Wall -g -D_REENTRANT -fPIC -DDEBUG
+        #CFLAGS= -Wall -g -D_REENTRANT -fPIC -mtune=generic
+        #CFLAGS= -Wall -g -D_REENTRANT -fPIC -m486
+        #CFLAGS= -Wall -g -D_REENTRANT -fPIC
+        CPPFLAGS=$(CFLAGS)
+        LIB_OBJS=main.o Acq.o
+        all: OBJECT ACQ_FW
+        #	mb_read mb_analyzer mb_responder
+        #     example example2 
+        clean:
+          rm -f ACQ_FW.a main.o $(LIB_OBJS)
+        ### C Library and archive
+        #%.o : %.c 
+        #	@echo $@
+        #	@$(CC) $(CFLAGS) -g -o "$@" "$<" -I. -L. -lmodbus -lpthread
+
+        print: $(wildcard *.c)
+          ls -la  $?
+
+        OBJECT:
+          @echo Building $@
+          @$(CC) $(CFLAGS) -c "Acq.c" -I. -L. -lmodbus -lpthread
+          @$(CC) $(CFLAGS) -c main.c -I. -L. -lmodbus -lpthread
+
+        #Acq.o : Acq.c
+
+        #	@echo Building $@
+        #	@$(CC) $(CFLAGS) -g -o "$@" "$<" -I. -L. -lmodbus -lpthread
+
+        ACQ_FW: main.o Acq.o
+
+        #	$(CC) -c Acq.c main.c
+          $(CC) -o $(DEST_DIR)$@ "main.o" "Acq.o" -I. -L. -lmodbus -lpthread
+
+        # a shared library
+        # if you want this, copy the library to some system-wide library directory and run ldconfig
+        #libmodbus.so: $(LIB_OBJS)
+        #	$(CC) $@ -o $@ $(LIB_OBJS)
+        # a "static" library, also known as an "archive"
+        #libmodbus.a: $(LIB_OBJS)
+        #	ar cruv $@ $(LIB_OBJS)
+        #	ranlib $@
+        # the rest gets taken care of by the implicit rule of .c.o
+      </pre>
+      <br>
+      
+
   </div>
-<!-- SHOW HIDE END 008  -->
+<!-- SHOW HIDE END 009  -->
+
+<!-- SHOW HIDE START 010  -->
+<style type="text/css">
+  div[id=div-010] {
+    display: none;
+  }
+    input[id=toggle-010]:checked ~ div[id=div-010] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-010"> MZAtomation ClientProc </label></h2>
+  <input type="checkbox" id="toggle-010" style="display: none;">
+  
+  <div id="div-010">
+    <div class="title_b">Config Files::</div>
+    Primary Code location <p5>D:\develop\MZAutomation\SAProgram\ClientProc_2017_Dev_NoTimer_Minsu\ClientProc</p5> . 
+    <code>DlgIedSts.cpp</code> contains most of the functionalities. <br>
+
+    I was trying to detect how it collects data from LU through 61850 protocol libraries. It has some config and 
+    settings files and a directory structure for operations. <br>
+    1. <p5>SA_Client.ini</p5> <br>
+    2. <p5>YH.cid</p5> <br>
+
+    <div class="title_b">Import Files over 61850 and saving</div>
+    It is <code>OnGetFileList(...)</code> function or callback that receive and save the file. 
+  </div>
+<!-- SHOW HIDE START 010  -->
 
 <!--   -->
 
