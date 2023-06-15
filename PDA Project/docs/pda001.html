@@ -847,9 +847,34 @@ The function <p5>CDlgIedSts::OnDeleteFile(CString sFile)</p5>  evetually calls t
     I use <code>OnDeleteFile(...)</code> function to delete files from the Local Unit (which is remote unit). This 
     function eventually calls a lib61850 library function <code>IedConnection_deleteFile(m_con, &error, sFile);</code> 
     finally. <br>
-    LU side files are backed up in <pp>documentsA\PDA Project\LU_FILES</pp> location. 
+    LU side files are backed up in <pp>documentsA\PDA Project\LU_FILES</pp> location. <br>
+    It is required to update or edit SA_Client.ini file to set up a new LU connection. Use SCL_Manager.exe to 
+    configure the connection.
+    <br>
+    <a href="http://git.sanion.com/protection-and-analysis-system/software-team/mzautomation-client">git Location of the updated codes</a><br>
+
+
   </div>
-<!-- SHOW HIDE START 010  -->
+<!-- SHOW HIDE END 010  -->
+
+<!-- SHOW HIDE START 011  -->
+<style type="text/css">
+  div[id=div-011] {
+    display: none;
+  }
+    input[id=toggle-011]:checked ~ div[id=div-011] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-011"> IEC 61850 References </label></h2>
+  <input type="checkbox" id="toggle-011" style="display: none;">
+  <div id="div-011">
+    <a href="https://www.igrid-td.com/smartguide/iec61850/icd-ied-capability-description/">icd-ied-capability-description</a><br>
+    <a href="https://www.youtube.com/watch?v=DuBayMLGrDY">Route to IEC 61850 (2016): Client/Server, GOOSE and Sampled Values</a><br>
+    
+  </div>
+<!-- SHOW HIDE END 011  -->
 
 <!--   -->
 
