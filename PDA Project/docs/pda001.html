@@ -846,7 +846,8 @@ The function <p5>CDlgIedSts::OnDeleteFile(CString sFile)</p5>  evetually calls t
     this type of trace to print out debug informations. <br>
     I use <code>OnDeleteFile(...)</code> function to delete files from the Local Unit (which is remote unit). This 
     function eventually calls a lib61850 library function <code>IedConnection_deleteFile(m_con, &error, sFile);</code> 
-    finally.
+    finally. <br>
+    LU side files are backed up in <pp>documentsA\PDA Project\LU_FILES</pp> location. 
   </div>
 <!-- SHOW HIDE START 010  -->
 
