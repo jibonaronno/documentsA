@@ -833,7 +833,20 @@ The function <p5>CDlgIedSts::OnDeleteFile(CString sFile)</p5>  evetually calls t
     2. <p5>YH.cid</p5> <br>
 
     <div class="title_b">Import Files over 61850 and saving</div>
-    It is <code>OnGetFileList(...)</code> function or callback that receive and save the file. 
+    It is <code>OnGetFileList(...)</code> function or callback that receive and save the file. Each File saving is done 
+    inside <code>OnGetFile(...)</code> function. <br>
+    To debug the code in visual studio it is needed to place <p5>SA_Client.ini</p5>, <p5>YH.cid</p5>, <p5>SCL_Manager.exe</p5>
+     and <p5>61850_CFG folder</p5> in <br>
+    <p5>D:\develop\MZAutomation\SAProgram\ClientProc_2017_Dev_NoTimer_Minsu\ClientProc</p5> location. I use 
+    <pre>
+      #ifdef _DEBUG
+	      TRACE("Retrieving file directory : " + sRemotePath + " : " + strError + "\n");
+      #endif
+    </pre>
+    this type of trace to print out debug informations. <br>
+    I use <code>OnDeleteFile(...)</code> function to delete files from the Local Unit (which is remote unit). This 
+    function eventually calls a lib61850 library function <code>IedConnection_deleteFile(m_con, &error, sFile);</code> 
+    finally.
   </div>
 <!-- SHOW HIDE START 010  -->
 
