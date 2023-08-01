@@ -899,6 +899,38 @@ The function <p5>CDlgIedSts::OnDeleteFile(CString sFile)</p5>  evetually calls t
   </div>
 <!-- SHOW HIDE END 011  -->
 
+<!-- SHOW HIDE START 011  -->
+<style type="text/css">
+  div[id=div-011] {
+    display: none;
+  }
+    input[id=toggle-011]:checked ~ div[id=div-011] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-011"> lib61850 Library Code Compilation </label></h2>
+  <input type="checkbox" id="toggle-011" style="display: none;">
+  <div id="div-011">
+    Source code here <a href="http://git.sanion.com/Fork-JBN/61850-and-lu/-/tree/develop">http://git.sanion.com/Fork-JBN/61850-and-lu/-/tree/develop</a>. 
+    Working directory in <p3>/home/taki/fork_LU61850</p3> . <br>
+    When using git add, add only the changed files. <br>
+    <code>
+      git remote show origin <br>
+      git checkout -b new_featured_branch <br>
+      git add . <br>
+      git commit -m "commit message" <br>
+      git push -u origin new_featured_branch <br>
+    </code>
+    <br><br>
+    <pp>Compile</pp><p4>lib61850</p4> <br>
+    Change Makefile to correct local path. <br>
+    <code>cd cmd/gnu</code><br>
+    <code>chmod 777 mmslite802.sh</code> <br>
+    <code>touch cmd/gnu/cc.lst</code> <br>
+  </div>
+<!-- SHOW HIDE END 011  -->
+
 <!--   -->
 
 </div>
