@@ -899,19 +899,19 @@ The function <p5>CDlgIedSts::OnDeleteFile(CString sFile)</p5>  evetually calls t
   </div>
 <!-- SHOW HIDE END 011  -->
 
-<!-- SHOW HIDE START 011  -->
+<!-- SHOW HIDE START 012  -->
 <style type="text/css">
-  div[id=div-011] {
+  div[id=div-012] {
     display: none;
   }
-    input[id=toggle-011]:checked ~ div[id=div-011] {
+    input[id=toggle-012]:checked ~ div[id=div-012] {
       display: block;
       }
   </style>
   
-  <h2><label for="toggle-011"> lib61850 Library Code Compilation </label></h2>
-  <input type="checkbox" id="toggle-011" style="display: none;">
-  <div id="div-011">
+  <h2><label for="toggle-012"> lib61850 Library Code Compilation </label></h2>
+  <input type="checkbox" id="toggle-012" style="display: none;">
+  <div id="div-012">
     Source code here <a href="http://git.sanion.com/Fork-JBN/61850-and-lu/-/tree/develop">http://git.sanion.com/Fork-JBN/61850-and-lu/-/tree/develop</a>. 
     Working directory in <p3>/home/taki/fork_LU61850</p3> . <br>
     When using git add, add only the changed files. <br>
@@ -929,7 +929,38 @@ The function <p5>CDlgIedSts::OnDeleteFile(CString sFile)</p5>  evetually calls t
     <code>chmod 777 mmslite802.sh</code> <br>
     <code>touch cmd/gnu/cc.lst</code> <br>
   </div>
-<!-- SHOW HIDE END 011  -->
+<!-- SHOW HIDE END 012  -->
+
+<!-- SHOW HIDE START 013  -->
+<style type="text/css">
+  div[id=div-013] {
+    display: none;
+  }
+    input[id=toggle-013]:checked ~ div[id=div-013] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-013"> Set Date Time From C Code in Linux </label></h2>
+  <input type="checkbox" id="toggle-013" style="display: none;">
+  <div id="div-013">
+
+    <pp>Some Linux Commands to set date time</pp><p5>https://itslinuxfoss.com/set-date-through-command-line-linux/</p5> <br>
+    <pre>
+      $ date --set="YYYY-MM-DD hh:mm:ss"
+      $ sudo date --set="2023-02-06 14:30:00"
+      $ sudo hwclock --set --date="2023-02-06 14:30:00"
+      $ sudo timedatectl set-time "2023-02-06 14:30:00"
+
+      $ ntpdate server-name
+      $ sudo ntpdate pool.ntp.org
+
+    </pre>
+    <br>
+
+
+  </div>
+<!-- SHOW HIDE END 013  -->
 
 <!--   -->
 
