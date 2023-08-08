@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>ESP32-IDF Espressif IDE</title>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <!-- BEGIN syntax highlighter -->
+    <script type="text/javascript" src="sh/shCore.js"></script>
+    <script type="text/javascript" src="sh/shBrushJScript.js"></script>
+    <link type="text/css" rel="stylesheet" href="sh/shCore.css"/>
+    <link type="text/css" rel="stylesheet" href="sh/shThemeDefault.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Gruppo" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <script type="text/javascript">
+      SyntaxHighlighter.all();
+    </script>
+    <!-- END syntax highlighter -->
+
+    <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="linuxsetup.css">
+  </head>
+  <body>
+  
+<div style="padding: 20px;font-size: 24px; line-height: 40px">
+<div class="title_b">Espressif IDE Installation</div>
+
+<!-- SHOW HIDE START 001  -->
+
+<style type="text/css">
+div[id=div-001] {
+  display: none;
+}
+  input[id=toggle-001]:checked ~ div[id=div-001] {
+    display: block;
+    }
+</style>
+
+<h2><label for="toggle-001">Primary Links & Terms</label></h2>
+<input type="checkbox" id="toggle-001" style="display: none;">
+
+<div id="div-001">
+<br>
+    This installation process is based on Espressif-IDE . 
+    Download Espressif IDE from <a href="https://dl.espressif.com/dl/esp-idf/"> https://dl.espressif.com/dl/esp-idf/ </a> . <br>
+    <img src="img/img001.jpg" alt="NOT FOUND"><br>
+    Whole system will be installed in <pp>C:\Espressif</pp> folder. <br>
+    All example files are in <pp>C:\Espressif\frameworks\esp-idf-v5.0.2\examples</pp> <br>
+    Copy any project from examples folder to <p4>C:\Espressif\frameworks\esp-idf-v5.0.2\</p4> folder. <br>
+    Such as I copied <p4>C:\Espressif\frameworks\esp-idf-v5.0.2\examples\bluetooth\bluedroid\ble\gatt_server</p4> folder to 
+    <p4>C:\Espressif\frameworks\esp-idf-v5.0.2\</p4> location then started configuring or building project from command line. <br>
+    To enter to ESP-IDF environment we may need to run <br>
+    <code>cd C:\Espressif <br>
+    idf_cmd_init.bat <br>
+  </code> <br>
+  Then go to the copied project folder in command prompt. <code>cd gatt_server</code> and apply following commands. <br>
+    <pre>
+      idf.py set-target esp32
+      idf.py menuconfig
+      idf.py build
+      idf.py -p COM9 flash
+    </pre>
+    <br>
+    At this point during the flashing start, I had to press and release the RESET button on the ESP32-CAM board carefully. <br>
+    This command flushes the board with the project firmware bin file and we need to press reset button again to check the result. <br>
+    This bluetooth gatt server documentation is <a href="https://github.com/espressif/esp-idf/blob/master/examples/bluetooth/bluedroid/ble/gatt_server/tutorial/Gatt_Server_Example_Walkthrough.md">Here</a> <br> . 
+    The include headers are below : <br>
+    <pre>
+      #include &lt;stdio.h&gt;
+        #include &lt;stdlib.h&gt;
+        #include &lt;string.h&gt;
+        #include "freertos/FreeRTOS.h"
+        #include "freertos/task.h"
+        #include "freertos/event_groups.h"
+        #include "esp_system.h"
+        #include "esp_log.h"
+        #include "nvs_flash.h"
+        #include "esp_bt.h"
+        #include "esp_gap_ble_api.h"
+        #include "esp_gatts_api.h"
+        #include "esp_bt_defs.h"
+        #include "esp_bt_main.h"
+        #include "esp_gatt_common_api.h"
+        #include "sdkconfig.h"
+    </pre> <br>
+    esp_bt.h: implements BT controller and VHCI configuration procedures from the host side. <br>
+    esp_bt_main.h: implements initialization and enabling of the Bluedroid stack. <br>
+    esp_gap_ble_api.h: implements GAP configuration, such as advertising and connection parameters. <br>
+    esp_gatts_api.h: implements GATT configuration, such as creating services and characteristics. <br>
+    <br>
+    <p5> Main Entry Point </p5><br>
+    <pre>
+      void app_main()
+      {
+          esp_err_t ret;
+      
+          // Initialize NVS.
+          ret = nvs_flash_init();
+          if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
+              ESP_ERROR_CHECK(nvs_flash_erase());
+              ret = nvs_flash_init();
+          }
+          ESP_ERROR_CHECK(ret);
+      
+          esp_bt_controller_config_t bt_cfg = BT_CONTROLLER_INIT_CONFIG_DEFAULT();
+          ret = esp_bt_controller_init(&bt_cfg);
+          if (ret) {
+              ESP_LOGE(GATTS_TAG, "%s initialize controller failed", __func__);
+              return;
+          }
+      
+          ret = esp_bt_controller_enable(ESP_BT_MODE_BLE);
+          if (ret) {
+              ESP_LOGE(GATTS_TAG, "%s enable controller failed", __func__);
+              return;
+          }
+          ret = esp_bluedroid_init();
+          if (ret) {
+              ESP_LOGE(GATTS_TAG, "%s init bluetooth failed", __func__);
+              return;
+          }
+          ret = esp_bluedroid_enable();
+          if (ret) {
+              ESP_LOGE(GATTS_TAG, "%s enable bluetooth failed", __func__);
+              return;
+          }
+      
+          ret = esp_ble_gatts_register_callback(gatts_event_handler);
+          if (ret){
+              ESP_LOGE(GATTS_TAG, "gatts register error, error code = %x", ret);
+              return;
+          }
+          ret = esp_ble_gap_register_callback(gap_event_handler);
+          if (ret){
+              ESP_LOGE(GATTS_TAG, "gap register error, error code = %x", ret);
+              return;
+          }
+          ret = esp_ble_gatts_app_register(PROFILE_A_APP_ID);
+          if (ret){
+              ESP_LOGE(GATTS_TAG, "gatts app register error, error code = %x", ret);
+              return;
+          }
+          ret = esp_ble_gatts_app_register(PROFILE_B_APP_ID);
+          if (ret){
+              ESP_LOGE(GATTS_TAG, "gatts app register error, error code = %x", ret);
+              return;
+          }
+          esp_err_t local_mtu_ret = esp_ble_gatt_set_local_mtu(512);
+          if (local_mtu_ret){
+              ESP_LOGE(GATTS_TAG, "set local  MTU failed, error code = %x", local_mtu_ret);
+          }
+          return;
+      }
+    </pre> <br>
+    This function <code>ret = nvs_flash_init();</code> initializes the flash memory to save credentials. <br> .
+    <br>
+
+    <p5>BT Controller and Stack Initialization</p5><pp>esp_bt_controller_config_t bt_cfg = BT_CONTROLLER_INIT_CONFIG_DEFAULT();</pp><br>
+    <p4>
+      The main function also initializes the BT controller by first creating a BT controller configuration structure named 
+      esp_bt_controller_config_t with default settings generated by the BT_CONTROLLER_INIT_CONFIG_DEFAULT() macro. 
+      The BT controller implements the Host Controller Interface (HCI) on the controller side, the Link Layer (LL) 
+      and the Physical Layer (PHY). The BT Controller is invisible to the user applications and deals with the lower 
+      layers of the BLE stack. The controller configuration includes setting the BT controller stack size, priority and HCI baud rate. 
+      With the settings created, the BT controller is initialized and enabled with the esp_bt_controller_init() function:
+    </p4> <br>
+    <pre>
+      esp_bt_controller_config_t bt_cfg = BT_CONTROLLER_INIT_CONFIG_DEFAULT();
+      ret = esp_bt_controller_init(&bt_cfg);
+    </pre>
+    <br>
+
+    Next, the controller is enabled in BLE Mode.
+
+    <pre>
+      ret = esp_bt_controller_enable(ESP_BT_MODE_BLE);
+    </pre> <br>
+
+    if you want <p5>BLE + BT</p5> then we should enable controller with <p4>ESP_BT_MODE_BTDM</p4> . <br>
+
+    4 types of controller defines <br>
+    <p5>1</p5>. ESP_BT_MODE_IDLE <br>
+    <p5>2</p5>. ESP_BT_MODE_BLE <br>
+    <p5>3</p5>. ESP_BT_MODE_CLASSIC_BT <br>
+    <p5>4</p5>. ESP_BT_MODE_BTDM <br>
+
+    After the initialization of the BT controller, the Bluedroid stack, 
+    which includes the common definitions and APIs for both BT Classic and BLE, is initialized and enabled by using: <br>
+
+    <pre>
+      ret = esp_bluedroid_init();
+      ret = esp_bluedroid_enable();
+    </pre> <br>
+
+    The two main managers of events are the GAP and GATT event handlers. 
+    The application needs to register a callback function for each event handler 
+    in order to let the application know which functions are going to handle the GAP and GATT events: <br>
+
+    <pre>
+      esp_ble_gatts_register_callback(gatts_event_handler);
+      esp_ble_gap_register_callback(gap_event_handler); 
+    </pre> <br>
+
+    The functions gatts_event_handler() and gap_event_handler() handle all the events that are pushed to the
+    application from the BLE stack. <br>
+
+    
+    
+
+</div>
+<!-- SHOW HIDE SEND 001  -->
+
+
+  <!-- SHOW HIDE START 006  -->
+  <style type="text/css">
+    div[id=div-006] {
+      display: none;
+    }
+      input[id=toggle-006]:checked ~ div[id=div-006] {
+        display: block;
+        }
+    </style>
+    
+    <h2><label for="toggle-006">ESP32 CAM BLE Bluetooth</label></h2>
+    <input type="checkbox" id="toggle-006" style="display: none;">
+    
+    <div id="div-006">
+      
+    </div>
+
+  <!-- SHOW HIDE END 006  -->
+
+  <!-- SHOW HIDE START 007  -->
+  <style type="text/css">
+    div[id=div-007] {
+      display: none;
+    }
+      input[id=toggle-007]:checked ~ div[id=div-007] {
+        display: block;
+        }
+    </style>
+    
+    <h2><label for="toggle-007">Random Links Commands</label></h2>
+    <input type="checkbox" id="toggle-007" style="display: none;">
+    
+    <div id="div-007">
+      <a href="https://randomnerdtutorials.com/flashing-micropython-firmware-esptool-py-esp32-esp8266/">Flashing MicroPython Firmware on ESP32 with esptool.py</a><br>
+      <pp>Following command should run from ESP-IDF environment. In my case in windows pc is C:\Espressif\frameworks\esp-idf-v5.0.2\gatt_server right now. 
+        It may also require to run the C:\Espressif\idf_cmd_init.bat file.
+      </pp>
+      <code>python -m esptool --chip esp32 --port COM7 write_flash -z 0x1000 esp32-20190113-v1.9.4-779-g5064df207.bin</code><br>
+      <img src="img/img002.jpg" alt="NOT FOUND"><br>
+      <br>
+      <code>idf.py clean</code> <br>
+      <code>idf.py fullclean</code> <br>
+
+    </div>
+  <!-- SHOW HIDE END 007  -->
+
+<!-- SHOW HIDE START 008  -->
+<style type="text/css">
+  div[id=div-008] {
+    display: none;
+  }
+    input[id=toggle-008]:checked ~ div[id=div-008] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-008">Blank</p3> </label></h2>
+  <input type="checkbox" id="toggle-008" style="display: none;">
+  
+  <div id="div-008">
+  </div>
+<!-- SHOW HIDE END 008  -->
+
+<!-- SHOW HIDE START 009  -->
+<style type="text/css">
+  div[id=div-009] {
+    display: none;
+  }
+    input[id=toggle-009]:checked ~ div[id=div-009] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-009">Blank </label></h2>
+  <input type="checkbox" id="toggle-009" style="display: none;">
+  
+  <div id="div-009">
+      
+
+  </div>
+<!-- SHOW HIDE END 009  -->
+
+<!-- SHOW HIDE START 010  -->
+<style type="text/css">
+  div[id=div-010] {
+    display: none;
+  }
+    input[id=toggle-010]:checked ~ div[id=div-010] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-010"> Blank </label></h2>
+  <input type="checkbox" id="toggle-010" style="display: none;">
+  
+  <div id="div-010">
+    
+  </div>
+<!-- SHOW HIDE START 010  -->
+
+<!--   -->
+
+</div>
+
+<!--
+<pre class="brush:js;">
+</pre><br /><br />
+-->  
+</body>
+</html>
