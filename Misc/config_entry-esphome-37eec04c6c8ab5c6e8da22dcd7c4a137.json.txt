@@ -1,0 +1,103 @@
+{
+  "home_assistant": {
+    "installation_type": "Home Assistant OS",
+    "version": "2022.2.5",
+    "dev": false,
+    "hassio": true,
+    "virtualenv": false,
+    "python_version": "3.9.7",
+    "docker": true,
+    "arch": "aarch64",
+    "timezone": "Asia/Dhaka",
+    "os_name": "Linux",
+    "os_version": "5.10.92-v8",
+    "supervisor": "2022.01.1",
+    "host_os": "Home Assistant OS 7.3",
+    "docker_version": "20.10.9",
+    "chassis": "embedded",
+    "run_as_root": true
+  },
+  "custom_components": {},
+  "integration_manifest": {
+    "domain": "esphome",
+    "name": "ESPHome",
+    "config_flow": true,
+    "documentation": "https://www.home-assistant.io/integrations/esphome",
+    "requirements": [
+      "aioesphomeapi==10.8.1"
+    ],
+    "zeroconf": [
+      "_esphomelib._tcp.local."
+    ],
+    "codeowners": [
+      "@OttoWinter",
+      "@jesserockz"
+    ],
+    "after_dependencies": [
+      "zeroconf",
+      "tag"
+    ],
+    "iot_class": "local_push",
+    "is_built_in": true
+  },
+  "data": {
+    "config": {
+      "entry_id": "37eec04c6c8ab5c6e8da22dcd7c4a137",
+      "version": 1,
+      "domain": "esphome",
+      "title": "esp01",
+      "data": {
+        "host": "192.168.88.115",
+        "port": 6053,
+        "password": "**REDACTED**",
+        "noise_psk": "**REDACTED**"
+      },
+      "options": {},
+      "pref_disable_new_entities": false,
+      "pref_disable_polling": false,
+      "source": "zeroconf",
+      "unique_id": "esp01",
+      "disabled_by": null
+    },
+    "storage_data": {
+      "device_info": {
+        "uses_password": false,
+        "name": "esp01",
+        "mac_address": "**REDACTED**",
+        "compilation_time": "Feb 15 2022, 20:19:03",
+        "model": "esp01_1m",
+        "has_deep_sleep": false,
+        "esphome_version": "2022.1.4",
+        "project_name": "",
+        "project_version": "",
+        "webserver_port": 0
+      },
+      "services": [],
+      "api_version": {
+        "major": 1,
+        "minor": 6
+      },
+      "light": [
+        {
+          "object_id": "pwm_lamp",
+          "key": 550935620,
+          "name": "PWM Lamp",
+          "unique_id": "esp01lightpwm_lamp",
+          "disabled_by_default": false,
+          "icon": "",
+          "entity_category": 0,
+          "supported_color_modes": [
+            3
+          ],
+          "min_mireds": 0.0,
+          "max_mireds": 0.0,
+          "effects": [],
+          "legacy_supports_brightness": true,
+          "legacy_supports_rgb": false,
+          "legacy_supports_white_value": false,
+          "legacy_supports_color_temperature": false
+        }
+      ]
+    }
+  }
+}
