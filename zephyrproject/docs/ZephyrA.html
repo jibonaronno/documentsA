@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Zephyr BLE STM32WB55</title>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <!-- BEGIN syntax highlighter -->
+    <script type="text/javascript" src="sh/shCore.js"></script>
+    <script type="text/javascript" src="sh/shBrushJScript.js"></script>
+    <link type="text/css" rel="stylesheet" href="sh/shCore.css"/>
+    <link type="text/css" rel="stylesheet" href="sh/shThemeDefault.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Gruppo" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <script type="text/javascript">
+      SyntaxHighlighter.all();
+    </script>
+    <!-- END syntax highlighter -->
+
+    <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="linuxsetup.css">
+  </head>
+  <body>
+  
+<div style="padding: 20px;font-size: 24px; line-height: 40px">
+<div class="title_b">Zephyr BLE Overview</div>
+
+<!-- SHOW HIDE START 001  -->
+
+<style type="text/css">
+div[id=div-001] {
+  display: none;
+}
+  input[id=toggle-001]:checked ~ div[id=div-001] {
+    display: block;
+    }
+</style>
+
+<h2><label for="toggle-001">Primary Links & Terms</label></h2>
+<input type="checkbox" id="toggle-001" style="display: none;">
+
+<div id="div-001">
+    <img src="img/img002.jpg" alt="NOT FOUND"><br>
+    <p5>1.</p5> <p3>Issue 1 ::</p3> <p4> Only peripheral_accel project can pair with phone Bluetooth from phones settings panel.</p4><br>
+    <p5>2.</p5> <p3>Issue 2 ::</p3> <p4> "~/zephyrproject/zephyr/subsys/bluetooth/services/hrs.c" this file and some other files 
+      are containing BLE service definitions. These defs are used in ..../samples/bluetooth/peripheral_accel project code by including
+      the header files as &lt;zephyr/bluetooth/services/hrs.h&gt; and similar header files for associated C files where the BLE services 
+      are defined. 
+    </p4><br>
+    <p4>BLE Service Defs</p4><pp>~/zephyrproject/zephyr/subsys/bluetooth/services/hrs.c</pp><br>
+    <pre>
+  /* Heart Rate Service Declaration */
+  BT_GATT_SERVICE_DEFINE(hrs_svc,
+	BT_GATT_PRIMARY_SERVICE(BT_UUID_HRS),
+	BT_GATT_CHARACTERISTIC(BT_UUID_HRS_MEASUREMENT, BT_GATT_CHRC_NOTIFY,
+			       BT_GATT_PERM_NONE, NULL, NULL, NULL),
+	BT_GATT_CCC(hrmc_ccc_cfg_changed,
+		    HRS_GATT_PERM_DEFAULT),
+	BT_GATT_CHARACTERISTIC(BT_UUID_HRS_BODY_SENSOR, BT_GATT_CHRC_READ,
+			       HRS_GATT_PERM_DEFAULT & GATT_PERM_READ_MASK,
+			       read_blsc, NULL, NULL),
+	BT_GATT_CHARACTERISTIC(BT_UUID_HRS_CONTROL_POINT, BT_GATT_CHRC_WRITE,
+			       HRS_GATT_PERM_DEFAULT & GATT_PERM_WRITE_MASK,
+			       NULL, NULL, NULL),
+);
+    </pre><br>
+    When <p5>peripheral_accel</p5> included the header, The project has those services includes usually. This project has 
+    pairing functionality as well, but my custome project samples/basic/fwtic_v2 does not have pairing functionality. 
+    peripheral_accel project has an extra <p5>prj_minimal.conf</p5> file. I will check if copying this file into my project 
+    has any effect.
+
+
+</div>
+<!-- SHOW HIDE END 001  -->
+
+
+  <!-- SHOW HIDE START 006  -->
+  <style type="text/css">
+    div[id=div-006] {
+      display: none;
+    }
+      input[id=toggle-006]:checked ~ div[id=div-006] {
+        display: block;
+        }
+    </style>
+    
+    <h2><label for="toggle-006">ESP32 CAM BLE Bluetooth</label></h2>
+    <input type="checkbox" id="toggle-006" style="display: none;">
+    
+    <div id="div-006">
+      
+      
+    </div>
+
+  <!-- SHOW HIDE END 006  -->
+
+  <!-- SHOW HIDE START 007  -->
+  <style type="text/css">
+    div[id=div-007] {
+      display: none;
+    }
+      input[id=toggle-007]:checked ~ div[id=div-007] {
+        display: block;
+        }
+    </style>
+    
+    <h2><label for="toggle-007">Random Links Commands</label></h2>
+    <input type="checkbox" id="toggle-007" style="display: none;">
+    
+    <div id="div-007">
+     
+
+    </div>
+  <!-- SHOW HIDE END 007  -->
+
+<!-- SHOW HIDE START 008  -->
+<style type="text/css">
+  div[id=div-008] {
+    display: none;
+  }
+    input[id=toggle-008]:checked ~ div[id=div-008] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-008">Blank</p3> </label></h2>
+  <input type="checkbox" id="toggle-008" style="display: none;">
+  
+  <div id="div-008">
+  </div>
+<!-- SHOW HIDE END 008  -->
+
+<!-- SHOW HIDE START 009  -->
+<style type="text/css">
+  div[id=div-009] {
+    display: none;
+  }
+    input[id=toggle-009]:checked ~ div[id=div-009] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-009">Blank </label></h2>
+  <input type="checkbox" id="toggle-009" style="display: none;">
+  
+  <div id="div-009">
+      
+
+  </div>
+<!-- SHOW HIDE END 009  -->
+
+<!-- SHOW HIDE START 010  -->
+<style type="text/css">
+  div[id=div-010] {
+    display: none;
+  }
+    input[id=toggle-010]:checked ~ div[id=div-010] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-010"> Blank </label></h2>
+  <input type="checkbox" id="toggle-010" style="display: none;">
+  
+  <div id="div-010">
+    
+  </div>
+<!-- SHOW HIDE START 010  -->
+
+<!--   -->
+
+</div>
+
+<!--
+<pre class="brush:js;">
+</pre><br /><br />
+-->  
+</body>
+</html>
