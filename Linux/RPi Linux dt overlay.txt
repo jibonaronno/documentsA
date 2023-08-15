@@ -1,0 +1,44 @@
+On Raspberry side turn it in USB gadget mode following next steps:
+
+1) Edit /boot/cmdline.txt
+Add " modules-load=dwc2,g_ether" at the of the line (usually after "rootwait")
+
+2) Edit /boot/config.txt
+Go to the bottom and add a new line "dtoverlay=dwc2,dr_mode=peripheral" at the end of file.
+
+3) Edit /etc/modules
+Enable extra modules by adding two lines at the end of file:
+dwc2
+g_ether
+
+4) Create /etc/network/interfaces.d/usb0 with the next content:
+allow-hotplug usb0
+iface usb0 inet static
+	address 10.10.10.10
+	netmask 255.255.255.0
+	gateway 10.10.10.1
+
+
+On Raspberry side that's it, now you can reboot and plugin USB cable.
+
+
+
+
+On Windows side install RNDIS driber (if it's necessary) and set up IP address on a new connection:
+
+1) Plugin USB cable between Raspberrt and Windows, then check the "Device Manager". If it has a new network adapter, skip step (2).
+If it's showing as a USB serial port instead, it needs to install RNDIS driver.
+
+2) Install RNDIS drive if necessary
+Right click on "USB Serial Device (COMx)" and select "Properties", then under the "Driver" find the "Update Driver" and click on it.
+Then press "Browse my computers" button and direct it to a folder with saved driver files.
+
+3) Setup static IP address
+Open up "Network and Internet / Network Connections" in Control Panel, and click on a new RNDIS network.
+Click on Adapter Settings and choose "Networking / Internet Protocol Version 4 Properties"
+Click "Properties", select "Use the following IP address"
+and enter 10.10.10.1 as the "IP address", and 255.255.255.0 as the "Subnet mask".
+
+
+Unplug and replug in a Raspberry Pi, Windows will then identify the network.
+

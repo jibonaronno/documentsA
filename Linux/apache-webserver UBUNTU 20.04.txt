@@ -1,0 +1,21 @@
+https://www.linode.com/docs/web-servers/apache/apache-web-server-debian-8/
+
+hostname
+hostname -f
+
+sudo apt-get update && sudo apt-get upgrade
+
+sudo apt-get install apache2 apache2-doc apache2-utils
+
+sudo systemctl restart apache2
+
+
+List available Apache modules:
+sudo apt-cache search libapache2*
+
+sudo apt-get install php5 php-pear
+
+sudo apt-get install libapache2-mod-python
+
+For UBUNTU 20.04:
+https://www.digitalocean.com/community/tutorials/how-to-install-the-apache-web-server-on-ubuntu-20-04
