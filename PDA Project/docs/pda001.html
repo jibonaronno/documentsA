@@ -944,7 +944,19 @@ The function <p5>CDlgIedSts::OnDeleteFile(CString sFile)</p5>  evetually calls t
   <h2><label for="toggle-013"> Set Date Time From C Code in Linux </label></h2>
   <input type="checkbox" id="toggle-013" style="display: none;">
   <div id="div-013">
-
+    <pp>Did date time set from code</pp><code>settimeofday(&tmval, NULL);</code><br>
+    <pre>
+    /*
+    if(openAcqBus() == 0)
+    {
+      tme = readAcqDateTime(&tvl);
+      tmval.tv_sec = tme;
+      tmval.tv_usec = 100;
+      settimeofday(&tmval, NULL);
+      closeModbus();
+    }
+    */
+    </pre><br>
     <pp>Some Linux Commands to set date time</pp><p5>https://itslinuxfoss.com/set-date-through-command-line-linux/</p5> <br>
     <pre>
       $ date --set="YYYY-MM-DD hh:mm:ss"
