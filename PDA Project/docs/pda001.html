@@ -974,6 +974,45 @@ The function <p5>CDlgIedSts::OnDeleteFile(CString sFile)</p5>  evetually calls t
   </div>
 <!-- SHOW HIDE END 013  -->
 
+<!-- SHOW HIDE START 014  -->
+<style type="text/css">
+  div[id=div-014] {
+    display: none;
+  }
+    input[id=toggle-014]:checked ~ div[id=div-014] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-014"> Current Flow Over Time Integration  </label></h2>
+  <input type="checkbox" id="toggle-014" style="display: none;">
+  <div id="div-014">
+   
+    <p4>
+    Hi Folks
+
+I just joined the forum but have been using Origin for last one year mainly for plotting of data.
+This time I have some data of electric current over time. Current is varying with respect to time (interval of 10 msec). I 300 samples of current i.e. current is recorded for 3 seconds. Current looks like an exponentially decaying current. Similarly I have the voltage samples over the same amount of time.
+
+I want to integrate the current and in fact I have integrated and it gives me an almost straight line with little curvature. I do not know how to interpret the y-axis value. x-axis is time. Can somebody explain it?
+Thanks for reading my problem.
+Images are given below for both current and its integral.
+</p4>
+<br>
+<img src="images/Current01.jpg" width="40%" alt="">
+<img src="images/Integration of current.jpg" width="40%" alt="">
+    <br>
+  
+<p4>Hassaan,
+
+  Current I is the amount of charge dQ transferred per unit time dt. In other words, I = dQ/dt. Your integral is the cummulative charge Q transferred from time = 0 to time = t. Label your y-axis "Charge (millicoulombs)".
+  
+  DrBob</p4>
+
+
+  </div>
+<!-- SHOW HIDE END 014  -->
+
 <!--   -->
 
 </div>
