@@ -336,7 +336,45 @@ void loop() {
   <div id="div-008">
     <a href="http://wiki.osll.ru/doku.php/etc:users:jcmvbkbc:linux-xtensa:esp32">Booting Linix on ESP32</a><br>
     <img src="img/img008.jpg" width="40%" alt=""><br><br>
-    <a href="http://wiki.osll.ru/doku.php/etc:users:jcmvbkbc:linux-xtensa:esp32"></a><br><br>
+    <a href="https://gojimmypi.github.io/ESP32-S3-Linux/">ESP32-S3 Linux Kernel Setup Guide</a><br>
+
+    I was studying this <a href="https://gist.github.com/jcmvbkbc/316e6da728021c8ff670a24e674a35e6">scrip</a> at this line: <br>
+    <pre>
+      #
+      # toolchain
+      #
+      git clone https://github.com/jcmvbkbc/crosstool-NG.git -b xtensa-fdpic
+      pushd crosstool-NG
+      ./bootstrap && ./configure --enable-local && make
+      ./ct-ng xtensa-esp32s3-linux-uclibcfdpic
+      CT_PREFIX=`pwd`/builds nice ./ct-ng build
+      popd
+      [ -e crosstool-NG/builds/xtensa-esp32s3-linux-uclibcfdpic/bin/xtensa-esp32s3-linux-uclibcfdpic-gcc ] || exit 1
+    </pre><br>
+
+    These commands are building crosstool-NG with specific options <p5>./ct-ng xtensa-esp32s3-linux-uclibcfdpic</p5> <br>
+    In crosstool-NG folder there is a sample folder where there are folders for each architechture. There I found 
+    <pp>xtensa-fsf-linux-uclibc</pp> . I  do not know which arch does it mean. I am trying to build crosstool-NG with 
+    this arch manually. <br>
+    Finally it compiled using lot of HD space. <br>
+
+    Later we see that the script downloads a buildroot from jcmvbkbc, The branch is xtensa-2023.02-fdpic. <br>
+
+    <pre>
+      #
+      # kernel and rootfs
+      #
+      git clone https://github.com/jcmvbkbc/buildroot -b xtensa-2023.02-fdpic
+      nice make -C buildroot O=`pwd`/build-xtensa-2023.02-fdpic-esp32s3 esp32s3wifi_defconfig
+      buildroot/utils/config --file build-xtensa-2023.02-fdpic-esp32s3/.config --set-str TOOLCHAIN_EXTERNAL_PATH `pwd`/crosstool-NG/builds/xtensa-esp32s3-linux-uclibcfdpic
+      buildroot/utils/config --file build-xtensa-2023.02-fdpic-esp32s3/.config --set-str TOOLCHAIN_EXTERNAL_PREFIX '$(ARCH)-esp32s3-linux-uclibcfdpic'
+      buildroot/utils/config --file build-xtensa-2023.02-fdpic-esp32s3/.config --set-str TOOLCHAIN_EXTERNAL_CUSTOM_PREFIX '$(ARCH)-esp32s3-linux-uclibcfdpic'
+      nice make -C buildroot O=`pwd`/build-xtensa-2023.02-fdpic-esp32s3
+      [ -f build-xtensa-2023.02-fdpic-esp32s3/images/xipImage -a -f build-xtensa-2023.02-fdpic-esp32s3/images/rootfs.cramfs ] || exit 1
+
+    </pre>
+
+    <br><br>
   </div>
 <!-- SHOW HIDE END 008  -->
 
