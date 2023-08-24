@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>React on Mac</title>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <!-- BEGIN syntax highlighter -->
+    <script type="text/javascript" src="sh/shCore.js"></script>
+    <script type="text/javascript" src="sh/shBrushJScript.js"></script>
+    <link type="text/css" rel="stylesheet" href="sh/shCore.css"/>
+    <link type="text/css" rel="stylesheet" href="sh/shThemeDefault.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Gruppo" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <script type="text/javascript">
+      SyntaxHighlighter.all();
+    </script>
+    <!-- END syntax highlighter -->
+
+    <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="linuxsetup.css">
+  </head>
+  <body>
+  
+<div style="padding: 20px;font-size: 24px; line-height: 40px">
+<div class="title_b">react On Mac</div>
+
+<!-- SHOW HIDE START 001  -->
+
+<style type="text/css">
+div[id=div-001] {
+  display: none;
+}
+  input[id=toggle-001]:checked ~ div[id=div-001] {
+    display: block;
+    }
+</style>
+
+<h2><label for="toggle-001">Primary Links & Terms</label></h2>
+<input type="checkbox" id="toggle-001" style="display: none;">
+
+<div id="div-001">
+
+
+</div>
+<!-- SHOW HIDE END 001  -->
+
+
+  <!-- SHOW HIDE START 006  -->
+  <style type="text/css">
+    div[id=div-006] {
+      display: none;
+    }
+      input[id=toggle-006]:checked ~ div[id=div-006] {
+        display: block;
+        }
+    </style>
+    
+    <h2><label for="toggle-006">Commands To Install on Mac</label></h2>
+    <input type="checkbox" id="toggle-006" style="display: none;">
+    
+    <div id="div-006">
+      Install nodejs from official installer. <br>
+      Install homebrew <br>
+      <code>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</code><br>
+      <code>brew install openjdk@11</code><br>
+      Create or edit ~/.zsh_profile <br>
+      <pre>
+        export PATH=$PATH:/Users/jibon/.gem/ruby/2.6.0/bin
+        export PATH=$PATH:/opt/homebrew/bin
+        export PATH="$HOME/.jenv/bin:$PATH"
+        eval "$(jenv init -)"
+        export ANDROID_HOME=/Users/jibon/Library/Android/sdk
+        export PATH=$PATH:$ANDROID_HOME/emulator
+        export PATH=$PATH:$ANDROID_HOME/platform-tools
+        export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
+      </pre> <br>
+
+      <code>source ~/.zsh_profile</code><br>
+      Then I tried install jenv. It did not goes well. <br>
+
+      <pre>
+        brew install jenv
+        jenv doctor # To check jenv errors
+        sudo softwareupdate --install-rosetta # It was mandatory
+        brew install AdoptOpenJDK/openjdk/adoptopenjdk8  # I think we need openjdk11.
+      </pre>
+      <br>
+      This command <code>/usr/libexec/java_home -V</code> outputs below: <br>
+      <pre>
+        Matching Java Virtual Machines (2):
+        11.0.20.1 (arm64) "Homebrew" - "OpenJDK 11.0.20.1" /opt/homebrew/Cellar/openjdk@11/11.0.20.1/libexec/openjdk.jdk/Contents/Home
+        1.8.0_292 (x86_64) "AdoptOpenJDK" - "AdoptOpenJDK 8" /Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home
+      </pre>
+      It seems that 2nd installation was invalid. But <code>java --version</code> command showing a better result: <br>
+      <pre>
+        openjdk 11.0.20.1 2023-08-24
+        OpenJDK Runtime Environment Homebrew (build 11.0.20.1+0)
+        OpenJDK 64-Bit Server VM Homebrew (build 11.0.20.1+0, mixed mode)
+      </pre>
+      <br>
+      <pre>
+        brew install --cask android-commandlinetools
+      </pre>
+      Following command did not goes well as I remembered: <br>
+      <pre>
+        sdkmanager "system-images;android-30;google_apis_playstore;arm64-v8a" "platform-tools" "platforms;android-30"
+        jenv doctor
+        jenv add /Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home  
+        jenv global openjdk64-1.8.0.292
+        jenv doctor
+      </pre>
+      
+      Continue installing. <br>
+      <pre>
+        brew install --cask android-commandlinetools 
+      </pre>
+      Do not know if following command works or not: <br>
+      <pre>
+        sdkmanager "system-images;android-30;google_apis_playstore;arm64-v8a" "platform-tools" "platforms;android-30"
+      </pre>
+      <br>
+      <pre>
+        brew tap homebrew/cask
+        brew update
+        brew doctor
+        brew untap homebrew/cask
+        brew config
+        echo $JAVA_HOME
+        sudo cp ~/Library/Android/sdk/platform-tools/adb /usr/local/bin 
+        brew install gradle    
+        java version   
+        brew install openjdk@11  
+        sudo ln -sfn /opt/homebrew/opt/openjdk@11/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-11.jdk
+        echo 'export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"' >> ~/.zsh_profile
+        source .zsh_profile    
+        
+      </pre>
+
+
+
+      
+    </div>
+
+  <!-- SHOW HIDE END 006  -->
+
+  <!-- SHOW HIDE START 007  -->
+  <style type="text/css">
+    div[id=div-007] {
+      display: none;
+    }
+      input[id=toggle-007]:checked ~ div[id=div-007] {
+        display: block;
+        }
+    </style>
+    
+    <h2><label for="toggle-007">Random Links Commands</label></h2>
+    <input type="checkbox" id="toggle-007" style="display: none;">
+    
+    <div id="div-007">
+     
+
+    </div>
+  <!-- SHOW HIDE END 007  -->
+
+<!-- SHOW HIDE START 008  -->
+<style type="text/css">
+  div[id=div-008] {
+    display: none;
+  }
+    input[id=toggle-008]:checked ~ div[id=div-008] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-008">Blank</p3> </label></h2>
+  <input type="checkbox" id="toggle-008" style="display: none;">
+  
+  <div id="div-008">
+  </div>
+<!-- SHOW HIDE END 008  -->
+
+<!-- SHOW HIDE START 009  -->
+<style type="text/css">
+  div[id=div-009] {
+    display: none;
+  }
+    input[id=toggle-009]:checked ~ div[id=div-009] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-009">Blank </label></h2>
+  <input type="checkbox" id="toggle-009" style="display: none;">
+  
+  <div id="div-009">
+      
+
+  </div>
+<!-- SHOW HIDE END 009  -->
+
+<!-- SHOW HIDE START 010  -->
+<style type="text/css">
+  div[id=div-010] {
+    display: none;
+  }
+    input[id=toggle-010]:checked ~ div[id=div-010] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-010"> Blank </label></h2>
+  <input type="checkbox" id="toggle-010" style="display: none;">
+  
+  <div id="div-010">
+    
+  </div>
+<!-- SHOW HIDE START 010  -->
+
+<!--   -->
+
+</div>
+
+<!--
+<pre class="brush:js;">
+</pre><br /><br />
+-->  
+</body>
+</html>
