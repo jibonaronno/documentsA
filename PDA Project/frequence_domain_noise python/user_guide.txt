@@ -1,0 +1,9 @@
+A. Command
+1 ./frequence_domain_noise.exe: call exe file to run
+2  -func <NAME FUNCTION>: Calling name of function. In this program we use function name fft_func to run.
+3. -file <FILE PATH written in quotation mark>: declare file .dat path. Must declare full file path in ""..
+4. -smprate <SAMPLE RATE>: declare sample frequency for Fourier Transform
+5. -lcutoff: cut off frequency for low pass filter
+6. -lorder: order of low pass filter
+B. SAMPLE COMMAND
+./frequence_domain_noise.exe -func fft_func  -file "C:\Projects_old\SPDC_Data\MLU\YH_192.168.10.102\SPDC4\RealTime\4_20011020044407_1.dat" -smprate 700 -psdsmprate 2000 -lcutoff 120 -lorder 5

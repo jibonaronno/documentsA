@@ -134,7 +134,38 @@ div[id=div-001] {
         sudo ln -sfn /opt/homebrew/opt/openjdk@11/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-11.jdk
         echo 'export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"' >> ~/.zsh_profile
         source .zsh_profile    
-        
+
+      </pre>
+      <br>
+      Creating app <br>
+      <pre>
+        npx create-expo-app -t expo-template-blanc-typescript expo-ble-sample
+        cd expo-ble-sample
+        npx expo install react-native-ble-plx @config-pluins/react-native-ble-plx
+        npx expo install expo-device react-native-base64
+        npx expo install @shopify/react-native-skia
+      </pre>
+      add following to .zsh_profile
+      <pre>
+        export GEM_HOME=~/.gem # or $HOME/.gem
+        export PATH=$GEM_HOME/bin:$PATH
+      </pre>
+      Continue
+      <pre>
+        cd ios
+        gem install active-support -v 6.1.7.6
+        gem install cocoapods --user-install
+        cd ..
+        npx expo prebuild
+        npx expo install expo-dev-client
+      </pre>
+      <pre>
+        npx npm install --global eas-cli # or sudo npx npm install --global eas-cli
+        npm install --save react-native-device-info
+      </pre>
+      Following build command did not work because of apple paid developer account needed.
+      <pre>
+        eas build --profile development --platform ios
       </pre>
 
 
