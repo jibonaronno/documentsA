@@ -150,6 +150,7 @@ div[id=div-001] {
         export GEM_HOME=~/.gem # or $HOME/.gem
         export PATH=$GEM_HOME/bin:$PATH
       </pre>
+      <code>source ~/.zsh_profile</code> this profile is not automatic yet. <br>
       Continue
       <pre>
         cd ios
@@ -162,15 +163,13 @@ div[id=div-001] {
       <pre>
         npx npm install --global eas-cli # or sudo npx npm install --global eas-cli
         npm install --save react-native-device-info
+        npm i --save-dev @types/react-native-base64 #Support suggestion from VSCode
       </pre>
       Following build command did not work because of apple paid developer account needed.
       <pre>
         eas build --profile development --platform ios
       </pre>
-
-
-
-      
+      <br><br>
     </div>
 
   <!-- SHOW HIDE END 006  -->
@@ -185,11 +184,22 @@ div[id=div-001] {
         }
     </style>
     
-    <h2><label for="toggle-007">Random Links Commands</label></h2>
+    <h2><label for="toggle-007">Startup a simple app V-1 https://github.com/thedevenvironment/expo-router-typescript</label></h2>
     <input type="checkbox" id="toggle-007" style="display: none;">
     
     <div id="div-007">
-     
+      Everytime when open a new terminal shell we had to <code>source ~/.zsh_profile</code> . 
+     <pre>
+      git clone https://github.com/thedevenvironment/expo-router-typescript.git
+      cd expo-router-typescript
+      npx expo start
+     </pre>
+     At this stage it shows errors. We need to install expo for this project.
+     <pre>
+      sudo npm install
+     </pre>
+     This app source is downloaded from github so it may have many packages dependencies. 
+     So we need to run <code>sudo npm install</code> so it will install the packages from <pp>package.json</pp> .
 
     </div>
   <!-- SHOW HIDE END 007  -->
@@ -204,10 +214,15 @@ div[id=div-001] {
       }
   </style>
   
-  <h2><label for="toggle-008">Blank</p3> </label></h2>
+  <h2><label for="toggle-008">Video Tutorial </p3> </label></h2>
   <input type="checkbox" id="toggle-008" style="display: none;">
   
   <div id="div-008">
+    Time line <a href="https://youtu.be/JhB_GRrnVcw?list=PLEw85kS8Olg5M2CLMXS_VXphjWUkaPCDX&t=722">expo plugins</a> <br>
+    Here it mention to run command <code>npm expo install</code> . I did not remember run this exact command. 
+    <br> Innstead we did <code>npx expo install react-native-ble-plx @config-pluins/react-native-ble-plx </code> . <br>
+    At this time line of the video asks to edit app.json to add the plugin. But in our app that element is 
+    already added automatic. 
   </div>
 <!-- SHOW HIDE END 008  -->
 
