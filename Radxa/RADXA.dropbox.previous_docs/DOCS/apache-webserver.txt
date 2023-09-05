@@ -1,0 +1,19 @@
+https://www.linode.com/docs/web-servers/apache/apache-web-server-debian-8/
+
+hostname
+hostname -f
+
+sudo apt-get update && sudo apt-get upgrade
+
+sudo apt-get install apache2 apache2-doc apache2-utils
+
+sudo systemctl restart apache2
+
+
+List available Apache modules:
+sudo apt-cache search libapache2*
+
+sudo apt-get install php5 php-pear
+
+sudo apt-get install libapache2-mod-python
+

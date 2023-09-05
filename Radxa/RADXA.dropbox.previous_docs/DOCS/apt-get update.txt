@@ -1,0 +1,9 @@
+change apt-get repo in /etc/apt/sources.list file as :
+
+deb http://ftp.at.debian.org/debian jessie main contrib non-free
+deb-src http://ftp.at.debian.org/debian jessie main contrib non-free
+
+This is Austrian Repo. See the jessie is used. but running platform was wheezy. But it works.
+
+Fiund this info here : https://linuxconfig.org/debian-apt-get-wheezy-sources-list
+

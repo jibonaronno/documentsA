@@ -1,0 +1,21 @@
+http://opensource.rock-chips.com/wiki_Linux_SDK :- This is claimed to be Rock Chip Support For Linux.
+https://github.com/rockchip-linux :- GITHUB Page from RockChip
+
+https://wiki.radxa.com/Rock/unbrick
+https://wiki.radxa.com/Rock/prebuilt_imageshttps://v.youku.com/v_show/id_XNjkzNDk3MjEy.html?spm=a2hbt.13141534.0.13141534
+
+Update Image. I didnt fint any file named update.img, But it says that the firmwares are build as update.img .
+https://wiki.radxa.com/Rock/update.img
+
+Driver Install
+https://wiki.radxa.com/Rock/flash_the_image
+
+Android KitKat From SD Card
+https://dl.radxa.com/rock/images/android/Boot_android_from_sdcard/
+
+Dual Boot
+https://wiki.radxa.com/Rock/dual_boot
+
+Rockchip UBOOT Source. Dont how it works
+https://github.com/rockchip-linux/u-boot
+
