@@ -188,6 +188,7 @@ div[id=div-001] {
     <input type="checkbox" id="toggle-007" style="display: none;">
     
     <div id="div-007">
+      <a href="reactnative.dev/docs/environment-setup">React Native environment-setup Docs</a> <br>
       Everytime when open a new terminal shell we had to <code>source ~/.zsh_profile</code> . 
      <pre>
       git clone https://github.com/thedevenvironment/expo-router-typescript.git
@@ -198,6 +199,13 @@ div[id=div-001] {
      <pre>
       sudo npm install
      </pre>
+     Or may be this one first.
+     <pre>
+      npm install -g expo-cli
+     </pre>
+     Install Android Studio. create a new Env Variable <p5>ANDROID_HOME</p5> where set the path <p4>C:/Users/jibon/AppData/local/Android/sdk</p4> . Please 
+     correct this path if username is different. Also add path <code>C:/Users/jibon/AppData/local/Android/sdk/platform-tools</code> to system PATH variable. <br>
+     <br>Need to restart the command prompt and run <code>npx expo start</code> from inside app location. <br>
      This app source is downloaded from github so it may have many packages dependencies. 
      So we need to run <code>sudo npm install</code> so it will install the packages from <pp>package.json</pp> .
 
