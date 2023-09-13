@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>PDA 002 PDSensor Interfacing</title>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <!-- BEGIN syntax highlighter -->
+    <script type="text/javascript" src="sh/shCore.js"></script>
+    <script type="text/javascript" src="sh/shBrushJScript.js"></script>
+    <link type="text/css" rel="stylesheet" href="sh/shCore.css"/>
+    <link type="text/css" rel="stylesheet" href="sh/shThemeDefault.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Gruppo" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <script type="text/javascript">
+      SyntaxHighlighter.all();
+    </script>
+    <!-- END syntax highlighter -->
+
+    <script type="text/javascript">
+      //console.log("QuerySelector command :")
+      divs = document.querySelectorAll("div");
+      console.log(divs.length);
+      for(var i=0; i<divs.length; i++)
+      {
+        console.log(divs[i]);
+      }
+    </script>
+
+    <script type="text/javascript">
+      function countDivs() {
+        divvs = document.getElementsByTagName('div');
+        console.log(divvs.length);
+      }
+    </script>
+
+    
+
+    <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="linuxsetup.css">
+  </head>
+  <body onload="countDivs()">
+  
+<div style="padding: 20px;font-size: 24px; line-height: 40px">
+<div class="title_b">PD Sensor | </div>
+
+<!-- SHOW HIDE START 001  -->
+
+<style type="text/css">
+div[id=div-001] {
+  display: none;
+}
+  input[id=toggle-001]:checked ~ div[id=div-001] {
+    display: block;
+    }
+</style>
+
+<h2><label for="toggle-001">PD Sensor Interface over ethernet. Set Amplification</label></h2>
+<input type="checkbox" id="toggle-001" style="display: none;">
+
+<div id="div-001">
+    <tab></tab>
+    Spectrum Vendor Software : C:\Users\jibon\Downloads\CuGUI\CuGUI_2022.09.26.exe <br>
+    <img src="img/img022.jpeg" alt="NOT FOUND", width="40%"><br>
+    <img src="img/img023.jpeg" alt="NOT FOUND", width="40%"><br>
+    <img src="img/img024.jpeg" alt="NOT FOUND", width="40%"><br>
+    <p5>spectrum_packet.c int setAmplification(...)</p5><pp>Prepare Packet Structure to send</pp><br>
+    <pre>
+    msg_rf_info_packet->header.msg_id = MSG_RF_INFO_ID;
+    msg_rf_info_packet->header.msg_type = MSG_REQUEST_TYPE; //MSG_SEND_TYPE; // MSG_REQUEST_TYPE;
+    msg_rf_info_packet->header.body_len = 0x3300; // Endianness reversed.
+    msg_rf_info_packet->amp_enable = 0x01;
+    </pre>
+
+</div>
+<!-- SHOW HIDE SEND 001  -->
+
+<!-- SHOW HIDE START 002  -->
+<style type="text/css">
+  div[id=div-002] {
+    display: none;
+  }
+    input[id=toggle-002]:checked ~ div[id=div-002] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-002">blank</label></h2>
+  <input type="checkbox" id="toggle-002" style="display: none;">
+  
+  <div id="div-002">
+  </div>
+  <!-- SHOW HIDE SEND 002  -->
+
+<!-- SHOW HIDE START 002A  -->
+<style type="text/css">
+  div[id=div-002A] {
+    display: none;
+  }
+    input[id=toggle-002A]:checked ~ div[id=div-002A] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-002A">blank</label></h2>
+  <input type="checkbox" id="toggle-002A" style="display: none;">
+  
+  <div id="div-002A">
+      <tab></tab>
+  </div>
+  <!-- SHOW HIDE END 002A  -->
+
+<!-- SHOW HIDE START 002B  -->
+<style type="text/css">
+  div[id=div-002B] {
+    display: none;
+  }
+    input[id=toggle-002B]:checked ~ div[id=div-002B] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-002B">blank</label></h2>
+  <input type="checkbox" id="toggle-002B" style="display: none;">
+  
+  <div id="div-002B">
+  </div>
+
+<!-- SHOW HIDE END 002B -->
+
+<!-- SHOW HIDE START 003  -->
+<style type="text/css">
+  div[id=div-003] {
+    display: none;
+  }
+    input[id=toggle-003]:checked ~ div[id=div-003] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-003">blank</label></h2>
+  <input type="checkbox" id="toggle-003" style="display: none;">
+  
+  <div id="div-003">
+  </div>
+  <!-- SHOW HIDE SEND 003  -->
+
+<!-- SHOW HIDE START 004  -->
+<style type="text/css">
+  div[id=div-004] {
+    display: none;
+  }
+    input[id=toggle-004]:checked ~ div[id=div-004] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-004">blank</label></h2>
+  <input type="checkbox" id="toggle-004" style="display: none;">
+  
+  <div id="div-004">
+
+      <br>
+  </div>
+  <!-- SHOW HIDE SEND 004  -->
+
+<!-- SHOW HIDE START 005  -->
+<style type="text/css">
+  div[id=div-005] {
+    display: none;
+  }
+    input[id=toggle-005]:checked ~ div[id=div-005] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-005">blank</label></h2>
+  <input type="checkbox" id="toggle-005" style="display: none;">
+  
+  <div id="div-005">
+    
+  </div>
+  <!-- SHOW HIDE SEND 005  -->
+
+  <!-- SHOW HIDE START 006  -->
+  <style type="text/css">
+    div[id=div-006] {
+      display: none;
+    }
+      input[id=toggle-006]:checked ~ div[id=div-006] {
+        display: block;
+        }
+    </style>
+    
+    <h2><label for="toggle-006">blank</label></h2>
+    <input type="checkbox" id="toggle-006" style="display: none;">
+    
+    <div id="div-006">
+    </div>
+
+  <!-- SHOW HIDE END 006  -->
+
+  <!-- SHOW HIDE START 007  -->
+  <style type="text/css">
+    div[id=div-007] {
+      display: none;
+    }
+      input[id=toggle-007]:checked ~ div[id=div-007] {
+        display: block;
+        }
+    </style>
+    
+    <h2><label for="toggle-007">blank</label></h2>
+    <input type="checkbox" id="toggle-007" style="display: none;">
+    
+    <div id="div-007">
+    </div>
+  <!-- SHOW HIDE END 007  -->
+
+<!-- SHOW HIDE START 008  -->
+<style type="text/css">
+  div[id=div-008] {
+    display: none;
+  }
+    input[id=toggle-008]:checked ~ div[id=div-008] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-008">blank</p3> </label></h2>
+  <input type="checkbox" id="toggle-008" style="display: none;">
+  
+  <div id="div-008">
+  </div>
+<!-- SHOW HIDE END 009  -->
+
+<!-- SHOW HIDE START 010  -->
+<style type="text/css">
+  div[id=div-010] {
+    display: none;
+  }
+    input[id=toggle-010]:checked ~ div[id=div-010] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-010">blank</label></h2>
+  <input type="checkbox" id="toggle-010" style="display: none;">
+  
+  <div id="div-010">
+  </div>
+<!-- SHOW HIDE END 010  -->
+
+<!-- SHOW HIDE START 011  -->
+<style type="text/css">
+  div[id=div-011] {
+    display: none;
+  }
+    input[id=toggle-011]:checked ~ div[id=div-011] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-011">blank </label></h2>
+  <input type="checkbox" id="toggle-011" style="display: none;">
+  <div id="div-011">
+  </div>
+<!-- SHOW HIDE END 012  -->
+
+<!-- SHOW HIDE START 013  -->
+<style type="text/css">
+  div[id=div-013] {
+    display: none;
+  }
+    input[id=toggle-013]:checked ~ div[id=div-013] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-013">blank</label></h2>
+  <input type="checkbox" id="toggle-013" style="display: none;">
+  <div id="div-013">
+  </div>
+<!-- SHOW HIDE END 013  -->
+
+<!-- SHOW HIDE START 014  -->
+<style type="text/css">
+  div[id=div-014] {
+    display: none;
+  }
+    input[id=toggle-014]:checked ~ div[id=div-014] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-014">blank</label></h2>
+  <input type="checkbox" id="toggle-014" style="display: none;">
+  <div id="div-014">
+
+  </div>
+<!-- SHOW HIDE END 014  -->
+
+<!--   -->
+
+</div>
+
+<script type="text/javascript">
+  divvs = document.getElementsByTagName('div');
+  console.log(divvs.length);
+</script>
+
+<!--
+<pre class="brush:js;">
+</pre><br /><br />
+-->  
+</body>
+</html>
