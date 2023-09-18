@@ -209,6 +209,34 @@ div[id=div-001] {
      This app source is downloaded from github so it may have many packages dependencies. 
      So we need to run <code>sudo npm install</code> so it will install the packages from <pp>package.json</pp> .
 
+     <br>
+     We added a login page in the app. <br>
+     <code>
+      1. Create a folder and index file as app/login/index.tsx . Context is: <br>
+      export { default } from 'src/screens/Login' <br>
+      So the real code is in src/screen/login.tsx <br>
+     </code>
+     <br>
+     <p3>Problem installing react-native-elements @rneui/themed @rneui/base on ther PC</p3> <br>
+     <pre>
+      I managed to get both versions updated using 2 methods. However, I am not sure if something else is going to break down the track!?
+
+      method-1: install themed first; then, install base:
+      npm uninstall @rneui/themed @rneui/base
+      npm install @rneui/themed
+      npm install @rneui/base
+
+      method-2: using --force:
+      npm uninstall @rneui/themed @rneui/base
+      npm install @rneui/themed @rneui/base --force
+     </pre>
+     <br>
+     <pre>
+      i also managed to get a workaround running with using overrides in package.json:
+
+      "overrides": { "@rneui/themed": { "@rneui/base": "4.0.0-rc.8" } }
+     </pre>
+
     </div>
   <!-- SHOW HIDE END 007  -->
 
