@@ -307,13 +307,76 @@ div[id=div-001] {
       }
   </style>
   
-  <h2><label for="toggle-010"> Blank </label></h2>
+  <h2><label for="toggle-010"> NPM PACKAGES COMMANDS </label></h2>
   <input type="checkbox" id="toggle-010" style="display: none;">
   
   <div id="div-010">
+    <a href="https://www.javascripttutorial.net/nodejs-tutorial/npm-list/">https://www.javascripttutorial.net/nodejs-tutorial/npm-list/</a> <br>
+    <pre>
+      npm list
+      npm list la / ls
+      npm list --depth=0 --json
+    </pre>
+    Article from <a href="https://medium.com/openclassrooms-product-design-and-engineering/guide-to-managing-npm-packages-in-your-package-json-d315fe2ccab0">Medium</a> <br>
+    <pre>
+      Furthermore, since npm 5, this command adds &lt;package-name&gt; to the package.json file dependencies. Before version 5, you needed to add the flag --save.
+    </pre>
+    <pre>
+      npm install &lt;package-name&gt;@&lt;version&gt;
+    </pre>
+    <img src="img/img005.jpg" width="40%" alt="NOT FOUND"><br>
+    When you use npm it’s <p5>package-lock.json</p5>, for yarn it’s <p5>yarn.lock</p5>. <br>
+
     
+    <h2>How to Install Yarn</h2>
+    <a href="https://www.freecodecamp.org/news/javascript-package-manager-npm-and-yarn/">npm and yarn</a> <br>
+    <code>npm install [-g] yarn</code> May be we need to ommit -g option. <br>
+    <code>node -v </code> to check node version. <br>
+    <code>npm -v</code> <br>
+    <code>yarn -v</code> <br>
+    <br>
+    <code>npm install npm@latest -g</code> We may need to ommit -g option. <br>
+    <code>yarn set version latest</code> upgrade yarn. <br>
+    <code>npm install package-name@4.14.1 --save</code> install package with version mentioned. <br>
+    <code>npm install package-name --save-dev</code> install package for test or generator or bundler. Not production. <br>
+
+    <br>
+
+    The commands above will cause NPM to download three items into your project's root 
+    directory: a node_modules folder, a package.json file, and a package-lock.json file.
+
+    <br>
+    install yarn package <br>.
+    <code>yarn add package-name</code> or <code>yarn add package-name@4.14.1</code> <br>
+    <code>yarn add package-name --dev</code> <br>
+    <br>
+    The commands above will cause Yarn to download three items into your project's root 
+    directory: a node_modules folder, a package.json file, and a yarn.lock file.
+
+
+    Some Links : <br>
+    <a href="https://www.toptal.com/javascript/a-guide-to-npm-the-node-package-manager"><h2>A Guide to npm: The Node.js Package Manager</h2></a> <br>
+
   </div>
 <!-- SHOW HIDE START 010  -->
+
+<!-- SHOW HIDE START 011  -->
+<style type="text/css">
+  div[id=div-011] {
+    display: none;
+  }
+    input[id=toggle-011]:checked ~ div[id=div-011] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-011"> Blank </label></h2>
+  <input type="checkbox" id="toggle-011" style="display: none;">
+  
+  <div id="div-011">
+    
+  </div>
+<!-- SHOW HIDE START 011  -->
 
 <!--   -->
 
