@@ -1,0 +1,11 @@
+Testing Failed Build : https://github.com/expo/expo/issues/22584c
+npx create-expo-app@latest -t expo-template-blank-typescript test-failed
+cd test-failed
+npx expo run:android
+npm i expo-system-ui
+npm expo prebuild
+npx expo run:android
+
+
+npm i react-native-chart-kit
+npm i react-native-svg
