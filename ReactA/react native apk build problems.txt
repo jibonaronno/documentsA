@@ -1,0 +1,22 @@
+Following error comes when trying to install apk to simulator.
+signatures do not match the previously installed version
+
+adb uninstall "com.yourapp.yourapp"
+for us
+adb uninstall "com.tebunia.tica"
+also uninstall previous app from simulator.
+
+Message is correct, windows is not supported. You can still use eas build --local on windows inside WSL or run npx expo 
+prebuild and bulid from android studio.
+
+Note that WSL technically it's not officially supported(we do not test it), but it seems to work well.
+
+WSL installation instructions below. not recommandate now, but after these steps the default distro started working.
+https://dev.to/ragnarokkr/wsl-lets-create-multiple-instances-with-shared-home-directory-14lm?fbclid=IwAR19ayz1jFUu8LgCxDZB94I3frdauCq3SbWL-QLmoA5ox2OvW2iRhbvfdj0
+
+wsl --install Ubuntu // it will install and run a custom Ubuntu 22.0.4 as wsl.
+
+to start we may need wsl ~ 
+or
+wsl --Ubuntu <Distribution Name> --user jibon
+
