@@ -82,15 +82,82 @@ div[id=div-001] {
       display: block;
       }
   </style>
+
   
-  <h2><label for="toggle-002">blank</label></h2>
+  
+  <h2><label for="toggle-002">DSP Bindings. LU Code Relations Functions</label></h2>
   <input type="checkbox" id="toggle-002" style="display: none;">
-  
+
   <div id="div-002">
+
+  ConsoleMemMgr.c file shows measured value from the DSP ADC. 
+  <br>
+  SharedMemMgr.c <br>
+  Analog Data is transferred to the CPU in an gloabl data object g_pAISharedMem. <br>
+  <p5>global.h</p5><br>
+  <code>extern volatile dsAISharedMemory		*g_pAISharedMem; </code><br>
+
+  Code below looks like gathering data from DSP into g_pAISharedMem instance. <br>
+  <p5>SharedMemMgr.c</p5><br>
+  <pre>
+void InitSharedMemory(U8 *pCMemVAddr)
+{	
+	g_pAISharedMem		= (dsAISharedMemory*)pCMemVAddr;
+	g_pIOSharedMem		= (dsIOData*)(pCMemVAddr + DDR_DIO_DATA_OFFSET);
+	g_pLUAppSharedMem	= (dsLUAppSharedMemory*)(pCMemVAddr + DDR_LU_APP_DATA_OFFSET);
+	g_pSTBSharedMem		= (ds61850SharedMemory*)(pCMemVAddr + DDR_STBP_DATA_OFFSET);
+	// Clear
+	memset((dsAISharedMemory*)g_pAISharedMem, 0x0, sizeof(dsAISharedMemory));
+	memset((dsIOData*)g_pIOSharedMem, 0x0, sizeof(dsIOData));
+	memset((dsLUAppSharedMemory*)g_pLUAppSharedMem, 0x0, sizeof(dsLUAppSharedMemory));
+	memset((ds61850SharedMemory*)g_pSTBSharedMem, 0x0, sizeof(ds61850SharedMemory));
+}
+  </pre> 
+  1. Somehow data packet from DSP assigned in to pCMemVAddr and casted to (dsAISharedMemory*) to g_pAISharedMem. 
+  <pre>
+    int SharedMemMgr_MemCheck(void)
+    {	
+	    //Shared memory check.
+	    if(g_pAISharedMem == NULL)
+	    {
+		    printf("[%s] ERR: Shared Memory is NULL!");
+		    return -1;
+    	}
+	    else
+	    {
+		    system("/apps/dspUnbind.sh");
+    		DspManager_DSPOn();
+    		usleep(3000*1000);	//wait DSP boot
+    	}
+      ...
+      ...
+    }
+  </pre> <br>
+
+  ConsoleMemMgr.c function void CDM_Display_MEAS() shows <code>MEASMO</code> command data. Most data came from g_pAISharedMem object. <br>
+  So preferebly this code is showing BCT values as below : <br>
+  <pre>
+    // BCT current display
+
+	fReferenceAng[0]	= g_pAISharedMem->m_dsMeasValueData.m_dsBCTDataInfo.m_f32Ang[0];
+
+	fReferenceAng[1]	= g_pAISharedMem->m_dsMeasValueData.m_dsBCTDataInfo.m_f32Ang[3];
+
+	for(i=0; i<MAX_BCT_COUNT; i++) 
+  {
+		VT100_goto(0,14+i);
+		fRelativeAng[i]	= g_pAISharedMem->m_dsMeasValueData.m_dsBCTDataInfo.m_f32Ang[i]-fReferenceAng[i/3];
+		if (fRelativeAng[i] > 0) 
+    {
+			fRelativeAng[i] -= 360.;
+		}
+		printf(" BCT %1d  |  %8.2fA  %8.2fdeg", (i+1), g_pAISharedMem->m_dsMeasValueData.m_dsBCTDataInfo.m_f32Mag[i], fRelativeAng[i]);
+	}
+  </pre>
   </div>
   <!-- SHOW HIDE SEND 002  -->
 
-<!-- SHOW HIDE START 002A  -->
+  <!-- SHOW HIDE START 002A  -->
 <style type="text/css">
   div[id=div-002A] {
     display: none;
