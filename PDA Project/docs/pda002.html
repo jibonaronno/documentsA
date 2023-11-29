@@ -137,12 +137,11 @@ void InitSharedMemory(U8 *pCMemVAddr)
   ConsoleMemMgr.c function void CDM_Display_MEAS() shows <code>MEASMO</code> command data. Most data came from g_pAISharedMem object. <br>
   So preferebly this code is showing BCT values as below : <br>
   <pre>
-    // BCT current display
-
+    ...
+    ...
+  // BCT current display
 	fReferenceAng[0]	= g_pAISharedMem->m_dsMeasValueData.m_dsBCTDataInfo.m_f32Ang[0];
-
 	fReferenceAng[1]	= g_pAISharedMem->m_dsMeasValueData.m_dsBCTDataInfo.m_f32Ang[3];
-
 	for(i=0; i<MAX_BCT_COUNT; i++) 
   {
 		VT100_goto(0,14+i);
@@ -153,6 +152,8 @@ void InitSharedMemory(U8 *pCMemVAddr)
 		}
 		printf(" BCT %1d  |  %8.2fA  %8.2fdeg", (i+1), g_pAISharedMem->m_dsMeasValueData.m_dsBCTDataInfo.m_f32Mag[i], fRelativeAng[i]);
 	}
+  ...
+  ...
   </pre>
   </div>
   <!-- SHOW HIDE SEND 002  -->
