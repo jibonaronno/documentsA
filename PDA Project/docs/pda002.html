@@ -148,13 +148,39 @@ void InitSharedMemory(U8 *pCMemVAddr)
 		fRelativeAng[i]	= g_pAISharedMem->m_dsMeasValueData.m_dsBCTDataInfo.m_f32Ang[i]-fReferenceAng[i/3];
 		if (fRelativeAng[i] > 0) 
     {
-			fRelativeAng[i] -= 360.;
+			fRelativeAng[i] -= 360.0;
 		}
 		printf(" BCT %1d  |  %8.2fA  %8.2fdeg", (i+1), g_pAISharedMem->m_dsMeasValueData.m_dsBCTDataInfo.m_f32Mag[i], fRelativeAng[i]);
 	}
   ...
   ...
   </pre>
+  This function <p5>void *Console_ProcessMain( void *arg )</p5> in <pp>ConsoleMemMgr.c</pp> is the thread for diplaying the data from ADC. Which 
+  eventually called CDM_Routine(); The thread while loop is creating a delay as below: 
+  <pre>
+  while(!Console_ThreadExit)
+	{
+		//Console Display Routine
+		// modified by symoon
+		if (i==0) {
+			CDM_Routine();
+			i++;
+		}
+		else {
+			i++;
+			if (i>10000) {
+				i=0;
+			}
+		}
+		//Command Line Interface Routine
+		CLI_Routine();
+		sched_yield();
+		//usleep(50000);    // added by symoon (unit is microsecond.)
+	}
+  </pre>
+
+  
+
   </div>
   <!-- SHOW HIDE SEND 002  -->
 
