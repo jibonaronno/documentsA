@@ -1,0 +1,13 @@
+Source:,E:\documentsA\uprojects\Tommi Savikko\extension\extension.kicad_sch,,,,,,
+Date:,12/16/2023 14:11,,,,,,
+Tool:,Eeschema 7.0.9,,,,,,
+Generator:,C:\Program Files\KiCad\7.0\bin\scripting\plugins/bom_csv_grouped_by_value.py,,,,,,
+Component Count:,8,,,,,,
+,,,,,,,
+Collated Components:,,,,,,,
+,,,,,,,
+Item,Qty,Reference(s),Value,LibPart,Footprint,Datasheet,DNP
+1,2,"C1, C2",100n,Device:C_Small,Capacitor_SMD:C_0603_1608Metric,~,
+2,1,J1,2.0 mm SMD Socket,Connector_Generic:Conn_02x04_Counter_Clockwise,Connector_PinSocket_2.00mm:PinSocket_2x04_P2.00mm_Vertical_SMD,~,
+3,4,"J2, J3, J4, J5",Screw,Connector:Screw_Terminal_01x02,wago_smd_2screw:WAGO_2060-452_998-404,~,
+4,1,U1,AMS1117 5.0,Regulator_Linear:AMS1117,Package_TO_SOT_SMD:SOT-223-3_TabPin2,http://www.advanced-monolithic.com/pdf/ds1117.pdf,
