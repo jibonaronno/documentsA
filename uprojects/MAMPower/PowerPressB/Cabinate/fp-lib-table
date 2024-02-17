@@ -1,0 +1,4 @@
+(fp_lib_table
+  (lib (name HeatEx03)(type KiCad)(uri ${KIPRJMOD}/HeatEx03.pretty)(options "")(descr ""))
+  (lib (name PERSONAL2)(type Legacy)(uri ${KIPRJMOD}/txfr/PERSONAL2.mod)(options "")(descr ""))
+)

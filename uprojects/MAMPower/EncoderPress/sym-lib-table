@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name Logger-rescue)(type Legacy)(uri ${KIPRJMOD}/Logger-rescue.lib)(options "")(descr ""))
+  (lib (name project)(type Legacy)(uri ${KIPRJMOD}/project.lib)(options "")(descr ""))
+)

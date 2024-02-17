@@ -1,0 +1,3 @@
+(fp_lib_table
+  (lib (name INA)(type KiCad)(uri ${KIPRJMOD}/INA.pretty)(options "")(descr ""))
+)
