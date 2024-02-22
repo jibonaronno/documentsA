@@ -1,0 +1,36 @@
+// Create a stage
+var stage = new Konva.Stage({
+  container: 'container',
+  width: 500,
+  height: 500
+});
+
+// Create a layer
+var layer = new Konva.Layer();
+stage.add(layer);
+
+// Define your path data
+var pathData = [
+  'M100,100', // Move to (100, 100)
+  'L200,200', // Line to (200, 200)
+  'L300,150', // Line to (300, 150)
+  'Z'         // Close path
+].join(' ');
+
+// Define your colors
+var colors = ['red', 'green', 'blue'];
+
+// Create multiple Path objects with different colors
+for (var i = 0; i < colors.length; i++) {
+  var path = new Konva.Path({
+    x: 0,
+    y: 0,
+    data: pathData,
+    fill: colors[i],
+    closed: true
+  });
+  
+  layer.add(path);
+}
+
+layer.draw();
