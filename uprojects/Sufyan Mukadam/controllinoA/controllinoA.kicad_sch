@@ -4611,9 +4611,9 @@
   )
 
   (symbol (lib_id "Device:L_Small") (at 86.36 91.44 90) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
+    (in_bom yes) (on_board yes) (dnp no)
     (uuid 2a0f4b28-3b0b-4b0c-9d0f-c31ee1e3debb)
-    (property "Reference" "L1" (at 86.36 86.36 90)
+    (property "Reference" "L1" (at 81.28 88.9 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "33uH" (at 86.36 88.9 90)
@@ -7986,6 +7986,23 @@
         (path "/cbf855aa-4ce6-42b1-9e73-b0ae89d280ce"
           (reference "R6") (unit 1)
         )
+      )
+    )
+  )
+
+  (sheet (at 189.23 254) (size 78.74 21.59) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid 1e39c6ef-40e8-4967-8b2c-3238e1452362)
+    (property "Sheetname" "Ethernet" (at 189.23 253.2884 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "untitled.kicad_sch" (at 189.23 276.1746 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "controllinoA"
+        (path "/cbf855aa-4ce6-42b1-9e73-b0ae89d280ce" (page "2"))
       )
     )
   )
