@@ -20,3 +20,4 @@ http://git.sanion.com:8891/users/sign_in
 
 https://trello.com/b/4oYCQgQw/team-management
 
+https://www.youtube.com/watch?v=aDfvFTWr8a8  Kicad USB C
