@@ -1,9 +1,0 @@
-EESchema-DOCLIB  Version 2.0
-#
-$CMP EMI7206MUTAG
-D ON Semiconductor EMI7206MUTAG Hex Uni-Directional EMI Filter & ESD Protector, 12-Pin UDFN
-K
-F http://www.onsemi.com/pub/Collateral/EMI7204MU-D.PDF
-$ENDCMP
-#
-#End Doc Library
