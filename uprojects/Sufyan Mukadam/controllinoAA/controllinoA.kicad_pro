@@ -190,6 +190,10 @@
           "drill": 0.2
         },
         {
+          "diameter": 1.0,
+          "drill": 0.5
+        },
+        {
           "diameter": 2.0,
           "drill": 0.8
         }
@@ -1091,10 +1095,6 @@
     [
       "cbf855aa-4ce6-42b1-9e73-b0ae89d280ce",
       ""
-    ],
-    [
-      "1e39c6ef-40e8-4967-8b2c-3238e1452362",
-      "Ethernet"
     ]
   ],
   "text_variables": {}
