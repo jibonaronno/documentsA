@@ -23,3 +23,5 @@ https://trello.com/b/4oYCQgQw/team-management
 https://www.youtube.com/watch?v=aDfvFTWr8a8  Kicad USB C
 
 이번 주에는 기분 나쁘게 보내달라고 전해 주세요.
+
+http://216.223.25.52:200/Summary_SLTC/?sensorId=218
