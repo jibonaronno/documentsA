@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "EMI7206MUTAG")(type "KiCad")(uri "${KIPRJMOD}/EMI7206KiCad/EMI7206MUTAG.kicad_sym")(options "")(descr ""))
+)
