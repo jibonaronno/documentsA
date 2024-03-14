@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "ESP32-S3-DevKit-LiPo_Rev_B")(type "Legacy")(uri "C:/Users/jibon/Documents/documentsA/uprojects/ESP32-S3-DevKit-LiPo/HARDWARE/ESP32-S3-DevKit-LiPo_Rev_B/ESP32-S3-DevKit-LiPo_Rev_B.lib")(options "")(descr ""))
+)
