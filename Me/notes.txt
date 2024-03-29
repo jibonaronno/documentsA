@@ -1,29 +1,14 @@
-The name you entered is inconsistent with the name on the ticket, please check and re-enter
-
-2024-02-02
-|
 icon-flight-companyMU8604
-
 taofeek.orekan@uconn.edu
 Maxwell1
-
 valgrind --tool=memcheck ./LU_MPU_FW
-
 NAS
 \\216.223.24.64\Data
-
 Redhat@1979
-
 http://gwa.sanion.com/gw/bizboxMail.do
-
 http://git.sanion.com:8891/users/sign_in
-
 https://trello.com/b/4oYCQgQw/team-management
-
 https://www.youtube.com/watch?v=aDfvFTWr8a8  Kicad USB C
-
 이번 주에는 기분 나쁘게 보내달라고 전해 주세요.
-
 http://216.223.25.52:200/Summary_SLTC/?sensorId=218
-
-sprintf (pstring, "%8.4f", g_dsSharedMemory->m_dsMeasValueData.dsOCTDataInfo.f32mag[i]);
+C:\Program Files (x86)\GNU Arm Embedded Toolchain\10 2021.10\bin
