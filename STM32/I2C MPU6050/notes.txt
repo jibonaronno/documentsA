@@ -1,0 +1,3 @@
+It doesn't work with DMA circular mode, but when I config MPU output a trigger via INT pin every 2ms and use external interrupt on STM32 read trigger and call DMA (normal mode), i can read data from MPU. I don't know why it don't work with DMA circular mode.
+
+With i2c, you can't use circular mode due to you need to reverse the direction each time.
