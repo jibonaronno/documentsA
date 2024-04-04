@@ -2,4 +2,5 @@
   (version 7)
   (lib (name "EMI7206KiCad")(type "KiCad")(uri "${KIPRJMOD}/EMI7206KiCad")(options "")(descr ""))
   (lib (name "ULN2803ADWR")(type "KiCad")(uri "${KIPRJMOD}/ULN2803ADWR")(options "")(descr ""))
+  (lib (name "TBD62783AFNG-EL")(type "KiCad")(uri "${KIPRJMOD}/TBD62783AFNG-EL/TBD62783AFNG-EL.pretty")(options "")(descr ""))
 )
