@@ -188,7 +188,7 @@ div[id=div-001] {
     <input type="checkbox" id="toggle-007" style="display: none;">
     
     <div id="div-007">
-      <a href="https://reactnative.dev/docs/environment-setup">https://reactnative.dev/docs/environment-setup</a> <br>
+      <a href="reactnative.dev/docs/environment-setup">React Native environment-setup Docs</a> <br>
       Everytime when open a new terminal shell we had to <code>source ~/.zsh_profile</code> . 
      <pre>
       git clone https://github.com/thedevenvironment/expo-router-typescript.git
@@ -201,7 +201,7 @@ div[id=div-001] {
      </pre>
      Or may be this one first.
      <pre>
-      npm install -g expo-cli // -g global option may not need
+      npm install -g expo-cli
      </pre>
      Install Android Studio. create a new Env Variable <p5>ANDROID_HOME</p5> where set the path <p4>C:/Users/jibon/AppData/local/Android/sdk</p4> . Please 
      correct this path if username is different. Also add path <code>C:/Users/jibon/AppData/local/Android/sdk/platform-tools</code> to system PATH variable. <br>
@@ -239,19 +239,6 @@ div[id=div-001] {
 
      I could not import useState from react " <code>import React, { useState } from 'react';</code> " <br>
      Then used command <p4> npm i @types/react@latest --force</p4> inside project directory. <br>
-
-     <br><br>
-
-     <img src="img/img004.jpg" width="35%" alt="NOT FOUND"><br>
-     <pre>
-      npm config set legacy-peer-deps true // May not needed if theres no version conflict
-     </pre>
-     <h1> Rebild the project  </h1>
-     <p5>1</p5>. Remove node_modules folder. <br>
-     <p5>2</p5>. Remove package-lock.json file <br>
-     <p3>Most of the version conflicts came from package.json . So be careful when adding new components. 
-      Check new components dependancies before installing. 
-     </p3> <br>
 
 
     </div>
@@ -298,6 +285,7 @@ div[id=div-001] {
 
       <p5>Bluetooth Permissions</p5> <br>
       <a href="https://developer.android.com/reference/android/Manifest.permission">Android Manifest Permissions</a> <br>
+      <img src="img/img003.jpg" alt=""> <br>
       
 
   </div>
@@ -313,178 +301,15 @@ div[id=div-001] {
       }
   </style>
   
-  <h2><label for="toggle-010"> NPM PACKAGES COMMANDS </label></h2>
+  <h2><label for="toggle-010"> Blank </label></h2>
   <input type="checkbox" id="toggle-010" style="display: none;">
   
   <div id="div-010">
-    <a href="https://www.javascripttutorial.net/nodejs-tutorial/npm-list/">https://www.javascripttutorial.net/nodejs-tutorial/npm-list/</a> <br>
-    <pre>
-      npm list
-      npm list la / ls
-      npm list --depth=0 --json
-    </pre>
-    Article from <a href="https://medium.com/openclassrooms-product-design-and-engineering/guide-to-managing-npm-packages-in-your-package-json-d315fe2ccab0">Medium</a> <br>
-    <pre>
-      Furthermore, since npm 5, this command adds &lt;package-name&gt; to the package.json file dependencies. Before version 5, you needed to add the flag --save.
-    </pre>
-    <pre>
-      npm install &lt;package-name&gt;@&lt;version&gt;
-    </pre>
-    <img src="img/img005.jpg" width="40%" alt="NOT FOUND"><br>
-    When you use npm it’s <p5>package-lock.json</p5>, for yarn it’s <p5>yarn.lock</p5>. <br>
-
     
-    <h2>How to Install Yarn</h2>
-    <a href="https://www.freecodecamp.org/news/javascript-package-manager-npm-and-yarn/">npm and yarn</a> <br>
-    <code>npm install [-g] yarn</code> May be we need to ommit -g option. <br>
-    <code>node -v </code> to check node version. <br>
-    <code>npm -v</code> <br>
-    <code>yarn -v</code> <br>
-    <br>
-    <code>npm install npm@latest -g</code> We may need to ommit -g option. <br>
-    <code>yarn set version latest</code> upgrade yarn. <br>
-    <code>npm install package-name@4.14.1 --save</code> install package with version mentioned. <br>
-    <code>npm install package-name --save-dev</code> install package for test or generator or bundler. Not production. <br>
-
-    <br>
-
-    The commands above will cause NPM to download three items into your project's root 
-    directory: a node_modules folder, a package.json file, and a package-lock.json file.
-
-    <br>
-    install yarn package. <br>
-    <code>yarn add package-name</code> or <code>yarn add package-name@4.14.1</code> <br>
-    <code>yarn add package-name --dev</code> <br>
-    <br>
-    The commands above will cause Yarn to download three items into your project's root 
-    directory: a node_modules folder, a package.json file, and a yarn.lock file.
-
-
-    Some Links : <br>
-    <a href="https://www.toptal.com/javascript/a-guide-to-npm-the-node-package-manager"><h2>A Guide to npm: The Node.js Package Manager</h2></a> <br>
-
   </div>
+<!-- SHOW HIDE START 010  -->
 
-<!-- SHOW HIDE START 011  -->
-<style type="text/css">
-  div[id=div-011] {
-    display: none;
-  }
-    input[id=toggle-011]:checked ~ div[id=div-011] {
-      display: block;
-      }
-  </style>
-  
-  <h2><label for="toggle-011"> References Errors Commands Misc </label></h2>
-  <input type="checkbox" id="toggle-011" style="display: none;">
-  
-  <div id="div-011">
-    'expo' is not recognized as an internal or external command <br>
-    i) npm -g uninstall expo-cli --save <br>
-    ii) npm install expo-cli <br>
-  </div>
-<!-- SHOW HIDE END 011  -->
-
-<!-- SHOW HIDE START 012  -->
-<style type="text/css">
-  div[id=div-012] {
-    display: none;
-  }
-    input[id=toggle-012]:checked ~ div[id=div-012] {
-      display: block;
-      }
-  </style>
-  
-  <h2><label for="toggle-012"> How to setup React Native with Expo quickly : youtube video </label></h2>
-  <input type="checkbox" id="toggle-012" style="display: none;">
-  
-  <div id="div-012">
-    <img src="img/img006.jpg" alt="NOT FOUND"><br>
-    <a href="https://www.youtube.com/watch?v=y6DwGxe2E_k">How to setup React Native with Expo quickly</a><br>
-    This video only describe on how to start minimal development environment for RN. <br>
-    <pre>
-      npx create-expo-app --template
-    </pre>
-    This command will prompt user with a list of choices. <br>
-    <img src="img/img007.jpg" alt=""><br>
-    <code>npm run android</code><br>
-
-  </div>
-<!-- SHOW HIDE END 012  -->
-
-<!-- SHOW HIDE START 013  -->
-<style type="text/css">
-  div[id=div-013] {
-    display: none;
-  }
-    input[id=toggle-013]:checked ~ div[id=div-013] {
-      display: block;
-      }
-  </style>
-  
-  <h2><label for="toggle-013"> React-Native with Expo and Bluetooth Low Energy for Beginners : youtube video </label></h2>
-  <input type="checkbox" id="toggle-013" style="display: none;">
-    
-  <div id="div-013">
-    <a href="https://www.youtube.com/watch?v=UuHLPsjp6fM&t=611s">React-Native with Expo and Bluetooth Low Energy for Beginners</a> <br>
-    <img src="img/img008.jpg" alt=""><br>
-    <pre>
-      npx create-expo-app -t expo-template-blanc-typescript expo-ble-sample
-      npx expo install react-native-ble-plx @config-plugins/react-native-ble-plx
-      npx expo install expo-device react-native-base64
-      npm i react-native-svg
-    </pre>
-    Create <p4>eas.json</p4> and insert code below. <br>
-    <pre>
-      {
-        "build": {
-          "development": {
-            "developmentClient": true,
-            "distribution": "internal"
-          },
-          "preview": {
-            "distribution": "internal"
-          },
-          "production": {}
-        }
-      }    
-    </pre>
-    also Add as the code below to <p4>app.json</p4> <br>
-    <pre>
-      "plugins": [
-      [
-        "@config-plugins/react-native-ble-plx",
-        {
-          "isBackgroundEnabled": true,
-          "modes": [
-            "peripheral",
-            "central"
-          ],
-          "bluetoothAlwaysPermission": "Allow $(PRODUCT_NAME) to connect to bluetooth devices"
-        }
-      ]
-    ],
-    "splash": {
-      "image": "./src/assets/images/splash.png",
-      "backgroundColor": "#222"
-    },
-    </pre>
-    <code>npm i react-native-svg</code> <br>
-    <code>npx npm install eas-cli</code><br>
-    <code>npx expo prebuild</code> <br>
-    <code>npx expo install expo-dev-client</code> <br>
-    <code>npx expo run:android</code> <br>
-
-    We can run build for ios on cloud by command below. <br>
-    <code>eas build --profile development --platfor ios</code> <br>
-    also available for android. <br>
-    <p5>. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .</p5> <br>
-    Create a file <p4>useBLE.ts</p4> <br>
-
-  </div>
-  <!-- SHOW HIDE START 013  -->
-
-<!--  How to setup React Native with Expo quickly   -->
+<!--   -->
 
 </div>
 
