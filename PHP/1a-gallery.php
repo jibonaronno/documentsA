@@ -14,7 +14,7 @@
       //$dir = __DIR__ . DIRECTORY_SEPARATOR . "gallery" . DIRECTORY_SEPARATOR;
 	  $dir = __DIR__ . DIRECTORY_SEPARATOR;
 	//printf("%s",$dir);
-      $images = glob("*.{jpg,jpeg,gif,png,bmp,webp}", GLOB_BRACE);
+      $images = glob("*.{jpg,JPG,jpeg,gif,png,bmp,webp}", GLOB_BRACE);
 
       // (C) OUTPUT IMAGES
       foreach ($images as $i) {
