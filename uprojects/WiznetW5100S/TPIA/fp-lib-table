@@ -2,4 +2,5 @@
   (version 7)
   (lib (name "W5500-EVB")(type "KiCad")(uri "C:/Users/jibon/Documents/documentsA/uprojects/WiznetW5100S/W5500-EVB")(options "")(descr ""))
   (lib (name "Wiznet_W5100SEBV_Pico")(type "KiCad")(uri "${KIPRJMOD}/Wiznet_W5100SEBV_Pico.pretty")(options "")(descr ""))
+  (lib (name "DC_DC_LM2596_small")(type "KiCad")(uri "${KIPRJMOD}/DC_DC_LM2596_small.pretty")(options "")(descr ""))
 )

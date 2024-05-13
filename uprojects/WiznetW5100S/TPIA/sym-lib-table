@@ -1,5 +1,5 @@
 (sym_lib_table
   (version 7)
-  (lib (name "RPi_Pico_W5500_SMD_TH_mod")(type "KiCad")(uri "C:/Users/jibon/Documents/documentsA/uprojects/WiznetW5100S/W5500-EVB/RPi_Pico_W5500_SMD_TH_mod.kicad_sym")(options "")(descr ""))
   (lib (name "Wiznet_W5100SEVB_Pico")(type "KiCad")(uri "${KIPRJMOD}/Wiznet_W5100SEVB_Pico.kicad_sym")(options "")(descr ""))
+  (lib (name "Buck2596")(type "KiCad")(uri "${KIPRJMOD}/Buck2596.kicad_sym")(options "")(descr ""))
 )
