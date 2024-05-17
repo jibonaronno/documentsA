@@ -444,7 +444,7 @@
 
   (footprint "Capacitor_SMD:C_1206_3216Metric" (layer "F.Cu")
     (tstamp 1369b54a-e26f-49a6-a5eb-71e55c050c91)
-    (at 196.137 117.729)
+    (at 171.9834 86.6648)
     (descr "Capacitor SMD 1206 (3216 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
     (tags "capacitor")
     (property "Sheetfile" "TPIA.kicad_sch")
@@ -1012,7 +1012,7 @@
 
   (footprint "Diode_SMD:D_SOD-323" (layer "F.Cu")
     (tstamp 659d7131-cb32-4f39-8095-bd15919353ee)
-    (at 195.482 123.829)
+    (at 172.0596 91.5924)
     (descr "SOD-323")
     (tags "SOD-323")
     (property "Sheetfile" "TPIA.kicad_sch")
