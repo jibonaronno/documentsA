@@ -1,0 +1,796 @@
+/* *************************************************************************
+ *
+ * Project Name	: CBAMD(sanion)
+ * Programmer	  : In Ho Kim (20220308)
+ * File Name	  : hw_config.c
+ *
+ * *************************************************************************/ 
+
+/* Includes ------------------------------------------------------------------*/
+
+#include <F28x_Project.h>
+
+#include "main.h"
+#include "hw_config.h"
+#include "timer.h"
+//#include "sci.h"
+//#include "adc.h"
+
+/* Private typedef -----------------------------------------------------------*/
+/* Private define ------------------------------------------------------------*/
+
+
+const TABLE_ADDRESS_MAP     ADDRESS_MAP[] =
+{
+//      시작주소              주소크기
+    {   MPRAM_CS2_BASE,     MPRAM_CS2_SIZE  },  // MPRAM
+    {   ADC_CS3_BASE,       ADC_CS3_SIZE    },  // ADC
+};
+
+
+char bTxData[32];
+char bTxData2[32];
+
+
+/* Private macro -------------------------------------------------------------*/
+/* Private variables ---------------------------------------------------------*/
+
+/* Extern variables ----------------------------------------------------------*/
+
+/* Private function prototypes -----------------------------------------------*/
+
+
+/* Private functions ---------------------------------------------------------*/
+
+void GPIO_Setup( UINT16 pin, UINT16 cpu, UINT16 peripheral, UINT16 output, UINT16 flags );
+void DATA_OUT( UINT8 i_bOCS, UINT8 i_bData );   // RAM에 올리지 마시요.
+UINT8 DATA_IN( UINT8 i_bICS );                  // RAM에 올리지 마시요.
+
+#pragma CODE_SECTION( DATA_OUT, ".TI.ramfunc" );
+#pragma CODE_SECTION( DATA_IN, ".TI.ramfunc" );
+
+void Init_Gpio( void );
+void Init_MemoryPointer( void );
+void Init_RebootVariable( void );
+void Init_BootVariable( void );
+void Init_SettingRegister( void );
+void Init_Register( void );
+void Init_StartRegister( void );
+void Test_Clear( void );
+void Error_Clear( void );
+
+void Init_Interrupt( void );
+
+//char  *HEX2BIN( UINT8 i_bCount, UINT32 i_lHex );
+void HEX2BIN( char *s, UINT8 i_bCount, UINT32 i_lHex );
+UINT16 BIN2HEX( char *s );
+
+
+// 0일때 약 1usec
+// NOP: 15개 일때 90nsec
+/*
+void NOP_LOOP( UINT16 i_wCount )
+{
+  UINT16  i;
+  for( i=0; i<i_wCount; i++ )     NOP;        // 0을 넣어도 15개 일때 만큼의 Delay 동작 을 함
+}
+*/
+void GPIO_Setup( UINT16 pin, UINT16 cpu, UINT16 peripheral, UINT16 output, UINT16 flags )
+{
+	GPIO_SetupPinMux	( pin, cpu   , peripheral );
+	GPIO_SetupPinOptions( pin, output, flags );
+
+}
+/*
+void PORT_OUT( void )
+{
+  EALLOW;
+  GpioCtrlRegs.GPBDIR.all |= 0xF8000000;
+  GpioCtrlRegs.GPCDIR.all |= 0x00000007;
+  EDIS;
+}
+void PORT_IN( void )
+{
+  EALLOW;
+  GpioCtrlRegs.GPBDIR.all &= ~0xF8000000;
+  GpioCtrlRegs.GPCDIR.all &= ~0x00000007;
+  EDIS;
+}
+void DATA_OUT( UINT8 i_bOCS, UINT8 i_bData )
+{
+  GpioDataRegs.GPBDAT.all = ( GpioDataRegs.GPBDAT.all & 0x07FFFFFF ) | ( ( (UINT32)i_bData << 27 ) & 0xF8000000 );
+  GpioDataRegs.GPCDAT.all = ( GpioDataRegs.GPCDAT.all & 0xFFFFFFF8 ) | ( ( (UINT32)i_bData >> 5 ) & 0x0000001F );
+  switch( i_bOCS )
+  {
+  case 0: OCS0_ON; OCS_DELAY; OCS0_OFF; break;
+  case 1: OCS1_ON; OCS_DELAY; OCS1_OFF; break;
+  case 2: OCS2_ON; OCS_DELAY; OCS2_OFF; break;
+  case 3: OCS3_ON; OCS_DELAY; OCS3_OFF; break;
+  }
+}
+UINT8 DATA_IN( UINT8 i_bICS )
+{
+  UINT8   i_bData;
+
+  switch( i_bICS )
+  {
+  case 0: ICS0_OFF;   break;
+  case 1: ICS1_OFF;   break;
+  case 2: ICS2_OFF;   break;
+  }
+  ICS_DELAY;
+  i_bData  = (UINT8)( GpioDataRegs.GPBDAT.all >> 27 ) & 0x1F;
+  i_bData |= (UINT8)( GpioDataRegs.GPCDAT.all << 5 ) & 0xE0;
+//  if     ( i_bICS == 0 )  { ICS0_ON;  }
+//  else if( i_bICS == 1 )  { ICS1_ON;  }
+//  else                    { ICS2_ON;  }
+  switch( i_bICS )
+  {
+  case 0: ICS0_ON;    break;
+  case 1: ICS1_ON;    break;
+  case 2: ICS2_ON;    break;
+  }
+//    ICS_ALL_ON;
+
+  return i_bData;
+}
+*/
+
+#define eRESET_MON_CHECK        20
+#define eRESET_MON_FIX          4
+void Init_Gpio( void )
+{
+  UINT16  i;
+  UINT16  i_WReset = 0;
+
+  GPIO_Setup( enOUT_ENABLE, GPIO_MUX_CPU1, 0, GPIO_INPUT	, GPIO_PUSHPULL );	// 0
+  GPIO_Setup( eWDT_FB     , GPIO_MUX_CPU1, 0, GPIO_INPUT  , GPIO_PUSHPULL );  // 2
+  for( i=0; i<eRESET_MON_CHECK; i++ )
+  {
+    if( WDT_MON )      // Reset
+      ++i_WReset;
+  }
+#if(0)
+  i_WReset = 0;
+#endif
+  if( i_WReset >= eRESET_MON_FIX )
+  {
+    sError.wReset = 1;
+    sStatus.bReset = 1;
+  }
+  else
+  {
+    sStatus.wBootCode = 0xA55A;
+    sError.wReset = 0;
+    sStatus.bReset = 0;
+  }
+
+  GPIO_Setup( eWDT_IN     , GPIO_MUX_CPU1, 0, GPIO_OUTPUT , GPIO_PUSHPULL );  // 1
+
+  GPIO_Setup( eMAIN_RDY	, GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 3
+  GPIO_Setup( enS_CS      , GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 4
+  GPIO_Setup( eNC5        , GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 5
+  GPIO_Setup( eNC6        , GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 6
+  GPIO_Setup( eNC7        , GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 7
+// 8, 9, 10, 11 SCI
+  GPIO_Setup( eRS232T_TX  , GPIO_MUX_CPU1, 6, GPIO_OUTPUT , GPIO_PUSHPULL );  // 8
+  GPIO_Setup( eRS232T_RX  , GPIO_MUX_CPU1, 6, GPIO_INPUT  , GPIO_PUSHPULL );  // 9
+  GPIO_Setup( eSYNC_TX    , GPIO_MUX_CPU1, 6, GPIO_OUTPUT , GPIO_PUSHPULL );  // 10
+  GPIO_Setup( eSYNC_RX    , GPIO_MUX_CPU1, 6, GPIO_INPUT  , GPIO_PUSHPULL );  // 11
+  GPIO_Setup( eO_ERROR    , GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 12
+  GPIO_Setup( eO_LINK     , GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 13
+  GPIO_Setup( eO_MCU_RUN  , GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 14
+  GPIO_Setup( eNC15       , GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 15
+  GPIO_Setup( eSPI_SI     , GPIO_MUX_CPU1, 6, GPIO_INPUT	, GPIO_PUSHPULL );	// 16
+  GPIO_Setup( eSPI_SO     , GPIO_MUX_CPU1, 6, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 17
+  GPIO_Setup( eSPI_CLK    , GPIO_MUX_CPU1, 6, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 18
+  GPIO_Setup( eSPI_CS     , GPIO_MUX_CPU1, 6, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 19
+  GPIO_Setup( enSPI_WP    , GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 20
+#if(FREQ_ON)
+  GPIO_Setup( eFREQ_DET1  , GPIO_MUX_CPU1, 6, GPIO_INPUT  , GPIO_PUSHPULL );	// 21
+#else
+  GPIO_Setup( eNC21       , GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 21
+#endif
+#if(ADC_V11V)
+  GPIO_Setup( eMON_P12V   , GPIO_MUX_CPU1, 0, GPIO_INPUT	, GPIO_PUSHPULL );	// 22
+  GPIO_Setup( eMON_N12V   , GPIO_MUX_CPU1, 0, GPIO_INPUT	, GPIO_PUSHPULL );	// 23
+  GPIO_Setup( eAD_SI      , GPIO_MUX_CPU1, 6, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 24
+  GPIO_Setup( eAD_SO      , GPIO_MUX_CPU1, 6, GPIO_INPUT	, GPIO_PUSHPULL );	// 25
+  GPIO_Setup( eAD_CLK     , GPIO_MUX_CPU1, 6, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 26
+//  GPIO_Setup( eAD_CS      , GPIO_MUX_CPU1, 6, GPIO_OUTPUT , GPIO_PUSHPULL );  // 27
+  GPIO_Setup( eAD_CS      , GPIO_MUX_CPU1, 0, GPIO_OUTPUT , GPIO_PUSHPULL );  // 27
+#else   //(ADC_V!!)
+  GPIO_Setup( eNC22       , GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 22
+  GPIO_Setup( eNC23       , GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 23
+  GPIO_Setup( eNC24       , GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 24
+  GPIO_Setup( eNC25       , GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 25
+  GPIO_Setup( eMON_P12V   , GPIO_MUX_CPU1, 0, GPIO_INPUT	, GPIO_PUSHPULL );	// 26
+  GPIO_Setup( eMON_N12V   , GPIO_MUX_CPU1, 0, GPIO_INPUT	, GPIO_PUSHPULL );	// 27
+#endif  //(ADC_V!!)
+  GPIO_Setup( eEM1CS4     , GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 28
+  GPIO_Setup( eEM1CKE     , GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 29
+  GPIO_Setup( eEM1CLK     , GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 30
+//  GPIO_Setup( eEM1WE      , GPIO_MUX_CPU1, 2, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 31
+  GPIO_Setup( eEM1CS0     , GPIO_MUX_CPU1, 0, GPIO_INPUT	, GPIO_PUSHPULL );	// 32
+  GPIO_Setup( eADC_CONVST , GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 33
+//  GPIO_Setup( eEM1CS2     , GPIO_MUX_CPU1, 2, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 34
+  GPIO_Setup( eEM1CS3     , GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 35   // ADC_CS IO로 변경 함
+  GPIO_Setup( eJTAG_DETECT, GPIO_MUX_CPU1, 0, GPIO_INPUT	, GPIO_PUSHPULL );	// 36
+//  GPIO_Setup( eEM1OE      , GPIO_MUX_CPU1, 2, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 37
+//  GPIO_Setup( eEM1A0      , GPIO_MUX_CPU1, 2, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 38
+//  GPIO_Setup( eEM1A1      , GPIO_MUX_CPU1, 2, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 39
+//  GPIO_Setup( eEM1A2      , GPIO_MUX_CPU1, 2, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 40
+//  GPIO_Setup( eEM1A3      , GPIO_MUX_CPU1, 2, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 41
+  GPIO_Setup( eI2C_SDA    , GPIO_MUX_CPU1, 6, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 42
+  GPIO_Setup( eI2C_CLK    , GPIO_MUX_CPU1, 6, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 43
+//  GPIO_Setup( eEM1A4      , GPIO_MUX_CPU1, 2, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 44
+//  GPIO_Setup( eEM1A5      , GPIO_MUX_CPU1, 2, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 45
+//  GPIO_Setup( eEM1A6      , GPIO_MUX_CPU1, 2, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 46
+//  GPIO_Setup( eEM1A7      , GPIO_MUX_CPU1, 2, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 47
+//  GPIO_Setup( eEM1A8      , GPIO_MUX_CPU1, 2, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 48
+//  GPIO_Setup( eEM1A9      , GPIO_MUX_CPU1, 2, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 49
+//  GPIO_Setup( eEM1A10     , GPIO_MUX_CPU1, 2, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 50
+//  GPIO_Setup( eEM1A11     , GPIO_MUX_CPU1, 2, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 51
+//  GPIO_Setup( eEM1A12     , GPIO_MUX_CPU1, 2, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 52
+  GPIO_Setup( eADC_RESET  , GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 53
+  GPIO_Setup( eRANGE_SEL  , GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 54
+  GPIO_Setup( eADC_BUSY0  , GPIO_MUX_CPU1, 0, GPIO_INPUT	, GPIO_PUSHPULL );	// 55
+  GPIO_Setup( eADC_BUSY1  , GPIO_MUX_CPU1, 0, GPIO_INPUT	, GPIO_PUSHPULL );	// 56
+  GPIO_Setup( eADC_BUSY2  , GPIO_MUX_CPU1, 0, GPIO_INPUT	, GPIO_PUSHPULL );	// 57
+  GPIO_Setup( eADC_OS0    , GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 58
+  GPIO_Setup( eADC_OS1    , GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 59
+  GPIO_Setup( eADC_OS2    , GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 60
+  GPIO_Setup( eNC61       , GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 61
+  GPIO_Setup( eNC62       , GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 62
+  GPIO_Setup( eS_B0       , GPIO_MUX_CPU1, 0, GPIO_INPUT	, GPIO_PUSHPULL );	// 63
+  GPIO_Setup( eS_B1       , GPIO_MUX_CPU1, 0, GPIO_INPUT	, GPIO_PUSHPULL );	// 64
+  GPIO_Setup( eS_B2       , GPIO_MUX_CPU1, 0, GPIO_INPUT	, GPIO_PUSHPULL );	// 65
+  GPIO_Setup( eS_B3       , GPIO_MUX_CPU1, 0, GPIO_INPUT	, GPIO_PUSHPULL );	// 66
+  GPIO_Setup( eS_B4       , GPIO_MUX_CPU1, 0, GPIO_INPUT	, GPIO_PUSHPULL );	// 67
+  GPIO_Setup( eI2C_WP     , GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 68
+//  GPIO_Setup( eEM1D15     , GPIO_MUX_CPU1, 2, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 69
+//  GPIO_Setup( eEM1D14     , GPIO_MUX_CPU1, 2, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 70
+//  GPIO_Setup( eEM1D13     , GPIO_MUX_CPU1, 2, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 71
+//  GPIO_Setup( eEM1D12     , GPIO_MUX_CPU1, 2, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 72
+//  GPIO_Setup( eEM1D11     , GPIO_MUX_CPU1, 2, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 73
+//  GPIO_Setup( eEM1D10     , GPIO_MUX_CPU1, 2, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 74
+//  GPIO_Setup( eEM1D9      , GPIO_MUX_CPU1, 2, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 75
+//  GPIO_Setup( eEM1D8      , GPIO_MUX_CPU1, 2, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 76
+//  GPIO_Setup( eEM1D7      , GPIO_MUX_CPU1, 2, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 77
+//  GPIO_Setup( eEM1D6      , GPIO_MUX_CPU1, 2, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 78
+//  GPIO_Setup( eEM1D5      , GPIO_MUX_CPU1, 2, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 79
+//  GPIO_Setup( eEM1D4      , GPIO_MUX_CPU1, 2, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 80
+//  GPIO_Setup( eEM1D3      , GPIO_MUX_CPU1, 2, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 81
+//  GPIO_Setup( eEM1D2      , GPIO_MUX_CPU1, 2, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 82
+//  GPIO_Setup( eEM1D1      , GPIO_MUX_CPU1, 2, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 83
+  GPIO_Setup( eBOOT0      , GPIO_MUX_CPU1, 0, GPIO_INPUT	, GPIO_PUSHPULL );	// 84
+//  GPIO_Setup( eEM1D0      , GPIO_MUX_CPU1, 2, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 85
+  GPIO_Setup( eEM1CAS     , GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 86
+  GPIO_Setup( eEM1RAS     , GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 87
+  GPIO_Setup( eEM1DQM0    , GPIO_MUX_CPU1, 0, GPIO_OUTPUT , GPIO_PUSHPULL );  // 88
+  GPIO_Setup( eEM1DQM1    , GPIO_MUX_CPU1, 0, GPIO_OUTPUT , GPIO_PUSHPULL );  // 89
+//  GPIO_Setup( eNC90       , GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 90
+#if(ADC_V11V)
+  GPIO_Setup( eAD_NO      , GPIO_MUX_CPU1, 0, GPIO_INPUT	, GPIO_PUSHPULL );	// 90
+#else
+  GPIO_Setup( eAD_NO      , GPIO_MUX_CPU1, 0, GPIO_INPUT	, GPIO_PULLUP );	// 90
+#endif
+  GPIO_Setup( eS_BLOCKING , GPIO_MUX_CPU1, 0, GPIO_INPUT	, GPIO_PUSHPULL );	// 91
+  GPIO_Setup( eEM1BA1     , GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 92
+  GPIO_Setup( eEM1BA2     , GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 93
+  GPIO_Setup( eSYNC_PTT	, GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 94
+#if(FREQ_ON)
+  GPIO_Setup( eFREQ_DET2  , GPIO_MUX_CPU1, 6, GPIO_INPUT  , GPIO_PUSHPULL );	// 21
+#else
+  GPIO_Setup( eNC99       , GPIO_MUX_CPU1, 0, GPIO_OUTPUT , GPIO_PUSHPULL );  // 99
+#endif
+//  GPIO_Setup( eSYNC_PTT   , GPIO_MUX_CPU1, 0, GPIO_INPUT , GPIO_PUSHPULL );  // 99
+
+/*
+  OCS0_OFF;
+  NOP;
+  OCS1_OFF;
+  NOP;
+  OCS2_OFF;
+  NOP;
+  OCS3_OFF;
+  NOP;
+  ICS0_ON;
+  NOP;
+  ICS1_ON;
+  NOP;
+  ICS2_ON;
+  NOP;
+  nOUT_ALL_MPRAM_ON;
+  NOP;
+#if(0)
+  nOUT_ENABLE1_OFF;
+  nOUT_ENABLE2_OFF;
+  WDT_ON;
+  SYNC_PTT_ON;
+  PWR_PTT_ON;
+  RST_CTRL_ON;
+  M_BLOCKING_ON;
+#endif
+  RST_CTRL_ON;
+  NOP;
+  M_BLOCKING_OFF;
+  NOP;
+  WDT_OFF;
+  NOP;
+  SYNC_PTT_OFF;
+  NOP;
+  PWR_PTT_OFF;
+  NOP;
+
+  MAIN_RDY_ON;   //
+*/
+
+/*
+  GpioDataRegs.GPADAT.all = 0x000E000F;
+  NOP;
+  GpioDataRegs.GPBDAT.all = 0x00000000;
+  NOP;
+  GpioDataRegs.GPCDAT.all = 0x08000000;
+  NOP;
+  GpioDataRegs.GPDDAT.all = 0x00000000;
+  NOP;
+*/
+
+  SELECT_CS_ON;
+
+//  i_wData = DATA_IN;
+//  DATA_OUT( 0xFF );
+  ADC_OS0_OFF;
+  ADC_OS1_OFF;
+  ADC_OS2_OFF;
+  RANGE_SEL_ON;
+
+  I2C_WP_OFF;
+
+  SYNC_PTT_OFF;
+
+  ADC_RESET_ON;
+  NOP;    NOP;    NOP;    NOP;    NOP;
+  ADC_RESET_OFF;
+  NOP;    NOP;    NOP;    NOP;    NOP;
+
+  ADC_CONVST_OFF;
+  NOP;    NOP;    NOP;    NOP;    NOP;
+  ADC_CONVST_ON;
+
+#if(0)
+  GPIO_Setup( eMON_12VP	, GPIO_MUX_CPU1, 0, GPIO_INPUT	, GPIO_PUSHPULL );	// 5
+  GPIO_Setup( eMON_12VN	, GPIO_MUX_CPU1, 0, GPIO_INPUT	, GPIO_PUSHPULL );	// 6
+  GPIO_Setup( eD485PTT	, GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 7
+  GPIO_Setup( eDTXD		, GPIO_MUX_CPU1, 6, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 8
+  GPIO_Setup( eDRXD		, GPIO_MUX_CPU1, 6, GPIO_INPUT	, GPIO_PUSHPULL );	// 9
+  GPIO_Setup( eD485TXD	, GPIO_MUX_CPU1, 6, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 10
+  GPIO_Setup( eD485RXD	, GPIO_MUX_CPU1, 6, GPIO_INPUT	, GPIO_PULLUP );	// 11
+  GPIO_Setup( eDCPLD_CS	, GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 12
+  GPIO_Setup( eDSPI_CLK	, GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 13
+  GPIO_Setup( eDSPI_SO	, GPIO_MUX_CPU1, 0, GPIO_INPUT	, GPIO_PUSHPULL );	// 14
+  GPIO_Setup( eDSPI_SI	, GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 15
+  GPIO_Setup( eDSD_SI		, GPIO_MUX_CPU1, 1, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 16
+  GPIO_Setup( eDSD_SO		, GPIO_MUX_CPU1, 1, GPIO_INPUT	, GPIO_PUSHPULL );	// 17
+  GPIO_Setup( eDSD_CLK	, GPIO_MUX_CPU1, 1, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 18
+  GPIO_Setup( eDSD_CS		, GPIO_MUX_CPU1, 1, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 19
+  GPIO_Setup( eFLASH_WP	, GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 20
+  GPIO_Setup( eFLASH_HOLD	, GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 21
+  GPIO_Setup( eTEST0		, GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 22
+  GPIO_Setup( eTEST1		, GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 23
+  GPIO_Setup( eDPIC_SI	, GPIO_MUX_CPU1, 6, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 24
+  GPIO_Setup( eDPIC_SO	, GPIO_MUX_CPU1, 6, GPIO_INPUT	, GPIO_PUSHPULL );	// 25
+  GPIO_Setup( eDPIC_CLK	, GPIO_MUX_CPU1, 6, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 26
+  GPIO_Setup( eDPIC_CS	, GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 27
+  GPIO_Setup( eNC28		, GPIO_MUX_CPU1, 0, GPIO_INPUT	, GPIO_PUSHPULL );	// 28
+//	29~32 EM1
+  GPIO_Setup( eADC_CONVST	, GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 33
+//	34~34 EM1
+  GPIO_Setup( eADC_BUSY	, GPIO_MUX_CPU1, 0, GPIO_INPUT	, GPIO_PUSHPULL );	// 36
+//	36~41 EM1
+  GPIO_Setup( eLED0		, GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 42
+  GPIO_Setup( eLED1		, GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 43
+//	44~52 EM1
+  if( sSV.Hidden.bType == eMain154kV || sSV.Hidden.bType == eMain345kV )
+//	if( SUB_IO )
+  {
+    GPIO_Setup( eDI_1		, GPIO_MUX_CPU1, 0, GPIO_INPUT	, GPIO_PUSHPULL );	// 53
+    GPIO_Setup( eDI_2		, GPIO_MUX_CPU1, 0, GPIO_INPUT	, GPIO_PUSHPULL );	// 54
+    GPIO_Setup( eDI_3		, GPIO_MUX_CPU1, 0, GPIO_INPUT	, GPIO_PUSHPULL );	// 55
+    GPIO_Setup( eDI_4		, GPIO_MUX_CPU1, 0, GPIO_INPUT	, GPIO_PUSHPULL );	// 56
+    GPIO_Setup( eNC57		, GPIO_MUX_CPU1, 0, GPIO_INPUT	, GPIO_PUSHPULL );	// 57
+    GPIO_Setup( eALARM_1	, GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 58
+    GPIO_Setup( eALARM_2	, GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 59
+    GPIO_Setup( eALARM_3	, GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 60
+    GPIO_Setup( eALARM_4	, GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 61
+    GPIO_Setup( eALARM_5B	, GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 62
+    GPIO_Setup( eNC63		, GPIO_MUX_CPU1, 0, GPIO_INPUT	, GPIO_PUSHPULL );	// 63
+    GPIO_Setup( eADC_RANGE	, GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 64
+    GPIO_Setup( eADC_REF	, GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 65
+  }
+  else
+  {
+    GPIO_Setup( eDDATA0		, GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 53
+    GPIO_Setup( eDDATA1		, GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 54
+    GPIO_Setup( eDDATA2		, GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 55
+    GPIO_Setup( eDDATA3		, GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 56
+    GPIO_Setup( eDDATA4		, GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 57
+    GPIO_Setup( eDDATA5		, GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 58
+    GPIO_Setup( eDDATA6		, GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 59
+    GPIO_Setup( eDDATA7		, GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 60
+    GPIO_Setup( eDAS		, GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 61
+    GPIO_Setup( eDRD		, GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 62
+    GPIO_Setup( eDWR		, GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 63
+    GPIO_Setup( eDRTC_CS	, GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 64
+    GPIO_Setup( eDnIRQ		, GPIO_MUX_CPU1, 0, GPIO_INPUT	, GPIO_PUSHPULL );	// 65
+  }
+  GPIO_Setup( eNC66		, GPIO_MUX_CPU1, 0, GPIO_INPUT	, GPIO_PUSHPULL );	// 66
+  GPIO_Setup( eADC_RESET	, GPIO_MUX_CPU1, 0, GPIO_OUTPUT	, GPIO_PUSHPULL );	// 67
+  GPIO_Setup( eNC68		, GPIO_MUX_CPU1, 0, GPIO_INPUT	, GPIO_PUSHPULL );	// 68
+//	69~83 EM1
+  GPIO_Setup( eBOOT0		, GPIO_MUX_CPU1, 0, GPIO_INPUT	, GPIO_PUSHPULL );	// 84
+//	85~93 EM1
+  GPIO_Setup( eNC94		, GPIO_MUX_CPU1, 0, GPIO_INPUT	, GPIO_PUSHPULL );	// 94
+//	95~98 not pin
+  GPIO_Setup( eNC99		, GPIO_MUX_CPU1, 0, GPIO_INPUT	, GPIO_PUSHPULL );	// 99
+//	100~132 not pin
+//	133 설정 하지 마시요.
+
+  EALLOW;
+  GpioCtrlRegs.GPAPUD.all = ~0x1FFFF0FF;
+  GpioCtrlRegs.GPBPUD.all = ~0xFFE00012;
+  GpioCtrlRegs.GPCPUD.all = ~0x8F1FFF1F;
+  GpioCtrlRegs.GPDPUD.all = ~0x00000084;
+  EDIS;
+
+
+  DWDT = 1;
+//  if( ( pSV->Hidden.bType & 0xFF ) == eMain154kV || ( pSV->Hidden.bType & 0xFF ) == eMain345kV )
+  D485PTT = 1;
+//  else
+//    D485PTT = 0;
+  FLASH_WP = 1;
+  HOLD = 1;
+#endif
+
+}
+
+
+//*****************************************************************************
+//
+// Initial Adc Memory Pointer (0x80100000)
+// Size : 20sec * 60Hz * 32Sample * 10Word = 384000 (0x0005DC00)
+// pAdc->LowData[38400][10] = 384000word	// 20150621 20초 정의
+//
+//*****************************************************************************
+void Init_MemoryPointer( void )
+{
+  pMPRAM  = ( MPRAM_DATA  * )( ADDRESS_MAP[MEMORY_TYPE_MPRAM  ].Start + 0x00000000UL );   // MPRAM Data Pointer
+  pAdc 	  = ( ADC_DATA   	* )( ADDRESS_MAP[MEMORY_TYPE_ADC    ].Start + 0x00000000UL );   // ADC Data Pointer
+}
+
+
+
+void Init_RebootVariable( void )
+{
+
+}
+
+
+void Init_BootVariable( void )
+{
+//	sStatus.wBootCode = 0xA55A;
+
+}
+
+// 초기 Reg Clear
+void Init_SettingRegister( void )
+{
+//  pMRAM->wFreq60Hz = eFREQ_60Hz;
+}
+// Main 들어가기 전 Reg Clear
+#define eOUT_CARD_CHECK     1000
+#define eOUT_CARD_FIX       10
+void Init_Register( void )
+{
+  UINT16  i;
+  UINT16  i_wInputCount = 0;
+  UINT8   i_bInputTemp, i_bInput;
+
+  sCount.wMain = 0;
+
+  Test_Clear( );
+  sStatus.bTestClear = 0;
+  sCount.wTestClear = 0;
+  sStatus.bErrorClear = 0;
+  sCount.wErrorClear = 0;
+//  sStatus.sSyncFail = 0;
+
+//  sSetting.bFreq60Hz = (BOOL)pMRAM->wFreq60Hz;  //20150817 추후 히든 Menu에서 설정 가능하게 작업하시요.
+  sSetting.bFreq60Hz = 1;
+  sSetting.wCount = 0;
+
+  if( sSetting.bFreq60Hz == eFREQ_60Hz )
+    sSetting.w1secCount = 3840;
+  else
+    sSetting.w1secCount = 3200;
+
+//  if (sStatus.wBootCode != 0xA55A )
+
+  sCount.wFaultBlocking = 0;
+  sCount.wFaultWdtOn = 0;
+  sCount.wFaultWdtOff = 0;
+  sCount.wFaultOutEnableOn = 0;
+  sCount.wFaultOutEnableOff = 0;
+  sCount.bLinkError = 0;
+  sCount.bSyncError = 0;
+
+  sSetting.wCode = 0;
+  sSetting.lErrorIngUp = 0;
+  sSetting.lErrorFixUp = 0;
+  sSetting.lErrorIngDn = 0;
+  sSetting.lErrorFixDn = 0;
+  sSetting.lOutErrorIngUp = 0;
+  sSetting.lOutErrorFixUp = 0;
+  sSetting.lOutErrorIngDn = 0;
+  sSetting.lOutErrorFixDn = 0;
+  sSetting.wErrorIng = 0;
+  sSetting.wErrorFix = 0;
+  for( i=0; i<eADC_MAX*eADC_NO_MAX; i++ )
+  {
+    sCount.wAdcFaultUp[i] = 0;
+    sCount.wAdcFaultDn[i] = 0;
+    sCount.wAdcOutFaultUp[i] = 0;
+    sCount.wAdcOutFaultDn[i] = 0;
+  }
+
+  sCount.wSyncFail = 0;
+
+  sSetting.wStatus = 0;
+
+  if( AD_CARD_NO )
+    sSetting.wCardType = eCARD_AI;
+  else
+    sSetting.wCardType = eCARD_AI2;
+
+  for( i=0; i<eOUT_CARD_CHECK; i++ )
+  {
+//    i_bInputTemp = ~( ( GPIOC->IDR >> 5 ) ) & 0x1F;
+    i_bInputTemp = 0;
+    if( CARD0 )     i_bInputTemp |= BIT0;
+    if( CARD1 )     i_bInputTemp |= BIT1;
+    if( CARD2 )     i_bInputTemp |= BIT2;
+    if( CARD3 )     i_bInputTemp |= BIT3;
+    if( CARD4 )     i_bInputTemp |= BIT4;
+    i_bInputTemp--;
+
+    if( i_bInput == i_bInputTemp )
+    {
+      if( ++i_wInputCount >= eOUT_CARD_FIX )
+      {
+        break;
+      }
+    }
+    else
+    {
+      i_wInputCount = 0;
+      i_bInput = i_bInputTemp;
+    }
+  }
+
+  sSetting.wCardNo = (UINT16)i_bInput;
+
+  sStep.bSync = 0;
+
+#if(0)
+  sDebug.Count.bRx = 0;
+  sDebug.Count.bRxEnd = 0;
+  sDebug.Count.bTx = 0;
+  sDebug.Count.bTxEnd = 0;
+  for( i=0; i<eTERMINAL_DATA; i++ )
+  {
+    sDebug.bCmdData[i] = 0;
+  }
+  sDebug.bCmdCount = 0;;
+  sDebug.Step.bType = eTER_STEP_VERSION;
+  sDebug.Step.bView = 0;
+
+  sDebug.Step.bAdc = 0;
+
+  sAdc.bPosition = 0;
+#endif
+
+  sCount.wGain = 0;
+  for( i=0; i<eADC_MAX*eADC_NO_MAX; i++ )
+    sSetting.lGain[i] = 1.0;
+
+// Test 설정
+  sTest.wAdcNormalGain = 11000;
+
+  sSetting.wCalFlag = 0;
+  sSetting.wCalFlagTemp = 0;
+  sSetting.wZeroFlag = 0;
+  sSetting.wZeroFlagTemp = 0;
+  sSetting.wCtrlFlag = 0;
+  sSetting.wCtrlFlagTemp = 0;
+
+  sSetting.wCalCt = 1000;
+  sSetting.wCalPt = 10000;
+
+//  sSetting.wCalZero = 800;
+//  sSetting.wCalSpan = 4000;
+
+  sFault.bSyncCs = 0;
+  sFault.bSyncCount = 0;
+  sFault.bSyncCode = 0;
+  sFault.bSyncTime = 0;
+  sFault.bSyncCsFix = 0;
+  sFault.bSyncCountFix = 0;
+  sFault.bSyncCodeFix = 0;
+  sFault.bSyncTimeFix = 0;
+  sFault.bWdtFix = 0;
+
+  sStep.bSync = eSYNC_START;
+
+#if(0)
+  sScib.Count.bTx = 0;
+  sScib.Count.bTxEnd = 0;
+#endif
+  sCount.wSyncOff = 0;
+
+//  sStatus.bReset = 0;
+  sStatus.bResetCount = 0;
+
+  sStatus.bPowerOnDelay4 = 0;
+  sStatus.bPowerOnDelay3 = 0;
+  sStatus.bPowerOnDelay2 = 0;
+  sStatus.bPowerOnDelay1 = 0;
+  sStatus.bPowerOnDelay0 = 0;
+
+  sStatus.bSyncFail = 0;
+
+}
+// Main들어가고 안정화 되는 400usec 뒤에  Reg Clear
+void Init_StartRegister( void )
+{
+  MAIN_RDY_OFF;   //
+
+}
+
+
+void Test_Clear( void )
+{
+  sError.wSyncCs = 0;
+  sError.wSyncCount = 0;
+  sError.wSyncCode = 0;
+  sError.wSyncTime = 0;
+
+}
+
+void Error_Clear( void )
+{
+  sSetting.lErrorFixUp = 0;
+  sSetting.lErrorFixDn = 0;
+  sSetting.wErrorFix = 0;
+
+  sSetting.wStatus = 0;
+  sSetting.lErrorFixUp = 0;
+  sSetting.lErrorFixDn = 0;
+  sSetting.lOutErrorFixUp = 0;
+  sSetting.lOutErrorFixDn = 0;
+
+}
+
+
+void Init_Interrupt( void )
+{
+#if(1)
+  EALLOW;
+// Debug
+  PieVectTable.SCIB_RX_INT = &scibRxFifoIsr;	// SCIB RX
+  PieVectTable.SCIB_TX_INT = &scibTxFifoIsr;	// SCIB TX
+
+  EDIS;
+  IER |= M_INT9;		// SCIA // SCIB
+  PieCtrlRegs.PIECTRL.bit.ENPIE = 1;   // Enable the PIE block
+
+  PieCtrlRegs.PIEIER9.bit.INTx3=1;     // PIE Group 9, INT3 // SCIB_rx
+  PieCtrlRegs.PIEIER9.bit.INTx4=1;     // PIE Group 9, INT4 // SCIB_tx
+#else
+  EALLOW;
+// RS-485 SYNC
+  PieVectTable.SCIA_RX_INT = &sciaRxFifoIsr;	// SCIA RX
+  PieVectTable.SCIA_TX_INT = &sciaTxFifoIsr;	// SCIA TX
+
+// RS-485 POWER Board
+  PieVectTable.SCIB_RX_INT = &scibRxFifoIsr;	// SCIB RX
+  PieVectTable.SCIB_TX_INT = &scibTxFifoIsr;	// SCIB TX
+
+/*
+// RS-232 console
+	PieVectTable.SCIC_RX_INT = &scicRxFifoIsr;	// SCIC RX
+	PieVectTable.SCIC_TX_INT = &scicTxFifoIsr;	// SCIC TX
+
+// RS-232 TTL
+	PieVectTable.SCID_RX_INT = &scidRxFifoIsr;	// SCID RX TTL
+	PieVectTable.SCID_TX_INT = &scidTxFifoIsr;	// SCID TX TTL
+*/
+
+  EDIS;
+
+  // This is needed to disable write to EALLOW protected registers
+
+  IER |= M_INT8;		// SCID
+  IER |= M_INT9;		// SCIA // SCIB
+
+  PieCtrlRegs.PIECTRL.bit.ENPIE = 1;   // Enable the PIE block
+
+  PieCtrlRegs.PIEIER9.bit.INTx1=1;     // PIE Group 9, INT1 // SCIA_rx
+  PieCtrlRegs.PIEIER9.bit.INTx2=1;     // PIE Group 9, INT2 // SCIA_tx
+
+  PieCtrlRegs.PIEIER9.bit.INTx3=1;     // PIE Group 9, INT3 // SCIB_rx
+  PieCtrlRegs.PIEIER9.bit.INTx4=1;     // PIE Group 9, INT4 // SCIB_tx
+
+  PieCtrlRegs.PIEIER8.bit.INTx7=1;     // PIE Group 8, INT7 // SCID_rx
+  PieCtrlRegs.PIEIER8.bit.INTx8=1;     // PIE Group 8, INT8 // SCID_tx
+#endif
+}
+
+
+void delay_us( const uint32_t usec )
+{
+  UINT8 i, j, k;
+
+  for( i=0; i<usec; i++ )
+  {
+//    for( j=0; j<72; j++ )
+    for( j=0; j<100; j++ )  //Touch 오동작이 되어 속도 느리게 변경 작업 하였음
+    {
+      k += 1;    // 1/72
+    }
+  }
+}
+
+
+void delay_ms( const uint32_t usec )
+{
+  delay_us(1000 * usec);
+}
+
+
+
+void HEX2BIN( char *s, UINT8 i_bCount, UINT32 i_lHex )
+{
+//  static char s[32 + 1] = { '0', };
+
+//  UINT8   i_bCountNo = i_bCount;
+
+#if(1)
+  s[i_bCount] = 0;
+  do {
+    s[--i_bCount] = '0' + (char)( i_lHex & BIT0 );
+    i_lHex = i_lHex >> 1;
+  } while( i_bCount );
+//  return s;
+#else
+  do { 
+    s[--i_bCount] = '0' + (char)( i_lHex & 1 );
+    i_lHex = i_lHex >> 1;
+  } while( i_bCount );
+
+  return s;
+#endif
+}
+
+UINT16 BIN2HEX( char *s )
+{
+  UINT16  i = 0;
+  UINT16  i_wCount = 0;
+
+  while( s[i_wCount] )
+    i = (i << 1) | ( s[i_wCount++] - '0' );
+
+  return i;
+}
+

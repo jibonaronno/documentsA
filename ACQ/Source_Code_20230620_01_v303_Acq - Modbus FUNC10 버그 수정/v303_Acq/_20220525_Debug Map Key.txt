@@ -1,0 +1,208 @@
+
+enum
+{
+// sDbg.Stp.bType, pSci.Stp.bType
+  eST_DBG_NORMAL,       // 0에서 이동하면 안됨
+
+  eST_DBG_VER,
+  eST_DBG_CLEAR,
+  eST_DBG_RESET,
+  eST_DBG_HELP,
+  eST_DBG_EXIT,
+  eST_DBG_BACK,
+
+  eST_DBG_PASSWORD,
+  eST_DBG_SETTING,
+  eST_DBG_DEBUG,
+
+  eST_DBG_ETHER,        // 10
+  eST_DBG_LIST,
+  eST_DBG_SYS,
+  eST_DBG_ETC,
+  eST_DBG_CALI,
+
+// Ethernet
+  eST_DBG_IP,
+  eST_DBG_SUB,
+  eST_DBG_DEF,
+  eST_DBG_PORT,
+  eST_DBG_LOC,
+
+// System
+  eST_DBG_DEBOUNCE,     // 20
+  eST_DBG_TRIPNUM,      // 
+  eST_DBG_TRIPCURR,     //
+  eST_DBG_DCRATIO,      //
+
+// List
+  eST_DBG_EVENT,        //
+  eST_DBG_FAULT,        //
+
+// Etc
+  eST_DBG_TIME,
+  eST_DBG_PASS,
+  eST_DBG_MODEL,
+  eST_DBG_SERIAL,
+  eST_DBG_100MS,        // 30
+  eST_DBG_500MS,
+
+// Sys/Ratio
+//  eST_DBG_DCRATIO,      //
+
+// List/Event
+  eST_DBG_E_LIST,
+  eST_DBG_E_ERASE,
+// List/Fault
+  eST_DBG_F_LIST,
+  eST_DBG_F_ERASE,
+
+// Etc/Time
+  eST_DBG_YEAR,         // YEAR
+  eST_DBG_MON,          // MON
+  eST_DBG_DAY,          // DAY
+  eST_DBG_HOUR,         // 40 / HOUR
+  eST_DBG_MIN,          // MIN
+  eST_DBG_SEC,          // SEC
+  
+// Calibration
+  eST_DBG_ACCALI,
+  eST_DBG_DCCALI,
+
+  eST_DBG_ACZERO,
+  eST_DBG_ACSPAN,
+  eST_DBG_DCZERO,
+  eST_DBG_DCSPAN,
+  eST_DBG_PH,
+
+  eST_DBG_ACVRZERO, 
+  eST_DBG_ACVRSPAN,
+  eST_DBG_ACRZERO,
+  eST_DBG_ACRSPAN,
+
+  eST_DBG_DCRZERO,      // 50
+  eST_DBG_DCRSPAN,
+  eST_DBG_DCRATIO,      //
+// Dccali/dcRatio
+  eST_DBG_ALLRATIO,
+  eST_DBG_RATIO1,
+  eST_DBG_RATIO2,
+  eST_DBG_RATIO3,
+
+  eST_DBG_NUMBER,       // 60
+  eST_DBG_CHAR,
+
+
+// sDbg.bCmd, pSci->bCmd
+  eK_VER                = 'V',    // Ver
+  eK_CLEAR              = 'C',    // Clear
+  eK_RESET              = 'R',    // Reset
+  eK_HELP               = 'H',    // Help
+  eK_SAVE               = 'S',    // Save
+  eK_EXIT               = 'X',    // eXit
+  eK_BACK               = 'B',    // Back
+  eK_PASS               = 'P',    // Password
+  eK_SETTING            = 'S',    // Setting
+  eK_DEBUG              = 'D',    // Debug
+
+//  eK_NUMBER
+//  eK_CHAR
+
+// Setting
+  eK_ETHER              = 'E',    // Ethernet
+  eK_LIST               = 'L',    // List
+  eK_SYS                = 'S',    // System
+  eK_ETC                = 'T',    // eTc
+  eK_CALI               = 'C',    // Calibration
+
+// Ethernet
+  eK_IP                 = 'I',    // Ip address
+  eK_SUB                = 'S',    // Subnet mask
+  eK_DEF                = 'D',    // Default gateway
+  eK_PORT               = 'P',    // Port number
+  eK_LOC                = 'L',    // Local unit ip address
+  
+// List
+  eK_EVENT              = 'E',    // Event List
+  eK_FAULT              = 'F',    // Fault List
+// Event
+  eK_E_LIST
+  eK_E_ERASE
+// Fault
+  eK_F_LIST
+  eK_F_ERASE
+
+// System
+  eK_DEBOUNCE           = 'D',    // Debounce
+  eK_TRIPNUM            = 'N',    // trip Number
+  eK_TRIPCURR           = 'T',    // Trip current
+  eK_DCRATIO            = 'R',    // dc Ratio
+
+// Etc
+//  eK_PASS               = 'P',    // Password
+  eK_TIME               = 'T',    // Time
+  eK_MODEL              = 'M',    // Model
+  eK_SERIAL             = 'S',    // Serial
+  eK_100MS              = '1',    // 100ms
+  eK_500MS              = '5',    // 500ms
+
+// Etc/Time
+  eK_YEAR               = 'Y',    // Year
+  eK_MON                = 'M',    // Mon
+  eK_DAY                = 'D',    // Day
+  eK_HOUR               = 'O',    // hOur
+  eK_MIN                = 'I',    // min
+  eK_SEC                = 'S',    // Sec
+
+// AC Calibration
+  eK_ACCALI             = 'A',    // Ac calibration
+// Accali
+  eK_ACALL              = 'A',    // ac All
+  eK_AC1                = '1',    // ac1(V)
+  eK_AC2                = '2',    // ac2(IA)
+  eK_AC3                = '3',    // ac3(IB)
+  eK_AC4                = '4',    // ac4(IC)
+// Accali/acAll
+  eK_ACALLVR            = 'V',    // ac all v Range
+  eK_ACALLR             = 'R',    // ac all i Range
+// Accali/ac1
+  eK_AC1R               = 'R',    // ac1(V) Range
+// Accali/ac2
+  eK_AC2R               = 'R',    // ac2(IA) Range
+// Accali/ac3
+  eK_AC3R               = 'R',    // ac3(IB) Range
+// Accali/ac4
+  eK_AC4R               = 'R',    // ac4(IC) Range
+
+// DC Calibration
+  eK_DCCALI             = 'D',    // Dc calibration
+// Dccali
+  eK_DCALL              = 'A',    // dc All
+  eK_DC1                = '1',    // dc1 (TC1)
+  eK_DC2                = '2',    // dc2 (TC2)
+  eK_DC3                = '3',    // dc3 (CC)
+//  eK_DCRATIO            = 'R',    // dc Ratio
+// Dccali/dcAll
+  eK_DCALLR             = 'R',    // dc All Range
+// Dccali/dc1
+  eK_DC1R               = 'R',    // dc1(TC1) Range
+// Dccali/dc2
+  eK_DC2R               = 'R',    // dc2(TC2) Range
+// Dccali/dc3
+  eK_DC3R               = 'R',    // dc3(CC) Range
+// Dccali/dcRatio
+  eK_ALLRATIO           = 'A',    // All ratio
+  eK_RATIO1             = '1',    // ratio1
+  eK_RATIO2             = '2',    // ratio2
+  eK_RATIO3             = '3',    // ratio3
+
+  eK_ZERO               = 'Z',    // Zero
+  eK_SPAN               = 'S',    // Span
+  eK_PH                 = 'P',    // Phase
+  eK_VRANGE             = 'V',    // Voltage Range
+  eK_RANGE              = 'R',    // Range
+
+
+  eK_SPACE              = ' ',    // space
+  eK_BS                 = 0x08,   // BackSpace
+  eK_ENT                = '\r',   // Enter
+};

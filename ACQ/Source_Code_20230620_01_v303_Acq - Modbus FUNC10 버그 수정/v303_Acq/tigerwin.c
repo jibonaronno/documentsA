@@ -1,0 +1,1390 @@
+/* *************************************************************************
+ *
+ * Project Name : CBAMD(sanion)
+ * Programmer   : In Ho Kim (20220308)
+ * File Name    : tigerwin.c
+ *
+ * *************************************************************************/
+
+
+
+/* Includes ------------------------------------------------------------------*/
+
+#include <F28x_Project.h>
+
+#include "main.h"
+#include "tigerwin.h"
+#include "timer.h"
+#include "io.h"
+#include "adc.h"
+#include "rtc.h"
+#include "sci.h"
+#include "emif.h"
+#include "modbus.h"
+#include "w5300.h"
+#include "loopback.h"
+#include "wizchip_conf.h"
+#include "socket.h"
+
+/* Private typedef -----------------------------------------------------------*/
+/* Private define ------------------------------------------------------------*/
+
+
+const TABLE_ADDRESS_MAP     ADDRESS_MAP[] =
+{
+//      시작주소              주소크기
+  {   MRAM_CS2_BASE,      MRAM_CS2_SIZE   },  // MRAM
+  {   EVENT_CS2_BASE,     EVENT_CS2_SIZE  },  // Event
+  {   FAULT_CS2_BASE,     FAULT_CS2_SIZE  },  // Fault
+  {   WAVE_CS2_BASE,      WAVE_CS2_SIZE   },  // Wave
+  {   RAW_CS2_BASE,       RAW_CS2_SIZE    },  // Wave Temp
+  {   ADC_CS3_BASE,       ADC_CS3_SIZE    },  // ADC
+  {   W5300_CS4_BASE,     W5300_CS4_SIZE  },  // W5300
+};
+
+
+//char bTxData[32];
+//char bTxData2[32];
+
+
+STATUS_REG      sSta;
+STATUS_REG      sStaTemp;
+STEP_REG        sStep;
+COUNT_REG       sCnt;
+SETTING_REG     sSet;
+SETTING_REG     sSetTemp;
+INT_REG         sInt;
+RMS_REG         sRms;
+DISPLAY_REG     sDsp;
+DISPLAY_REG     sDspTemp;
+ETHER_REG       sEth;
+
+
+/* Private macro -------------------------------------------------------------*/
+/* Private variables ---------------------------------------------------------*/
+
+/* Extern variables ----------------------------------------------------------*/
+
+/* Private function prototypes -----------------------------------------------*/
+
+
+/* Private functions ---------------------------------------------------------*/
+
+void GPIO_Setup( UINT16 pin, UINT16 cpu, UINT16 peripheral, UINT16 output, UINT16 flags );
+void Init_Gpio( void );
+void Init_MemoryPointer( void );
+void Init_RebootVariable( void );
+void Init_BootVariable( void );
+void Init_SettingRegister( void );
+void Init_Register( void );
+void Init_StartRegister( void );
+
+void Init_Interrupt( void );
+
+//char  *HEX2BIN( UINT8 i_bCount, UINT32 i_lHex );
+void HEX2BIN( char *s, UINT8 i_bCount, UINT32 i_lHex );
+UINT16 BIN2HEX( char *s );
+
+void Boot_Make( void );
+
+
+void Conv_CODE2RMS( RMS_REG sRms );
+void Conv_CODE2PHASE( RMS_REG sRms );
+void Conv_VOLT2CURR( UINT16 i_wNo, float *i_pfSource, float *i_pfTarget );
+void Conv_CODE2TEMP( RMS_REG sRms );
+
+void main_loop(void);
+#pragma CODE_SECTION( main_loop, ".TI.ramfunc" );
+
+BOOL SvCheck( UINT16 i_wStp );
+UINT16 ConvXCs( UINT16 *i_pwRam, UINT16 i_wLen );
+
+UINT8 Debug_View( void );
+BOOL Debug_ViewChk( UINT8 i_bType );
+
+void w5300_Make( void );
+//#pragma CODE_SECTION( w5300_Make, ".TI.ramfunc" );
+void Init_w5300( void );
+void Integral_Make(void);
+#pragma CODE_SECTION( Integral_Make, ".TI.ramfunc" );
+void IO_Make(void);
+#pragma CODE_SECTION( IO_Make, ".TI.ramfunc" );
+
+char* List_Evt( UINT16 i_wType );
+#pragma CODE_SECTION( List_Evt, ".TI.ramfunc" );
+void EventRd( void );
+#pragma CODE_SECTION( EventRd, ".TI.ramfunc" );
+void EventWr(UINT16 i_wEvent);
+#pragma CODE_SECTION( EventWr, ".TI.ramfunc" );
+char* List_Fat( UINT16 i_wType );
+#pragma CODE_SECTION( List_Fat, ".TI.ramfunc" );
+void FaultRd( void );
+#pragma CODE_SECTION( FaultRd, ".TI.ramfunc" );
+void FaultWr( UINT16 i_wNo );
+#pragma CODE_SECTION( FaultWr, ".TI.ramfunc" );
+
+
+
+
+void GPIO_Setup( UINT16 pin, UINT16 cpu, UINT16 peripheral, UINT16 output, UINT16 flags )
+{
+  GPIO_SetupPinMux  ( pin, cpu   , peripheral );
+  GPIO_SetupPinOptions( pin, output, flags );
+
+}
+
+
+#define eRESET_MON_CHECK        20
+#define eRESET_MON_FIX          4
+void Init_Gpio( void )
+{
+  GPIO_Setup( P0          , GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL );    // 0        o       0       // NC
+  GPIO_Setup( I_nLINK_LED , GPIO_MUX_CPU1, 0, GPIO_INPUT , GPIO_PUSHPULL );   // 1        i       0       // nLinkLED
+  GPIO_Setup( I_nTX_LED   , GPIO_MUX_CPU1, 0, GPIO_INPUT , GPIO_PUSHPULL );   // 2        i       0       // nTxLED
+
+  GPIO_Setup( O_J0        , GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL );   // 3        o       0       // J0
+  GPIO_Setup( O_J1        , GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL );   // 4        o       0       // J1
+  GPIO_Setup( O_J2        , GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL );   // 5        o       0       // J2
+  GPIO_Setup( O_J3        , GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL );   // 6        o       0       // J3
+  GPIO_Setup( O_WDT_DIS   , GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL );   // 7        o       0       // 1: WDT Disable(bootloader 등등)
+// 8, 9, 10, 11 SCI
+  GPIO_Setup( DEBUG_TX    , GPIO_MUX_CPU1, 6, GPIO_OUTPUT, GPIO_PUSHPULL );   // 8        m       6       // Debug(RS-232) TX
+  GPIO_Setup( DEBUG_RX    , GPIO_MUX_CPU1, 6, GPIO_INPUT , GPIO_PUSHPULL );   // 9        m       6       // Debug(RS-232) RS
+  GPIO_Setup( I_DI1       , GPIO_MUX_CPU1, 0, GPIO_INPUT , GPIO_PUSHPULL );   // 10       i       0       // DI1
+  GPIO_Setup( I_DI2       , GPIO_MUX_CPU1, 0, GPIO_INPUT , GPIO_PUSHPULL );   // 11       i       0       // DI2
+  GPIO_Setup( I_KEY1      , GPIO_MUX_CPU1, 0, GPIO_INPUT , GPIO_PUSHPULL );   // 12       i       0       // Key1
+  GPIO_Setup( I_KEY2      , GPIO_MUX_CPU1, 0, GPIO_INPUT , GPIO_PUSHPULL );   // 13       i       0       // Key2
+  GPIO_Setup( I_KEY3      , GPIO_MUX_CPU1, 0, GPIO_INPUT , GPIO_PUSHPULL );   // 14       i       0       // Key3
+  GPIO_Setup( I_KEY4      , GPIO_MUX_CPU1, 0, GPIO_INPUT , GPIO_PUSHPULL );   // 15       i       0       // Key4
+  GPIO_Setup( P16         , GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL );   // 16       o       0       // NC
+  GPIO_Setup( O_LD_RUN    , GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL );   // 17       o       0       // LED Run
+  GPIO_Setup( O_LD_ALM    , GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL );   // 18       o       0       // LED Alarm
+  GPIO_Setup( P19         , GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL );   // 19       o       0       // NC
+  GPIO_Setup( O_LD_ERR    , GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL );   // 20       o       0       // LED Error
+  GPIO_Setup( O_LD_PWR    , GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL );   // 21       o       0       // LED Power
+  GPIO_Setup( P22         , GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL );   // 22       o       0       // NC
+  GPIO_Setup( I_MON_N5V   , GPIO_MUX_CPU1, 0, GPIO_INPUT , GPIO_PUSHPULL );   // 23       i       0       // MON -5V
+  GPIO_Setup( I_MON_N15V  , GPIO_MUX_CPU1, 0, GPIO_INPUT , GPIO_PUSHPULL );   // 24       i       0       // MON -15V
+  GPIO_Setup( I_MON_P15V  , GPIO_MUX_CPU1, 0, GPIO_INPUT , GPIO_PUSHPULL );   // 25       i       0       // MON +15V
+  GPIO_Setup( P26         , GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL );   // 26       o       0       // NC
+  GPIO_Setup( P27         , GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL );   // 27       o       0       // NC
+  GPIO_Setup( nEM1CS4     , GPIO_MUX_CPU1, 2, GPIO_OUTPUT, GPIO_PUSHPULL );   // 28       m       ?       // nEM1CS4   W5300
+  GPIO_Setup( I_ETH_INT   , GPIO_MUX_CPU1, 0, GPIO_INPUT , GPIO_PUSHPULL );   // 29       i       0       // ETH_INT
+  GPIO_Setup( P30         , GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL );   // 30       o       0       // NC
+  GPIO_Setup( nEM1WE      , GPIO_MUX_CPU1, 2, GPIO_OUTPUT, GPIO_PUSHPULL );   // 31       m       2       // nEM1WE   WR
+  GPIO_Setup( P32         , GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL );   // 32       o       0       // NC
+  GPIO_Setup( O_ADC_CONV  , GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL );   // 33       o       0       // ADC Convst
+  GPIO_Setup( nEM1CS2     , GPIO_MUX_CPU1, 2, GPIO_OUTPUT, GPIO_PUSHPULL );   // 34       m       2       // nEM1CS2  MPRAM
+  GPIO_Setup( nEM1CS3     , GPIO_MUX_CPU1, 2, GPIO_OUTPUT, GPIO_PUSHPULL );   // 35       m       2       // nEM1CS3  ADC
+  GPIO_Setup( I_ADC_BUSY  , GPIO_MUX_CPU1, 0, GPIO_INPUT , GPIO_PUSHPULL );   // 36       i       0       // ADC Busy
+  GPIO_Setup( nEM1OE      , GPIO_MUX_CPU1, 2, GPIO_OUTPUT, GPIO_PUSHPULL );   // 37       m       2       // nEM1OE   RD
+  GPIO_Setup( EM1A0       , GPIO_MUX_CPU1, 2, GPIO_OUTPUT, GPIO_PUSHPULL );   // 38       m       2       // EM1A0
+  GPIO_Setup( EM1A1       , GPIO_MUX_CPU1, 2, GPIO_OUTPUT, GPIO_PUSHPULL );   // 39       m       2       // EM1A1
+  GPIO_Setup( EM1A2       , GPIO_MUX_CPU1, 2, GPIO_OUTPUT, GPIO_PUSHPULL );   // 40       m       2       // EM1A2
+  GPIO_Setup( EM1A3       , GPIO_MUX_CPU1, 2, GPIO_OUTPUT, GPIO_PUSHPULL );   // 41       m       2       // EM1A3
+  GPIO_Setup( O_LD_GRE    , GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL );   // 42       o       ?       // LED Green
+  GPIO_Setup( O_LD_RED    , GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL );   // 43       o       ?       // LED Red
+  GPIO_Setup( EM1A4       , GPIO_MUX_CPU1, 2, GPIO_OUTPUT, GPIO_PUSHPULL );   // 44       m       2       // EM1A4
+  GPIO_Setup( EM1A5       , GPIO_MUX_CPU1, 2, GPIO_OUTPUT, GPIO_PUSHPULL );   // 45       m       2       // EM1A5
+  GPIO_Setup( EM1A6       , GPIO_MUX_CPU1, 2, GPIO_OUTPUT, GPIO_PUSHPULL );   // 46       m       2       // EM1A6
+  GPIO_Setup( EM1A7       , GPIO_MUX_CPU1, 2, GPIO_OUTPUT, GPIO_PUSHPULL );   // 47       m       2       // EM1A7
+  GPIO_Setup( EM1A8       , GPIO_MUX_CPU1, 2, GPIO_OUTPUT, GPIO_PUSHPULL );   // 48       m       2       // EM1A8
+  GPIO_Setup( EM1A9       , GPIO_MUX_CPU1, 2, GPIO_OUTPUT, GPIO_PUSHPULL );   // 49       m       2       // EM1A9
+  GPIO_Setup( EM1A10      , GPIO_MUX_CPU1, 2, GPIO_OUTPUT, GPIO_PUSHPULL );   // 50       m       2       // EM1A1
+  GPIO_Setup( EM1A11      , GPIO_MUX_CPU1, 2, GPIO_OUTPUT, GPIO_PUSHPULL );   // 51       m       2       // EM1A1
+  GPIO_Setup( EM1A12      , GPIO_MUX_CPU1, 2, GPIO_OUTPUT, GPIO_PUSHPULL );   // 52       m       2       // EM1A1
+  GPIO_Setup( O_TP20      , GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL );   // 53       o       0       // TP20
+  GPIO_Setup( O_TP17      , GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL );   // 54       o       0       // TP17
+  GPIO_Setup( O_TP16      , GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL );   // 55       o       0       // TP16
+  GPIO_Setup( O_TP15      , GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL );   // 56       o       0       // TP15
+  GPIO_Setup( P57         , GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL );   // 57       o       0       // NC
+  GPIO_Setup( P58         , GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL );   // 58       o       0       // NC
+  GPIO_Setup( P59         , GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL );   // 59       o       0       // NC
+  GPIO_Setup( P60         , GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL );   // 60       o       0       // NC
+  GPIO_Setup( P61         , GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL );   // 61       o       0       // NC
+  GPIO_Setup( O_RTC_CE    , GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL );   // 62       o       0       // RTC CE
+  GPIO_Setup( O_RTC_SCK   , GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL );   // 63       o       0       // RTC SCK
+  GPIO_Setup( IO_RTC_IO   , GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL );   // 64       io      0       // RTC IO
+  GPIO_Setup( P65         , GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL );   // 65       o       0       // NC
+  GPIO_Setup( O_nETH_RST  , GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL );   // 66       o       0       // nETH Reset
+  GPIO_Setup( O_ADC_RST   , GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL );   // 67       o       0       // ADC Reset
+  GPIO_Setup( P68         , GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL );   // 68       o       0       // NC
+  GPIO_Setup( EM1D15      , GPIO_MUX_CPU1, 2, GPIO_OUTPUT, GPIO_PUSHPULL );   // 69       m       2       // EM1D15
+  GPIO_Setup( EM1D14      , GPIO_MUX_CPU1, 2, GPIO_OUTPUT, GPIO_PUSHPULL );   // 70       m       2       // EM1D14
+  GPIO_Setup( EM1D13      , GPIO_MUX_CPU1, 2, GPIO_OUTPUT, GPIO_PUSHPULL );   // 71       m       2       // EM1D13
+  GPIO_Setup( EM1D12      , GPIO_MUX_CPU1, 2, GPIO_OUTPUT, GPIO_PUSHPULL );   // 72       m       2       // EM1D12
+  GPIO_Setup( EM1D11      , GPIO_MUX_CPU1, 2, GPIO_OUTPUT, GPIO_PUSHPULL );   // 73       m       2       // EM1D11
+  GPIO_Setup( EM1D10      , GPIO_MUX_CPU1, 2, GPIO_OUTPUT, GPIO_PUSHPULL );   // 74       m       2       // EM1D10
+  GPIO_Setup( EM1D9       , GPIO_MUX_CPU1, 2, GPIO_OUTPUT, GPIO_PUSHPULL );   // 75       m       2       // EM1D9
+  GPIO_Setup( EM1D8       , GPIO_MUX_CPU1, 2, GPIO_OUTPUT, GPIO_PUSHPULL );   // 76       m       2       // EM1D8
+  GPIO_Setup( EM1D7       , GPIO_MUX_CPU1, 2, GPIO_OUTPUT, GPIO_PUSHPULL );   // 77       m       2       // EM1D7
+  GPIO_Setup( EM1D6       , GPIO_MUX_CPU1, 2, GPIO_OUTPUT, GPIO_PUSHPULL );   // 78       m       2       // EM1D6
+  GPIO_Setup( EM1D5       , GPIO_MUX_CPU1, 2, GPIO_OUTPUT, GPIO_PUSHPULL );   // 79       m       2       // EM1D5
+  GPIO_Setup( EM1D4       , GPIO_MUX_CPU1, 2, GPIO_OUTPUT, GPIO_PUSHPULL );   // 80       m       2       // EM1D4
+  GPIO_Setup( EM1D3       , GPIO_MUX_CPU1, 2, GPIO_OUTPUT, GPIO_PUSHPULL );   // 81       m       2       // EM1D3
+  GPIO_Setup( EM1D2       , GPIO_MUX_CPU1, 2, GPIO_OUTPUT, GPIO_PUSHPULL );   // 82       m       2       // EM1D2
+  GPIO_Setup( EM1D1       , GPIO_MUX_CPU1, 2, GPIO_OUTPUT, GPIO_PUSHPULL );   // 83       m       2       // EM1D1
+  GPIO_Setup( BOOT0       , GPIO_MUX_CPU1, 0, GPIO_INPUT , GPIO_PUSHPULL );   // 84       m       2       // BOOT0(GPIO84)
+  GPIO_Setup( EM1D1       , GPIO_MUX_CPU1, 2, GPIO_OUTPUT, GPIO_PUSHPULL );   // 85       m       2       // EM1D0
+  GPIO_Setup( EM1A13      , GPIO_MUX_CPU1, 2, GPIO_OUTPUT, GPIO_PUSHPULL );   // 86       m       2       // EM1A13
+  GPIO_Setup( EM1A14      , GPIO_MUX_CPU1, 2, GPIO_OUTPUT, GPIO_PUSHPULL );   // 87       m       2       // EM1A14
+  GPIO_Setup( EM1A15      , GPIO_MUX_CPU1, 2, GPIO_OUTPUT, GPIO_PUSHPULL );   // 88       m       2       // EM1A15
+  GPIO_Setup( EM1A16      , GPIO_MUX_CPU1, 2, GPIO_OUTPUT, GPIO_PUSHPULL );   // 89       m       2       // EM1A16
+  GPIO_Setup( EM1A17      , GPIO_MUX_CPU1, 2, GPIO_OUTPUT, GPIO_PUSHPULL );   // 90       m       2       // EM1A17
+  GPIO_Setup( EM1A18      , GPIO_MUX_CPU1, 2, GPIO_OUTPUT, GPIO_PUSHPULL );   // 91       m       2       // EM1A18
+  GPIO_Setup( EM1A19      , GPIO_MUX_CPU1, 2, GPIO_OUTPUT, GPIO_PUSHPULL );   // 92       m       2       // EM1A19
+  GPIO_Setup( I_MON_P24V  , GPIO_MUX_CPU1, 0, GPIO_INPUT , GPIO_PUSHPULL );   // 93       i       0       // MON +24V
+  GPIO_Setup( O_WDT_TRIG  , GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL );   // 94       o       0       // WDT Trig
+  GPIO_Setup( P99         , GPIO_MUX_CPU1, 0, GPIO_OUTPUT, GPIO_PUSHPULL );   // 99       o       0       // NC
+
+
+  ADC_RST_HI;
+  NOP;    NOP;    NOP;    NOP;    NOP;
+  ADC_RST_LO;
+  NOP;    NOP;    NOP;    NOP;    NOP;
+
+  ADC_CONV_LO;
+  NOP;    NOP;    NOP;    NOP;    NOP;
+  ADC_CONV_HI;
+
+
+  LD_ERR_HI;
+  NOP;    NOP;    NOP;    NOP;    NOP;
+  nETH_RST_LO;
+  NOP;    NOP;    NOP;    NOP;    NOP;
+
+  LD_PWR_HI;
+  NOP;    NOP;    NOP;    NOP;    NOP;
+  LD_GRE_LO;
+  NOP;    NOP;    NOP;    NOP;    NOP;
+  LD_ALM_HI;
+  NOP;    NOP;    NOP;    NOP;    NOP;
+  LD_RED_LO;
+  NOP;    NOP;    NOP;    NOP;    NOP;
+  LD_RUN_HI;
+
+}
+
+
+//*****************************************************************************
+//
+// Initial Adc Memory Pointer (0x80100000)
+// Size : 20sec * 60Hz * 32Sample * 10Word = 384000 (0x0005DC00)
+// pAdc->LowData[38400][10] = 384000word  // 20150621 20초 정의
+//
+//*****************************************************************************
+void Init_MemoryPointer( void )
+{
+  pMram   = ( MRAM_DATA   * )( ADDRESS_MAP[MEMORY_TYPE_MRAM   ].Start + 0x00000000UL );   // MRAM Data Pointer
+  pEvent  = ( EVENT_DATA  * )( ADDRESS_MAP[MEMORY_TYPE_EVENT  ].Start + 0x00000000UL );   // MRAM Event
+  pFault  = ( FAULT_DATA  * )( ADDRESS_MAP[MEMORY_TYPE_FAULT  ].Start + 0x00000000UL );   // MRAM Fault
+  pWave   = ( WAVE_DATA   * )( ADDRESS_MAP[MEMORY_TYPE_WAVE   ].Start + 0x00000000UL );   // MRAM Wave
+  pRaw    = ( RAW_DATA    * )( ADDRESS_MAP[MEMORY_TYPE_RAW    ].Start + 0x00000000UL );   // MRAM RawW
+  pAdc    = ( ADC_DATA    * )( ADDRESS_MAP[MEMORY_TYPE_ADC    ].Start + 0x00000000UL );   // ADC Data Pointer
+  pW5300  = ( W5300_DATA  * )( ADDRESS_MAP[MEMORY_TYPE_W5300  ].Start + 0x00000000UL );   // W5300 Data Pointer
+}
+
+
+
+void Init_RebootVariable( void )
+{
+
+}
+
+void Init_BootVariable( void )
+{
+
+}
+
+// 초기 Reg Clear
+void Init_SettingRegister( void )
+{
+
+}
+
+// Main 들어가기 전 Reg Clear
+#define eOUT_CARD_CHECK     1000
+#define eOUT_CARD_FIX       10
+void Init_Register( void )
+{
+  UINT16  i, j;
+
+  sSet.bFreq50Hz = 0;
+
+  sSta.bPowerStart = 0;
+
+  sSta.lPowerOnDelay = 0;
+  sSta.wPowerOnDelaySec = 0;
+  sStaTemp.lPowerOnDelay = sSta.lPowerOnDelay = 0;
+  sStaTemp.wPowerOnDelaySec = sSta.wPowerOnDelaySec = 0;
+
+  sRtc.Stp.bRtc = 0;
+  sRtc.Cnt.wRtc = 0;
+
+  for( i=0; i<eADC_MAX; i++ )
+  {
+    sAdc.ilBiasData[i] = 0;
+    for( j=0; j<eSAMPLE_NO; j++)
+      sAdc.iwRawData[i][j] = 0;
+  }
+//  for( j=0; j<eADC_SAMPLE; j++ )
+//    sAdc.iwRawData[j] = 0;
+
+  sCnt.wMain = 0;
+
+
+  sDbg.Stp.bType = eST_DBG_NORMAL;
+  sDbg.Cnt.bTx = 0;
+  sDbg.Cnt.bTxEnd = 0;
+  sDbg.bCmd = 0;
+  sDbg.bCmdSub = 0;
+  sDbg.bCmdNum = 0;
+  sDbg.Cnt.bRx = 0;
+  sDbg.Cnt.bRxEnd = 0;
+
+  sTest.bModbus = 0;
+  sDbg.Stp.bRx = 0;
+
+  sEth.Stp.wRun = 0;
+
+  sTest.bUtc2Rtc = 0;
+  sTest.bRtc2Utc = 0;
+  sTest.wPit = 0;
+
+  for( i=0; i<7; i++ )
+    sFat.wMb[i] = 0;
+
+}
+
+// Main들어가고 안정화 되는 400usec 뒤에  Reg Clear
+void Init_StartRegister( void )
+{
+
+}
+
+void Init_Interrupt( void )
+{
+
+}
+
+
+void delay_us( const uint32_t usec )
+{
+  UINT8 i, j, k;
+
+  for( i=0; i<usec; i++ )
+  {
+    for( j=0; j<100; j++ )
+    {
+      k += 1;    // 1/72
+    }
+  }
+}
+
+
+void delay_ms( const uint32_t usec )
+{
+  delay_us(1000 * usec);
+}
+
+
+
+void HEX2BIN( char *s, UINT8 i_bCount, UINT32 i_lHex )
+{
+  s[i_bCount] = 0;
+  do {
+    s[--i_bCount] = '0' + (char)( i_lHex & BIT0 );
+    i_lHex = i_lHex >> 1;
+  } while( i_bCount );
+
+}
+
+UINT16 BIN2HEX( char *s )
+{
+  UINT16  i = 0;
+  UINT16  i_wCount = 0;
+
+  while( s[i_wCount] )
+    i = (i << 1) | ( s[i_wCount++] - '0' );
+
+  return i;
+}
+
+
+
+
+/*******************************************************************************
+* Function Name  : Boot_Make
+* Description    : Start Delay Time Status
+* Input          : None.
+* Output         : None.
+* Return         : None.
+*******************************************************************************/
+void Boot_Make( void )
+{
+  ++sCnt.wMain;
+  if( sSta.lPowerOnDelay != 0xFFFFFFFF && ( sCnt.wMain % 100 ) == 0 )
+  {
+    sSta.lPowerOnDelay |= ( (UINT32)BIT0 << sCnt.bBoot0_1Sec );
+    sCnt.bBoot0_1Sec++;
+
+    if( !( sStaTemp.lPowerOnDelay & eON_DELAY_1000MS ) && sSta.lPowerOnDelay & eON_DELAY_1000MS )
+    {
+      sStaTemp.lPowerOnDelay |= eON_DELAY_1000MS;
+      sDbg.Stp.bType = eST_DBG_LOGO;
+      sDbg.Stp.bView = 0;
+    }
+    else if( !( sStaTemp.lPowerOnDelay & eON_DELAY_900MS ) && sSta.lPowerOnDelay & eON_DELAY_900MS )
+    {
+      sStaTemp.lPowerOnDelay |= eON_DELAY_900MS;
+    }
+    else if( !( sStaTemp.lPowerOnDelay & eON_DELAY_800MS ) && sSta.lPowerOnDelay & eON_DELAY_800MS )
+    {
+      sStaTemp.lPowerOnDelay |= eON_DELAY_800MS;
+    }
+    else if( !( sStaTemp.lPowerOnDelay & eON_DELAY_700MS ) && sSta.lPowerOnDelay & eON_DELAY_700MS )
+    {
+      sStaTemp.lPowerOnDelay |= eON_DELAY_700MS;
+    }
+    else if( !( sStaTemp.lPowerOnDelay & eON_DELAY_600MS ) && sSta.lPowerOnDelay & eON_DELAY_600MS )
+    {
+      sStaTemp.lPowerOnDelay |= eON_DELAY_600MS;
+    }
+    else if( !( sStaTemp.lPowerOnDelay & eON_DELAY_500MS ) && sSta.lPowerOnDelay & eON_DELAY_500MS )
+    {
+      sStaTemp.lPowerOnDelay |= eON_DELAY_500MS;
+    }
+    else if( !( sStaTemp.lPowerOnDelay & eON_DELAY_400MS ) && sSta.lPowerOnDelay & eON_DELAY_400MS )
+    {
+      sStaTemp.lPowerOnDelay |= eON_DELAY_400MS;
+//      nETH_RST_HI;
+      Init_StartRegister( );
+    }
+    else if( !( sStaTemp.lPowerOnDelay & eON_DELAY_300MS ) && sSta.lPowerOnDelay & eON_DELAY_300MS )
+    {
+      sStaTemp.lPowerOnDelay |= eON_DELAY_300MS;
+    }
+    else if( !( sStaTemp.lPowerOnDelay & eON_DELAY_200MS ) && sSta.lPowerOnDelay & eON_DELAY_200MS )
+    {
+      sStaTemp.lPowerOnDelay |= eON_DELAY_200MS;
+    }
+
+  }
+  if( sSta.wPowerOnDelaySec != 0xFFFF && ( sCnt.wMain % 1000 ) == 0 )
+  {
+    sSta.wPowerOnDelaySec |= ( (UINT32)BIT0 << sCnt.bBoot1_0Sec );
+    sCnt.bBoot1_0Sec++;
+
+    if( !( sStaTemp.wPowerOnDelaySec & eON_DELAY_10S ) && sSta.wPowerOnDelaySec & eON_DELAY_10S )
+    {
+      sStaTemp.wPowerOnDelaySec |= eON_DELAY_10S;
+    }
+    else if( !( sStaTemp.wPowerOnDelaySec & eON_DELAY_7S ) && sSta.wPowerOnDelaySec & eON_DELAY_7S )
+    {
+      sStaTemp.wPowerOnDelaySec |= eON_DELAY_7S;
+    }
+    else if( !( sStaTemp.wPowerOnDelaySec & eON_DELAY_6S ) && sSta.wPowerOnDelaySec & eON_DELAY_6S )
+    {
+      sStaTemp.wPowerOnDelaySec |= eON_DELAY_6S;
+    }
+    else if( !( sStaTemp.wPowerOnDelaySec & eON_DELAY_5S ) && sSta.wPowerOnDelaySec & eON_DELAY_5S )
+    {
+      sStaTemp.wPowerOnDelaySec |= eON_DELAY_5S;
+    }
+    else if( !( sStaTemp.wPowerOnDelaySec & eON_DELAY_4S ) && sSta.wPowerOnDelaySec & eON_DELAY_4S )
+    {
+      sStaTemp.wPowerOnDelaySec |= eON_DELAY_4S;
+    }
+    else if( !( sStaTemp.wPowerOnDelaySec & eON_DELAY_3S ) && sSta.wPowerOnDelaySec & eON_DELAY_3S )
+    {
+      sStaTemp.wPowerOnDelaySec |= eON_DELAY_3S;
+    }
+    else if( !( sStaTemp.wPowerOnDelaySec & eON_DELAY_2S ) && sSta.wPowerOnDelaySec & eON_DELAY_2S )
+    {
+      sStaTemp.wPowerOnDelaySec |= eON_DELAY_3S;
+    }
+  }
+}
+
+/*  header에 있음
+enum      // sRms sRmsSet
+{
+  eCAL_DSP_V,
+  eCAL_DSP_VP,
+  eCAL_DSP_IA,
+  eCAL_DSP_IAP,
+  eCAL_DSP_IB,
+  eCAL_DSP_IBP,
+  eCAL_DSP_IC,
+  eCAL_DSP_ICP,
+  eCAL_DSP_TC1,
+  eCAL_DSP_TC2,
+  eCAL_DSP_CC,
+  eCAL_DSP_TEMP,
+  eCAL_DSP_MAX,
+};
+*/
+RMS_REG sRmsSet[] =
+{
+//  fMin      fMax      *Zero Range             *Span Range             *Zero                   *Span                   *Real Code                  *Cali. Value
+  { 0.1,      200.0,    &sSet.wZeR[eADC_V],     &sSet.wSpR[eADC_V],     &sSet.fZe[eADC_V],      &sSet.fSp[eADC_V],      &sInt.f500Real[eINT_V],     &sDsp.fVValue[eADC_V]       },    // V
+  { -180.0,   180.0,    &sSet.wZeR[eADC_V],     &sSet.wSpR[eADC_V],     &sSet.fZe[eADC_V],      &sSet.fSp[eADC_V],      &sInt.f500Real[eINT_VP],    &sDsp.fValue[eCAL_DSP_VP]   },    // 사용 안함 VP
+  { 0.01,     120.0,    &sSet.wZeR[eADC_IA],    &sSet.wSpR[eADC_IA],    &sSet.fZe[eADC_IA],     &sSet.fSp[eADC_IA],     &sInt.f500Real[eINT_IA],    &sDsp.fVValue[eADC_IA]      },    // IA
+  { -180.0,   180,      &sSet.wZeR[eADC_IA],    &sSet.wSpR[eADC_IA],    &sSet.fZe[eADC_IA],     &sSet.fSp[eADC_IA],     &sInt.f500Real[eINT_IAP],   &sDsp.fValue[eCAL_DSP_IAP]  },    // 사용 안함 IAP
+  { 0.01,     120.0,    &sSet.wZeR[eADC_IB],    &sSet.wSpR[eADC_IB],    &sSet.fZe[eADC_IB],     &sSet.fSp[eADC_IB],     &sInt.f500Real[eINT_IB],    &sDsp.fVValue[eADC_IB]      },    // IB
+  { -180.0,   180,      &sSet.wZeR[eADC_IB],    &sSet.wSpR[eADC_IB],    &sSet.fZe[eADC_IB],     &sSet.fSp[eADC_IB],     &sInt.f500Real[eINT_IBP],   &sDsp.fValue[eCAL_DSP_IBP]  },    // 사용 안함 IBP
+  { 0.01,     120.0,    &sSet.wZeR[eADC_IC],    &sSet.wSpR[eADC_IC],    &sSet.fZe[eADC_IC],     &sSet.fSp[eADC_IC],     &sInt.f500Real[eINT_IC],    &sDsp.fVValue[eADC_IC]      },    // IC
+  { -180.0,   180,      &sSet.wZeR[eADC_IC],    &sSet.wSpR[eADC_IC],    &sSet.fZe[eADC_IC],     &sSet.fSp[eADC_IC],     &sInt.f500Real[eINT_ICP],   &sDsp.fValue[eCAL_DSP_ICP]  },    // 사용 안함 ICP
+  { 0.01,     5.0,      &sSet.wZeR[eADC_TC1],   &sSet.wSpR[eADC_TC1],   &sSet.fZe[eADC_TC1],    &sSet.fSp[eADC_TC1],    &sInt.f500Real[eINT_TC1],   &sDsp.fVValue[eADC_TC1]     },    // TC1
+  { 0.01,     5.0,      &sSet.wZeR[eADC_TC2],   &sSet.wSpR[eADC_TC2],   &sSet.fZe[eADC_TC2],    &sSet.fSp[eADC_TC2],    &sInt.f500Real[eINT_TC2],   &sDsp.fVValue[eADC_TC2]     },    // TC2
+  { 0.01,     5.0,      &sSet.wZeR[eADC_CC],    &sSet.wSpR[eADC_CC],    &sSet.fZe[eADC_CC],     &sSet.fSp[eADC_CC],     &sInt.f500Real[eINT_CC],    &sDsp.fVValue[eADC_CC]      },    // CC
+  { 0.01,     200.0,    &sSet.wZeR[eADC_TEMP],  &sSet.wSpR[eADC_TEMP],  &sSet.fZe[eADC_TEMP],   &sSet.fSp[eADC_TEMP],   &sInt.f500Real[eINT_TEMP],  &sDsp.fValue[eCAL_DSP_TEMP] },    // TEMP
+};
+
+
+void Conv_CODE2RMS( RMS_REG sRms )
+{
+  float   i_fData;
+  float   i_fSub;
+
+  i_fData = *sRms.pfCode - *sRms.pfZe;
+  i_fData = ( (float)*sRms.pwSpR - (float)*sRms.pwZeR ) * i_fData;
+  i_fSub = *sRms.pfSp - *sRms.pfZe;
+  i_fData = i_fData / i_fSub;
+  i_fData += ( (float)*sRms.pwZeR );
+  *sRms.pfRms = i_fData /10;
+
+  if( *sRms.pfRms < sRms.fMin )
+    *sRms.pfRms = 0;
+}
+void Conv_CODE2PHASE( RMS_REG sRms )
+{
+#if(1)
+  if( sDsp.fValue[eCAL_DSP_V] < 1.0  )  sDsp.fValue[eCAL_DSP_VP]  = 0;
+  else                                  sDsp.fValue[eCAL_DSP_VP]  = sInt.f500Real[eINT_VP]  - sSet.fPh[4];
+  if( sDsp.fValue[eCAL_DSP_IA] < 0.05 ) sDsp.fValue[eCAL_DSP_IAP]  = 0;
+  else                                  sDsp.fValue[eCAL_DSP_IAP] = sInt.f500Real[eINT_IAP] - sSet.fPh[5];
+  if( sDsp.fValue[eCAL_DSP_IB] < 0.05 ) sDsp.fValue[eCAL_DSP_IBP]  = 0;
+  else                                  sDsp.fValue[eCAL_DSP_IBP] = sInt.f500Real[eINT_IBP] - sSet.fPh[6];
+  if( sDsp.fValue[eCAL_DSP_IC] < 0.05 ) sDsp.fValue[eCAL_DSP_ICP]  = 0;
+  else                                  sDsp.fValue[eCAL_DSP_ICP] = sInt.f500Real[eINT_ICP] - sSet.fPh[7];
+#else
+  sDsp.fValue[eCAL_DSP_VP]  = sInt.f500Real[eINT_VP]  - sSet.fPh[eADC_V];
+  sDsp.fValue[eCAL_DSP_IAP] = sInt.f500Real[eINT_IAP] - sSet.fPh[eADC_IA];
+  sDsp.fValue[eCAL_DSP_IBP] = sInt.f500Real[eINT_IBP] - sSet.fPh[eADC_IB];
+  sDsp.fValue[eCAL_DSP_ICP] = sInt.f500Real[eINT_ICP] - sSet.fPh[eADC_IC];
+#endif
+}
+void Conv_VOLT2CURR( UINT16 i_wNo, float *i_pfSource, float *i_pfTarget )
+{
+//  UINT16  i_wNo = i_pfSource - &sDsp.fVValue[0];
+  float   i_fRation = ( sSet.fRatio[i_wNo] / sSet.wSpR[i_wNo] *10 );
+
+  *i_pfTarget = *i_pfSource * i_fRation;
+}
+
+UINT32 lKTY81_210[151] =
+{
+/* -55 ~ 0도는 구현하지 않음
+//1030      1020      1010      1000      990       980       -56도     -57도      -58도     -59도
+  1759434,  1751428,  1743246,  1734976,  1726969,  1718599,  ---,      ---,      ---       ---
+//1135      1124.5    1114      1103.5    1093      1082.5    1072      1061.5    1051      1040.5
+  1840838,  1832895,  1824938,  1816935,  1809048,  1800730,  1792378,  1784182,  1776081,  1767629,
+//1247      1235.8    1224.6    1213.4    1202.2    1191      1179.8    1168.6    1157.4    1146.2
+  1918012,  1910885,  1903485,  1896094,  1888827,  1880625,  1873159,  1865003,  1856719,  1848857,
+//1367      1355      1343      1331      1319      1307      1295      1283      1271      1259
+  1981364,  1976351,  1970783,  1965211,  1958633,  1952429,  1945894,  1939685,  1932511,  1924880,
+//1495      1482.2    1469.4    1456.6    1443.8    1431      1418.2    1405.4    1392.6    1379.8
+  2023690,  2019850,  2016603,  2013201,  2009963,  2005070,  2001550,  1996298,  1992294,  1986365,
+//0도       1616.5    1603      1589.5    1576      1562.5    1549      1535.5    1522      1508.5
+  ---       2049504,  2046930,  2043996,  2040958,  2038544,  2036062,  2033342,  2030244,  2027097,
+*/
+//1630      1644.2    1658.4    1672.6    1686.8    1701      1715.2    1729.4    1743.6    1757.8      // ohm
+  2051774,  2054223,  2057084,  2058703,  2061197,  2063754,  2066340,  2068747,  2071573,  2073765,    // 0~9
+//1772      1787      1802      1817      1832      1847      1862      1877      1892      1907        // ohm
+  2077337,  2079624,  2081482,  2084403,  2086929,  2090382,  2093054,  2095377,  2098412,  2101006,    // 10~19
+//1922      1937.6    1953.2    1968.8    1984.4    2000      2016      2032      2048      2064        // ohm
+  2102600,  2106171,  2107968,  2111308,  2114098,  2115989,  2119714,  2124077,  2129439,  2134962,    // 20~29
+//2080      2096.5    2113      2129.5    2146      2162.5    2179      2195.5    2212      2228.5      // ohm
+  2140251,  2146251,  2151219,  2157199,  2162743,  2167707,  2173098,  2177991,  2182971,  2188157,    // 30~39
+//2245      2262.2    2279.4    2296.6    2313.8    2331      2348.2    2365.4    2382.6    2399.8      // ohm
+  2193029,  2198256,  2203679,  2208200,  2213221,  2217908,  2223617,  2228107,  2233135,  2237743,    // 40~49
+//2417      2435      2453      2471      2489      2507      2525      2543      2561      2579        // ohm
+  2242180,  2247020,  2251854,  2256125,  2261745,  2266151,  2270671,  2275540,  2279426,  2284572,    // 50~59
+//2597      2615.8    2634.6    2653.4    2672.2    2691      2709.8    2728.6    2747.4    2766.2      // ohm
+  2288463,  2292868,  2298330,  2302462,  2306451,  2310818,  2315212,  2320103,  2324515,  2328038,    // 60~69
+//2785      2804.5    2824      2843.5    2863      2882.5    2902      2921.5    2941      2960.5      // ohm
+  2333113,  2336550,  2340792,  2345120,  2349248,  2353640,  2358098,  2361790,  2365799,  2370085,    // 70~79
+//2980      3000.2    3020.4    3040.6    3060.8    3081      3101.2    3121.4    3141.6    3161.8      // ohm
+  2373347,  2377250,  2381249,  2385230,  2389107,  2393812,  2397691,  2400833,  2404498,  2408414,    // 80~89
+//3182      3203      3224      3245      3266      3287      3308      3329      3350      3371        // ohm
+  2411761,  2415984,  2419462,  2423006,  2427131,  2431190,  2433888,  2437454,  2440951,  2444709,    // 90~99
+//3392      3413.5    3435      3456.5    3478      3499.5    3521      3542.5    3564      3585.5      // ohm
+  2448104,  2451732,  2455340,  2458503,  2462013,  2465342,  2468609,  2472352,  2475691,  2478788,    // 100~109
+//3607      3628      3649      3670      3691      3712      3733      3754      3775      3796        // ohm
+  2481606,  2485509,  2488678,  2491469,  2494473,  2496823,  2499857,  2502774,  2505818,  2509150,    // 110~119
+//3817      3836.6    3856.2    3875.8    3895.4    3915      3933.6    3952.2    3970.8    3989.4      // ohm
+  2512034,  2515189,  2517133,  2519715,  2522145,  2525026,  2527633,  2529855,  2532015,  2534503,    // 120~129
+//4008      4023.8    4039.6    4055.4    4071.2    4087      4102.8    4118.6    4134.4    4150.2      // ohm
+  2537660,  2539502,  2541147,  2542742,  2544604,  2547458,  2549025,  2551215,  2553238,  2555086,    // 130~139
+//4166      4177.4    4188.8    42002    4211.6    4223      4234.4    4245.8    4257.2    4268.6       // ohm
+  2556549,  2557420,  2558943,  2560102,  2561491,  2562836,  2564170,  2565718,  2566882,  2568457,    // 140~149
+//4280      151도     152도      153도     154도      155도     156도      157도     158도      159도       // ohm
+  2570079,                                                                                             // 150
+};
+#define eFAIL_TEMP_LO_CODE    1600000   // -55도가 1721695 이므로 이정도로 낮게 나오면 문제가 있다고 판단 함
+#define eFAIL_TEMP_LO         30000     // ADC Code Low 이상 Fail Return
+#define eFAIL_TEMP_HI_CODE    3000000   // 150도가 2570452 이므로 이것보다 크면 문제 있다고 판단 함
+#define eFAIL_TEMP_HI         30001     // ADC Code High 이상 Fail Return
+#define ePV_TEMP_MIN          0         // 150.00도
+#define ePV_TEMP_MAX          15000     // 150.00도
+void Adc2Temp( UINT32 i_lData, float *i_fTemp )
+{
+//  UINT16  i_wData;
+  UINT32  i_lMin, i_lMax;
+  UINT32  i_lRange;
+  UINT32  i_lData2;
+  UINT32  i_lTemp;
+  BOOL    i_bBreak = 0;
+  UINT16  i, j;
+
+//  i_wData = i_lData;
+//  i_wData = i_lData /80;
+
+  if( i_lData < eFAIL_TEMP_LO_CODE )        // 0도 보다 작으면
+  {
+    i_lTemp = eFAIL_TEMP_LO;                // 온도센서 ADC Fail
+  }
+  else if( i_lData <= lKTY81_210[0] )       // 0도 보다 작으면
+  {
+// 야기에 -온도 Table 적용 하면 되지만 현재는 추후로 미룸
+    i_lTemp = 0;                            // 0도
+  }
+  else if( i_lData >= lKTY81_210[150] )     // 150도 보다 크면
+  {
+    if( i_lData > eFAIL_TEMP_HI_CODE )      // Code 8000 보다 크면
+      i_lTemp = eFAIL_TEMP_HI;              // 온도센서 Open
+    else
+      i_lTemp = ePV_TEMP_MAX;       // 150.00도
+  }
+  else      // 0도 ~ 99.9도
+  {
+    for( i=0; i<150; i+=10 )
+    {
+      if( i_lData < lKTY81_210[i+10] )      // 0도 ~ 99.9도
+      {
+        for( j=0; j<10; j++ )
+        {
+          i_lMax = lKTY81_210[i+j+1];
+          if( i_lData < i_lMax )
+          {
+            i_lMin = lKTY81_210[i+j];
+//            i_lMax = lKTY81_210[i+j+1];
+            i_bBreak = 1;
+            break;
+          }
+        }
+      }
+      if( i_bBreak )
+        break;
+    }
+    i_lRange = i_lMax - i_lMin;
+    i_lData2 = i_lData - i_lMin;
+    i_lTemp = ( ( i + j ) *100 ) + ( i_lData2 * 100 ) / i_lRange;
+//    i_lTemp += 5;
+//    i_lTemp /= 10;
+  }
+
+  *i_fTemp = (float)i_lTemp /100;
+//  return i_lTemp;
+}
+
+
+
+
+
+
+
+void main_loop(void)
+{
+  Emif_MagicCheck( );
+
+  Init_Modbus( );
+
+  if( CpuSysRegs.RESC.bit.XRSn )
+    LD_GRE_HI;
+  else
+    LD_GRE_LO;
+
+  while (1)
+  {
+    if (sSta.bMainLoop)
+    {
+      sSta.bMainLoop = 0;
+
+      LD_GRE_HI;
+      if( sDbg.Stp.bType != eST_DBG_RESET )
+        WDT_TRIG_HI;
+//      LD_RED_HI;
+//      LD_RUN_HI;
+
+      Boot_Make( );
+
+      IO_Make( );
+
+//      LD_RUN_HI;
+      Rtc_Make( );
+//      LD_RUN_LO;
+
+      Adc_Make( );
+
+      if( sTest.bUtc2Rtc )
+        Utc2Rtc( 9, &sSet.Time, &sDsp.ilUtc );
+      if( sTest.bRtc2Utc )
+        Rtc2Utc( 9, &sDsp.ilUtc, &sDsp.Time );
+
+      if (sSta.lPowerOnDelay & eON_DELAY_700MS)
+        Integral_Make( );
+
+      if (sSta.lPowerOnDelay & eON_DELAY_500MS)
+      {
+        Sci_Make( );
+        w5300_Make( );
+      }
+
+      if( sTest.bMod )  Modbus_RxMake( &sEth );
+      LD_GRE_LO;
+//      LD_RED_LO;
+//      LD_RUN_LO;
+      WDT_TRIG_LO;
+    }
+  }
+}
+
+//#define ETH_MAX_BUF_SIZE		2048
+//uint8_t bEthBuf[ETH_MAX_BUF_SIZE];
+void w5300_Make( void )
+{
+  switch( sEth.Stp.wRun++ )
+  {
+  case 0:   case 1:   case 2:   case 3:   case 4:   
+    nETH_RST_LO;
+  break;
+  case 5:   case 6:   case 7:   case 8:   case 9:   case 10:  case 11:  case 12:  case 13:  case 14:
+  case 15:  case 16:  case 17:  case 18:  case 19:  case 20:  case 21:  case 22:  case 23:  case 24:
+  case 25:  case 26:  case 27:  case 28:  case 29:  case 30:  case 31:  case 32:  case 33:  case 34:
+  case 35:  case 36:  case 37:  case 38:  case 39:  case 40:  case 41:  case 42:  case 43:  case 44:
+  case 45:  case 46:  case 47:  case 48:  case 49:  case 50:  case 51:  case 52:  case 53:  case 54:
+    nETH_RST_HI;
+  break;
+  case 55:
+    WIZCHIP_WRITE( MR, MR_RST );
+//    setMR( MR_RST );
+    WIZCHIP_WRITE( GAR,     sDsp.wDefGate[0] );
+    WIZCHIP_WRITE( GAR+4,   sDsp.wDefGate[1] );
+    WIZCHIP_WRITE( SUBR,    sDsp.wSubMask[0] );
+    WIZCHIP_WRITE( SUBR+4,  sDsp.wSubMask[1] );
+    WIZCHIP_WRITE( SHAR,    sSet.wMac[0] );
+    WIZCHIP_WRITE( SHAR+4,  sSet.wMac[1] );
+    WIZCHIP_WRITE( SHAR+8,  sSet.wMac[2] );
+    WIZCHIP_WRITE( SIPR,    sDsp.wIpAddr[0] );
+    WIZCHIP_WRITE( SIPR+4,  sDsp.wIpAddr[1] );
+  break;
+  case 56:
+    sEth.Stp.wRun--;
+    loopback_tcps( 0, (uint8_t *)sEth.bRxData, sDsp.wPortNum );
+//    loopback_udps( 1, bEthBuf, sDsp.wPortNum );
+#if(1)    // 20230518 링크가 다시 안되어 이 부분은 복원하고 PC 프로그램 받아서 Test 해서 다시 배포하기로 함
+ #if(1)
+    if( ++sCnt.lSocketOff >= ( 60000 *4 ) )
+    {
+      sCnt.lSocketOff = 0;
+      sEth.Stp.wRun = 0;
+    }
+ #else
+    if( ++sCnt.lSocketOff >= ( 60000 *4 ) )
+    {
+      if( ( disconnect( 0 ) ) != SOCK_OK )
+        sCnt.lSocketOff = ( 60000 *4 );
+      else
+        sCnt.lSocketOff = 0;
+    }
+ #endif
+#endif
+  break;
+  default:
+  break;
+  }
+}
+
+void W5300_write(uint32_t addr, iodata_t wd)
+{
+  *((uint16_t*)(addr )) = wd;
+//  *((uint16_t*)(addr << 2)) = wd;
+}
+
+iodata_t W5300_read(uint32_t addr)
+{
+  return *((uint16_t*)(addr));
+//  return *((uint16_t*)(addr << 2));
+}
+uint8_t wiznet_memsize[2][8] = {{8,8,8,8,8,8,8,8}, {8,8,8,8,8,8,8,8}};
+wiz_NetInfo gWIZNETINFO = {
+    .mac = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06},
+    .ip = {192, 168, 10, 100},
+    .sn = {255, 255, 255, 0},
+    .gw = {192, 168, 10, 1},
+    .dns = {0, 0, 0, 0},
+    .dhcp = NETINFO_STATIC
+};
+void Init_w5300( void )
+{
+//	unsigned int tmpaddr[4];
+
+//	Reset_W5300();
+//	reg_wizchip_bus_cbfunc(W5300_read, W5300_write);  // 이거 살리면 번지를 제대로 읽어 오지 못함
+
+//	printf("getMR() = %04X\r\n", getMR());
+
+	if (ctlwizchip(CW_INIT_WIZCHIP, (void*)wiznet_memsize) == -1)
+	{
+//		printf("W5300 memory initialization failed\r\n");
+	}
+
+	ctlnetwork(CN_SET_NETINFO, (void *)&gWIZNETINFO);
+//	print_network_information();
+}
+
+
+#define eINT_100REAL          10        // DFT 100ms Real 적분 시간
+#define eINT_500REAL          30        // DFT 500ms Real 적분 시간 (Calibration Data)
+#define eINT_DATA             50        // DFT 500ms마다 Cal. 적용 Data 생성
+#define eINT_SV               70        // 100ms마다 SV Check 
+void Integral_Make( void )
+{
+  UINT16  i, j, k;
+  float   i_fData, i_fTemp, i_fMin, i_fMax;
+
+  switch( sInt.Cnt.wRun )
+  {
+  case 0: case 1: case 2: case 3: case 4: case 5: case 6: case 7: case 8: case 9:
+// 초기화
+  break;
+// 100msec 마다 eINT_100REAL(10msec) 뒤부터 적분을 시작 함
+  case ( 000 + eINT_100REAL + eINT_TEMP     ):  case ( 000 + eINT_100REAL + eINT_TC1      ):  case ( 000 + eINT_100REAL + eINT_TC2      ):  case ( 000 + eINT_100REAL + eINT_CC       ):
+  case ( 100 + eINT_100REAL + eINT_TEMP     ):  case ( 100 + eINT_100REAL + eINT_TC1      ):  case ( 100 + eINT_100REAL + eINT_TC2      ):  case ( 100 + eINT_100REAL + eINT_CC       ):
+  case ( 200 + eINT_100REAL + eINT_TEMP     ):  case ( 200 + eINT_100REAL + eINT_TC1      ):  case ( 200 + eINT_100REAL + eINT_TC2      ):  case ( 200 + eINT_100REAL + eINT_CC       ):
+  case ( 300 + eINT_100REAL + eINT_TEMP     ):  case ( 300 + eINT_100REAL + eINT_TC1      ):  case ( 300 + eINT_100REAL + eINT_TC2      ):  case ( 300 + eINT_100REAL + eINT_CC       ):
+  case ( 400 + eINT_100REAL + eINT_TEMP     ):  case ( 400 + eINT_100REAL + eINT_TC1      ):  case ( 400 + eINT_100REAL + eINT_TC2      ):  case ( 400 + eINT_100REAL + eINT_CC       ):
+  case ( 500 + eINT_100REAL + eINT_TEMP     ):  case ( 500 + eINT_100REAL + eINT_TC1      ):  case ( 500 + eINT_100REAL + eINT_TC2      ):  case ( 500 + eINT_100REAL + eINT_CC       ):
+  case ( 600 + eINT_100REAL + eINT_TEMP     ):  case ( 600 + eINT_100REAL + eINT_TC1      ):  case ( 600 + eINT_100REAL + eINT_TC2      ):  case ( 600 + eINT_100REAL + eINT_CC       ):
+  case ( 700 + eINT_100REAL + eINT_TEMP     ):  case ( 700 + eINT_100REAL + eINT_TC1      ):  case ( 700 + eINT_100REAL + eINT_TC2      ):  case ( 700 + eINT_100REAL + eINT_CC       ):
+  case ( 800 + eINT_100REAL + eINT_TEMP     ):  case ( 800 + eINT_100REAL + eINT_TC1      ):  case ( 800 + eINT_100REAL + eINT_TC2      ):  case ( 800 + eINT_100REAL + eINT_CC       ):
+  case ( 900 + eINT_100REAL + eINT_TEMP     ):  case ( 900 + eINT_100REAL + eINT_TC1      ):  case ( 900 + eINT_100REAL + eINT_TC2      ):  case ( 900 + eINT_100REAL + eINT_CC       ):
+  case ( 000 + eINT_100REAL + eINT_V_BIAS   ):  case ( 000 + eINT_100REAL + eINT_IA_BIAS  ):  case ( 000 + eINT_100REAL + eINT_IB_BIAS  ):  case ( 000 + eINT_100REAL + eINT_IC_BIAS  ):
+  case ( 100 + eINT_100REAL + eINT_V_BIAS   ):  case ( 100 + eINT_100REAL + eINT_IA_BIAS  ):  case ( 100 + eINT_100REAL + eINT_IB_BIAS  ):  case ( 100 + eINT_100REAL + eINT_IC_BIAS  ):
+  case ( 200 + eINT_100REAL + eINT_V_BIAS   ):  case ( 200 + eINT_100REAL + eINT_IA_BIAS  ):  case ( 200 + eINT_100REAL + eINT_IB_BIAS  ):  case ( 200 + eINT_100REAL + eINT_IC_BIAS  ):
+  case ( 300 + eINT_100REAL + eINT_V_BIAS   ):  case ( 300 + eINT_100REAL + eINT_IA_BIAS  ):  case ( 300 + eINT_100REAL + eINT_IB_BIAS  ):  case ( 300 + eINT_100REAL + eINT_IC_BIAS  ):
+  case ( 400 + eINT_100REAL + eINT_V_BIAS   ):  case ( 400 + eINT_100REAL + eINT_IA_BIAS  ):  case ( 400 + eINT_100REAL + eINT_IB_BIAS  ):  case ( 400 + eINT_100REAL + eINT_IC_BIAS  ):
+  case ( 500 + eINT_100REAL + eINT_V_BIAS   ):  case ( 500 + eINT_100REAL + eINT_IA_BIAS  ):  case ( 500 + eINT_100REAL + eINT_IB_BIAS  ):  case ( 500 + eINT_100REAL + eINT_IC_BIAS  ):
+  case ( 600 + eINT_100REAL + eINT_V_BIAS   ):  case ( 600 + eINT_100REAL + eINT_IA_BIAS  ):  case ( 600 + eINT_100REAL + eINT_IB_BIAS  ):  case ( 600 + eINT_100REAL + eINT_IC_BIAS  ):
+  case ( 700 + eINT_100REAL + eINT_V_BIAS   ):  case ( 700 + eINT_100REAL + eINT_IA_BIAS  ):  case ( 700 + eINT_100REAL + eINT_IB_BIAS  ):  case ( 700 + eINT_100REAL + eINT_IC_BIAS  ):
+  case ( 800 + eINT_100REAL + eINT_V_BIAS   ):  case ( 800 + eINT_100REAL + eINT_IA_BIAS  ):  case ( 800 + eINT_100REAL + eINT_IB_BIAS  ):  case ( 800 + eINT_100REAL + eINT_IC_BIAS  ):
+  case ( 900 + eINT_100REAL + eINT_V_BIAS   ):  case ( 900 + eINT_100REAL + eINT_IA_BIAS  ):  case ( 900 + eINT_100REAL + eINT_IB_BIAS  ):  case ( 900 + eINT_100REAL + eINT_IC_BIAS  ):
+  case ( 000 + eINT_100REAL + eINT_V        ):  case ( 000 + eINT_100REAL + eINT_IA       ):  case ( 000 + eINT_100REAL + eINT_IB       ):  case ( 000 + eINT_100REAL + eINT_IC       ):
+  case ( 100 + eINT_100REAL + eINT_V        ):  case ( 100 + eINT_100REAL + eINT_IA       ):  case ( 100 + eINT_100REAL + eINT_IB       ):  case ( 100 + eINT_100REAL + eINT_IC       ):
+  case ( 200 + eINT_100REAL + eINT_V        ):  case ( 200 + eINT_100REAL + eINT_IA       ):  case ( 200 + eINT_100REAL + eINT_IB       ):  case ( 200 + eINT_100REAL + eINT_IC       ):
+  case ( 300 + eINT_100REAL + eINT_V        ):  case ( 300 + eINT_100REAL + eINT_IA       ):  case ( 300 + eINT_100REAL + eINT_IB       ):  case ( 300 + eINT_100REAL + eINT_IC       ):
+  case ( 400 + eINT_100REAL + eINT_V        ):  case ( 400 + eINT_100REAL + eINT_IA       ):  case ( 400 + eINT_100REAL + eINT_IB       ):  case ( 400 + eINT_100REAL + eINT_IC       ):
+  case ( 500 + eINT_100REAL + eINT_V        ):  case ( 500 + eINT_100REAL + eINT_IA       ):  case ( 500 + eINT_100REAL + eINT_IB       ):  case ( 500 + eINT_100REAL + eINT_IC       ):
+  case ( 600 + eINT_100REAL + eINT_V        ):  case ( 600 + eINT_100REAL + eINT_IA       ):  case ( 600 + eINT_100REAL + eINT_IB       ):  case ( 600 + eINT_100REAL + eINT_IC       ):
+  case ( 700 + eINT_100REAL + eINT_V        ):  case ( 700 + eINT_100REAL + eINT_IA       ):  case ( 700 + eINT_100REAL + eINT_IB       ):  case ( 700 + eINT_100REAL + eINT_IC       ):
+  case ( 800 + eINT_100REAL + eINT_V        ):  case ( 800 + eINT_100REAL + eINT_IA       ):  case ( 800 + eINT_100REAL + eINT_IB       ):  case ( 800 + eINT_100REAL + eINT_IC       ):
+  case ( 900 + eINT_100REAL + eINT_V        ):  case ( 900 + eINT_100REAL + eINT_IA       ):  case ( 900 + eINT_100REAL + eINT_IB       ):  case ( 900 + eINT_100REAL + eINT_IC       ):
+  case ( 000 + eINT_100REAL + eINT_VP       ):  case ( 000 + eINT_100REAL + eINT_IAP      ):  case ( 000 + eINT_100REAL + eINT_IBP      ):  case ( 000 + eINT_100REAL + eINT_ICP      ):
+  case ( 100 + eINT_100REAL + eINT_VP       ):  case ( 100 + eINT_100REAL + eINT_IAP      ):  case ( 100 + eINT_100REAL + eINT_IBP      ):  case ( 100 + eINT_100REAL + eINT_ICP      ):
+  case ( 200 + eINT_100REAL + eINT_VP       ):  case ( 200 + eINT_100REAL + eINT_IAP      ):  case ( 200 + eINT_100REAL + eINT_IBP      ):  case ( 200 + eINT_100REAL + eINT_ICP      ):
+  case ( 300 + eINT_100REAL + eINT_VP       ):  case ( 300 + eINT_100REAL + eINT_IAP      ):  case ( 300 + eINT_100REAL + eINT_IBP      ):  case ( 300 + eINT_100REAL + eINT_ICP      ):
+  case ( 400 + eINT_100REAL + eINT_VP       ):  case ( 400 + eINT_100REAL + eINT_IAP      ):  case ( 400 + eINT_100REAL + eINT_IBP      ):  case ( 400 + eINT_100REAL + eINT_ICP      ):
+  case ( 500 + eINT_100REAL + eINT_VP       ):  case ( 500 + eINT_100REAL + eINT_IAP      ):  case ( 500 + eINT_100REAL + eINT_IBP      ):  case ( 500 + eINT_100REAL + eINT_ICP      ):
+  case ( 600 + eINT_100REAL + eINT_VP       ):  case ( 600 + eINT_100REAL + eINT_IAP      ):  case ( 600 + eINT_100REAL + eINT_IBP      ):  case ( 600 + eINT_100REAL + eINT_ICP      ):
+  case ( 700 + eINT_100REAL + eINT_VP       ):  case ( 700 + eINT_100REAL + eINT_IAP      ):  case ( 700 + eINT_100REAL + eINT_IBP      ):  case ( 700 + eINT_100REAL + eINT_ICP      ):
+  case ( 800 + eINT_100REAL + eINT_VP       ):  case ( 800 + eINT_100REAL + eINT_IAP      ):  case ( 800 + eINT_100REAL + eINT_IBP      ):  case ( 800 + eINT_100REAL + eINT_ICP      ):
+  case ( 900 + eINT_100REAL + eINT_VP       ):  case ( 900 + eINT_100REAL + eINT_IAP      ):  case ( 900 + eINT_100REAL + eINT_IBP      ):  case ( 900 + eINT_100REAL + eINT_ICP      ):
+    i = ( ( sInt.Cnt.wRun - eINT_100REAL ) % 100 );
+    k = sInt.Cnt.w100ms;
+    sInt.f100ms[i][k] = sInt.fReal[i];
+    i_fData = i_fMax = i_fMin = sInt.f100ms[i][k];
+    for( j=1; j<sSet.wNo100ms; j++ )
+    {
+      if( k == 0 )  k = eINT_100MS_NO;
+      else          k--;
+      i_fTemp = sInt.f100ms[i][k];
+      i_fData += i_fTemp;
+      if( i_fMax < i_fTemp )
+        i_fMax = i_fTemp;
+      else if( i_fMin > i_fTemp )
+        i_fMin = i_fTemp;
+    }
+    sInt.f100Real[i] = ( i_fData - ( i_fMax + i_fMin ) ) / ( sSet.wNo100ms -2 );
+  break;
+  case ( 000 + eINT_500REAL + eINT_TEMP     ):  case ( 000 + eINT_500REAL + eINT_TC1      ):  case ( 000 + eINT_500REAL + eINT_TC2      ):  case ( 000 + eINT_500REAL + eINT_CC       ):
+  case ( 500 + eINT_500REAL + eINT_TEMP     ):  case ( 500 + eINT_500REAL + eINT_TC1      ):  case ( 500 + eINT_500REAL + eINT_TC2      ):  case ( 500 + eINT_500REAL + eINT_CC       ):
+  case ( 000 + eINT_500REAL + eINT_V_BIAS   ):  case ( 000 + eINT_500REAL + eINT_IA_BIAS  ):  case ( 000 + eINT_500REAL + eINT_IB_BIAS  ):  case ( 000 + eINT_500REAL + eINT_IC_BIAS  ):
+  case ( 500 + eINT_500REAL + eINT_V_BIAS   ):  case ( 500 + eINT_500REAL + eINT_IA_BIAS  ):  case ( 500 + eINT_500REAL + eINT_IB_BIAS  ):  case ( 500 + eINT_500REAL + eINT_IC_BIAS  ):
+  case ( 000 + eINT_500REAL + eINT_V        ):  case ( 000 + eINT_500REAL + eINT_IA       ):  case ( 000 + eINT_500REAL + eINT_IB       ):  case ( 000 + eINT_500REAL + eINT_IC       ):
+  case ( 500 + eINT_500REAL + eINT_V        ):  case ( 500 + eINT_500REAL + eINT_IA       ):  case ( 500 + eINT_500REAL + eINT_IB       ):  case ( 500 + eINT_500REAL + eINT_IC       ):
+  case ( 000 + eINT_500REAL + eINT_VP       ):  case ( 000 + eINT_500REAL + eINT_IAP      ):  case ( 000 + eINT_500REAL + eINT_IBP      ):  case ( 000 + eINT_500REAL + eINT_ICP      ):
+  case ( 500 + eINT_500REAL + eINT_VP       ):  case ( 500 + eINT_500REAL + eINT_IAP      ):  case ( 500 + eINT_500REAL + eINT_IBP      ):  case ( 500 + eINT_500REAL + eINT_ICP      ):
+    i = ( ( sInt.Cnt.wRun - eINT_500REAL ) % 100 );
+    k = sInt.Cnt.w500ms;
+    sInt.f500ms[i][k] = sInt.f100Real[i];
+    i_fData = i_fMax = i_fMin = sInt.f500ms[i][k];
+    for( j=1; j<sSet.wNo500ms; j++ )
+    {
+      if( k == 0 )  k = eINT_500MS_NO;
+      else          k--;
+      i_fTemp = sInt.f500ms[i][k];
+      i_fData += i_fTemp;
+      if( i_fMax < i_fTemp )
+        i_fMax = i_fTemp;
+      else if( i_fMin > i_fTemp )
+        i_fMin = i_fTemp;
+    }
+    sInt.f500Real[i] = ( i_fData - ( i_fMax + i_fMin ) ) / ( sSet.wNo500ms -2 );
+  break;
+  case ( 000 + eINT_DATA + eCAL_DSP_V    ):  case ( 000 + eINT_DATA + eCAL_DSP_VP   ):  case ( 000 + eINT_DATA + eCAL_DSP_IA   ):  case ( 000 + eINT_DATA + eCAL_DSP_IAP  ):
+  case ( 500 + eINT_DATA + eCAL_DSP_V    ):  case ( 500 + eINT_DATA + eCAL_DSP_VP   ):  case ( 500 + eINT_DATA + eCAL_DSP_IA   ):  case ( 500 + eINT_DATA + eCAL_DSP_IAP  ):
+  case ( 000 + eINT_DATA + eCAL_DSP_IB   ):  case ( 000 + eINT_DATA + eCAL_DSP_IBP  ):  case ( 000 + eINT_DATA + eCAL_DSP_IC   ):  case ( 000 + eINT_DATA + eCAL_DSP_ICP  ):
+  case ( 500 + eINT_DATA + eCAL_DSP_IB   ):  case ( 500 + eINT_DATA + eCAL_DSP_IBP  ):  case ( 500 + eINT_DATA + eCAL_DSP_IC   ):  case ( 500 + eINT_DATA + eCAL_DSP_ICP  ):
+  case ( 000 + eINT_DATA + eCAL_DSP_TC1  ):  case ( 000 + eINT_DATA + eCAL_DSP_TC2  ):  case ( 000 + eINT_DATA + eCAL_DSP_CC   ):  case ( 000 + eINT_DATA + eCAL_DSP_TEMP ):
+  case ( 500 + eINT_DATA + eCAL_DSP_TC1  ):  case ( 500 + eINT_DATA + eCAL_DSP_TC2  ):  case ( 500 + eINT_DATA + eCAL_DSP_CC   ):  case ( 500 + eINT_DATA + eCAL_DSP_TEMP ):
+    i = ( ( sInt.Cnt.wRun - eINT_DATA ) % 100 );
+    sRms = sRmsSet[i];
+    if( i == eCAL_DSP_V || i == eCAL_DSP_IA || i == eCAL_DSP_IB || i == eCAL_DSP_IC )
+    {
+      Conv_CODE2RMS( sRms );
+      Conv_VOLT2CURR( ( i /2 ) +eADC_V, &sDsp.fVValue[( i /2 )+eADC_V], &sDsp.fValue[i] );    // eADC_TC1, eADC_TC2, eADC_CC
+    }
+    else if( i == eCAL_DSP_VP || i == eCAL_DSP_IAP || i == eCAL_DSP_IBP || i == eCAL_DSP_ICP )
+      Conv_CODE2PHASE( sRms );
+    else if( i == eCAL_DSP_TC1 || i == eCAL_DSP_TC2 || i == eCAL_DSP_CC )
+    {
+      Conv_CODE2RMS( sRms );
+      Conv_VOLT2CURR( i-eCAL_DSP_TC1 +1, &sDsp.fVValue[i-eCAL_DSP_TC1 +1], &sDsp.fValue[i] );    // eADC_TC1, eADC_TC2, eADC_CC
+    }
+    else if( i == eCAL_DSP_TEMP )
+      Adc2Temp( (UINT32)sInt.f500Real[eINT_TEMP], &sDsp.fValue[eCAL_DSP_TEMP] );
+//      Conv_CODE2TEMP( sRms );
+  break;
+  case ( 000 + eINT_100REAL + eINT_MAX      ):
+  case ( 100 + eINT_100REAL + eINT_MAX      ):
+  case ( 200 + eINT_100REAL + eINT_MAX      ):
+  case ( 300 + eINT_100REAL + eINT_MAX      ):
+  case ( 400 + eINT_100REAL + eINT_MAX      ):
+  case ( 500 + eINT_100REAL + eINT_MAX      ):
+  case ( 600 + eINT_100REAL + eINT_MAX      ):
+  case ( 700 + eINT_100REAL + eINT_MAX      ):
+  case ( 800 + eINT_100REAL + eINT_MAX      ):
+  case ( 900 + eINT_100REAL + eINT_MAX      ):
+    if( ++sInt.Cnt.w100ms >= eINT_100MS_NO )  sInt.Cnt.w100ms = 0;
+  break;
+  case ( 000 + eINT_500REAL + eINT_MAX      ):
+  case ( 500 + eINT_500REAL + eINT_MAX      ):
+    if( ++sInt.Cnt.w500ms >= eINT_500MS_NO )  sInt.Cnt.w500ms = 0;
+  break;
+  case ( 000 + eINT_SV + eINT_SV_PASS    ): case ( 000 + eINT_SV + eINT_SV_ID      ): case ( 000 + eINT_SV + eINT_SV_ETH     ): case ( 000 + eINT_SV + eINT_SV_TRIG    ): case ( 000 + eINT_SV + eINT_SV_DEBO    ): case ( 000 + eINT_SV + eINT_SV_TRIP    ): case ( 000 + eINT_SV + eINT_SV_INT     ): case ( 000 + eINT_SV + eINT_SV_DCRATIO ): case ( 000 + eINT_SV + eINT_SV_ACRATIO ): 
+  case ( 000 + eINT_SV + eINT_SV_DCZER   ): case ( 000 + eINT_SV + eINT_SV_DCSPR   ): case ( 000 + eINT_SV + eINT_SV_ACZER   ): case ( 000 + eINT_SV + eINT_SV_ACSPR   ): case ( 000 + eINT_SV + eINT_SV_DCZE    ): case ( 000 + eINT_SV + eINT_SV_DCSP    ): case ( 000 + eINT_SV + eINT_SV_ACZE    ): case ( 000 + eINT_SV + eINT_SV_ACSP    ): case ( 000 + eINT_SV + eINT_SV_ACPH    ):
+/*
+  case ( 100 + eINT_SV + eINT_SV_PASS    ): case ( 100 + eINT_SV + eINT_SV_ID      ): case ( 100 + eINT_SV + eINT_SV_ETH     ): case ( 100 + eINT_SV + eINT_SV_TRIG    ): case ( 100 + eINT_SV + eINT_SV_DEBO    ): case ( 100 + eINT_SV + eINT_SV_TRIP    ): case ( 100 + eINT_SV + eINT_SV_INT     ): case ( 100 + eINT_SV + eINT_SV_DCRATIO ): case ( 100 + eINT_SV + eINT_SV_ACRATIO ): 
+  case ( 100 + eINT_SV + eINT_SV_DCZER   ): case ( 100 + eINT_SV + eINT_SV_DCSPR   ): case ( 100 + eINT_SV + eINT_SV_ACZER   ): case ( 100 + eINT_SV + eINT_SV_ACSPR   ): case ( 100 + eINT_SV + eINT_SV_DCZE    ): case ( 100 + eINT_SV + eINT_SV_DCSP    ): case ( 100 + eINT_SV + eINT_SV_ACZE    ): case ( 100 + eINT_SV + eINT_SV_ACSP    ): case ( 100 + eINT_SV + eINT_SV_ACPH    ):
+  case ( 200 + eINT_SV + eINT_SV_PASS    ): case ( 200 + eINT_SV + eINT_SV_ID      ): case ( 200 + eINT_SV + eINT_SV_ETH     ): case ( 200 + eINT_SV + eINT_SV_TRIG    ): case ( 200 + eINT_SV + eINT_SV_DEBO    ): case ( 200 + eINT_SV + eINT_SV_TRIP    ): case ( 200 + eINT_SV + eINT_SV_INT     ): case ( 200 + eINT_SV + eINT_SV_DCRATIO ): case ( 200 + eINT_SV + eINT_SV_ACRATIO ): 
+  case ( 200 + eINT_SV + eINT_SV_DCZER   ): case ( 200 + eINT_SV + eINT_SV_DCSPR   ): case ( 200 + eINT_SV + eINT_SV_ACZER   ): case ( 200 + eINT_SV + eINT_SV_ACSPR   ): case ( 200 + eINT_SV + eINT_SV_DCZE    ): case ( 200 + eINT_SV + eINT_SV_DCSP    ): case ( 200 + eINT_SV + eINT_SV_ACZE    ): case ( 200 + eINT_SV + eINT_SV_ACSP    ): case ( 200 + eINT_SV + eINT_SV_ACPH    ):
+  case ( 300 + eINT_SV + eINT_SV_PASS    ): case ( 300 + eINT_SV + eINT_SV_ID      ): case ( 300 + eINT_SV + eINT_SV_ETH     ): case ( 300 + eINT_SV + eINT_SV_TRIG    ): case ( 300 + eINT_SV + eINT_SV_DEBO    ): case ( 300 + eINT_SV + eINT_SV_TRIP    ): case ( 300 + eINT_SV + eINT_SV_INT     ): case ( 300 + eINT_SV + eINT_SV_DCRATIO ): case ( 300 + eINT_SV + eINT_SV_ACRATIO ): 
+  case ( 300 + eINT_SV + eINT_SV_DCZER   ): case ( 300 + eINT_SV + eINT_SV_DCSPR   ): case ( 300 + eINT_SV + eINT_SV_ACZER   ): case ( 300 + eINT_SV + eINT_SV_ACSPR   ): case ( 300 + eINT_SV + eINT_SV_DCZE    ): case ( 300 + eINT_SV + eINT_SV_DCSP    ): case ( 300 + eINT_SV + eINT_SV_ACZE    ): case ( 300 + eINT_SV + eINT_SV_ACSP    ): case ( 300 + eINT_SV + eINT_SV_ACPH    ):
+  case ( 400 + eINT_SV + eINT_SV_PASS    ): case ( 400 + eINT_SV + eINT_SV_ID      ): case ( 400 + eINT_SV + eINT_SV_ETH     ): case ( 400 + eINT_SV + eINT_SV_TRIG    ): case ( 400 + eINT_SV + eINT_SV_DEBO    ): case ( 400 + eINT_SV + eINT_SV_TRIP    ): case ( 400 + eINT_SV + eINT_SV_INT     ): case ( 400 + eINT_SV + eINT_SV_DCRATIO ): case ( 400 + eINT_SV + eINT_SV_ACRATIO ): 
+  case ( 400 + eINT_SV + eINT_SV_DCZER   ): case ( 400 + eINT_SV + eINT_SV_DCSPR   ): case ( 400 + eINT_SV + eINT_SV_ACZER   ): case ( 400 + eINT_SV + eINT_SV_ACSPR   ): case ( 400 + eINT_SV + eINT_SV_DCZE    ): case ( 400 + eINT_SV + eINT_SV_DCSP    ): case ( 400 + eINT_SV + eINT_SV_ACZE    ): case ( 400 + eINT_SV + eINT_SV_ACSP    ): case ( 400 + eINT_SV + eINT_SV_ACPH    ):
+*/
+  case ( 500 + eINT_SV + eINT_SV_PASS    ): case ( 500 + eINT_SV + eINT_SV_ID      ): case ( 500 + eINT_SV + eINT_SV_ETH     ): case ( 500 + eINT_SV + eINT_SV_TRIG    ): case ( 500 + eINT_SV + eINT_SV_DEBO    ): case ( 500 + eINT_SV + eINT_SV_TRIP    ): case ( 500 + eINT_SV + eINT_SV_INT     ): case ( 500 + eINT_SV + eINT_SV_DCRATIO ): case ( 500 + eINT_SV + eINT_SV_ACRATIO ): 
+  case ( 500 + eINT_SV + eINT_SV_DCZER   ): case ( 500 + eINT_SV + eINT_SV_DCSPR   ): case ( 500 + eINT_SV + eINT_SV_ACZER   ): case ( 500 + eINT_SV + eINT_SV_ACSPR   ): case ( 500 + eINT_SV + eINT_SV_DCZE    ): case ( 500 + eINT_SV + eINT_SV_DCSP    ): case ( 500 + eINT_SV + eINT_SV_ACZE    ): case ( 500 + eINT_SV + eINT_SV_ACSP    ): case ( 500 + eINT_SV + eINT_SV_ACPH    ):
+/*
+  case ( 600 + eINT_SV + eINT_SV_PASS    ): case ( 600 + eINT_SV + eINT_SV_ID      ): case ( 600 + eINT_SV + eINT_SV_ETH     ): case ( 600 + eINT_SV + eINT_SV_TRIG    ): case ( 600 + eINT_SV + eINT_SV_DEBO    ): case ( 600 + eINT_SV + eINT_SV_TRIP    ): case ( 600 + eINT_SV + eINT_SV_INT     ): case ( 600 + eINT_SV + eINT_SV_DCRATIO ): case ( 600 + eINT_SV + eINT_SV_ACRATIO ): 
+  case ( 600 + eINT_SV + eINT_SV_DCZER   ): case ( 600 + eINT_SV + eINT_SV_DCSPR   ): case ( 600 + eINT_SV + eINT_SV_ACZER   ): case ( 600 + eINT_SV + eINT_SV_ACSPR   ): case ( 600 + eINT_SV + eINT_SV_DCZE    ): case ( 600 + eINT_SV + eINT_SV_DCSP    ): case ( 600 + eINT_SV + eINT_SV_ACZE    ): case ( 600 + eINT_SV + eINT_SV_ACSP    ): case ( 600 + eINT_SV + eINT_SV_ACPH    ):
+  case ( 700 + eINT_SV + eINT_SV_PASS    ): case ( 700 + eINT_SV + eINT_SV_ID      ): case ( 700 + eINT_SV + eINT_SV_ETH     ): case ( 700 + eINT_SV + eINT_SV_TRIG    ): case ( 700 + eINT_SV + eINT_SV_DEBO    ): case ( 700 + eINT_SV + eINT_SV_TRIP    ): case ( 700 + eINT_SV + eINT_SV_INT     ): case ( 700 + eINT_SV + eINT_SV_DCRATIO ): case ( 700 + eINT_SV + eINT_SV_ACRATIO ): 
+  case ( 700 + eINT_SV + eINT_SV_DCZER   ): case ( 700 + eINT_SV + eINT_SV_DCSPR   ): case ( 700 + eINT_SV + eINT_SV_ACZER   ): case ( 700 + eINT_SV + eINT_SV_ACSPR   ): case ( 700 + eINT_SV + eINT_SV_DCZE    ): case ( 700 + eINT_SV + eINT_SV_DCSP    ): case ( 700 + eINT_SV + eINT_SV_ACZE    ): case ( 700 + eINT_SV + eINT_SV_ACSP    ): case ( 700 + eINT_SV + eINT_SV_ACPH    ):
+  case ( 800 + eINT_SV + eINT_SV_PASS    ): case ( 800 + eINT_SV + eINT_SV_ID      ): case ( 800 + eINT_SV + eINT_SV_ETH     ): case ( 800 + eINT_SV + eINT_SV_TRIG    ): case ( 800 + eINT_SV + eINT_SV_DEBO    ): case ( 800 + eINT_SV + eINT_SV_TRIP    ): case ( 800 + eINT_SV + eINT_SV_INT     ): case ( 800 + eINT_SV + eINT_SV_DCRATIO ): case ( 800 + eINT_SV + eINT_SV_ACRATIO ): 
+  case ( 800 + eINT_SV + eINT_SV_DCZER   ): case ( 800 + eINT_SV + eINT_SV_DCSPR   ): case ( 800 + eINT_SV + eINT_SV_ACZER   ): case ( 800 + eINT_SV + eINT_SV_ACSPR   ): case ( 800 + eINT_SV + eINT_SV_DCZE    ): case ( 800 + eINT_SV + eINT_SV_DCSP    ): case ( 800 + eINT_SV + eINT_SV_ACZE    ): case ( 800 + eINT_SV + eINT_SV_ACSP    ): case ( 800 + eINT_SV + eINT_SV_ACPH    ):
+  case ( 900 + eINT_SV + eINT_SV_PASS    ): case ( 900 + eINT_SV + eINT_SV_ID      ): case ( 900 + eINT_SV + eINT_SV_ETH     ): case ( 900 + eINT_SV + eINT_SV_TRIG    ): case ( 900 + eINT_SV + eINT_SV_DEBO    ): case ( 900 + eINT_SV + eINT_SV_TRIP    ): case ( 900 + eINT_SV + eINT_SV_INT     ): case ( 900 + eINT_SV + eINT_SV_DCRATIO ): case ( 900 + eINT_SV + eINT_SV_ACRATIO ): 
+  case ( 900 + eINT_SV + eINT_SV_DCZER   ): case ( 900 + eINT_SV + eINT_SV_DCSPR   ): case ( 900 + eINT_SV + eINT_SV_ACZER   ): case ( 900 + eINT_SV + eINT_SV_ACSPR   ): case ( 900 + eINT_SV + eINT_SV_DCZE    ): case ( 900 + eINT_SV + eINT_SV_DCSP    ): case ( 900 + eINT_SV + eINT_SV_ACZE    ): case ( 900 + eINT_SV + eINT_SV_ACSP    ): case ( 900 + eINT_SV + eINT_SV_ACPH    ):
+*/
+    i = ( ( sInt.Cnt.wRun - eINT_SV ) % 100 );
+    if( SvCheck( i ) )    sSta.wSvErr |=  ( BIT0 << i );
+    else                  sSta.wSvErr &= ~( BIT0 << i );
+  break;
+  case 1010:
+    sInt.Cnt.wRun = 10;
+    if( ++sCnt.w1msec >= 4 && sDbg.Stp.bView == eST_LINE_WAIT )
+    {
+      sCnt.w1msec = 0;
+      if( Debug_View( ) )
+        sDbg.Stp.bView = eST_LINE_RUN;
+      else
+        sDbg.Stp.bView = eST_LINE_HELP;
+    }
+  break;
+  }
+  sInt.Cnt.wRun++;
+
+}
+
+BOOL SvCheck( UINT16 i_wStp )
+{
+  switch( i_wStp )
+  {
+  case eINT_SV_PASS   :
+          if( ConvXCs( (UINT16 *)&sSet.wPass,     1   ) != sSet.wPassXCs    ) return 1;
+          else                                                                return 0;
+  case eINT_SV_ID     :
+          if( ConvXCs( (UINT16 *)&sSet.wId,       8   ) != sSet.wCommXCs    ) return 1;
+          else                                                                return 0;
+  case eINT_SV_ETH    :
+          if( ConvXCs( (UINT16 *)&sDsp.wIpAddr,   9   ) != sDsp.wEthXCs     ) return 1;
+          else if( ConvXCs( (UINT16 *)&sSet.wMac, 3   ) != sSet.wMacXCs     ) return 1;
+          else                                                                return 0;
+  case eINT_SV_TRIG   :
+          if( ConvXCs( (UINT16 *)&sDsp.wTrig,     1   ) != sDsp.wTrigXCs    ) return 1;
+          else                                                                return 0;
+  case eINT_SV_DEBO   :
+          if( ConvXCs( (UINT16 *)&sDsp.wDebo,     1   ) != sDsp.wDeboXCs    ) return 1;
+          else                                                                return 0;
+  case eINT_SV_TRIP   :
+          if( ConvXCs( (UINT16 *)&sDsp.wTrip[0],  3   ) != sDsp.wTripXCs    ) return 1;
+          else                                                                return 0;
+  case eINT_SV_INT    :
+          if( ConvXCs( (UINT16 *)&sSet.wNo100ms,  2   ) != sSet.wNoXCs      ) return 1;
+          else                                                                return 0;
+  case eINT_SV_DCRATIO:
+          if( ConvXCs( (UINT16 *)&sSet.fRatio[1], 3*2 ) != sSet.wDcRatioXCs ) return 1;
+          else                                                                return 0;
+  case eINT_SV_ACRATIO:
+          if( ConvXCs( (UINT16 *)&sSet.fRatio[4], 4*2 ) != sSet.wAcRatioXCs ) return 1;
+          else                                                                return 0;
+  case eINT_SV_DCZER  :
+          if( ConvXCs( (UINT16 *)&sSet.wZeR[1],   3   ) != sSet.wZeRDcXCs   ) return 1;
+          else                                                                return 0;
+  case eINT_SV_DCSPR  :
+          if( ConvXCs( (UINT16 *)&sSet.wSpR[1],   3   ) != sSet.wSpRDcXCs   ) return 1;
+          else                                                                return 0;
+  case eINT_SV_ACZER  :
+          if( ConvXCs( (UINT16 *)&sSet.wZeR[4],   4   ) != sSet.wZeRAcXCs   ) return 1;
+          else                                                                return 0;
+  case eINT_SV_ACSPR  :
+          if( ConvXCs( (UINT16 *)&sSet.wSpR[4],   4   ) != sSet.wSpRAcXCs   ) return 1;
+          else                                                                return 0;
+  case eINT_SV_DCZE   :
+          if( ConvXCs( (UINT16 *)&sSet.fZe[1],    3*2 ) != sSet.wZeDcXCs    ) return 1;
+          else                                                                return 0;
+  case eINT_SV_DCSP   :
+          if( ConvXCs( (UINT16 *)&sSet.fSp[1],    3*2 ) != sSet.wSpDcXCs    ) return 1;
+          else                                                                return 0;
+  case eINT_SV_ACZE   :
+          if( ConvXCs( (UINT16 *)&sSet.fZe[4],    4*2 ) != sSet.wZeAcXCs    ) return 1;
+          else                                                                return 0;
+  case eINT_SV_ACSP   :
+          if( ConvXCs( (UINT16 *)&sSet.fSp[4],    4*2 ) != sSet.wSpAcXCs    ) return 1;
+          else                                                                return 0;
+  case eINT_SV_ACPH   :
+          if( ConvXCs( (UINT16 *)&sSet.fPh[4],    4*2 ) != sSet.wPhXCs      ) return 1;
+          else                                                                return 0;
+  default:
+  break;
+  }
+  return 0;
+}
+UINT16 ConvXCs( UINT16 *i_pwRam, UINT16 i_wLen )
+{
+  UINT16  i, i_wXCs = 0;
+
+  for( i=0; i<i_wLen; i++ )
+    i_wXCs += i_pwRam[i];
+  return ~i_wXCs;
+}
+
+
+UINT8 Debug_View( void )
+{
+#if(1)
+  UINT8   i_bSta = 0;
+
+  if( sDbg.Stp.bType == eST_DBG_NUMBER )
+    i_bSta = Debug_ViewChk( sKey.bPageBack );
+  else
+    i_bSta = Debug_ViewChk( sDbg.Stp.bType );
+  return i_bSta;
+#else
+  switch( sDbg.Stp.bType )
+  {
+  case eST_DBG_DEBUG:
+  case eST_DBG_FACT:
+  case eST_DBG_DCCALI:
+  case eST_DBG_ACCALI:
+  case eST_DBG_DCALL:
+  case eST_DBG_DC1:
+  case eST_DBG_DC2:
+  case eST_DBG_DC3:
+  case eST_DBG_ACALL:
+  case eST_DBG_AC1:
+  case eST_DBG_AC2:
+  case eST_DBG_AC3:
+  case eST_DBG_AC4:
+  case eST_DBG_DCALL_ZERO:
+  case eST_DBG_DCALL_SPAN:
+  case eST_DBG_ACALL_ZERO:
+  case eST_DBG_ACALL_SPAN:
+  case eST_DBG_PH:
+  case eST_DBG_DCALLRZERO:
+  case eST_DBG_DCALLRSPAN:
+  case eST_DBG_ACVRZERO:
+  case eST_DBG_ACVRSPAN:
+  case eST_DBG_ACIRZERO:
+  case eST_DBG_ACIRSPAN:
+    return 1;
+//  break;
+  case eST_DBG_NUMBER:
+    switch( sKey.bPageBack )
+    {
+    case eST_DBG_DEBUG:
+    case eST_DBG_FACT:
+    case eST_DBG_DCCALI:
+    case eST_DBG_ACCALI:
+    case eST_DBG_DCALL:
+    case eST_DBG_DC1:
+    case eST_DBG_DC2:
+    case eST_DBG_DC3:
+    case eST_DBG_ACALL:
+    case eST_DBG_AC1:
+    case eST_DBG_AC2:
+    case eST_DBG_AC3:
+    case eST_DBG_AC4:
+    case eST_DBG_DCALL_ZERO:
+    case eST_DBG_DCALL_SPAN:
+    case eST_DBG_ACALL_ZERO:
+    case eST_DBG_ACALL_SPAN:
+    case eST_DBG_PH:
+    case eST_DBG_DCALLRZERO:
+    case eST_DBG_DCALLRSPAN:
+    case eST_DBG_ACVRZERO:
+    case eST_DBG_ACVRSPAN:
+    case eST_DBG_ACIRZERO:
+    case eST_DBG_ACIRSPAN:
+      return 1;
+//    break;
+    default:
+      return 0;
+//    break;
+    }
+//  break;
+  default:
+    return 0;
+//  break;
+  }
+#endif
+}
+BOOL Debug_ViewChk( UINT8 i_bType )
+{
+  switch( i_bType )
+  {
+  case eST_DBG_DEBUG:
+  case eST_DBG_FACT:
+  case eST_DBG_DCCALI:
+  case eST_DBG_ACCALI:
+  case eST_DBG_DCALL:
+  case eST_DBG_DC1:
+  case eST_DBG_DC2:
+  case eST_DBG_DC3:
+  case eST_DBG_ACALL:
+  case eST_DBG_AC1:
+  case eST_DBG_AC2:
+  case eST_DBG_AC3:
+  case eST_DBG_AC4:
+  case eST_DBG_DCALL_ZERO:
+  case eST_DBG_DCALL_SPAN:
+  case eST_DBG_DC1_ZERO:
+  case eST_DBG_DC1_SPAN:
+  case eST_DBG_DC2_ZERO:
+  case eST_DBG_DC2_SPAN:
+  case eST_DBG_DC3_ZERO:
+  case eST_DBG_DC3_SPAN:
+  case eST_DBG_ACALL_ZERO:
+  case eST_DBG_ACALL_SPAN:
+  case eST_DBG_AC1_ZERO:
+  case eST_DBG_AC1_SPAN:
+  case eST_DBG_AC2_ZERO:
+  case eST_DBG_AC2_SPAN:
+  case eST_DBG_AC3_ZERO:
+  case eST_DBG_AC3_SPAN:
+  case eST_DBG_AC4_ZERO:
+  case eST_DBG_AC4_SPAN:
+  case eST_DBG_PH:
+  case eST_DBG_DCALLRZERO:
+  case eST_DBG_DCALLRSPAN:
+  case eST_DBG_ACVRZERO:
+  case eST_DBG_ACVRSPAN:
+  case eST_DBG_ACIRZERO:
+  case eST_DBG_ACIRSPAN:
+  case eST_DBG_RATIO:
+  case eST_DBG_RATIO1:
+  case eST_DBG_RATIO2:
+  case eST_DBG_RATIO3:
+  case eST_DBG_RATIO4:
+  case eST_DBG_RATIO5:
+  case eST_DBG_RATIO6:
+  case eST_DBG_RATIO7:
+  case eST_DBG_DC_RATIO:
+  case eST_DBG_DCRATIO:
+//  case eST_DBG_ALLRATIO:
+  case eST_DBG_DCRATIO1:
+  case eST_DBG_DCRATIO2:
+  case eST_DBG_DCRATIO3:
+  case eST_DBG_AC_RATIO:
+  case eST_DBG_ACVRATIO:
+  case eST_DBG_ACIRATIO:
+  case eST_DBG_ACRATIO1:
+  case eST_DBG_ACRATIO2:
+  case eST_DBG_ACRATIO3:
+  case eST_DBG_ACRATIO4:
+    return 1;
+  case eST_DBG_NUMBER:
+  default:
+    return 0;
+  }
+}
+
+
+
+char* List_Evt( UINT16 i_wType )
+{
+  switch( i_wType )
+  {
+  default:                  return "";
+  case eEV_EMPTY:           return "Empty";
+  case eEV_ERASE:           return "Event Erase";
+  case eEV_PWR_ON:          return "Power On";
+  case eEV_PWR_OFF:         return "Power Off";
+  case eEV_N5V_FA:          return "-5V Fault";
+  case eEV_N5V_CL:          return "-5V Clear";
+  case eEV_N15V_FA:         return "-15V Fault";
+  case eEV_N15V_CL:         return "-15V Clear";
+  case eEV_P15V_FA:         return "+15V Fault";
+  case eEV_P15V_CL:         return "+15V Clear";
+  case eEV_P24V_FA:         return "+24V Fault";
+  case eEV_P24V_CL:         return "+24V Clear";
+  case eEV_ADC_FA:          return "ADC Fault";
+  case eEV_ADC_CL:          return "ADC Clear";
+  case eEV_ADC1_FA:         return "AD Ch1 Fault";
+  case eEV_ADC1_CL:         return "AD Ch1 Clear";
+  case eEV_ADC2_FA:         return "AD Ch2 Fault";
+  case eEV_ADC2_CL:         return "AD Ch2 Clear";
+  case eEV_ADC3_FA:         return "AD Ch3 Fault";
+  case eEV_ADC3_CL:         return "AD Ch3 Clear";
+  case eEV_ADC4_FA:         return "AD Ch4 Fault";
+  case eEV_ADC4_CL:         return "AD Ch4 Clear";
+  case eEV_ADC5_FA:         return "AD Ch5 Fault";
+  case eEV_ADC5_CL:         return "AD Ch5 Clear";
+  case eEV_ADC6_FA:         return "AD Ch6 Fault";
+  case eEV_ADC6_CL:         return "AD Ch6 Clear";
+  case eEV_ADC7_FA:         return "AD Ch7 Fault";
+  case eEV_ADC7_CL:         return "AD Ch7 Clear";
+  case eEV_ADC8_FA:         return "AD Ch8 Fault";
+  case eEV_ADC8_CL:         return "AD Ch8 Clear";
+  }
+}
+void EventRd( void )
+{
+  UINT16  i_wEv = sEvt.wEv % eEVENT_MAX;
+
+  Conv_MramRd( (UINT16 *)&pEvent->No[i_wEv].wType, 5, (UINT16 *)&sEvt.wType );
+  Utc2Rtc( 9, &sEvt.Time, &sEvt.ilUtc );
+  sEvt.Time.wms = sEvt.lUtcMs;
+}
+void EventWr( UINT16 i_wEvent )
+{
+  EVT_REG i_Evt;
+  UINT16  i_wEv;
+
+  i_Evt.wType = i_wEvent;
+  i_Evt.ilUtc = sDsp.ilUtc;
+  i_Evt.lUtcMs = sDsp.lUtcMs;
+
+  if( sCnt.wEv == eEVENT_EMPTY )
+    sCnt.wEv = 0;
+  i_wEv = sCnt.wEv % eEVENT_MAX;
+  Conv_MramWr( (UINT16 *)&pEvent->No[i_wEv].wType, 5, (UINT16 *)&i_Evt.wType );
+  if( ++sCnt.wEv >= ( eEVENT_MAX *2 ) )
+    sCnt.wEv = eEVENT_MAX;
+  pMram->wEv = sCnt.wEv;
+}
+
+
+char* List_Fat( UINT16 i_wType )
+{
+  switch( i_wType )
+  {
+  default:                  return "     ";
+  case 0x55:                return "Trip ";
+  case 0xAA:                return "Close";
+/*
+  case eFA_EMPTY:           return "Empty";
+  case eFA_TRIP1:           return "Trip";
+  case eFA_TRIP2:           return "Trip";
+  case eFA_CLOSE:           return "Close";
+*/
+  }
+}
+void FaultRd( void )
+{
+  UINT16  i_wFa = sFatRd.wFa % eFAULT_MAX;
+
+  Conv_MramRd( (UINT16 *)&pFault->No[i_wFa].wType, 33, (UINT16 *)&sFatRd.wType );
+  Utc2Rtc( 9, &sFatRd.Time, &sFatRd.ilUtc );
+  sFatRd.Time.wms = sFatRd.lUtcMs;
+}
+void FaultWr( UINT16 i_wNo )
+{
+//  FAT_REG i_Fat;
+//  UINT16  i_wFa;
+  float   i_fFreq, i_fTrig;
+
+  sFat.No[i_wNo].wNo = sCnt.wFaNum;
+  if( ++sCnt.wFaNum >= 256 )    sCnt.wFaNum = 0;
+  pMram->wFaNum = sCnt.wFaNum;
+  if( sSet.bFreq50Hz == eFREQ_60Hz )    i_fFreq = (float)1000 /60 /( eADC_SAMPLE /2 );
+  else                                  i_fFreq = (float)1000 /50 /( eADC_SAMPLE /2 );
+  sFat.No[i_wNo].fTc1Cf *= i_fFreq;
+  sFat.No[i_wNo].fTc2Cf *= i_fFreq;
+  sFat.No[i_wNo].fCc_Cf *= i_fFreq;
+  sFat.No[i_wNo].fTc_B *= i_fFreq;
+  sFat.No[i_wNo].fCc_A *= i_fFreq;
+  sFat.No[i_wNo].fTc_Cc_A *= i_fFreq;
+  sFat.No[i_wNo].fTc_Cc_B *= i_fFreq;
+  sFat.No[i_wNo].fTc_Cc_C *= i_fFreq;
+  i_fTrig = 300.0 - sDsp.wTrig;
+  if( sFat.No[i_wNo].fTc1Cf   > i_fTrig ) sFat.No[i_wNo].fTc1Cf   -= sDsp.wTrig;
+  if( sFat.No[i_wNo].fTc2Cf   > i_fTrig ) sFat.No[i_wNo].fTc2Cf   -= sDsp.wTrig;
+  if( sFat.No[i_wNo].fCc_Cf   > i_fTrig ) sFat.No[i_wNo].fCc_Cf   -= sDsp.wTrig;
+  if( sFat.No[i_wNo].fTc_B    > i_fTrig ) sFat.No[i_wNo].fTc_B    -= sDsp.wTrig;
+  if( sFat.No[i_wNo].fCc_A    > i_fTrig ) sFat.No[i_wNo].fCc_A    -= sDsp.wTrig;
+  if( sFat.No[i_wNo].fTc_Cc_A > i_fTrig ) sFat.No[i_wNo].fTc_Cc_A -= sDsp.wTrig;
+  if( sFat.No[i_wNo].fTc_Cc_B > i_fTrig ) sFat.No[i_wNo].fTc_Cc_B -= sDsp.wTrig;
+  if( sFat.No[i_wNo].fTc_Cc_C > i_fTrig ) sFat.No[i_wNo].fTc_Cc_C -= sDsp.wTrig;
+
+  Conv_MramWr( (UINT16 *)&pFault->No[i_wNo].wNo, 34, (UINT16 *)&sFat.No[i_wNo].wNo );
+  if( ++sCnt.wFa >= ( eFAULT_MAX *2 ) )
+    sCnt.wFa = eFAULT_MAX;
+//  pMram->wFa = sCnt.wFa;
+}
+
+
+
+
+/******************************* TIGERWIN END OF FILE *******************************/
