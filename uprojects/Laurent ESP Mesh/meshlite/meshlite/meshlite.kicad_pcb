@@ -161,7 +161,7 @@
 
   (footprint "CPC1916Y:CPC1916Y" (layer "F.Cu")
     (tstamp 0855d2c3-540a-45b6-9a72-a2acff264ac0)
-    (at 168.024 88.63855 -90)
+    (at 165.354 100.33 -90)
     (tags "CPC1916Y ")
     (property "Sheetfile" "meshlite.kicad_sch")
     (property "Sheetname" "")
@@ -228,6 +228,11 @@
       (net 4 "Net-(J2-Pin_2)") (pinfunction "3") (pintype "unspecified") (tstamp 1c479cfb-770a-40cc-bcdb-eb6b12063ae3))
     (pad "4" thru_hole circle (at 17.78 0 270) (size 1.7526 1.7526) (drill 1.143) (layers "*.Cu" "*.Mask")
       (net 3 "Net-(J2-Pin_1)") (pinfunction "4") (pintype "unspecified") (tstamp 3e4f7dd4-b798-4333-84c3-51d89fec6890))
+    (model "${KIPRJMOD}/CPC1916Y_IXY.step"
+      (offset (xyz 0 0 0))
+      (scale (xyz 1 1 1))
+      (rotate (xyz 0 0 0))
+    )
   )
 
   (footprint "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical" (layer "F.Cu")
