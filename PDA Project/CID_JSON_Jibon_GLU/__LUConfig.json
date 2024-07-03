@@ -1,0 +1,120 @@
+{
+"LUList" : [
+    {
+        "name": "Jibon_GLU",
+      "id_cm": 5,
+      "ip_in": "192.168.246.132",
+      "lu_type": 2,
+      "MmsLU": {
+        "Assocation": {
+            "ap_t": "1,1,9999,1",
+            "ae_q": "1",
+            "psel": "00000001",
+            "ssel": "0001",
+            "tsel": "0001"
+        },
+        "RCB": {
+          "dom": "Jibon_GLU",
+          "rcb_st": "LLN0$BR$rcb_Status",
+            "rcb_se": "LLN0$BR$rcb_Measure",
+            "rcb_mx": "LLN0$BR$rcb_Setting",
+            "rcb_dg": "LLN0$BR$rcb_Diag",
+            "rcb_no": "02"
+        }
+      },
+      "LN": {
+        "GISPDList": [
+          {
+            "name": "Jibon_GLU_SPDC:1",
+            "ip_in":"192.168.246.25",
+            "id_ln": 100,
+            "noise": false,
+            "display_unit": "dBm",
+            "type": 0
+          },
+          {
+            "name": "Jibon_GLU_SPDC:2",
+            "ip_in":"192.168.246.26",
+            "id_ln": 100,
+            "noise": false,
+            "display_unit": "dBm",
+            "type": 0
+          },
+          {
+            "name": "Jibon_GLU_SPDC:3",
+            "ip_in":"192.168.246.27",
+            "id_ln": 100,
+            "noise": false,
+            "display_unit": "dBm",
+            "type": 0
+          },
+          {
+            "name": "Jibon_GLU_SPDC:4",
+            "ip_in":"192.168.246.28",
+            "id_ln": 100,
+            "noise": false,
+            "display_unit": "dBm",
+            "type": 0
+          },
+          {
+            "name": "Jibon_GLU_SPDC:5",
+            "ip_in":"192.168.246.29",
+            "id_ln": 100,
+            "noise": false,
+            "display_unit": "dBm",
+            "type": 0
+          },
+          {
+            "name": "Jibon_GLU_SPDC:6",
+            "ip_in":"192.168.246.30",
+            "id_ln": 100,
+            "noise": false,
+            "display_unit": "dBm",
+            "type": 0
+          },
+          {
+            "name": "Jibon_GLU_SPDC:7",
+            "ip_in":"192.168.246.31",
+            "id_ln": 100,
+            "noise": false,
+            "display_unit": "dBm",
+            "type": 0
+          },
+          {
+            "name": "Jibon_GLU_SPDC:8",
+            "ip_in":"192.168.246.32",
+            "id_ln": 100,
+            "noise": false,
+            "display_unit": "dBm",
+            "type": 0
+          }
+        ],
+        "CBCMList": [
+          {
+            "name": "Jibon_GLU_SCBR1",
+            "ip_in": "192.168.246.100",
+            "id_ln": 88,
+            "Enable": {
+              "trip1": false,
+              "trip2": false,
+              "close": false
+            },
+            "Setting": {
+              "trip1_lv2_val": 0.0,
+              "trip1_lv1_val": 0.0,
+              "trip2_lv2_val": 0.0,
+              "trip2_lv1_val": 0.0,
+              "close_lv2_val": 0.0,
+              "close_lv1_val": 0.0,
+              "trip_val_time": 0.0,
+              "close_val_time": 0.0,
+              "ratio1_val": 0.0,
+              "ratio2_val": 0.0
+            }
+          }
+        ]
+      }
+    }
+]
+
+}
