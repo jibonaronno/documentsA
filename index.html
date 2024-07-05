@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Pico Power Technologies</title>
+
+    <style>
+        body {
+            font-family: Consolas;
+            font-size: 1.2em;
+            margin: 0;
+            padding: 0;
+        }
+		
+		#like-p {
+            color: #1f9990;
+        }
+
+        header {
+            border-bottom: 1px solid black;
+            padding: 10px;
+            background-color: #b0efea;
+        }
+
+        content {
+            display: block;
+            padding: 20px;
+        }
+
+        button {
+            background-color: #b0efea;
+            border: 2px solid black;
+            border-radius: 4px;
+            font-size: 0.9em;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #28c4b7;
+        }
+
+        #popup-container {
+            /* Put in front of all other elements to prevent interaction */
+            z-index: 1;
+
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.5);
+
+            /* Prevent scrollbar during animation */
+            overflow: hidden;
+        }
+
+        #popup-box {
+            text-align: center;
+            z-index: 2;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+
+            background-color: white;
+            border: 2px solid black;
+            border-radius: 20px;
+            padding: 20px;
+
+            animation: slide-up 0.2s ease-in;
+
+        }
+
+        #popup-box h2 {
+            margin-top: 0px;
+        }
+
+        #popup-ok {
+            margin-top: 10px;
+            width: 50%;
+        }
+
+        /* animation specific to modal popup, start low end high */
+        @keyframes slide-up {
+            0% {
+                top: 100%;
+            }
+
+            100% {
+                top: 50%;
+            }
+        }
+    </style>
+
+    <script>
+        /**
+         * We'll use a class with static methods to
+         * control opening + closing the Popup
+         */ 
+        class Popup {
+            static open() {
+                //don't open if already open
+                if (Popup.isOpen) {
+                    console.warn("already open!");
+                    return;
+                }
+
+                Popup.isOpen = true;
+
+                //clone the template object so we can use it
+                const template = document.getElementById("popup-template");
+                const clone = template.content.cloneNode(true);
+
+                document.body.appendChild(clone);
+
+                //listen to the "ok button" click to close
+                const okButton = document.getElementById("popup-ok");
+                okButton.addEventListener("click", () => {
+                    Popup.close();
+                });
+                console.log("Popup is now open!");
+            }
+
+            static close() {
+                //don't close if not already open
+                if (!Popup.isOpen) {
+                    console.warn("Can't close Popup because it's not open!");
+                    return;
+                }
+
+                Popup.isOpen = false;
+
+                const openedPopup = document.getElementById("popup-container");
+                document.body.removeChild(openedPopup);
+                console.log("Popup is now closed!");
+            }
+        }
+
+        //when doc is ready, listen to open button click
+        document.addEventListener("DOMContentLoaded", () => {
+            const openButton = document.getElementById("open-button");
+            openButton.addEventListener("click", () => {
+                Popup.open();
+            });
+        });
+    </script>
+
+</head>
+<body>
+
+    <header>
+        Pico Power Web Portal
+    </header>
+
+    <content>
+        <h1>IoT Gateway Portal</h1>
+        <p>Click the button below to register</p>
+    
+        <button id="open-button">Register</button>
+    </content>
+
+    <!-- We'll use HTML template to hold modal popup contents -->
+    <template id='popup-template'>
+        <!-- Container for popup + background -->
+        <div id="popup-container">
+            <!-- Box for actual popup -->
+            <div id="popup-box">
+                <h2>Device Portal</h2>
+                <p>Register Portal devex here.
+                </p>
+                <p id="like-p">
+                    Cloud connected IoT.
+                </p>
+                <button id="popup-ok">Ok!</button>
+            </div>
+        </div>
+    </template>
+
+</body>
+</html>
