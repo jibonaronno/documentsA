@@ -1,6 +1,8 @@
 (sym_lib_table
-  (lib (name ATMega128Break)(type Legacy)(uri ${KIPRJMOD}/ATMega128Break.lib)(options "")(descr ""))
-  (lib (name Cabinate-cache)(type Legacy)(uri ${KIPRJMOD}/Cabinate-cache.lib)(options "")(descr ""))
-  (lib (name HeatEx03-cache)(type Legacy)(uri ${KIPRJMOD}/HeatEx03-cache.lib)(options "")(descr ""))
-  (lib (name SparkFun-Discrete)(type Legacy)(uri ${KIPRJMOD}/SparkFun-Discrete.lib)(options "")(descr ""))
+  (version 7)
+  (lib (name "ATMega128Break")(type "Legacy")(uri "${KIPRJMOD}/ATMega128Break.lib")(options "")(descr ""))
+  (lib (name "Cabinate-cache")(type "Legacy")(uri "${KIPRJMOD}/Cabinate-cache.lib")(options "")(descr ""))
+  (lib (name "HeatEx03-cache")(type "Legacy")(uri "${KIPRJMOD}/HeatEx03-cache.lib")(options "")(descr ""))
+  (lib (name "SparkFun-Discrete")(type "Legacy")(uri "${KIPRJMOD}/SparkFun-Discrete.lib")(options "")(descr ""))
+  (lib (name "Cabinate-rescue")(type "KiCad")(uri "${KIPRJMOD}/Cabinate-rescue.kicad_sym")(options "")(descr ""))
 )
