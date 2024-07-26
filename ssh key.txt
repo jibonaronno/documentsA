@@ -1,0 +1,49 @@
+jibon@ThinkCentre:~$ sudo ssh-keygen -t ed25519 -C "tebunia@gmail.com"
+Generating public/private ed25519 key pair.
+Enter file in which to save the key (/root/.ssh/id_ed25519):
+Created directory '/root/.ssh'.
+Enter passphrase (empty for no passphrase):tebunia
+Enter same passphrase again:tebunia
+Your identification has been saved in /root/.ssh/id_ed25519
+Your public key has been saved in /root/.ssh/id_ed25519.pub
+The key fingerprint is:
+SHA256:RcVEBCW8N1JNKHAFT/R0bDlhS6DCwou37BQ9PsSHB8c tebunia@gmail.com
+The key's randomart image is:
++--[ED25519 256]--+
+|        .o*%X=+=+|
+|      . .o++=o+++|
+|       o +.E. .o.|
+|      . =.B o    |
+|     . +S* = .   |
+|      o = +      |
+|       + o       |
+|      o   .      |
+|       .         |
++----[SHA256]-----+
+
+jibon@ThinkCentre:~$ sudo su
+root@ThinkCentre:/home/jibon# cd /root
+root@ThinkCentre:~# ls
+snap
+root@ThinkCentre:~# ls -la
+total 48
+drwx------  8 root root 4096 Jul 26 01:22 .
+drwxr-xr-x 20 root root 4096 Dec 14  2023 ..
+drwxr-xr-x  3 root root 4096 Mar  1 05:21 .anydesk
+-rw-------  1 root root   62 Dec 17  2023 .bash_history
+-rw-r--r--  1 root root 3106 Oct 15  2021 .bashrc
+drwx------  3 root root 4096 Dec 18  2023 .cache
+-rw-------  1 root root   20 Jun 27 01:24 .lesshst
+drwxr-xr-x  3 root root 4096 Dec 14  2023 .local
+-rw-r--r--  1 root root  161 Jul  9  2019 .profile
+drwx------  5 root root 4096 Dec 14  2023 snap
+drwx------  2 root root 4096 Jul 26 01:22 .ssh
+drwx------  3 root root 4096 Dec 14  2023 .vnc
+root@ThinkCentre:~# cd ssh
+bash: cd: ssh: No such file or directory
+root@ThinkCentre:~# cd .ssh
+root@ThinkCentre:~/.ssh# ls
+id_ed25519  id_ed25519.pub
+root@ThinkCentre:~/.ssh# cat id_ed25519.pub
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFt/x64aBRQnrpvuI47E9dx0KrHb609mICzoG4MFa6S0 tebunia@gmail.com
+root@ThinkCentre:~/.ssh#
