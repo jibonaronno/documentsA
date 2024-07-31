@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "VFQPN_A5635A_STM")(type "KiCad")(uri "${KIPRJMOD}/VFQPN_A5635A_STM/VFQPN_A5635A_STM.pretty")(options "")(descr ""))
+)

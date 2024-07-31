@@ -1,0 +1,83 @@
+U-Boot 2018.01 (Jul 31 2024 - 13:59:06 +0900)
+
+CPU  : DRA722-GP ES2.0
+omap_revision = 0x7220200
+DDR clock = 666000000 Hz
+Model: TI AM5718 IDK, LU-version: 0.02
+Board: AM571x IDK REV
+DRAM:  1 GiB
+MMC:   OMAP SD/MMC: 0, OMAP SD/MMC: 1
+*** Warning - bad CRC, using default environment
+
+Net:
+Warning: ethernet@48484000 using MAC address from ROM
+eth0: ethernet@48484000
+** File not found UpdateFlag **
+[fw_update] Flag not found! skip..
+gpio: pin 167 (gpio 167) value is 1
+gpio: pin 179 (gpio 179) value is 0
+gpio: pin 179 (gpio 179) value is 1
+Hit any key to stop autoboot:  0
+HUR-BOOT> env print
+arch=arm
+args_mmc=run finduuid;setenv bootargs console=${console} ${optargs} root=PARTUUID=${uuid} ro rootfstype=${mmcrootfstype}
+baudrate=115200
+board=am57xx
+board_name=am571x_idk
+boot_fdt=try
+bootargs=androidboot.serialno=${serial#} console=ttyS2,115200 androidboot.console=ttyS2 androidboot.hardware=am57xevmboard
+bootcmd=if test ${dofastboot} -eq 1; then echo Boot fastboot requested, resetting dofastboot ...;setenv dofastboot 0; saveenv;echo Booting into fastboot ...; fastboot 0;fi;run envboot; run mmcboot;setenv mmcdev 1; setenv bootpart 1:1; run mmcboot;
+bootdelay=1
+bootenvfile=uEnv.txt
+bootm_size=0x10000000
+bootpart=1:1
+bootpart2=0:2
+bootscript=echo Running bootscript from mmc${mmcdev} ...; source ${loadaddr}
+console=ttyS1,115200n8
+cpu=armv7
+dofastboot=0
+envboot=mmc dev ${mmcdev}; if mmc rescan; then echo SD/MMC found on device ${mmcdev};if run loadbootscript; then run bootscript;else if run loadbootenv; then echo Loaded env from ${bootenvfile};run importbootenv;fi;if test -n $uenvcmd; then echo Running uenvcmd ...;run uenvcmd;fi;fi;fi;
+ethaddr=3c:a3:08:fe:29:ad
+fdt_addr_r=0x88000000
+fdtaddr=0x88000000
+fdtcontroladdr=bdf5a670
+finduuid=part uuid mmc ${bootpart} uuid
+importbootenv=echo Importing environment from mmc${mmcdev} ...; env import -t ${loadaddr} ${filesize}
+ipaddr=192.168.246.232
+kernel_addr_r=0x82000000
+lcdclock=333
+loadaddr=0x82000000
+loadbootenv=fatload mmc ${mmcdev} ${loadaddr} ${bootenvfile}
+loadbootscript=load mmc ${mmcdev} ${loadaddr} boot.scr
+loadfdt=sf read 0x88000000 0x320000 0x20000
+loadfdt2=load ${devtype} ${bootpart2} ${fdtaddr} /boot/am571x-idk.dtb
+loadimage=sf probe; sf read 0x82000000 0x340000 0x400000;
+loadimage2=load ${devtype} ${bootpart2} ${loadaddr} /boot/zImage
+mmcboot=mmc dev ${mmcdev}; if mmc rescan; then echo SD/MMC found on device ${mmcdev};if run loadimage; then run loadfdt; run args_mmc; bootz ${loadaddr} - ${fdtaddr}; fi; fi;
+mmcboot_org=mmc dev ${mmcdev2}; setenv devnum ${mmcdev2}; setenv devtype mmc; if mmc rescan; then echo SD/MMC found on device ${mmcdev2};if run loadimage2; then if test ${boot_fit} -eq 1; then run loadfdt2; else run mmcloados;fi;fi;fi;
+mmcdev=1
+mmcdev2=0
+mmcloados=run args_mmc; if test ${boot_fdt} = yes || test ${boot_fdt} = try; then if run loadfdt; then bootz ${loadaddr} - ${fdtaddr}; else if test ${boot_fdt} = try; then bootz; else echo WARN: Cannot load the DT; fi; fi; else bootz; fi;
+mmcroot=/dev/mmcblk0p3 rw
+mmcrootfstype=ext4 rootwait
+partitions=uuid_disk=${uuid_gpt_disk};name=rootfs,start=16MiB,size=1GiB,uuid=${uuid_gpt_rootfs};name=upgradefs,start=1040MiB,size=1GiB,uuid=${uuid_gpt_upgradefs};name=datafs,start=2064MiB,size=-,uuid=${uuid_gpt_datafs};
+pxefile_addr_r=0x80100000
+ramdisk_addr_r=0x88080000
+rdaddr=0x88080000
+scriptaddr=0x80000000
+serial#=0701b01414060001
+serverip=192.168.246.9
+soc=omap5
+stderr=serial@4806c000
+stdin=serial@4806c000
+stdout=serial@4806c000
+usbtty=cdc_acm
+uuid_gpt_datafs=1f610cb2-c728-49a5-b1b0-142b607587bf
+uuid_gpt_disk=d540ad22-d2cd-4ea7-bfde-27f7dbac014f
+uuid_gpt_rootfs=bb6a04da-6cf5-469e-80aa-f4c941c23072
+uuid_gpt_upgradefs=2d5132cb-da22-40f5-ae9b-ca08952c4ef6
+vendor=ti
+ver=U-Boot 2018.01 (Jul 31 2024 - 13:59:06 +0900)
+vram=16M
+
+Environment size: 3304/65531 bytes
