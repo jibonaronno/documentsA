@@ -1722,6 +1722,11 @@
     (uuid fda28a82-cc81-4d6b-aabc-1df3eaa5afd7)
   )
 
+  (text "D10 COMPATIBLE GPIO0 HEADER" (at 242.57 57.785 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 2af5074e-6ca8-4e0c-a6b9-3accaa0ed106)
+  )
+
   (global_label "CHIP_EN" (shape input) (at 104.775 100.965 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify right))
     (uuid 05b61091-643a-43b9-b843-ef3c66cb396e)
