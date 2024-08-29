@@ -2151,7 +2151,7 @@
     (property "Reference" "J3" (at 34.29 79.375 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "Conn_01x02" (at 34.29 81.915 0)
+    (property "Value" "EN" (at 34.29 81.915 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" (at 31.75 79.375 0)
