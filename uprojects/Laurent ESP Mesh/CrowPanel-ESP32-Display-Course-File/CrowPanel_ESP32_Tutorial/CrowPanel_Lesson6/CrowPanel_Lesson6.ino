@@ -70,6 +70,8 @@ void my_touchpad_read(lv_indev_drv_t *indev_driver, lv_indev_data_t *data)
    }
 }
 
+extern lv_obj_t * ui_Bar1;
+int progress_01 = 10;
 
 void setup()
 {
@@ -139,5 +141,14 @@ void setup()
 void loop()
 {
     lv_timer_handler();
+    lv_bar_set_value(ui_Bar1, progress_01, LV_ANIM_ON);
+    if(progress_01 < 100)
+    {
+      progress_01++;
+    }
+    else
+    {
+      progress_01 = 0; 
+    }
     delay(5);
 }
