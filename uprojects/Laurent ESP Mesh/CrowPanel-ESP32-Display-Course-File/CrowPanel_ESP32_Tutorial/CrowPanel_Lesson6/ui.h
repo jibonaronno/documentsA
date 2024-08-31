@@ -42,13 +42,15 @@ extern lv_obj_t * ui_Bar5;
 extern lv_obj_t * ui_Bar6;
 extern lv_obj_t * ui_Bar7;
 extern lv_obj_t * ui_Bar8;
+void ui_event_Button1(lv_event_t * e);
+extern lv_obj_t * ui_Button1;
+extern lv_obj_t * ui_Label9;
 // SCREEN: ui_Screen2
 void ui_Screen2_screen_init(void);
 extern lv_obj_t * ui_Screen2;
 extern lv_obj_t * ui____initial_actions0;
 
 
-LV_IMG_DECLARE(ui_img_uvl02_png);    // assets/UVL02.png
 LV_IMG_DECLARE(ui_img_uvl02_png);    // assets/UVL02.png
 
 

@@ -36,6 +36,9 @@ lv_obj_t * ui_Bar5;
 lv_obj_t * ui_Bar6;
 lv_obj_t * ui_Bar7;
 lv_obj_t * ui_Bar8;
+void ui_event_Button1(lv_event_t * e);
+lv_obj_t * ui_Button1;
+lv_obj_t * ui_Label9;
 
 
 // SCREEN: ui_Screen2
@@ -55,6 +58,14 @@ const lv_img_dsc_t * ui_imgset_uvl[1] = {&ui_img_uvl02_png};
 ///////////////////// ANIMATIONS ////////////////////
 
 ///////////////////// FUNCTIONS ////////////////////
+void ui_event_Button1(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_RELEASED) {
+        refreshScreen(e);
+    }
+}
 
 ///////////////////// SCREENS ////////////////////
 
