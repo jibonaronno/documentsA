@@ -29,8 +29,9 @@ if not, please do not include it. It will waste your Flash space.
  ******************************************************************************/
 #include "gfx_conf.h"
 
+#include <cppQueue.h>
 
-
+#define	IMPLEMENTATION	LIFO
 
 #define LED 10
 
@@ -55,14 +56,15 @@ painlessMesh  mesh;
 bool calc_delay = false;
 SimpleList<uint32_t> nodes;
 
+void lvgl_regular_function();
+Task taskLvgl(TASK_SECOND * 0.4, TASK_FOREVER, &lvgl_regular_function);
+
 void sendMessage() ; // Prototype
 Task taskSendMessage( TASK_SECOND * 1, TASK_FOREVER, &sendMessage ); // start with a one second interval
 
 // Task to blink the number of nodes
 Task blinkNoNodes;
 bool onFlag = false;
-
-
 
 
 static lv_disp_draw_buf_t draw_buf;
@@ -185,6 +187,11 @@ void setup()
 
   userScheduler.addTask( taskSendMessage );
   taskSendMessage.enable();
+
+  userScheduler.addTask(taskLvgl);
+  //taskLvgl.enable();
+
+  /*
   blinkNoNodes.set(BLINK_PERIOD, (mesh.getNodeList().size() + 1) * 2, []() {
       // If on, switch off, else switch on
       if (onFlag)
@@ -205,7 +212,7 @@ void setup()
   });
   userScheduler.addTask(blinkNoNodes);
   blinkNoNodes.enable();
-
+  */
 
 
   
@@ -213,10 +220,15 @@ void setup()
 
 }
 
-void loop()
+void lvgl_regular_function()
 {
     lv_timer_handler();
     lv_bar_set_value(ui_Bar1, progress_01, LV_ANIM_ON);
+}
+
+void loop()
+{
+    
     // if(progress_01 < 100)
     // {
     //   progress_01++;
@@ -226,7 +238,7 @@ void loop()
     //   progress_01 = 0; 
     // }
     mesh.update();
-    delay(1);
+    // delay(1);
 }
 
 void sendMessage() {
@@ -244,9 +256,11 @@ void sendMessage() {
     calc_delay = false;
   }
 
-  Serial.printf("Sending message: %s\n", msg.c_str());
+  //Serial.printf("Sending message: %s\n", msg.c_str());
+  Serial.printf(".");
   
-  taskSendMessage.setInterval( random(TASK_SECOND * 1, TASK_SECOND * 5));  // between 1 and 5 seconds
+  //taskSendMessage.setInterval( random(TASK_SECOND * 1, TASK_SECOND * 5));  // between 1 and 5 seconds
+  taskSendMessage.setInterval(TASK_SECOND * 3);
 }
 
 
@@ -257,8 +271,8 @@ void receivedCallback(uint32_t from, String & msg) {
 void newConnectionCallback(uint32_t nodeId) {
   // Reset blink task
   onFlag = false;
-  blinkNoNodes.setIterations((mesh.getNodeList().size() + 1) * 2);
-  blinkNoNodes.enableDelayed(BLINK_PERIOD - (mesh.getNodeTime() % (BLINK_PERIOD*1000))/1000);
+  //blinkNoNodes.setIterations((mesh.getNodeList().size() + 1) * 2);
+  //blinkNoNodes.enableDelayed(BLINK_PERIOD - (mesh.getNodeTime() % (BLINK_PERIOD*1000))/1000);
  
   Serial.printf("--> startHere: New Connection, nodeId = %u\n", nodeId);
   Serial.printf("--> startHere: New Connection, %s\n", mesh.subConnectionJson(true).c_str());
@@ -268,8 +282,8 @@ void changedConnectionCallback() {
   Serial.printf("Changed connections\n");
   // Reset blink task
   onFlag = false;
-  blinkNoNodes.setIterations((mesh.getNodeList().size() + 1) * 2);
-  blinkNoNodes.enableDelayed(BLINK_PERIOD - (mesh.getNodeTime() % (BLINK_PERIOD*1000))/1000);
+  //blinkNoNodes.setIterations((mesh.getNodeList().size() + 1) * 2);
+  //blinkNoNodes.enableDelayed(BLINK_PERIOD - (mesh.getNodeTime() % (BLINK_PERIOD*1000))/1000);
  
   nodes = mesh.getNodeList();
 

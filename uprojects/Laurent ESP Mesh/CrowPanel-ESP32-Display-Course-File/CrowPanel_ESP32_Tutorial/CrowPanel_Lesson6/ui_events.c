@@ -5,16 +5,7 @@
 
 #include "ui.h"
 
-extern int progress_01;
-
 void refreshScreen(lv_event_t * e)
 {
-	if(progress_01 < 95)
-  {
-    progress_01 += 5;
-  }
-  else
-  {
-    progress_01 = 0;
-  }
+	// Your code here
 }
