@@ -189,7 +189,7 @@ void setup()
   taskSendMessage.enable();
 
   userScheduler.addTask(taskLvgl);
-  //taskLvgl.enable();
+  taskLvgl.enable();
 
   /*
   blinkNoNodes.set(BLINK_PERIOD, (mesh.getNodeList().size() + 1) * 2, []() {
