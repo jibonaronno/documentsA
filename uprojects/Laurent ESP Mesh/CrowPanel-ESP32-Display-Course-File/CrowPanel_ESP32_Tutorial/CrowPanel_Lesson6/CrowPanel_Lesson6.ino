@@ -57,7 +57,7 @@ bool calc_delay = false;
 SimpleList<uint32_t> nodes;
 
 void lvgl_regular_function();
-Task taskLvgl(TASK_SECOND * 0.4, TASK_FOREVER, &lvgl_regular_function);
+Task taskLvgl(5, TASK_FOREVER, &lvgl_regular_function);
 
 void sendMessage() ; // Prototype
 Task taskSendMessage( TASK_SECOND * 1, TASK_FOREVER, &sendMessage ); // start with a one second interval
