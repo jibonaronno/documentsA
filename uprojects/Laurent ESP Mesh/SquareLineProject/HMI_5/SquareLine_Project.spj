@@ -9598,9 +9598,19 @@
     "theme_dark": false,
     "theme_color1": 5,
     "theme_color2": 0,
+<<<<<<< HEAD
+    "uiExportFolderPath": "C:\\Users\\jibon\\Documents\\documentsA\\uprojects\\Laurent ESP Mesh\\SquareLineProject\\HMI_5\\UI_Files",
+    "projectExportFolderPath": "C:\\Users\\jibon\\Documents\\documentsA\\uprojects\\Laurent ESP Mesh\\SquareLineProject\\HMI_5",
+    "backup_cnt": 168,
+=======
     "uiExportFolderPath": "E:\\documentsA\\uprojects\\Laurent ESP Mesh\\SquareLineProject\\HMI_5\\UI_Files",
     "projectExportFolderPath": "E:\\documentsA\\uprojects\\Laurent ESP Mesh\\SquareLineProject\\HMI_5",
+<<<<<<< HEAD
     "backup_cnt": 410,
+=======
+    "backup_cnt": 372,
+>>>>>>> f114111231d21d2af2ef2cca797c775e27895be8
+>>>>>>> 7654b5b7ffac768c0f751cab8bcce0d1120d5b90
     "autosave_cnt": 0,
     "lvgl_version": "8.3.11",
     "callfuncsexport": "C_FILE",
