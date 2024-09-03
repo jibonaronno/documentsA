@@ -7,3 +7,6 @@ With i2c, you can't use circular mode due to you need to reverse the direction e
 
 어 신기하다 한국말 잘하니까 나
 
+
+3728504316332685241
+
