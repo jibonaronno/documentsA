@@ -920,10 +920,7 @@ The function <p5>CDlgIedSts::OnDeleteFile(CString sFile)</p5>  evetually calls t
     <a href="https://www.igrid-td.com/smartguide/iec61850/icd-ied-capability-description/">icd-ied-capability-description</a><br>
     <a href="https://www.youtube.com/watch?v=DuBayMLGrDY">Route to IEC 61850 (2016): Client/Server, GOOSE and Sampled Values</a><br>
     <br>
-    <p5>LUConfig.json Parsing ur_interface.c int parseLUConfig(...)</p5><pp>JSON Parser Function</pp><br>
-    <p4> scl_srvr.c Init_61850() function calls to parseLUConfig(...) by passing LUConfig.json filename, stores 
-      the parsed content in pdsluConfig struct instance. Then It prints out LU Name and sub nodes if the ip address 
-      matches . </p4> <br>
+    
   </div>
 <!-- SHOW HIDE END 011  -->
 
@@ -955,7 +952,15 @@ The function <p5>CDlgIedSts::OnDeleteFile(CString sFile)</p5>  evetually calls t
     Change Makefile to correct local path. <br>
     <code>cd cmd/gnu</code><br>
     <code>chmod 777 mmslite802.sh</code> <br>
-    <code>touch cmd/gnu/cc.lst</code> <br>
+    <code>touch cmd/gnu/cc.lst</code> <br> <br>
+
+    <p5>LUConfig.json Parsing ur_interface.c int parseLUConfig(...)</p5><pp>JSON Parser Function</pp><br>
+    <p4> scl_srvr.c Init_61850() function calls to parseLUConfig(...) by passing LUConfig.json filename, stores 
+      the parsed content in pdsluConfig struct instance. Then It prints out LU Name and sub nodes if the ip address 
+      matches . </p4> <br>
+      In <pp>ur_interface.c</pp> file the function <code>const ST_CHAR* translateLNType(const ST_CHAR* ps8originalType)</code>
+      it checks every subnodes for a list of name : "SPDC", "CBCM", "OLTC" .... These are the Node types. If the Node Name 
+      contains these string then this function returns the type with Index number with it. <br>
   </div>
 <!-- SHOW HIDE END 012  -->
 
