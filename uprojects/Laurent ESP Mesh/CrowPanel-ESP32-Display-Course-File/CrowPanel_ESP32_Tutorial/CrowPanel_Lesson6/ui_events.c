@@ -5,6 +5,8 @@
 
 #include "ui.h"
 
+extern int progress_01;
+
 void refreshScreen(lv_event_t * e)
 {
 	// Your code here

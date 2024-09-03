@@ -13,6 +13,7 @@ Description	:	The code is currently available based on the course on YouTube,
 #include <Wire.h>
 #include <SPI.h>
 #include <painlessMesh.h>
+#include <ArduinoJson.h>
 
 /**************************LVGL and UI************************
 if you want to use the LVGL demo. you need to include <demos/lv_demos.h> and <examples/lv_examples.h>. 
@@ -52,6 +53,8 @@ void delayReceivedCallback(uint32_t from, int32_t delay);
 
 Scheduler     userScheduler; // to control your personal task
 painlessMesh  mesh;
+
+JsonDocument doc;
 
 bool calc_delay = false;
 SimpleList<uint32_t> nodes;
@@ -110,7 +113,9 @@ void my_touchpad_read(lv_indev_drv_t *indev_driver, lv_indev_data_t *data)
 }
 
 extern lv_obj_t * ui_Bar1;
+extern lv_obj_t * ui_Bar2;
 int progress_01 = 10;
+int progress_02 = 10;
 
 void setup()
 {
@@ -214,8 +219,6 @@ void setup()
   blinkNoNodes.enable();
   */
 
-
-  
   Serial.println( "Setup done" );
 
 }
@@ -224,6 +227,7 @@ void lvgl_regular_function()
 {
     lv_timer_handler();
     lv_bar_set_value(ui_Bar1, progress_01, LV_ANIM_ON);
+    lv_bar_set_value(ui_Bar2, progress_02, LV_ANIM_ON);
 }
 
 void loop()
@@ -242,9 +246,9 @@ void loop()
 }
 
 void sendMessage() {
-  String msg = "Hello from node ";
+  String msg = "(A)-";
   msg += mesh.getNodeId();
-  msg += " myFreeMemory: " + String(ESP.getFreeHeap());
+  //msg += " myFreeMemory: " + String(ESP.getFreeHeap());
   mesh.sendBroadcast(msg);
 
   if (calc_delay) {
@@ -260,12 +264,25 @@ void sendMessage() {
   Serial.printf(".");
   
   //taskSendMessage.setInterval( random(TASK_SECOND * 1, TASK_SECOND * 5));  // between 1 and 5 seconds
-  taskSendMessage.setInterval(TASK_SECOND * 3);
+  taskSendMessage.setInterval(TASK_SECOND * 10);
 }
 
 
 void receivedCallback(uint32_t from, String & msg) {
   Serial.printf("startHere: Received from %u msg=%s\n", from, msg.c_str());
+
+  deserializeJson(doc, msg.c_str());
+  const char *name = doc["name"];
+  int intense = doc["intense"];
+  if(name[0] == 'B'){
+    progress_01 = intense / 21;
+  }
+
+  if(name[0] == 'C'){
+    progress_02 = intense / 21;
+  }
+
+  Serial.printf("%s:%d\n", name, intense);
 }
 
 void newConnectionCallback(uint32_t nodeId) {
