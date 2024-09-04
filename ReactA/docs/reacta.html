@@ -301,13 +301,61 @@ div[id=div-001] {
       }
   </style>
   
-  <h2><label for="toggle-010"> Blank </label></h2>
+  <h2><label for="toggle-010"> Code Snippets </label></h2>
   <input type="checkbox" id="toggle-010" style="display: none;">
   
   <div id="div-010">
+
+    Usually when you call an api in react, you will often see code something like this: <br>
+
+    <pre>
+      const [data, setData] = useState(null);
+      const [loading, setLoading] = useState(true);
+
+      useEffect(() => {
+        const fetchData = async () => {
+          setLoading(true);
+          try {
+            const response = await fetch('/api/posts');
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            const result = await response.json();
+            setData(result);
+          } finally {
+            setLoading(false);
+          }
+        };
+
+        fetchData();
+      }, []); // Empty dependency array means this effect runs once on mount
+    </pre>
+
+    Random Thoughts. <br>
+    <code>
+      React native in the other hand, it is a tool for building mobile apps with JavaScript or TypeScript. It makes apps look native on both iOS and Android by using native components. It connects JavaScript to native features, and lets developers reuse code for both platforms, making it ideal for cross-platform development. In conclusion, React is used to build components under React Native, and React Native implements React under their framework. React Native is an efficient tool for creating cross-platform mobile apps, enabling developers to use a single codebase for both iOS and Android, while maintaining a native user experience. React Native faces several limitations, including a lack of native libraries, slower initialization times, not SEO-friendly and the need for native workarounds. Its loosely held framework can lead to inconsistent code, and licensing issues with Facebook pose potential risks for developers. These challenges can increase development costs and complexity.
+    </code>
     
   </div>
-<!-- SHOW HIDE START 010  -->
+<!-- SHOW HIDE END 010  -->
+
+<!-- SHOW HIDE START 011  -->
+<style type="text/css">
+  div[id=div-011] {
+    display: none;
+  }
+    input[id=toggle-011]:checked ~ div[id=div-011] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-011"> Blank </label></h2>
+  <input type="checkbox" id="toggle-011" style="display: none;">
+  
+  <div id="div-011">
+    
+  </div>
+<!-- SHOW HIDE END 011  -->
 
 <!--   -->
 
