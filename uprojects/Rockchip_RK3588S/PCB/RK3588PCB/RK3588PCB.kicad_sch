@@ -1,0 +1,48 @@
+(kicad_sch (version 20230121) (generator eeschema)
+
+  (uuid e3153922-fa45-4b3c-97cf-0763d43aece1)
+
+  (paper "A3")
+
+  (lib_symbols
+  )
+
+
+  (sheet (at 158.115 48.895) (size 85.09 5.715) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid 80770523-cadd-4fc4-aca2-f13ea91071fb)
+    (property "Sheetname" "sheetA" (at 158.115 48.1834 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "sheetA.kicad_sch" (at 158.115 55.1946 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "RK3588PCB"
+        (path "/e3153922-fa45-4b3c-97cf-0763d43aece1" (page "2"))
+      )
+    )
+  )
+
+  (sheet (at 158.115 63.5) (size 86.995 6.35) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid 8a6c8aac-9118-4465-bee6-b32cd8d9e87e)
+    (property "Sheetname" "SheetB" (at 158.115 62.7884 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "SheetB.kicad_sch" (at 158.115 70.4346 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "RK3588PCB"
+        (path "/e3153922-fa45-4b3c-97cf-0763d43aece1" (page "3"))
+      )
+    )
+  )
+
+  (sheet_instances
+    (path "/" (page "1"))
+  )
+)

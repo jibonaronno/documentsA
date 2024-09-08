@@ -11,6 +11,16 @@
 #include <painlessMesh.h>
 #include <ArduinoJson.h>
 
+#include <Wire.h>
+#include <Adafruit_Sensor.h>
+#include "Adafruit_TSL2591.h"
+
+// Example for demonstrating the TSL2591 library - public domain!
+
+// connect SCL to I2C Clock
+// connect SDA to I2C Data
+// connect Vin to 3.3-5V DC
+// connect GROUND to common ground
 
 // some gpio pin that is connected to an LED...
 // on my rig, this is 5, change to the right number of your LED.
@@ -23,6 +33,11 @@
 #define   MESH_SSID       "mesh"
 #define   MESH_PASSWORD   "12345678"
 #define   MESH_PORT       5555
+
+Adafruit_TSL2591 tsl = Adafruit_TSL2591(2591); // pass in a number for the sensor identifier (for your use later)
+int error = 0;
+int next = 0;
+long lastCapture = 0;
 
 // Prototypes
 void sendMessage(); 
@@ -44,6 +59,22 @@ SimpleList<uint32_t> nodes;
 
 void sendMessage() ; // Prototype
 Task taskSendMessage( TASK_SECOND * 1, TASK_FOREVER, &sendMessage ); // start with a one second interval
+
+void displaySensorDetails(void)
+{
+  sensor_t sensor;
+  tsl.getSensor(&sensor);
+  Serial.println(F("------------------------------------"));
+  Serial.print  (F("Sensor:       ")); Serial.println(sensor.name);
+  Serial.print  (F("Driver Ver:   ")); Serial.println(sensor.version);
+  Serial.print  (F("Unique ID:    ")); Serial.println(sensor.sensor_id);
+  Serial.print  (F("Max Value:    ")); Serial.print(sensor.max_value); Serial.println(F(" lux"));
+  Serial.print  (F("Min Value:    ")); Serial.print(sensor.min_value); Serial.println(F(" lux"));
+  Serial.print  (F("Resolution:   ")); Serial.print(sensor.resolution, 4); Serial.println(F(" lux"));  
+  Serial.println(F("------------------------------------"));
+  Serial.println(F(""));
+  delay(500);
+}
 
 // Task to blink the number of nodes
 Task blinkNoNodes;
@@ -88,10 +119,26 @@ void setup() {
             (mesh.getNodeTime() % (BLINK_PERIOD*1000))/1000);
       }
   });
+
+  // Configure the light sensor. These are medium settings for
+  // well-lit environments. Check the official demo for more
+  // configuration options and a detailed explanation.
+  tsl.setGain(TSL2591_GAIN_MED);
+  tsl.setTiming(TSL2591_INTEGRATIONTIME_300MS);
+
+
+
   userScheduler.addTask(blinkNoNodes);
   blinkNoNodes.enable();
 
   randomSeed(analogRead(A0));
+}
+
+int luminosity = 0;
+
+void getLuminance()
+{
+  luminosity = tsl.getLuminosity(TSL2591_VISIBLE);
 }
 
 void loop() {
@@ -101,7 +148,8 @@ void loop() {
 
 void sendMessage() {
   an0 = analogRead(A0);
-  doc["intense"] = an0;
+  getLuminance();
+  doc["intense"] = luminosity;
   serializeJson(doc, json);
   String msg = String(json);
   //msg += mesh.getNodeId();
@@ -119,6 +167,8 @@ void sendMessage() {
   }
 
   //Serial.printf("Sending message: %s\n", msg.c_str());
+
+  
 
   Serial.printf(".");
   

@@ -30,7 +30,7 @@ if not, please do not include it. It will waste your Flash space.
  ******************************************************************************/
 #include "gfx_conf.h"
 
-#include <cppQueue.h>
+// #include <cppQueue.h>
 
 #define	IMPLEMENTATION	LIFO
 
