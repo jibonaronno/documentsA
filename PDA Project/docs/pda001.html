@@ -960,7 +960,26 @@ The function <p5>CDlgIedSts::OnDeleteFile(CString sFile)</p5>  evetually calls t
       matches . </p4> <br>
       In <pp>ur_interface.c</pp> file the function <code>const ST_CHAR* translateLNType(const ST_CHAR* ps8originalType)</code>
       it checks every subnodes for a list of name : "SPDC", "CBCM", "OLTC" .... These are the Node types. If the Node Name 
-      contains these string then this function returns the type with Index number with it. <br>
+      contains these string then this function returns the type with Index number with it. <br><br>
+      Code below prints all the Nodes properties of each LUs. <br>
+<pp>scl_srvr.c -> Line Around 947</pp><br>
+<pre>
+for (ST_INT i = 0; i < pdsluConfig->s8numLUs; i++) {
+  printf("First IP : %s my IP : %s\n",pdsluConfig->LUList[i].ps8luIP, ps8curIP);
+      if (strcmp(pdsluConfig->LUList[i].ps8luIP, ps8curIP) == 0) {
+          printf("LU Name: %s\n", pdsluConfig->LUList[i].ps8luName);
+          printf("LU IP Address: %s\n", pdsluConfig->LUList[i].ps8luIP);
+          printf("Number of LNs: %d\n", pdsluConfig->LUList[i].s8numLNs);
+          printf("LNs:\n");
+          for (int j = 0; j < pdsluConfig->LUList[i].s8numLNs; j++) {
+              printf("  LN Name: %s\n", pdsluConfig->LUList[i].LNList[j].ps8name);
+              printf("  LN IP Address: %s ID : %d\n", pdsluConfig->LUList[i].LNList[j].ps8ip_in, pdsluConfig->LUList[i].LNList[j].s16id_ln);
+          }
+          u8luFound = SD_TRUE;
+          ////break;
+      }
+  }
+</pre>
   </div>
 <!-- SHOW HIDE END 012  -->
 
