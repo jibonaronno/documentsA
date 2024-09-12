@@ -1,0 +1,4 @@
+After powering on, first send 0X08 to the 0X30 register, wait for 5ms, read two registers 0x09 and 0xA0, 
+then send 0X09 to the 0X30 register, wait for 100ms, and then read the calibrated register data of 0X06, 0X07, and 0X08 to 
+form a 24 bit pressure AD value, with the highest bit being the sign bit. When the sign bit value 
+is "1", it represents "negative", and when the sign bit value is "0", it represents "positive".

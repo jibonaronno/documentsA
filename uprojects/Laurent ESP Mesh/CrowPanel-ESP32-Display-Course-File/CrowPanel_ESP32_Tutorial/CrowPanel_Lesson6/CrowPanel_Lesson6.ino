@@ -7,6 +7,8 @@ Lesson	link:	https://www.youtube.com/watch?v=WHfPH-Kr9XU
 Description	:	The code is currently available based on the course on YouTube, 
 				        if you have any questions, please refer to the course video: Introduction 
 				        to ask questions or feedback.
+Notes       : 11-Sept-2024 This HMI code for mesh network is limited to receive 8 transponder messages.
+              Each transponder is identified by 1 Capital character Fro A to H . 
 **************************************************************/
 
 
@@ -114,8 +116,20 @@ void my_touchpad_read(lv_indev_drv_t *indev_driver, lv_indev_data_t *data)
 
 extern lv_obj_t * ui_Bar1;
 extern lv_obj_t * ui_Bar2;
+extern lv_obj_t * ui_Bar3;
+extern lv_obj_t * ui_Bar4;
+extern lv_obj_t * ui_Bar5;
+extern lv_obj_t * ui_Bar6;
+extern lv_obj_t * ui_Bar7;
+extern lv_obj_t * ui_Bar8;
 int progress_01 = 10;
 int progress_02 = 10;
+int progress_03 = 10;
+int progress_04 = 10;
+int progress_05 = 10;
+int progress_06 = 10;
+int progress_07 = 10;
+int progress_08 = 10;
 
 void setup()
 {
@@ -228,6 +242,12 @@ void lvgl_regular_function()
     lv_timer_handler();
     lv_bar_set_value(ui_Bar1, progress_01, LV_ANIM_ON);
     lv_bar_set_value(ui_Bar2, progress_02, LV_ANIM_ON);
+    lv_bar_set_value(ui_Bar3, progress_03, LV_ANIM_ON);
+    lv_bar_set_value(ui_Bar4, progress_04, LV_ANIM_ON);
+    lv_bar_set_value(ui_Bar5, progress_05, LV_ANIM_ON);
+    lv_bar_set_value(ui_Bar6, progress_06, LV_ANIM_ON);
+    lv_bar_set_value(ui_Bar7, progress_07, LV_ANIM_ON);
+    lv_bar_set_value(ui_Bar8, progress_08, LV_ANIM_ON);
 }
 
 void loop()
@@ -269,6 +289,7 @@ void sendMessage() {
 
 
 void receivedCallback(uint32_t from, String & msg) {
+
   Serial.printf("startHere: Received from %u msg=%s\n", from, msg.c_str());
 
   deserializeJson(doc, msg.c_str());
@@ -280,6 +301,30 @@ void receivedCallback(uint32_t from, String & msg) {
 
   if(name[0] == 'C'){
     progress_02 = intense / 21;
+  }
+
+  if(name[0] == 'D'){
+    progress_03 = intense / 21;
+  }
+
+  if(name[0] == 'E'){
+    progress_04 = intense / 21;
+  }
+
+  if(name[0] == 'F'){
+    progress_05 = intense / 21;
+  }
+
+  if(name[0] == 'G'){
+    progress_06 = intense / 21;
+  }
+
+  if(name[0] == 'H'){
+    progress_07 = intense / 21;
+  }
+
+  if(name[0] == 'I'){
+    progress_08 = intense / 21;
   }
 
   Serial.printf("%s:%d\n", name, intense);
