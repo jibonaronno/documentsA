@@ -1,11 +1,8 @@
 //************************************************************
 // this is a simple example that uses the easyMesh library
 //
-// 1. blinks led once for every node on the mesh
-// 2. blink cycle repeats every BLINK_PERIOD
-// 3. sends a silly message to every node on the mesh at a random time between 1 and 5 seconds
-// 4. prints anything it receives to Serial.print
-//
+// This is transponder code. Each transpoder is identified by 1 Capital Character from A to H.
+// You can change the id of a transponder in the setup function ' doc["name"] = "C";" '. 
 //
 //************************************************************
 #include <painlessMesh.h>
