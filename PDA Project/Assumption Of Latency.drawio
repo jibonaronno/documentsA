@@ -1,0 +1,52 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.8 Chrome/128.0.6613.36 Electron/32.0.1 Safari/537.36" version="24.7.8">
+  <diagram name="Page-1" id="gSTD4Ky9tV5CqMNZMUcq">
+    <mxGraphModel dx="1036" dy="614" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="uMuDwe3NmUnjVeyT4cjW-1" value="&lt;h5&gt;&lt;font face=&quot;Lucida Console&quot;&gt;&lt;span style=&quot;font-size: 20px;&quot;&gt;Assumption of total latency&lt;/span&gt;&lt;/font&gt;&lt;/h5&gt;" style="text;strokeColor=none;align=left;fillColor=#666666;html=1;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontColor=#FFFFFF;labelBackgroundColor=#666666;" parent="1" vertex="1">
+          <mxGeometry y="20" width="710" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="uMuDwe3NmUnjVeyT4cjW-3" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0066CC;" parent="1" vertex="1">
+          <mxGeometry x="710" y="20" width="20" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="uMuDwe3NmUnjVeyT4cjW-4" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FF6666;" parent="1" vertex="1">
+          <mxGeometry x="710" y="50" width="20" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="uYPb4oXBxmZhUzBs6j9D-1" value="PDDAU 32 Channel x 122.88 KB/s&amp;nbsp;&lt;div&gt;= 3.9 MB/s&lt;/div&gt;&lt;div&gt;Approx 6MB/s for packet frames.&lt;/div&gt;" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="130" width="260" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="uYPb4oXBxmZhUzBs6j9D-3" value="" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.rounded_frame;dx=10;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="110" y="280" width="270" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="uYPb4oXBxmZhUzBs6j9D-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="uYPb4oXBxmZhUzBs6j9D-1" target="uYPb4oXBxmZhUzBs6j9D-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uYPb4oXBxmZhUzBs6j9D-5" value="8 Channel Switch In The LU has own Latency&amp;nbsp;&lt;div&gt;and devided speed for&amp;nbsp;&lt;/div&gt;&lt;div&gt;switching.&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="500" y="295" width="270" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="uYPb4oXBxmZhUzBs6j9D-6" value="Network Switch In The Real Site may&lt;div&gt;Exist&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="130" y="300" width="230" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="uYPb4oXBxmZhUzBs6j9D-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="uYPb4oXBxmZhUzBs6j9D-7" target="uYPb4oXBxmZhUzBs6j9D-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uYPb4oXBxmZhUzBs6j9D-7" value="" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.rounded_frame;dx=10;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="500" y="280" width="270" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="uYPb4oXBxmZhUzBs6j9D-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="uYPb4oXBxmZhUzBs6j9D-3" target="uYPb4oXBxmZhUzBs6j9D-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uYPb4oXBxmZhUzBs6j9D-11" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;The processor&#39;s gigabit ethernet is itself a switch and&amp;nbsp;&lt;/font&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;there is no exact information about latency in that&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;switch. The processor itself is single core so Linux&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;will schedule every thread on to 1 core. Linux itself requires&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;some great amount of clock resource and then Launch our app.&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;In our app there are almost 20 thread and for 32 channels&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;we have to save the data to eMMC where writing eMMC is&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;much slower than the total speed of comms.&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;My assumption is the LU Hardware cannot handle all 32&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;channels of PDDATA at the same time. We are also&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;planning to apply complex filter on the data which is another&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;latency. 32 Channel data will reach to LU but LU cannot&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;Process, Filter, Save&amp;nbsp; all the data at real time.&amp;nbsp;&lt;/font&gt;&lt;/div&gt;" style="shape=ext;double=1;rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="440" width="812.5" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="uYPb4oXBxmZhUzBs6j9D-9" value="" style="shape=image;html=1;verticalLabelPosition=bottom;verticalAlign=top;imageAspect=1;aspect=fixed;image=img/clipart/Gear_128x128.png" vertex="1" parent="1">
+          <mxGeometry x="759" y="19" width="52" height="61" as="geometry" />
+        </mxCell>
+        <mxCell id="uYPb4oXBxmZhUzBs6j9D-10" value="" style="html=1;whiteSpace=wrap;shape=isoCube2;backgroundOutline=1;isoAngle=15;gradientColor=none;opacity=20;" vertex="1" parent="1">
+          <mxGeometry x="740" width="90" height="100" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
