@@ -1,0 +1,813 @@
+From: <Saved by Blink>
+Snapshot-Content-Location: http://lists.landley.net/pipermail/toybox-landley.net/2024-January/029957.html?fbclid=IwY2xjawFYUsdleHRuA2FlbQIxMAABHfBvqo7yiR0T49oe-XhXMxoPzIGz5B1-JZoUSCyNjSS-BrZy5lL0fHwRiQ_aem_g0b8y1tlX5JckvO5K2fQbA
+Subject: [Toybox] Impact of global struct size
+Date: Thu, 19 Sep 2024 15:39:43 +0900
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	type="text/html";
+	boundary="----MultipartBoundary--H0E5QbyZUvmhImvzfCp7ZNlzU1tluVC5yqcS3UZp4K----"
+
+
+------MultipartBoundary--H0E5QbyZUvmhImvzfCp7ZNlzU1tluVC5yqcS3UZp4K----
+Content-Type: text/html
+Content-ID: <frame-8C7192B4C1D6F5B91CC46561EE803B3F@mhtml.blink>
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://lists.landley.net/pipermail/toybox-landley.net/2024-January/029957.html?fbclid=IwY2xjawFYUsdleHRuA2FlbQIxMAABHfBvqo7yiR0T49oe-XhXMxoPzIGz5B1-JZoUSCyNjSS-BrZy5lL0fHwRiQ_aem_g0b8y1tlX5JckvO5K2fQbA
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html><head>=
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dwindows-1=
+252"><link rel=3D"stylesheet" type=3D"text/css" href=3D"cid:css-2e0b677b-fc=
+13-42d4-9914-00dfe392337b@mhtml.blink" />
+   <title> [Toybox] Impact of global struct size
+   </title>
+   <link rel=3D"Index" href=3D"http://lists.landley.net/pipermail/toybox-la=
+ndley.net/2024-January/index.html">
+   <link rel=3D"made" href=3D"mailto:toybox%40lists.landley.net?Subject=3DR=
+e%3A%20%5BToybox%5D%20Impact%20of%20global%20struct%20size&amp;In-Reply-To=
+=3D%3C17d849a9-41dd-4ac3-933b-bf6a33efaee2%40landley.net%3E">
+   <meta name=3D"robots" content=3D"index,nofollow">
+  =20
+  =20
+  =20
+   <link rel=3D"Next" href=3D"http://lists.landley.net/pipermail/toybox-lan=
+dley.net/2024-January/029958.html">
+ </head>
+ <body bgcolor=3D"#ffffff">
+   <h1>[Toybox] Impact of global struct size</h1>
+<!--htdig_noindex-->
+    <b>Rob Landley</b>=20
+    <a href=3D"mailto:toybox%40lists.landley.net?Subject=3DRe%3A%20%5BToybo=
+x%5D%20Impact%20of%20global%20struct%20size&amp;In-Reply-To=3D%3C17d849a9-4=
+1dd-4ac3-933b-bf6a33efaee2%40landley.net%3E" title=3D"[Toybox] Impact of gl=
+obal struct size">rob at landley.net
+       </a><br>
+    <i>Mon Jan  1 12:45:43 PST 2024</i>
+    <p></p><ul>
+       =20
+        <li>Next message (by thread): <a href=3D"http://lists.landley.net/p=
+ipermail/toybox-landley.net/2024-January/029958.html">[Toybox] Impact of gl=
+obal struct size
+</a></li>
+         <li> <b>Messages sorted by:</b>=20
+              <a href=3D"http://lists.landley.net/pipermail/toybox-landley.=
+net/2024-January/date.html#29957">[ date ]</a>
+              <a href=3D"http://lists.landley.net/pipermail/toybox-landley.=
+net/2024-January/thread.html#29957">[ thread ]</a>
+              <a href=3D"http://lists.landley.net/pipermail/toybox-landley.=
+net/2024-January/subject.html#29957">[ subject ]</a>
+              <a href=3D"http://lists.landley.net/pipermail/toybox-landley.=
+net/2024-January/author.html#29957">[ author ]</a>
+         </li>
+       </ul>
+    <hr> =20
+<!--/htdig_noindex-->
+<!--beginarticle-->
+<pre style=3D"position: relative;">On 12/30/23 18:10, Ray Gardner wrote:
+&gt;<i> I am having a bit of trouble understanding the impact of globals.
+</i>&gt;<i>=20
+</i>&gt;<i> There are the probes GLOBALS and findglobals to see what the sp=
+ace usage
+</i>&gt;<i> is for globals. The output of both show that "this" is up to 82=
+32 bytes,
+</i>&gt;<i> due to the "ip" toy using 8232 of global space.
+</i>
+Which is in pending for a reason.
+
+&gt;<i> The blog entry of 31 August 2023 ends with some discussion of which
+</i>&gt;<i> commands take up the most global space. It says "Everything "tr=
+" and
+</i>&gt;<i> earlier is reasonably sized, and "ip" and "telnet" are in pendi=
+ng."
+</i>
+I sorted them by size and cut and pasted the end of the list, starting with=
+ "tr".
+
+Commands in pending haven't been (fully) cleaned up yet, so problems in the=
+m
+aren't yet confirmed to be a design problem requiring heavy lifting. Most l=
+ikely
+something easily fixable I just haven't done the janitorial work for yet.
+
+&gt;<i> I inferred that this means commands in pending are less important h=
+ere,
+</i>&gt;<i> but they still seem to take up space in "this".
+</i>
+Only when enabled, which they aren't in defconfig. If you don't switch it o=
+n in
+config, then it doesn't get build, meaning it doesn't take up any space in =
+the
+resulting toybox binary.
+
+&gt;<i> How important is the space here? "tr" was 520 then, cksum was 1024.=
+ How
+</i>&gt;<i> big is too big?
+</i>
+Mostly this is an issue for embedded systems. I doubt android's going to ca=
+re.
+
+Sorry for the delay replying, I can't figure out how to explain this withou=
+t a
+GIANT INFODUMP of backstory. The tl;dr is your read-only data is shared bet=
+ween
+all instances of the program, but your _writeable_ data needs a separate co=
+py
+for each instance of the program that's running, and that includes every gl=
+obal
+variable you MIGHT write to. The physical pages can be demand-faulted on sy=
+stems
+with an MMU (although each fault gets rounded up to page size), but without=
+ an
+mmu it's LD_BIND_NOW and then some. See "man 8 ld.so" if you didn't get tha=
+t
+reference...)
+
+Ok, backstory: since 1996 modern Linux executables are stored in ELF format
+(Executable Linking Format, yes "ELF format" is like "ATM machine"). It's a=
+n
+archive format like zip or tar, except what it stores is (among other thing=
+s) a
+list of "sections" each containing a list of "symbols". Your linker puts th=
+is
+together from the .o files produced by the compiler.
+
+Statically linked processes have six main memory mappings, four of which ar=
+e
+initialized by the kernel's ELF loader (fs/binfmt_elf.c) from sections in t=
+he
+ELF file, and the other two are generated at runtime. All six of these are
+created by the kernel during the execve(2) system call, mostly l wanders th=
+rough
+fs/binfmt_elf.c (or fs/binfmt_fdpic.c which is kind of an ext2/ext3 thing t=
+hat's
+MOSTLY the same with minor variants and REALLY SHOULD be the same file but =
+isn't
+because kernel development became proctologically recursive some years ago)=
+.
+
+You can look at /proc/self/maps (and /proc/self/smaps, and
+/proc/self/smaps_rollup) to see them for a running process (replace "self" =
+with
+any running PID, self is a symlink to your current PID). The six sections a=
+re:
+
+  text - the executable functions: mmap(MAP_PRIVATE, PROT_READ|PROT_EXEC)
+  rodata - const globals, string constants, etc: mmap(MAP_PRIVATE, PROT_REA=
+D)
+  data - writeable data initialized to nonzero: mmap(MAP_PRIVATE, PROT_WRIT=
+E)
+  bss - writeable data initialized to zero: mmap(MAP_ANON, PROT_WRITE)
+  stack - function call stack, also contains environment data
+  heap - backing store for malloc() and free()
+
+The first three of those literally exist in the ELF file, as in it mmap()s =
+a
+block of data out of the file at a starting offset, and the memory is thus
+automatically populated with data from the file. The text and rodata ones d=
+on't
+really care if it's MAP_PRIVATE or MAP_SHARED because they can never write
+anything back to the file, but the data one cares that it's MAP_PRIVATE: an=
+y
+changes stay local and do NOT get written back to the file. And the bss is =
+an
+anonymous mapping so starts zeroed, the file doesn't bother wasting space o=
+n a
+run of zeroes when the OS can just provide that on request. (It stands for =
+Block
+Starting Symbol which I assume meant something useful 40 years ago on DEC h=
+ardware.)
+
+All four of those ELF sections (text, rodata, data, bss) are each treated a=
+s a
+giant struct under the covers, because that's how C thinks. Every time you
+reference a variable the C code goes "I have a pointer to the start of this=
+, and
+I have an offset into it where this particular symbol lives within that seg=
+ment,
+and I know the type and thus size of the variable living at that offset" ev=
+ery
+time you reference a symbol that lives there.
+
+The remaining two memory blocks aren't part of ELF, but they're needed at r=
+untime.
+
+The stack is also set up by the kernel, and is funny in three ways:
+
+1) it has environment data at the end (so all your inherited environment
+variables, and your argv[] arguments, plus an array of pointers to the star=
+t of
+each string which is what char *argv[] and char *environ[] actually point t=
+o.
+The kernel's task struct also used to live there, but these days there's a
+separate "kernel stack" and I'd have to look up where things physically are=
+ now
+and what's user visible.
+
+2) It grows down, not up. (Except on pa-risc, but that's essentially extinc=
+t.)
+The pointer starts at the end of the stack space (well, right before the
+environment data), and each function call SUBTRACTS from it, and each funct=
+ion
+call adds back to it.
+
+Your local variables are basically ANOTHER struct where "I have a register
+pointing to a location, and each name is an offset+type from that register'
+(it's how C does everything). When you make a function call, the pointer mo=
+ves
+to fresh empty stack space so the local variables from last time aren't mod=
+ified
+by the current function, and then when you return it moves it back.
+
+By moving down, a function can grab however much stack space it needs in on=
+e
+place at the start of the function (I need X bytes, so sp -=3D X), and then=
+ that
+"pointer+offset" logic is going into the protected space it's reserved for
+itself. If the stack grew up, it would either have to SUBTRACT the offset t=
+o use
+space it grabbed at the start, or else hold off to protect _this_ function'=
+s
+space right before each function call (duplicated code, and also using
+unprotected space so outside observers like debuggers would never _really_ =
+know
+how much of the stack was currently in use). The function can implement "re=
+turn"
+as shared code where it jumps to a single "add this many bytes back to the =
+stack
+pointer" instruction on the way out. Add each function call pushing the
+instruction pointer to the stack before jumping to the new function, and th=
+en
+you just "pop ip" after fixing the stack pointer and you've returned from y=
+our
+function.
+
+3) The stack generally has _two_ pointers, a "stack pointer" and a "base
+pointer" which I always get confused. One of them points to the start of th=
+e
+mapping (kinda important to keep track of where your mappings are), and the
+other one moves (gets subtracted from and added to and offset to access loc=
+al
+variables).
+
+All this is ignoring dynamic linking, in which case EACH library has those =
+first
+four sections (plus a PLT and GOT which have to nest since the shared libra=
+ries
+are THEMSELVES dynamically linked, which is why you need to run ldd recursi=
+vely
+when harvesting binaries, although what it does to them at runtime I try no=
+t to
+examine too closely after eating). There should still only be one stack and=
+ heap
+shared by each process though.
+
+If you launch dozens of instances of the same program, the read only sectio=
+ns
+(text and rodata) are shared between all the instances. (This is why nommu
+systems needed to invent fdpic: in conventional ELF everything uses absolut=
+e
+addresses, which is find when you've got an MMU because each process has it=
+s own
+virtual address range starting at zero. (Generally libc or something will m=
+map()
+about 64k of "cannot read, cannot write, cannot execute" memory there so an=
+y
+attempt to dereference a NULL pointer segfaults, but other than that...)
+
+But shared libraries need to move so they can fit around stuff. Back in the
+a.out days each shared library was also linked at an absolute address (just=
+ one
+well above zero, out of the way of most programs), meaning when putting tog=
+ether
+a system you needed a registry of what addresses were used by each library,=
+ and
+you'd have to supply an address range to each library you were building as =
+part
+of the compiler options (or linker script or however that build did it). Th=
+is
+sucked tremendously.
+
+So ELF PIC (Position Independent Code) was invented, where everything is of=
+fset
+from a single pointer (all the segments are glued together one after the ot=
+her,
+so each segment has a "starting offset". Register + segment offset + variab=
+le
+offset =3D location of variable). PIC was invented for shared libraries, bu=
+t the
+security nuts immediately decided they wanted executables to work like that=
+ too
+(so exploit code that jumped to absolute addresses where it "knew" a functi=
+on
+lived would stop working. Moving shared libraries around helped, but moving=
+ the
+executable's own code around nerfed more attack surface). So they invented =
+PIE
+(Position Independent Executables) which means your executable is compiled =
+with
+-fpic and then your startup code (crt0.o and friends) does some shared libr=
+ary
+setup. (This may also have involved kernel changes, I knew back around 2007=
+ but
+between me forgetting and the plumbing being a moving target...)
+
+(Note: legacy 32 bit x86 does not have enough registers, so anything that u=
+ses
+one more register leaves less for the rest of the code resulting in extra s=
+tack
+spills and such, although they were already shoving %fs and %gs or some suc=
+h in
+there decades ago and x86-64 added 8 more and x32 is a hybrid that can stil=
+l use
+those 8 extra in 32 bit mode... Anyway, there used to be strong reasons to =
+skimp
+on register usage, and these days not so much. Outside of legacy x86,
+architectures with FEW registers have 16, and the rest have 32. So eating a
+half-dozen for "API" is acceptable.)
+
+So NOMMU systems: processors that do not have a memory management unit are
+generally called "microcontrollers" instead of "microprocessors", and they =
+use
+physical addresses for everything. This has some advantages: not only is it=
+ less
+circuitry (less power consumption), but it's more memory efficient because =
+there
+are no page tables (Vitaly Wool gave a talk at ELC in 2015 where he had Lin=
+ux
+running in 256k of SRAM, and everything else running out of ROM (well, nor
+flash), which was only possible because he didn't spend any memory on page
+tables) and easier to get hard realtime behavior because there are no soft =
+faults...
+
+NOMMU systems have been analogized to bacteria, fungi, and insects: there a=
+re
+more bacterial cells on the planet than mammal cells by a VERY LARGER MARGI=
+N.
+But they're mostly invisible to the elephants and dinosaurs of the world. N=
+OMMU
+systems are EVERYWHERE. Mostly Linux is too big to play in that space, but =
+even
+a small slice of it is more deployments than everything else Linux does com=
+bined
+(yes including phones).
+
+A MMU has an extra set of registers called a TLB (Translation Lookaside Buf=
+fer)
+which translates each memory access (this memory address you're using is
+actually THIS physical memory address). Each TLB entry is a starting addres=
+s, a
+range, and some permission flags (this entry is good for read, write, or ex=
+ecute
+attempts). The TLB entries are all checked in parallel in a single clock cy=
+cle,
+so there are never many of them (the wiring increases exponentially the mor=
+e you
+have). When a memory access the code tries to do ISN'T in the TLB, the proc=
+essor
+generates an interrupt ("fault" to hardware people) and execution jumps to =
+the
+interrupt handler, which traverses a data structure called a "page table" t=
+o
+figure out what that memory access should do. It can swap out one of the TL=
+B
+entries to stick in the appropriate virtual/physical translation and return=
+ from
+the interrupt (this is called a "soft fault"). Or it can edit the page tabl=
+e to
+allocate more physical memory (if this adds a zeroed page it's deferred
+allocation, if it makes a copy of previously shared memory you're now writi=
+ng to
+it's copy-on-write). If it hasn't got enough memory to satisfy the attempte=
+d
+access it can evict some other physical page (writing its contents to swap)=
+,
+generally suspending the process and letting the scheduler pick something e=
+lse
+to run until the write's finished and it can reuse that page. Similarly, if=
+ that
+page isn't available because it was swapped out (or is mmaped from a file b=
+ut
+not present in memory) the fault handler can schedule a load from disk (or
+network filesystem!) and again suspend the process until that completes and=
+ the
+data's ready to edit the page table, fix up the TLB, and resume from the fa=
+ult.
+
+Some old processors had page fault handling in hardware. This sucked rocks,=
+ and
+Linus yelled at the PowerPC guys somewhat extensively about this 20 years a=
+go.
+Page fault handling in software is sane, page fault handling in hardware is=
+n't.
+This does mean you need to tie up a TLB entry pointing at your page table, =
+and
+another pointing at your memory fault handler code, so the software can run=
+ it.
+(Or you stick the processor into "physical addressing" mode to bypass the T=
+LB
+during the interrupt so you're running without the MMU and all memory addre=
+sses
+are physical addresses. Different processors do it different ways.)
+
+A NOMMU system hasn't got a TLB. Sometimes it will have "range registers", =
+which
+are similar in that they provide windows into physical memory where access =
+is
+allowed. The same "start, length" logic for address matching, but all it do=
+es is
+allow or disallow access. (That way your userspace processes can't access e=
+ach
+other's memory, and cant' read or write kernel memory either.) But this isn=
+'t
+very common because the MTRR plumbing is 90% of the way to a software TLB: =
+add a
+third value (an offset added to the physical address when this range matche=
+s;
+remember unsigned values can wrap cleanly) and the RWX access type flags (s=
+o you
+can match TYPE of access allowing read-only or non-executable memory), give=
+ the
+fault handler the ability to resume the interrupted instruction after doing
+fixups... and you have an MMU.
+
+Things a NOMMU system _can't_ do:
+
+1) Remap addresses.
+
+On a system with an mmu, every process can have a different mapping at addr=
+ess
+0x1000 and each sees its own unique contents there. Without an mmu, what's =
+in
+the memory is the same for everybody.
+
+2) Collate discontiguous memory.
+
+With an mmu, if I mmap(MAP_ANON) a megabyte long, the underlying physical p=
+ages
+the page table slots in may be scattered all over the place, and it's not m=
+y
+problem.
+
+Without an MMU, if I want a 256k mapping I need to find 256k of contiguous
+physical memory (all together in one linear chunk). And if the system's bee=
+n
+running for a while, I may have way more than 256k free but it's in scatter=
+ed
+pieces none of which is big enough to satisfy my allocation request.
+
+Fragmentation is a much bigger problem on NOMMU systems.
+
+3) use swap space
+
+It's built on top of page tables, and we haven't got those. So I can't use
+storage to increase my available memory: the physical memory I've got is it=
+.
+
+4) Demand fault
+
+If I allocate memory, I have to have that memory NOW. I can't allocate page
+table space and leave the physical memory unpopulated, and then attach page=
+s to
+it from the fault handler as the processor actually tries to read or write =
+to
+the memory.
+
+If I want to mmap() something backed from a file, I have to load it all in
+during the mmap() call. I can't detect access and load it in just the part =
+that
+was accessed from the fault handler.
+
+I can't copy-on-write either. With an MMU, I have a writeable mapping that
+starts identical to another process's memory I can point the new mapping at=
+ the
+old one's physical pages and mark it read only, and then when they try to w=
+rite
+have the fault handler allocate a new physical page, copy the old data, and
+redirect the write to the new page. But without an MMU, a separate writeabl=
+e
+mapping is separate physical pages right from the start, it just initialize=
+s it
+with a copy of the data.
+
+5) fork() processes.
+
+An identical copy of this process would want to use the same addresses. If =
+you
+make copies of this process's mappings, they will live at different address
+ranges. All the pointers in the new copy point into to the OLD copy's memor=
+y.
+
+Instead nommu systems have to use vfork(), which suspends the parent until =
+the
+child either calls exec() or _exit(), because both discard all the old mapp=
+ings
+(and thus the parent can get them back). Note that changes to global variab=
+les
+in the child before calling exec() will affect the parent's data!
+
+Often vfork() won't even give the child a new stack, which means values wri=
+tten
+to _local_ variables are also visible in the parent when that resumes, AND =
+it
+means the child CANNOT RETURN FROM THE FUNCTION THAT CALLED VFORK (because =
+that
+will discard the current stack frame, and then the next function call will
+overwrite it with nonsense, so when the parent resumes Bad Things Happen).
+
+6) Most mmap() flags don't work.
+
+All mmap() really does on nommu is allocate phyiscal memory ranges so other
+mappings won't use it. There's no protection or reorganization.
+
+You can mmap(MAP_ANONYMOUS). You can only MAP_FIXED if nobody else is using=
+ that
+address yet. Everything is always MAP_LOCKED and MAP_POPULATE.
+
+You can mmap(MAP_SHARED) but _not_ with PROT_WRITE (because it has no way t=
+o
+detect changed data needs to be written back: the MMU trick is to remove th=
+e
+write bit from "clean" pages, take a fault the first time you try to write =
+to
+them, and let the write go through but schedule the page to be written out =
+to
+disk; there's optimizations with a second "dirty" bit to reduce the number =
+of
+faults taken without missing updates as the page is written to disk). And
+remember, read-only mappings are fully populated up front, which is expensi=
+ve
+(and a latency spike because mmap() won't return until it's finished readin=
+g all
+the data into memory).
+
+You can't MAP_PRIVATE because that does copy-on-write when you change the
+contents. You can mmap(MAP_SHARED) because "everybody sees the changes" is =
+the
+default, but only read-only mappings work.
+
+7) Dynamically grow the stack.
+
+Again, no faults for the interrupt handler to fix up via deferred physical =
+page
+allocation, so the stack size you request is the stack size the kernel allo=
+cates
+for you in exec. And it's gotta be contiguous or the process can't START, s=
+o
+ideally nommu systems use as small a stack size as possible. (This is anoth=
+er
+extra field fdpic and binflt added: binflt as the old nommu variant of a.ou=
+t,
+it's obsolete, don't go there. You can set it via a linker option, or it's =
+got a
+default you can specify in the ./configure when you build your toolchain.)
+
+The default stack size on kernels with mmu is generally 8 megabytes. Common
+stack sizes on nommu range from 4k to 128k. Once upon a time toybox could M=
+OSTLY
+be made to work with 16k, although it's been a while since I've regression
+tested it and the shell ain't gonna be happy. I'd do more like 64k.
+
+NOMMU also uses its own executable formats, so you have to compile and link=
+ your
+binaries differently.
+
+You can't run most normal ELF binaries on NOMMU, because those are linked t=
+o use
+absolute addresses, and if those specific memory addresses aren't available
+(because the kernel's there, for example) it won't load and can't run. You =
+MIGHT
+be able to run ONE ELF binary if you prepared it specially, but can't run e=
+ven a
+second copy of the same one (because it would want to re-use the same addre=
+sses).
+
+You can run PIE binairies on NOMMU, but it's not ideal. Those glue all the =
+ELF
+segments together into a contiguous chunk of memory, but have a register
+pointing to the starting address. So you can run the binary, assuming you c=
+an
+find a big enough contiguous chunk of memory to stick it in. (The heap and =
+stack
+can fit anywhere, those always had a register pointing to the start of each=
+,
+even back on x86.) But you need a BIG contiguous chunk, which is hard to fi=
+nd
+once memory gets fragmented. And it's wasteful because the read-only sectio=
+ns
+(text and rodata) can't be shared, since they're contiguous with the writea=
+ble
+sections. (There's only one "start of PIE" pointer, and all 4 ELF segments =
+are
+glued together after it because the offsets are calculated the way they are=
+ in
+conventional ELF, just with the addition of a base pointer instead of alway=
+s
+starting at 0.)
+
+FDPIC is an ELF variant that separates the segments, which means it uses 4
+registers, one for each segment. (In theory you could use one register poin=
+ting
+to an array of 4 pointers and have an extra dereference on every memory acc=
+ess,
+but nobody wants to take the speed hit. That's why "fdpic for 32 bit x86" d=
+idn't
+happen.) This means your read only sections CAN be shared, and that the oth=
+er
+writeable segments are independently moveable and can fit into smaller scra=
+ps of
+fragmented memory.
+
+SO: cycling back to the original question:
+
+The GLOBALS() block is the majority of the data segment. That and the stack=
+ are
+the two big contiguous allocations for each new process. (The heap is also =
+there
+but it's happens later and there's stuff libc can do to make it suck less. =
+In
+theory EACH malloc() could be a separate mmap() which avoids fragmentation =
+and
+would also round up each allocation to 4k so is actually a huge net loss, b=
+ut
+the point is a nommu-aware allocator can break the heap up into multiple mm=
+ap()s
+to mitigate fragmentation, and that can happen transparently within libc an=
+d not
+be the userspace programmer's immediate problem.)
+
+(Yes I said the kernel gives you a starting heap when I listed the 6 segmen=
+ts
+above. It's a legacy thing from the PDP-11 days in the 1970s. "man 2 brk" i=
+s
+related. I can explain, but... ask Rich Felker. I he has a rant. I believe =
+this
+is another thing the libc author can shoot in the face and make it stop; fo=
+r our
+purposes you can probably ignore it. Modern allocation is more or less buil=
+t on
+mmap(), I think.)
+
+&gt;<i> As long as "this" is as big as the largest GLOBAL struct, then what=
+ is the
+</i>&gt;<i> point of working to reduce the global space of any command, whe=
+n the space
+</i>&gt;<i> for "ip" is in there whether "ip" is compiled into toybox or no=
+t?
+</i>
+The space for "ip" shouldn't be there when ip isn't compiled in. Looks like=
+ I
+should add USE() macros around each struct in union global_data in
+generated/globals.h.
+
+&gt;<i> What am
+</i>&gt;<i> I missing? Why are global structs included in globals.h for com=
+mands not
+</i>&gt;<i> included in a build? Or are they somehow suppressed in the buil=
+d?
+</i>
+On a system with mmu the pages are demand faulted so the main issue there i=
+s
+memory usage being rounded up to 4k.
+
+&gt;<i> The globals do not seem to affect the size of the executable file, =
+at
+</i>&gt;<i> least using the default build. Is the issue with "this" taking =
+up space at
+</i>&gt;<i> runtime? Many commands must surely allocate much more space dyn=
+amically
+</i>&gt;<i> anyway.
+</i>&gt;<i>=20
+</i>&gt;<i> I ask because I have been spending effort to reduce global usag=
+e in a toy
+</i>&gt;<i> I'm working on, and did some rather large changes of static str=
+ucts to
+</i>&gt;<i> pointer-to-struct to reduce global from 960 to 336, saving 624 =
+global
+</i>&gt;<i> bytes, but the code size increased by 285 just due to accessing=
+ via
+</i>&gt;<i> pointers in many places.
+</i>
+Probably not a net win.
+
+&gt;<i> I don't yet know if that has impacted performance
+</i>&gt;<i> noticeably. I am trying to understand if I should back out thes=
+e changes
+</i>&gt;<i> before doing more work.
+</i>
+I err on the side of simple, and clean it up after the fact when I notice a
+problem. Send the simple thing first.
+
+Part of the reason it's good to have context is if diff is using 456 bytes,
+anything else trying to get its usage down UNDER that without first address=
+ing
+diff isn't really helping.)
+
+Every segment actually gets rounded up to multiples of 4k on all the linux
+systems I'm aware of. (In theory there are 1k allocators, in practice most =
+ext2
+filesystems can't be mounted on them.) But "this" isn't the ONLY thing in t=
+here,
+hence scripts/probes/findglobals:
+
+$ scripts/probes/findglobals
+D 8	toybox_version
+B 80	toys
+B 4096	libbuf
+B 4096	toybuf
+D 7648	toy_list
+B 8232	this
+
+
+Which is a filtered view of:
+
+$ nm --size-sort generated/unstripped/toybox | grep '[0-9A-Fa-f]* [BCDGRS]'
+0000000000000004 B __daylight@@GLIBC_2.2.5
+0000000000000008 B __environ@@GLIBC_2.2.5
+0000000000000008 B stderr@@GLIBC_2.2.5
+0000000000000008 B stdin@@GLIBC_2.2.5
+0000000000000008 B stdout@@GLIBC_2.2.5
+0000000000000008 B __timezone@@GLIBC_2.2.5
+0000000000000008 D toybox_version
+0000000000000050 B toys
+0000000000001000 B libbuf
+0000000000001000 B toybuf
+0000000000001de0 D toy_list
+0000000000002028 B this
+
+(But you'll notice all the symbols that got filtered out by the grep -v GLI=
+BC
+are 8k BSS entries. So far, anyway, I dread each upgrade...)
+
+So we have 7648 bytes toy_list (just under 2 pages), plus 8 bytes toy_versi=
+on
+(I'm working to make this a normal string and thus rodata, Elliott has a pa=
+tch
+that moves it to rodata but it's still a separate named symbol and thus sti=
+ll
+CLUTTER that I have to EXPLAIN.)
+
+Anyway, 2 pages of data segment per process.
+
+Meanwhile BSS is also a per-process contiguous memory allocation, so adding=
+ up:
+
+4096+4096+8232 is just over 4 pages so need 5 contiguous pages (20480 bytes=
+),
+and the 80 bytes of "toys" + the glibc debris doesn't change that (goes a
+trivial amount into that extra page).
+
+So to launch a new toybox instance on a nommu system, I _think_ I need:
+
+1) 20480 bytes
+2) 8192 bytes data
+3) 32768 bytes stack.
+4) unknown heap.
+
+Each of which is a separate allocation, so the high water mark of contiguou=
+s
+memory usage is still the stack, and everything else together roughly doubl=
+es
+the stack. (Modulo what the code then DOES...)
+
+Rob
+<div class=3D"open_grepper_editor" title=3D"Edit &amp; Save To Grepper"></d=
+iv></pre>
+
+
+<!--endarticle-->
+<!--htdig_noindex-->
+    <hr>
+    <p></p><ul>
+        <!--threads-->
+=09
+	<li>Next message (by thread): <a href=3D"http://lists.landley.net/pipermai=
+l/toybox-landley.net/2024-January/029958.html">[Toybox] Impact of global st=
+ruct size
+</a></li>
+         <li> <b>Messages sorted by:</b>=20
+              <a href=3D"http://lists.landley.net/pipermail/toybox-landley.=
+net/2024-January/date.html#29957">[ date ]</a>
+              <a href=3D"http://lists.landley.net/pipermail/toybox-landley.=
+net/2024-January/thread.html#29957">[ thread ]</a>
+              <a href=3D"http://lists.landley.net/pipermail/toybox-landley.=
+net/2024-January/subject.html#29957">[ subject ]</a>
+              <a href=3D"http://lists.landley.net/pipermail/toybox-landley.=
+net/2024-January/author.html#29957">[ author ]</a>
+         </li>
+       </ul>
+
+<hr>
+<a href=3D"http://lists.landley.net/listinfo.cgi/toybox-landley.net">More i=
+nformation about the Toybox
+mailing list</a><br>
+<!--/htdig_noindex-->
+
+</body></html>
+------MultipartBoundary--H0E5QbyZUvmhImvzfCp7ZNlzU1tluVC5yqcS3UZp4K----
+Content-Type: text/css
+Content-Transfer-Encoding: quoted-printable
+Content-Location: cid:css-2e0b677b-fc13-42d4-9914-00dfe392337b@mhtml.blink
+
+@charset "windows-1252";
+
+pre { white-space: pre-wrap; }
+------MultipartBoundary--H0E5QbyZUvmhImvzfCp7ZNlzU1tluVC5yqcS3UZp4K------
