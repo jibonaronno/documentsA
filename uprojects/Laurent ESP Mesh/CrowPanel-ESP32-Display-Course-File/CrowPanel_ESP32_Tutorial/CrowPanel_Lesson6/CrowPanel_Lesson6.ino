@@ -250,6 +250,11 @@ void lvgl_regular_function()
     lv_bar_set_value(ui_Bar8, progress_08, LV_ANIM_ON);
 }
 
+void transponder_wdt_regularIntervalWorker(void)
+{
+  
+}
+
 void loop()
 {
     
@@ -287,44 +292,54 @@ void sendMessage() {
   taskSendMessage.setInterval(TASK_SECOND * 10);
 }
 
+int transponder_wdt_counter[8];
+
 
 void receivedCallback(uint32_t from, String & msg) {
 
-  Serial.printf("startHere: Received from %u msg=%s\n", from, msg.c_str());
+  // Serial.printf("startHere: Received from %u msg=%s\n", from, msg.c_str());
 
   deserializeJson(doc, msg.c_str());
   const char *name = doc["name"];
   int intense = doc["intense"];
   if(name[0] == 'B'){
-    progress_01 = intense / 21;
+    progress_01 = intense / 500;
+    transponder_wdt_counter[0] = 0;
   }
 
   if(name[0] == 'C'){
-    progress_02 = intense / 21;
+    progress_02 = intense / 500;
+    transponder_wdt_counter[1] = 0;
   }
 
   if(name[0] == 'D'){
-    progress_03 = intense / 21;
+    progress_03 = intense / 500;
+    transponder_wdt_counter[2] = 0;
   }
 
   if(name[0] == 'E'){
-    progress_04 = intense / 21;
+    progress_04 = intense / 500;
+    transponder_wdt_counter[3] = 0;
   }
 
   if(name[0] == 'F'){
-    progress_05 = intense / 21;
+    progress_05 = intense / 500;
+    transponder_wdt_counter[4] = 0;
   }
 
   if(name[0] == 'G'){
-    progress_06 = intense / 21;
+    progress_06 = intense / 500;
+    transponder_wdt_counter[5] = 0;
   }
 
   if(name[0] == 'H'){
-    progress_07 = intense / 21;
+    progress_07 = intense / 500;
+    transponder_wdt_counter[6] = 0;
   }
 
   if(name[0] == 'I'){
-    progress_08 = intense / 21;
+    progress_08 = intense / 500;
+    transponder_wdt_counter[7] = 0;
   }
 
   Serial.printf("%s:%d\n", name, intense);
