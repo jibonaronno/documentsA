@@ -1,5 +1,4 @@
-
-#include "iicwrite.h"
+#include "iicread.h"
 
 void setup() {
   // put your setup code here, to run once:
@@ -9,18 +8,18 @@ void setup() {
 
 }
 
-IICWrite plc;
+IICRead plc;
 int snapA = 0;
 
 void loop() {
   // put your main code here, to run repeatedly:
   snapA = millis();
 
-  if(snapA < (millis()+5000))
+  //if(snapA < (millis()+5000))
   {
     snapA = millis();
 
-    plc.writeToAddress(0, 0);
+    plc.readFromAddress(0, 0);
 
   }
 
