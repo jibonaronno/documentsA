@@ -38,21 +38,21 @@ String output1State = "off";
 // Assign output variables to GPIO pins
 const int output1 = 2; 
 
-String HtmlStringFormat(Strint strbody)
+String HtmlStringFormat(String strbody)
 {
   String strReturnBody = "";
 
   strReturnBody = "<!DOCTYPE html><html lang=\"en\">\n/
 <head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n/
-<title>Fetch GET Example</title>\n/
-</head>\n/
+<title>Fetch GET Example<\/title>\n/
+<\/head>\n/
 <body>\n/
-<input type=\"text\" id=\"textInput\" placeholder=\"Enter some text\" />\n/
-<button id=\"sendButton\">Send Data</button>\n/
-<div id=\"responseOutput\"></div>\n/
-<script></script>\n/
-</body>\n/
-</html>\n";
+<input type=\"text\" id=\"textInput\" placeholder=\"Enter some text\" \/>\n/
+<button id=\"sendButton\">Send Data<\/button>\n/
+<div id=\"responseOutput\"><\/div>\n/
+<script><\/script>\n/
+<\/body>\n/
+<\/html>\n";
 
   return strReturnBody;
 }
