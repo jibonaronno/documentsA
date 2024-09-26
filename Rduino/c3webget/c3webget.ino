@@ -95,13 +95,15 @@ void loop(){
             //else if (header.indexOf("{") >= 0)
             else if (header.indexOf("%7B") >= 0)
             {
-              json_flag._start_index = header.indexOf("%7B");
+              json_flag._start_index = (header.indexOf("%7B") + 3);
               if (header.indexOf("%7D") >= 0)
               {
                 json_flag._stop_index = header.indexOf("%7D");
                 json_flag.json_complete = true;
                 Serial.println("\n\n\n JSON RECV \n");
-                Serial.println(header.substring(json_flag._start_index, json_flag._stop_index));
+                if(json_flag._start_index < json_flag._stop_index){
+                  Serial.println(header.substring(json_flag._start_index, json_flag._stop_index));
+                }
               }
             }
             
