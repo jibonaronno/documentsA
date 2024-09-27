@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cascaded Accordion Table with Editable Text</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+
+    tr.detail-row, tr.sub-detail-row {
+      display: none;
+    }
+
+    tr.active + tr.detail-row {
+      display: table-row;
+    }
+
+    tr.sub-active + tr.sub-detail-row {
+      display: table-row;
+    }
+
+    .accordion-toggle, .sub-accordion-toggle {
+      cursor: pointer;
+      background-color: #f2f2f2;
+    }
+
+    .editable {
+      width: 100%;
+      border: none;
+      background: none;
+      outline: none;
+      padding: 5px;
+    }
+
+    .sub-detail {
+      margin-left: 20px;
+      background-color: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+
+<table>
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- First level accordion -->
+    <tr class="accordion-toggle">
+      <td><input type="text" class="editable" value="Item 1"></td>
+      <td><input type="text" class="editable" value="Click to expand"></td>
+    </tr>
+    <tr class="detail-row">
+      <td colspan="2">
+        <table class="sub-detail">
+          <tbody>
+            <tr class="sub-accordion-toggle">
+              <td><input type="text" class="editable" value="Sub-item 1.1"></td>
+              <td><input type="text" class="editable" value="Click to expand sub-item"></td>
+            </tr>
+            <tr class="sub-detail-row">
+              <td colspan="2"><textarea class="editable" rows="2">Detailed information about Sub-item 1.1</textarea></td>
+            </tr>
+            <tr class="sub-accordion-toggle">
+              <td><input type="text" class="editable" value="Sub-item 1.2"></td>
+              <td><input type="text" class="editable" value="Click to expand sub-item"></td>
+            </tr>
+            <tr class="sub-detail-row">
+              <td colspan="2"><textarea class="editable" rows="2">Detailed information about Sub-item 1.2</textarea></td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+
+    <!-- Second level accordion -->
+    <tr class="accordion-toggle">
+      <td><input type="text" class="editable" value="Item 2"></td>
+      <td><input type="text" class="editable" value="Click to expand"></td>
+    </tr>
+    <tr class="detail-row">
+      <td colspan="2">
+        <table class="sub-detail">
+          <tbody>
+            <tr class="sub-accordion-toggle">
+              <td><input type="text" class="editable" value="Sub-item 2.1"></td>
+              <td><input type="text" class="editable" value="Click to expand sub-item"></td>
+            </tr>
+            <tr class="sub-detail-row">
+              <td colspan="2"><textarea class="editable" rows="2">Detailed information about Sub-item 2.1</textarea></td>
+            </tr>
+            <tr class="sub-accordion-toggle">
+              <td><input type="text" class="editable" value="Sub-item 2.2"></td>
+              <td><input type="text" class="editable" value="Click to expand sub-item"></td>
+            </tr>
+            <tr class="sub-detail-row">
+              <td colspan="2"><textarea class="editable" rows="2">Detailed information about Sub-item 2.2</textarea></td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<script>
+  // Toggle main accordion rows
+  document.querySelectorAll('.accordion-toggle').forEach(row => {
+    row.addEventListener('click', () => {
+      row.classList.toggle('active');
+    });
+  });
+
+  // Toggle sub-accordion rows within each detail
+  document.querySelectorAll('.sub-accordion-toggle').forEach(subRow => {
+    subRow.addEventListener('click', () => {
+      subRow.classList.toggle('sub-active');
+    });
+  });
+</script>
+
+</body>
+</html>
