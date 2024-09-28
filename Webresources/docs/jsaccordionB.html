@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cascaded Accordion Table with 14 Columns</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+
+    tr.detail-row, tr.sub-detail-row {
+      display: none;
+    }
+
+    .accordion-toggle, .sub-accordion-toggle {
+      cursor: pointer;
+      background-color: #f2f2f2;
+    }
+
+    .editable {
+      width: 40%;
+      border: none;
+      background: none;
+      outline: none;
+      padding: 5px;
+    }
+
+    .icon {
+        width: 2%;
+      cursor: pointer;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
+    .sub-detail {
+      margin-left: 20px;
+      background-color: #f9f9f9;
+    }
+
+    /* Icon styles for collapse and expand */
+    .icon.expand::before {
+      content: '+';
+    }
+
+    .icon.collapse::before {
+      content: '-';
+    }
+
+  </style>
+</head>
+<body>
+
+<table>
+  <thead>
+    <tr>
+      <th width="5%">Toggle</th>
+      <th>LU</th>
+      <th>Channel</th>
+      <th>IP Address</th>
+      <th>Is Noise</th>
+      <th>Display Unit</th>
+      <th>Minimum Event Level</th>
+      <th>Discharge Amount Warning(PPS)</th>
+      <th>Signal Amount Warning(dBm)</th>
+      <th>Event Condition For One Minute</th>
+      <th>Phase</th>
+      <th>Offset</th>
+      <th>Log</th>
+      <th>Apply</th>
+      <th>Blank</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- First level accordion -->
+    <tr class="accordion-toggle">
+      <td><span class="icon expand"></span></td>
+      <td><input type="text" class="editable" value="Sanion_154kv"></td>
+      <td><input type="text" class="editable" value="Sanion_154kv_SPDC1"></td>
+      <td><input type="text" class="editable" value="192.168.247.100"></td>
+      <td><input type="text" class="editable" value="No"></td>
+      <td><input type="text" class="editable" value="1"></td>
+      <td><input type="text" class="editable" value="0"></td>
+      <td><input type="text" class="editable" value="0"></td>
+      <td><input type="text" class="editable" value="-60"></td>
+      <td><input type="text" class="editable" value="2"></td>
+      <td><input type="text" class="editable" value="0"></td>
+      <td><input type="text" class="editable" value="0"></td>
+      <td><input type="text" class="editable" value="LOG"></td>
+      <td><input type="text" class="editable" value="Edit"></td>
+      <td><input type="text" class="editable" value="Blank"></td>
+    </tr>
+    <tr class="detail-row">
+      <td colspan="15">
+        <table class="sub-detail">
+          <tbody>
+            <tr class="sub-accordion-toggle">
+              <td width="5%"><span class="icon expand"></span></td>
+              <td colspan="14"><input type="text" class="editable" value="Sub-item 1.1 details"></td>
+            </tr>
+            <tr class="sub-detail-row">
+              <td colspan="15"><textarea class="editable" rows="2">Detailed information about Sub-item 1.1</textarea></td>
+            </tr>
+            <tr class="sub-accordion-toggle">
+              <td><span class="icon expand"></span></td>
+              <td colspan="14"><input type="text" class="editable" value="Sub-item 1.2 details"></td>
+            </tr>
+            <tr class="sub-detail-row">
+              <td colspan="15"><textarea class="editable" rows="2">Detailed information about Sub-item 1.2</textarea></td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+
+    <!-- Second level accordion -->
+    <tr class="accordion-toggle">
+      <td><span class="icon expand"></span></td>
+      <td><input type="text" class="editable" value="Item 2.1"></td>
+      <td><input type="text" class="editable" value="Item 2.2"></td>
+      <td><input type="text" class="editable" value="Item 2.3"></td>
+      <td><input type="text" class="editable" value="Item 2.4"></td>
+      <td><input type="text" class="editable" value="Item 2.5"></td>
+      <td><input type="text" class="editable" value="Item 2.6"></td>
+      <td><input type="text" class="editable" value="Item 2.7"></td>
+      <td><input type="text" class="editable" value="Item 2.8"></td>
+      <td><input type="text" class="editable" value="Item 2.9"></td>
+      <td><input type="text" class="editable" value="Item 2.10"></td>
+      <td><input type="text" class="editable" value="Item 2.11"></td>
+      <td><input type="text" class="editable" value="Item 2.12"></td>
+      <td><input type="text" class="editable" value="Item 2.13"></td>
+      <td><input type="text" class="editable" value="Item 2.14"></td>
+    </tr>
+    <tr class="detail-row">
+      <td colspan="15">
+        <table class="sub-detail">
+          <tbody>
+            <tr class="sub-accordion-toggle">
+              <td><span class="icon expand"></span></td>
+              <td colspan="14"><input type="text" class="editable" value="Sub-item 2.1 details"></td>
+            </tr>
+            <tr class="sub-detail-row">
+              <td colspan="15"><textarea class="editable" rows="2">Detailed information about Sub-item 2.1</textarea></td>
+            </tr>
+            <tr class="sub-accordion-toggle">
+              <td><span class="icon expand"></span></td>
+              <td colspan="14"><input type="text" class="editable" value="Sub-item 2.2 details"></td>
+            </tr>
+            <tr class="sub-detail-row">
+              <td colspan="15"><textarea class="editable" rows="2">Detailed information about Sub-item 2.2</textarea></td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<script>
+  // Function to toggle visibility of rows
+  function toggleRow(row, icon) {
+    row.classList.toggle('active');
+    icon.classList.toggle('expand');
+    icon.classList.toggle('collapse');
+    const detailRow = row.nextElementSibling;
+    if (detailRow) {
+      if (detailRow.style.display === "table-row") {
+        detailRow.style.display = "none";
+      } else {
+        detailRow.style.display = "table-row";
+      }
+    }
+  }
+
+  // Main accordion rows toggle logic
+  document.querySelectorAll('.accordion-toggle').forEach(row => {
+    row.addEventListener('click', function() {
+      const icon = row.querySelector('.icon');
+      toggleRow(row, icon);
+    });
+  });
+
+  // Sub-accordion rows toggle logic
+  document.querySelectorAll('.sub-accordion-toggle').forEach(subRow => {
+    subRow.addEventListener('click', function() {
+      const icon = subRow.querySelector('.icon');
+      toggleRow(subRow, icon);
+    });
+  });
+</script>
+
+</body>
+</html>
