@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cascaded Accordion Table with 14 Columns</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+
+    tr.detail-row, tr.sub-detail-row {
+      display: none;
+    }
+
+    .accordion-toggle, .sub-accordion-toggle {
+      cursor: pointer;
+      background-color: #f2f2f2;
+    }
+
+    .editable {
+      width: 100%;
+      border: none;
+      background: none;
+      outline: none;
+      padding: 5px;
+    }
+
+    .icon {
+        width: 2%;
+      cursor: pointer;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
+    .sub-detail {
+      margin-left: 20px;
+      background-color: #f9f9f9;
+    }
+
+    /* Icon styles for collapse and expand */
+    .icon.expand::before {
+      content: '+';
+    }
+
+    .icon.collapse::before {
+      content: '-';
+    }
+
+  </style>
+</head>
+<body>
+
+<table>
+  <thead>
+    <tr>
+      <th width="5%">Toggle</th>
+      <th>LU</th>
+      
+    </tr>
+  </thead>
+    <tbody>
+            <!-- First level accordion -->
+            
+            <tr class="accordion-toggle">
+                <td><span class="icon expand"></span></td>
+                <td>Sanion_154kv</td>
+            </tr>
+            <tr class="detail-row">
+                <td colspan="15">
+                    <table class="sub-detail">
+                        <tbody>
+                            <tr>
+                                <td><span></span></td>
+                                <td>Channel</td>
+                            </tr>
+                            <tr class="accordion-toggle">
+                                <td><span class="icon expand"></span></td>
+                                <td>Sanion_154kv_SPDC1</td>
+                            </tr>
+
+                            <tr class="detail-row">
+                                <td colspan="15">
+                                    <table class="sub-detail">
+                                        <tbody>
+                                            <tr>
+                                                <td></td>
+                                                <td>IP Address</td>
+                                                <td>Is Noise</td>
+                                                <td>Display Unit</td>
+                                                <td>Minimum Event Level</td>
+                                                <td>Discharge Amount Warning(PPS)</td>
+                                                <td>Signal Amount Warning(dBm)</td>
+                                                <td>Event Condition For One Minute</td>
+                                                <td>Phase</td>
+                                                <td>Offset</td>
+                                                <td>Log</td>
+                                                <td>Apply</td>
+                                                <td>Blank</td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td><input type="text" class="editable" value=""></td>
+                                                <td>No</td>
+                                                <td><input type="text" class="editable" value="1"></td>
+                                                <td><input type="text" class="editable" value="0"></td>
+                                                <td><input type="text" class="editable" value="0"></td>
+                                                <td><input type="text" class="editable" value="-60"></td>
+                                                <td><input type="text" class="editable" value="2"></td>
+                                                <td><input type="text" class="editable" value="0"></td>
+                                                <td><input type="text" class="editable" value="0"></td>
+                                                <td><input type="text" class="editable" value="LOG"></td>
+                                                <td><input type="text" class="editable" value="Edit"></td>
+                                                <td><input type="text" class="editable" value="Blank"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+
+
+                            <tr class="accordion-toggle"></tr>
+                                <td><span class="icon expand">
+                                    
+                                </span></td>
+                                <td>Sanion_154kv_SPDC2</td>
+                            </tr>
+
+                            
+
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+    </tbody>
+</table>
+
+<script>
+  // Function to toggle visibility of rows
+  function toggleRow(row, icon) {
+    row.classList.toggle('active');
+    icon.classList.toggle('expand');
+    icon.classList.toggle('collapse');
+    const detailRow = row.nextElementSibling;
+    if (detailRow) {
+      if (detailRow.style.display === "table-row") {
+        detailRow.style.display = "none";
+      } else {
+        detailRow.style.display = "table-row";
+      }
+    }
+  }
+
+  // Main accordion rows toggle logic
+  document.querySelectorAll('.accordion-toggle').forEach(row => {
+    row.addEventListener('click', function() {
+      const icon = row.querySelector('.icon');
+      toggleRow(row, icon);
+    });
+  });
+
+  // Sub-accordion rows toggle logic
+  document.querySelectorAll('.sub-accordion-toggle').forEach(subRow => {
+    subRow.addEventListener('click', function() {
+      const icon = subRow.querySelector('.icon');
+      toggleRow(subRow, icon);
+    });
+  });
+</script>
+
+</body>
+</html>
