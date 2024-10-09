@@ -1,0 +1,51 @@
+Processing xiao (platform: https://github.com/maxgerhardt/platform-nordicnrf52; board: xiaoblesense_adafruit; framework: arduino)
+-------------------------------------------------------------------------------------------------------------------------------------
+Verbose mode can be enabled via `-v, --verbose` option
+CONFIGURATION: https://docs.platformio.org/page/boards/nordicnrf52/xiaoblesense_adafruit.html
+PLATFORM: Nordic nRF52 (10.1.0+sha.f42ab1d) > Seeed XIAO BLE Sense
+HARDWARE: NRF52840 64MHz, 232KB RAM, 792KB Flash
+DEBUG: Current (blackmagic) External (blackmagic, cmsis-dap, jlink)
+PACKAGES: 
+ - framework-arduinoadafruitnrf52-seeed @ 1.10101.0+sha.3ae21c3 
+ - framework-cmsis @ 2.50700.210515 (5.7.0) 
+ - tool-adafruit-nrfutil @ 1.503.0 (5.3) 
+ - tool-bossac-nordicnrf52 @ 1.10901.201022 (1.9.1) 
+ - tool-openocd @ 3.1200.0 (12.0) 
+ - tool-sreccat @ 1.164.0 (1.64) 
+ - toolchain-gccarmnoneeabi @ 1.70201.0 (7.2.1)
+LDF: Library Dependency Finder -> https://bit.ly/configure-pio-ldf
+LDF Modes: Finder ~ chain, Compatibility ~ soft
+Found 20 compatible libraries
+Scanning dependencies...
+Dependency Graph
+|-- Adafruit NeoPixel @ 1.11.0
+|-- I2C_EEPROM @ 1.7.4
+|-- Seeed Arduino LSM6DS3 @ 2.0.3
+|-- Adafruit TinyUSB Library
+|-- Adafruit Bluefruit nRF52 Libraries @ 0.21.0
+Building in release mode
+Compiling .pio/build/xiao/libb66/Adafruit_TinyUSB_Arduino/arduino/Adafruit_TinyUSB_API.cpp.o
+...many more lines...
+Compiling .pio/build/xiao/FrameworkArduino/wiring_shift.c.o
+Archiving .pio/build/xiao/libFrameworkArduino.a
+Indexing .pio/build/xiao/libFrameworkArduino.a
+Linking .pio/build/xiao/firmware.elf
+Building .pio/build/xiao/firmware.hex
+Checking size .pio/build/xiao/firmware.elf
+Advanced Memory Usage is available via "PlatformIO Home > Project Inspect"
+RAM:   [=         ]  11.8% (used 27948 bytes from 237568 bytes)
+Flash: [====      ]  44.0% (used 357008 bytes from 811008 bytes)
+Building .pio/build/xiao/firmware.zip
+Zip created at .pio/build/xiao/firmware.zip
+Configuring upload protocol...
+AVAILABLE: blackmagic, cmsis-dap, jlink, nrfjprog, nrfutil, sam-ba
+CURRENT: upload_protocol = nrfutil
+Looking for upload port...
+Auto-detected: /dev/cu.usbmodem1101
+Forcing reset using 1200bps open/close on port /dev/cu.usbmodem1101
+Waiting for the new upload port...
+Uploading .pio/build/xiao/firmware.zip
+Upgrading target on /dev/cu.usbmodem1101 with DFU package /Users/user/firmware/.pio/build/xiao/firmware.zip. Flow control is disabled, Single bank, Touch disabled
+Activating new firmware
+Device programmed.
+=================================================== [SUCCESS] Took 38.40 seconds ===================================================
