@@ -1,0 +1,9 @@
+Manufacturer=Texas Instruments
+PartNumber=AM62A74AUMSIAMBRQ1
+PartCategory=Integrated Circuit
+PackageCategory=BGA
+PinCount=484
+Version=1.1
+Released=2024-08-13 10:35:44
+Downloaded=2024-10-09 10:52:26
+3D=Y

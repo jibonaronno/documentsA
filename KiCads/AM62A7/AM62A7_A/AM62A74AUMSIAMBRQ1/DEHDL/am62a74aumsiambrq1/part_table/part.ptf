@@ -1,0 +1,11 @@
+FILE_TYPE = MULTI_PHYS_TABLE;
+
+PART 'AM62A74AUMSIAMBRQ1'
+CLASS = IC
+{========================================================================================}
+:"MANUFACTURER_NAME", "MANUFACTURER_PART_NUMBER"= "PART_NUMBER", "JEDEC_TYPE", "PACK_TYPE", "MOUSER_PART_NUMBER", "MOUSER_PRICE/STOCK", "DESCRIPTION", "DATASHEET", "HEIGHT";
+{========================================================================================}
+ "Texas Instruments", "AM62A74AUMSIAMBRQ1" (!) = "", "BGA484C80P22X22_1800X1800X256", "BGA", "595-62A74AUMSIAMBRQ1", "https://www.mouser.co.uk/ProductDetail/Texas-Instruments/AM62A74AUMSIAMBRQ1?qs=ulEaXIWI0c%252B67cs%2F0440QA%3D%3D", "Microprocessors - MPU 2 TOPS vision SoC with RGB-IR ISP for 1-2 cameras, driver monitoring, front cameras 484-FCBGA -40 to 125", "https://www.ti.com/lit/ds/symlink/am62a7.pdf?ts=1723451405675&ref_url=https%253A%252F%252Fwww.ti.com%252Fproduct%252FAM62A7%253Fbm-verify%253DAAQAAAAJ_____y87TTXgvf9n_s2SB6AOBeEWrgM5BXbA7KswiNiPG0i0U1O7LG5CcyfyvSknY3W5X3F_bIW9PR8Fm9OmqEsndvv2pg46E948kEcn7", "2.556 mm"
+END_PART
+
+END.

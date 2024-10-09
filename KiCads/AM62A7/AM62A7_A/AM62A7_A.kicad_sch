@@ -1,0 +1,31 @@
+(kicad_sch (version 20230121) (generator eeschema)
+
+  (uuid 5668454c-a99a-4a94-aaa6-e66d7a037bef)
+
+  (paper "A1" portrait)
+
+  (lib_symbols
+  )
+
+
+  (sheet (at 77.47 74.93) (size 66.675 45.085) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid 925fa5e4-43d8-447f-ac4b-d8bea5e240ff)
+    (property "Sheetname" "processor" (at 77.47 74.2184 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "processor.kicad_sch" (at 77.47 120.5996 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "AM62A7_A"
+        (path "/5668454c-a99a-4a94-aaa6-e66d7a037bef" (page "2"))
+      )
+    )
+  )
+
+  (sheet_instances
+    (path "/" (page "1"))
+  )
+)
