@@ -1,0 +1,15 @@
+Install Node.js
+
+Install serverless 3.39.0
+
+npm i serverless@3.39.0 -g
+
+Install yarn
+
+npm install --global yarn
+
+serverless create --template-url https://github.com/ttarnowski/serverless-aws-nodejs-typescript-v2/tree/main --path myServiceName
+#serverless new version is 4 or up does not create a serverless project with above command. Install serverless 3.39.0 by following command
+npm i serverless@3.39.0 -g
+
+
