@@ -1,0 +1,58 @@
+b'GET / HTTP/1.1\r\nHost: 10.222.188.27\r\nAccept: */*\r\n\r\n'
+
+
+------>
+b'HTTP/1.0 200 OK\r\nContent-Type:text/html\r\nMassiveLicense:602\r\nConnection:close\r\n\r\n10,222,188,27:0,11,0,33,488'
+<------
+
+b'GET / HTTP/1.0 User-Agent: IpConn 1.0 Connection: keep-alive'
+
+
+------>
+b'HTTP/1.0 200 OK\r\nContent-Type:text/html\r\nMassiveLicense:602\r\nConnection:close\r\n\r\n10,222,188,27:0,11,0,33,488'
+<------
+
+b'GET /?command=godin HTTP/1.0 User-Agent: IpConn 1.0 Connection: keep-alive'
+
+
+------>
+b'HTTP/1.0 200 OK\r\nContent-Type:text/html\r\nMassiveLicense:602\r\nConnection:close\r\n\r\n10,222,188,27:55,11,0,33,488'
+<------
+
+b'GET / HTTP/1.0 User-Agent: IpConn 1.0 Connection: keep-alive'
+
+
+------>
+b'HTTP/1.0 200 OK\r\nContent-Type:text/html\r\nMassiveLicense:602\r\nConnection:close\r\n\r\n10,222,188,27:55,11,0,33,488'
+<------
+
+b'GET / HTTP/1.0 User-Agent: IpConn 1.0 Connection: keep-alive'
+
+
+------>
+b'HTTP/1.0 200 OK\r\nContent-Type:text/html\r\nMassiveLicense:602\r\nConnection:close\r\n\r\n10,222,188,27:55,11,0,33,488'
+<------
+
+b'GET / HTTP/1.0\n'
+
+
+------>
+b'HTTP/1.0 200 OK\r\nContent-Type:text/html\r\nMassiveLicense:602\r\nConnection:close\r\n\r\n10,222,188,27:55,11,0,33,488'
+<------
+
+b'GET /?command=3:a1# HTTP/1.0 User-Agent: IpConn 1.0 Connection: keep-alive'
+
+
+a1
+
+b'GET /?command=3:b1# HTTP/1.0 User-Agent: IpConn 1.0 Connection: keep-alive'
+
+
+b1
+
+------>
+b'HTTP/1.0 200 OK\r\nContent-Type:text/html\r\nMassiveLicense:602\r\nConnection:close\r\n\r\n10,222,188,27:0,11,1,33,488'
+<------
+
+
+47 45 54 20 2F 3F 63 6F 6D 6D 61 6E 64 3D 67 6F 64 69 6E 20 48 54 54 50 2F 31 2E 30 20 55 73 65 72 2D 41 67 65 6E 74 3A 20 49 70 43 6F 6E 6E 20 31 2E 30 20 43 6F 6E 6E 65 63 74 69 6F 6E 3A 20 6B 65 65 70 2D 61 6C 69 76 65
