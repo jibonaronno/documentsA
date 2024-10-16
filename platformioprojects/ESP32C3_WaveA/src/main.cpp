@@ -1,3 +1,11 @@
+/**
+ * project from PlatformIO . Location : documentsA\ESP32\platformioprojects\ESP32C3_WaveA .
+ * It uses ledc library to generate different frequency PWM signals. 
+ * ledc library could handle the pwm output from D10 pin at different frequencies. 
+ * It can produce 10KHz PWM carrier signal. One 220 Ohm Resistor and two 105 capacitor 
+ * smooth out the signal well. 
+ */
+
 #include <Arduino.h>
 
 int ledPin = D10;    // LED connected to digital pin 10
