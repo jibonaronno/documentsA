@@ -5,7 +5,7 @@ int ledPin = D10;    // LED connected to digital pin 10
 void setup() {
   // declaring LED pin as output
   pinMode(ledPin, OUTPUT);
-  ledcSetup(0, 10000, 8);
+  ledcSetup(0, 5000, 8);
   ledcAttachPin(ledPin, 0);
 }
 
@@ -16,8 +16,7 @@ void loop() {
     //analogWrite(ledPin, fadeValue);
     ledcWrite(0, fadeValue);
     // wait for 30 milliseconds to see the dimming effect
-    delayMicroseconds(300);
-    //delay(1);
+    delay(1);
   }
 
   // fade out from max to min in increments of 5 points:
@@ -26,6 +25,6 @@ void loop() {
     //analogWrite(ledPin, fadeValue);
     ledcWrite(0, fadeValue);
     // wait for 30 milliseconds to see the dimming effect
-    delayMicroseconds(300);
+    delay(1);
   }
 }
