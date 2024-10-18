@@ -44,8 +44,6 @@ void setup() {
 
 void loop() {
 
-
-
   // fade in from min to max in increments of 5 points:
   //for (int fadeValue = 0 ; fadeValue <= 255; fadeValue += 5) {
   for(int lidx=0; lidx<plotData.size; lidx++){
