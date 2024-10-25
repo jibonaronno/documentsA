@@ -1,0 +1,39 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.8 Chrome/128.0.6613.36 Electron/32.0.1 Safari/537.36" version="24.7.8">
+  <diagram name="Page-1" id="roAZePOk_Bf18RNz9Fqh">
+    <mxGraphModel dx="1036" dy="614" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="rFCDGrlFf5o5loS76CtY-1" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;Python GUI Program to View PD File as Graph&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="185" y="200" width="480" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rFCDGrlFf5o5loS76CtY-4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="rFCDGrlFf5o5loS76CtY-2" target="rFCDGrlFf5o5loS76CtY-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rFCDGrlFf5o5loS76CtY-2" value="Select the folder of the PD Files" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="185" y="270" width="210" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="rFCDGrlFf5o5loS76CtY-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="rFCDGrlFf5o5loS76CtY-3" target="rFCDGrlFf5o5loS76CtY-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rFCDGrlFf5o5loS76CtY-3" value="View the files in a tree view" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="215" y="360" width="210" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="rFCDGrlFf5o5loS76CtY-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="rFCDGrlFf5o5loS76CtY-5" target="rFCDGrlFf5o5loS76CtY-7">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="345" y="510" />
+              <mxPoint x="395" y="510" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rFCDGrlFf5o5loS76CtY-5" value="Select The files for viewing graph" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="450" width="210" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="rFCDGrlFf5o5loS76CtY-7" value="Vew 2 graph. Original VS Filtered" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="530" width="210" height="50" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

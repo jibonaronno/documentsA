@@ -938,7 +938,8 @@ The function <p5>CDlgIedSts::OnDeleteFile(CString sFile)</p5>  evetually calls t
   <input type="checkbox" id="toggle-012" style="display: none;">
   <div id="div-012">
     Source code here <a href="http://git.sanion.com/Fork-JBN/61850-and-lu/-/tree/develop">http://git.sanion.com/Fork-JBN/61850-and-lu/-/tree/develop</a>. 
-    Working directory in <p3>/home/taki/fork_LU61850</p3> . <br>
+    Working directory in <p3>/home/taki/fork_LU61850</p3> . <br> 
+    New location at <p3>Y:\pdasource\61850-and-lu</p3> where Y: is Samba drive at Linux PC <br>
     When using git add, add only the changed files. <br>
     <code>
       git remote show origin <br>
@@ -946,9 +947,11 @@ The function <p5>CDlgIedSts::OnDeleteFile(CString sFile)</p5>  evetually calls t
       git add . <br>
       git commit -m "commit message" <br>
       git push -u origin new_featured_branch <br>
+      <p4># After Merge in github or gitlab delete the local branch and pull to the origin branch</p4><br>
+      git branch -d / -D localbranch name <br>
     </code>
     <br><br>
-    <pp>Compile</pp><p4>lib61850</p4> <br>
+    <pp>Compile</pp><p5>lib61850</p5> <br>
     Change Makefile to correct local path. <br>
     <code>cd cmd/gnu</code><br>
     <code>chmod 777 mmslite802.sh</code> <br>
@@ -980,6 +983,33 @@ for (ST_INT i = 0; i < pdsluConfig->s8numLUs; i++) {
       }
   }
 </pre>
+<br><br>
+<pp>Makefile Internals</pp><br>
+Here is the content of Makefile. <br>
+<pre>
+  all:
+	rm $(PWD)/cmd/gnu/cc.lst
+	cd $(PWD)/cmd/gnu && ./mmslite802.sh LINUX
+	#cp $(PWD)/mvl/usr/scl_srvr/scl_tpxs0_ld /nfs_resource/scl_tpxs0_ld
+	cp $(PWD)/lib/lib61850.so /nfs_resource/lib61850.so
+	cp $(PWD)/lib/lib61850.so /sanion/HUR-IED/application/shared/lib61850.so
+	cp $(PWD)/lib/lib61850.so /WinShare
+	cp $(PWD)/inc/iec61850_sdk.h /home/taki/fork_localunit/sdk/src/iec61850_sdk.h	
+	#cp $(PWD)/inc/iec61850_sdk.h /sanion/HUR-IED/application/shared/iec61850_sdk.h
+	cp $(PWD)/mvl/usr/scl_srvr/datamap.cfg /nfs_resource/datamap.cfg
+	cp $(PWD)/mvl/usr/scl_srvr/sisco_sample.cid /nfs_resource/sisco_sample.cid
+	cp $(PWD)/mvl/usr/scl_srvr/sanion_sample.cid /nfs_resource/sanion_sample.cid
+	cp $(PWD)/mvl/usr/scl_srvr/startup.cfg /nfs_resource/startup.cfg
+	cp $(PWD)/mvl/usr/scl_srvr/osicfg.xml /nfs_resource/osicfg.xml
+	cp $(PWD)/mvl/usr/scl_srvr/logcfg.xml /nfs_resource/logcfg.xml
+</pre><br><br>
+So it practically run a script <code>$(PWD)/cmd/gnu/mmslite802.sh</code> <br>
+There are many mak files in <p3>$(PWD)/cmd/gnu/</p3> folder. One of the makfile <p3>platform.mak</p3> 
+may define the basic compiler and some options. In this file the $(CC_MODE) came from command argument. 
+If it is blank then it will compile for 32Bit, if it is 64 then compile for 64Bit.
+
+
+<br><br>
   </div>
 <!-- SHOW HIDE END 012  -->
 
