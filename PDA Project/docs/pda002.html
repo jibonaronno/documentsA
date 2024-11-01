@@ -241,7 +241,7 @@ void InitSharedMemory(U8 *pCMemVAddr)
       }
   </style>
   
-  <h2><label for="toggle-003">MZAutomationSever Visual Studio Build with IEC61850 Library (VS and Qt)</label></h2>
+  <h2><label for="toggle-003">LIDServer Visual Studio Build with IEC61850 Library (VS and Qt)</label></h2>
   <input type="checkbox" id="toggle-003" style="display: none;">
   
   <div id="div-003">
@@ -252,10 +252,75 @@ void InitSharedMemory(U8 *pCMemVAddr)
     <p5>Build The Library libiec61850</p5><br>
     Clone Repository from http://git.sanion.com:8891/protection-and-analysis-system/software-team/mzautomation-server.git . <br>
     Open the project in Visual Studio. If it is Visual Studio 2019 then it is required to install Visual Studio Build Tools 2017. <br>
-    <img src="img/img031.jpeg" width="25%" alt=""> <br>
+    <img src="img/img031.jpeg" width="40%" alt=""> <br>
     <p5>Library Build Steps</p5><br>
     <pp>1.</pp> Create a folder named "build" in <p3>C:\Projects\SA Posco Git\mzautomation-server\61850_Ver1.3.3_x64\</p3> location. <br>
-    <pp>2.</pp> 
+    <pp>2.</pp> cd into build and apply command <code>cmake -G "Visual Studio 16 2019" .. -A x64</code> or <code>cmake -G "Visual Studio 15 2017 Win64" ..</code> for Visual Studio 2017. <br>
+
+    <br><br>
+
+    QT C/C++ project has a <pp>.pro</pp> file that is look like a Makefile. In this project the 
+    <pp>.pro</pp> file indicates links to the lib files and their location. When the project is opened 
+    in a new PC for the first time it is also required to set the compiler as below. <br>
+    <img src="img/LID_Server_001.png" width="40%" alt="NONAME"><br>
+    <br>
+    This LIDServer has a ini file <p5>LIDSetting.ini</p5> to set the local ip address and may be it also 
+    indicates the cid file. 
+    <br>
+    <p3>LID_SERVER</p3> folder contains <p4>Template.cid</p4>, <p4>model.cfg</p4>, <p4>DataList.dat</p4> 
+    and <p4>genCfg.exe</p4> files. <br>
+    <img src="img/img032.jpeg" width="25%" alt=""> <br>
+    <p4>LIDSetting.ini</p4><pp>This file is also written or edited by the program in the configuration</pp> <br>
+    <pre>
+      [SERVER]
+      Name=TEMPLATE
+      IP=192.168.246.57
+      PORT=102
+      NIC_IDX=1
+      CFG=C:\\SA Posco Git\\Projects\\mzautomation-server\\LID_SERVER\\model.cfg
+      AUTO_RUN=true
+      MAKE_MEM=true
+      AUTO_GOOSE_RUN=false
+      AUTO_RUN_TIME=20
+
+      [SNTP]
+      IP=192.168.84.111
+      RETRY=2
+      POLLING_TIME=5000
+      SYNC_TIME=1
+
+      [LOG]
+      MAIN=false
+      MAIN_FILESAVE=false
+      GS=false
+      GS_FILESAVE=false
+      FILEPATH=C:\\Log\\
+
+      [SETTING]
+      PollingCheck=true
+      NoDevice=false
+      EventLog=false
+      GooseSimulMode=false
+      GooseEchoMode=false
+      MeasMargin=1
+      GSValid=false
+
+      [LIBRARY]
+      Custom=true
+      Edtion=0
+      B_size=1000
+      File_Path=c:/test1
+      Client_Max=5
+      DataSet_Max=10
+
+      [GOOSE]
+      1=CTRL/EXTDIGGIO11$ST$Ind01$stVal
+      2=CTRL/EXTDIGGIO11$ST$Ind02$stVal
+      3=CTRL/EXTDIGGIO11$ST$Ind03$stVal
+      4=CTRL/EXTDIGGIO11$ST$Ind04$stVal
+
+    </pre> <br>
+
 
   </div>
   <!-- SHOW HIDE SEND 003  -->
@@ -270,11 +335,36 @@ void InitSharedMemory(U8 *pCMemVAddr)
       }
   </style>
   
-  <h2><label for="toggle-004">blank</label></h2>
+  <h2><label for="toggle-004">Updates Comments</label></h2>
   <input type="checkbox" id="toggle-004" style="display: none;">
   
   <div id="div-004">
-
+‘Alarm’ tab of PD event table show all the PD data. Needs to be fixed to display only ‘alarm’ data instead (F)
+Since we need to fine tune a model, we don’t need the library tab to update the model (F)
+On CB Trend Chart, need to fix the UI to display the date time when there are many data for ‘Daily’ option (F)
+Need to fix the current time format to ‘dateTime’ format without 'T' (F)
+Need to fix ‘OLTC Reference Chart’. - It’s unclear what the original intention of the implementation was (F)
+Need total records count on every alarm table (F)
+Need to apply dynamic column structure to Alarm table. It might need a limit to number of columns not to break the UI though (F)
+Need to browse between ‘2024.02.01’ and ‘2024.11.21' to browse SIML data
+Trend chart should be updated only upon clicking ‘Search’ button. Some trend chart UI is not unified (F)
+Make console appear in front of a table when an icon is hovered on ‘GLU Summary Page’. (F)
+Need to convert a text from ‘Show GIS’ to ‘Show Bay’ on ‘GLU Summary Page’. (C,F)
+Need to utilize all the blank space at the bottom of ‘MLU Summary page’ by adding more rows to the PD table to display. (F)
+Need to store complete English and Korean sentence for ‘Details’ of data  and have it display English/Korean by clicking ‘Eng/Kor’ button. (F)
+‘Report’ page need Korean translation (F)
+Error happens on alarm page when user searches with options left as blank (F)
+It needs to navigate to the selected monitoring page when a alarm data is clicked on the table of alarm page (F)
+Roles need to be dynamically assigned on Role page (F)
+Calender need to be updated to the newer version on ‘Management page’ (F)
+‘SelectLU’ and ‘SelectSensor’ need better UI not to overlap each other on ‘LU Dataset Configuration’ page
+On ‘LU Dataset Configuration’ page, there seem to be mismatch on data and definition. So need to check the translation of the configuration file used. Then need to call ‘Initialize’ api on ‘Setup’ of ‘Swagger’ (F)
+Need a convenient UI to open PRPS/PRPD chart of the related channels. Nearby PD channels can affect to one another. For instance, Need to open the channel for phase A and phase C from the console for phase B. (F)
+We can try a ultra violet glass cleanser device for the PD noise generator.
+Need to change the UI to search from GIS or M.Tr instead of GLU/MLU on every drop down options including the one on Alarm page (F)
+Need an alarm notification or UI on dashboard and monitoring pages to compare the status between yesterday and today, this week and last week and this month and last month. (F)
+Come up with the better naming conventions for GLU/MLU since it’s free to come up with our own. The key is to make operator easy to distinguish which channels of bay or M.Tr they are by just reading the names. For instance, 65BAY-1, 65BAY-2, #1M.Tr Phase A, #2M.Tr Phase B.
+Have a UI to redirect either to ‘MLU Summary Page’ or ‘GLU Summary Page’ of the specified date upon clicking a point of Dashboard’s chart. Thus, we need to load MLU Summary Page or GLU Summary page with the specific date as well (F)
       <br>
   </div>
   <!-- SHOW HIDE SEND 004  -->
