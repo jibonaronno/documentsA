@@ -1,0 +1,90 @@
+'===========================================================================
+' UniCAsim script <Ft2>
+'
+' IEC 61850-7-2 clause 20.2.1, 20.2.4, 20.2.3
+' IEC 61850-8-1 clause 23.2.1, 23.2.3, 23.2.4
+' PIXIT
+' 
+' For each responded file:
+' - request a GetFile with correct parameters and verify the response
+' (IEC 61850-7-2 clause 20.2.1)
+' - request a GetFileAttributeValues with correct parameters and verify
+' the response (IEC 61850-7-2 clause 20.2.4)
+'
+' Expected result
+' a)	DUT sends GetFile Response+ and sends the contents of the file
+' b)	DUT sends GetFileAttributeValues response+
+' c)	DUT sends DeleteFile response+
+' 
+' Test description
+' For each responded file:
+' a)	Client requests GetFile with correct parameters
+' b)	Client requests GetFileAttributeValues with correct parameters
+' c)	Client requests DeleteFile with correct parameters
+' 
+' (c) 2010, KEMA Nederland B.V.
+'===========================================================================
+
+
+Sub Main()
+	Dim lRes As Integer
+	Dim lResult As Integer
+	Dim lTmp As Integer
+	Dim lFileNames(1 To GC_FILES_MAXNO) As String
+	Dim lFileAttributeValues As String
+	Dim lNumOfFiles As Integer
+	Dim lTestCaseResult As Integer
+	Dim i As Integer
+	
+
+	lTestCaseResult = UB_PASSED
+	
+	lResult = gInitScript("Ft2ab", 1)
+	If (lResult = 0) Then
+		lTmp = gDeInitScript(UB_FAILED)
+		Exit Sub
+	End If	
+
+	' Get root entry and all files in sub folders
+	gLevel = 0 ' make sure level starts at 0 (logic for recursiveness)
+	lResult = gGetServerFileNames("", lFileNames, lNumOfFiles)	
+	If (lResult < 1) Then
+		lTmp = gLogUniCA("ERROR: Could not retrieve complete file list from server.")
+		lTmp = gDeInitScript(UB_FAILED)
+		Exit Sub
+	End If
+	
+	If (lNumOfFiles = 0) Then
+		' No files have been found...
+		lTmp = gLogUniCA("ERROR: No files have been found! In order for this testcase to succeed the DUT has to contain at least one file!")
+		lTestCaseResult = UB_FAILED
+	End If
+	
+	' Process retrieved files
+	For i = 1 To lNumOfFiles
+		lTmp = gLogUniCA("MESSAGE: Processing file: " & lFileNames(i))
+		
+		lResult = gGetFileAttributeValues( lFileNames(i), lFileAttributeValues)
+		If (lResult <> 0) Then
+			lTmp = gLogUniCA("MESSAGE: File Attributes: " & lFileAttributeValues)
+		Else
+			lTmp = gLogUniCA("ERROR: Unable to get file attribute values from server for" & Chr(39) & lFileNames(i) & Chr(39))
+			lTestCaseResult = UB_INCONCLUSIVE
+			'Exit Sub
+		End If
+		
+		lResult = gGetFile(lFileNames(i))
+		If (lResult = 0) Then
+			lTmp = gLogUniCA("ERROR: GetFile(" & Chr(39) & lFileNames(i) & Chr(39) & ") was not successful. Was it configured to be read?")
+			lTestCaseResult = UB_INCONCLUSIVE
+			'Exit Sub
+		End If
+	Next i
+
+'--- end testing
+	lTmp = gDeInitScript(lTestCaseResult)
+End Sub
+
+
+
+
