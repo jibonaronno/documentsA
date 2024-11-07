@@ -167,12 +167,22 @@ a.button {
 
 .title_c
 {
-  font: bold 30px 'Courier New';
-  color: #FAFAFA;
-  background-color: #1e3348;
+  font-family: "Lexend Exa", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 15px;
+  font-style: normal;
+  color: #FFDE69;
+  background-color: #737373;
   padding-left: 20px;
   padding-right:20px;
-  margin-right: 50%;
+  /*margin-left: 6%;*/
+  margin-right: 10%;
+  border-radius: 20px;
+}
+
+.article
+{
+  margin-left: 1%;
 }
 
 .title_b a

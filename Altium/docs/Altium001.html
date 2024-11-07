@@ -4,6 +4,9 @@
   <head>
     <meta charset="utf-8">
     <title>Altium Startups</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Exa:wght@100..900&display=swap" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <!-- BEGIN syntax highlighter -->
     <script type="text/javascript" src="sh/shCore.js"></script>
@@ -81,7 +84,13 @@ div[id=div-001] {
   <br> <br>
   <pp>Design -> Rules </pp> <br>
   <img src="img/img006.jpg" alt="">
-  <br>
+  <br> <br>
+
+  <div class="title_c">Why it is important to create a part symbol with digikey parameters ?</div>
+  Also search that part number in LCSC and make a parameter as LCSC part number in part symbol property as 
+  shown above. <br>
+
+
 
 </div>
 <!-- SHOW HIDE END 001  -->
@@ -125,9 +134,9 @@ div[id=div-001] {
     <h2><label for="toggle-007">Random Links Commands</label></h2>
     <input type="checkbox" id="toggle-007" style="display: none;">
     
-    <div id="div-007">
-      <br><br>
-      <div class="title_b">Update Schematic From Library Editor</div>
+    <div id="div-007" class="article">
+      <br>
+      <div class="title_c">Update Schematic From Library Editor</div>
       After making any mods in the SCH Library update the schematic is needed. <br>
       On the left side "SCH Library" Panel there should be list of symbols. Right Click on the 
       Modified Symbol and update schematic from Library. <br><br>
@@ -135,7 +144,22 @@ div[id=div-001] {
       <div class="title_c">Measurments between objects or points</div>
       In PCB Editor :
       <code>Report -> Measure Selected Object -> Select Track -> Press Tab -> Measure Selected Objects</code> <br>
-      
+      <code>Pres Ctrl to temporarily disable Grid Snapping</code> <br>
+
+      <p5>Hide Room Layer</p5> <br>
+      <code>Panels -> View Configuration -> View Option -> Hide Room</code> <br>
+      <code>Press Key 'G' on keyboard to Set Grid dimension</code> <br>
+
+      <div class="title_c">Choose a part like a button or tactile switch from DigiKey matches LCSC </div>
+      In the video it uses a push button / tactile switch from C&K Manufacturer -> SMD -> 4.50mm x 4.50 mm outline ... <br>
+      I copy the front part of the Manufacturer Part Number and Paste it to LCSC search. It found the parts. <br>
+
+      <div>USB-C Connector Molex Part 2171790001</div>
+      <img src="img/img010.jpg" alt=""> <br>
+      I choose an USB-C connector from LCSC as below. This is 16 Pin USB-C receptor <br>
+      <img src="img/img011.jpg" alt=""> <br>
+      which is similar to digikey part as <br>
+      <img src="img/img012.jpg" alt=""> <br>
     </div>
   <!-- SHOW HIDE END 007  -->
 
