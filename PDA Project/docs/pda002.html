@@ -257,6 +257,20 @@ void InitSharedMemory(U8 *pCMemVAddr)
     <pp>1.</pp> Create a folder named "build" in <p3>C:\Projects\SA Posco Git\mzautomation-server\61850_Ver1.3.3_x64\</p3> location. <br>
     <pp>2.</pp> cd into build and apply command <code>cmake -G "Visual Studio 16 2019" .. -A x64</code> or <code>cmake -G "Visual Studio 15 2017 Win64" ..</code> for Visual Studio 2017. <br>
 
+    <br>
+
+    When Open a Visual Studio project from another machine and another version of Visual Studio It is often a common 
+    error : <br>
+    <pre>
+    Error	MSB8020	The build tools for v143 (Platform Toolset = 'v143') cannot be found. 
+    To build using the v143 build tools, please install v143 build tools.  
+    Alternatively, you may upgrade to the current Visual Studio tools by selecting the 
+    Project menu or right-click the solution, and then selecting "Retarget solution".	
+    Libeic	C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets	439
+    </pre>
+
+    <img src="img/img130.jpeg" width="500px" alt="">
+
     <br><br>
 
     QT C/C++ project has a <pp>.pro</pp> file that is look like a Makefile. In this project the 
