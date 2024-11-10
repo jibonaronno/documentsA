@@ -61,9 +61,9 @@ div[id=div-001] {
   Copy the pins descriptions to a vs code text file. Align each pin description in each line. <br>
   Remove all spaces and replace all commas with "/" . There should be 41 lines. Copy all. <br>
   Go to Altium Tools-> Symbol Wizrd . Paste the the pins descriptions as below and make the pins passive - <br>
-  <img src="img/img004.jpg" alt="NONAME"> <br>
+  <img src="img/img004.jpg" width="800px" alt="NONAME"> <br>
   Place The Symbol - <br>
-  <img src="img/img005.jpg" alt="NONAME"> <br>
+  <img src="img/img005.jpg" width="400px" alt="NONAME"> <br>
   <br>
   <p3>Keyboard Shortcut For Manipulating Components, Pins </p3>
   <br> 
@@ -74,24 +74,27 @@ div[id=div-001] {
   <br>
   <p5>Set Designator</p5> <br>
   Click Nowhere on the screen to unselect all components. Then in the property window show this: <br>
-  <img src="img/img006.jpg" alt="NONAME"> <br>
+  <img src="img/img006.jpg" width="400px" alt="NONAME"> <br>
   Type <code>U?</code> at the designator box. <br>
   Add a new parameter "LCSC PART NUMBER" in this list as below: <br>
-  <img src="img/img007.jpg" alt=""> <br>
+  <img src="img/img007.jpg" width="400px" alt=""> <br>
   <pp>Change Page Size</pp><br>
-  <img src="img/img009.jpg" alt=""><br>
+  <img src="img/img009.jpg" width="400px" alt=""><br>
 
   <br> <br>
   <pp>Design -> Rules </pp> <br>
-  <img src="img/img006.jpg" alt="">
+  <img src="img/img006.jpg" width="400px" alt="">
   <br> <br>
 
   <div class="title_c">Why it is important to create a part symbol with digikey parameters ?</div>
   Also search that part number in LCSC and make a parameter as LCSC part number in part symbol property as 
   shown above. <br>
+  Observe that it is only possible to import a part parameters from <p5>Manufacturer Part Search</p5> panel 
+  when Schematic Library -> Library Editor is opened by select a package from SCH Library Panel . <br>
+<img src="img/img017.jpg" width="400px" alt="">
 
 
-
+<br><br>
 </div>
 <!-- SHOW HIDE END 001  -->
 
@@ -169,8 +172,28 @@ div[id=div-001] {
       <br> <br>
 
       It's going to use FT231XQ for USB Serial Bridge. <br>
-      <img src="img/img014.jpg" alt=""> <br>
+      <img src="img/img014.jpg" width="400px" alt=""> <br>
       
+      But I am planning to use CH340G, I am trying to make the board hand solderable. <br>
+      We need the following signals: <br>
+      <p5>1.</p5> TXD <br>
+      <p5>2.</p5> RXD <br>
+      <p5>3.</p5> RTS <br>
+      <p5>4.</p5> DTR <br>
+
+      Rest pins will be unconnected. <br>
+      <br>
+      <div class="title_c">Differential Pair Class</div>
+      <p5>Place -> Directives -> Differential Pair </p5> <br>
+      Assign Differential Pair Symbol on track. From <p5> Property -> Parameter -> Add Diff. Pair Net Clas </p5> . 
+      Give a name of this net class. In The video it applies on USB connections. <br>
+      <img src="img/img015.jpg" width="400px" alt=""> <br>
+      Differential Pair Signal Label names need suffix _P and _N . <br>
+      <img src="img/img016.jpg" width="400px" alt=""> <br>
+      <br>
+
+      <div class="title_c">Annotate Schematic</div>
+      <p5>Tools -> Annotation -> Annotate Schematic -> Update Changes</p5> <br>
 
 
     </div>
@@ -186,10 +209,12 @@ div[id=div-001] {
       }
   </style>
   
-  <h2><label for="toggle-008">Blank</p3> </label></h2>
+  <h2><label for="toggle-008">Minimal ESP32-S3 just cables soldering</p3> </label></h2>
   <input type="checkbox" id="toggle-008" style="display: none;">
   
   <div id="div-008">
+    <img src="img/img101.jpg" alt=""> <br>
+    <a href="https://www.youtube.com/watch?v=tQ0dL_9M1wI">Video Link</a> <br>
   </div>
 <!-- SHOW HIDE END 008  -->
 
