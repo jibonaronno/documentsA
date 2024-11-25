@@ -41,6 +41,8 @@ div[id=div-001] {
 
 <div id="div-001">
 <br>
+    <pp>get-started-windows-first-steps</pp><br>
+    Getting Started with ESP-IDF Guide <a href="https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/windows-setup.html#get-started-windows-first-steps">ESPRESSIF LINK HERE</a> <br>
     This installation process is based on Espressif-IDE . 
     Download Espressif IDE from <a href="https://dl.espressif.com/dl/esp-idf/"> https://dl.espressif.com/dl/esp-idf/ </a> . <br>
     <img src="img/img001.jpg" alt="NOT FOUND"><br>
@@ -60,6 +62,11 @@ div[id=div-001] {
       idf.py build
       idf.py -p COM9 flash
     </pre>
+    <br>
+    <pp>menuconfig did not work because windows-curses was not installed.</pp> <br>
+    <code>pip install windows-curses</code> <br>
+    Then run <br>
+    <code>idf.py menuconfig</code> and rest of the commands.
     <br>
     At this point during the flashing start, I had to press and release the RESET button on the ESP32-CAM board carefully. <br>
     This command flushes the board with the project firmware bin file and we need to press reset button again to check the result. <br>
@@ -203,13 +210,53 @@ div[id=div-001] {
 
     The functions gatts_event_handler() and gap_event_handler() handle all the events that are pushed to the
     application from the BLE stack. <br>
-
-    
-    
-
 </div>
-<!-- SHOW HIDE SEND 001  -->
+<!-- SHOW HIDE END 001  -->
 
+  <!-- SHOW HIDE START 004  -->
+  <style type="text/css">
+    div[id=div-004] {
+      display: none;
+    }
+      input[id=toggle-004]:checked ~ div[id=div-004] {
+        display: block;
+        }
+  </style>
+
+  <h2><label for="toggle-004">Get Started ESP-ADF</label></h2>
+  <input type="checkbox" id="toggle-004" style="display: none;">
+  
+  <div id="div-004">
+    <a href="https://docs.espressif.com/projects/esp-adf/en/latest/get-started/">ESP-ADF Get Started</a> <br> <br>
+    <a href="https://github.com/espressif/esp-adf">Github Page</a> shows that ESP-IDF V5.2 supports ESP-ADF V2.7 <br>
+     
+  </div>
+  <!-- SHOW HIDE END 004  -->
+
+  <!-- SHOW HIDE START 005  -->
+  
+  <style type="text/css">
+    div[id=div-005] {
+      display: none;
+    }
+      input[id=toggle-005]:checked ~ div[id=div-005] {
+        display: block;
+        }
+  </style>
+    
+  <h2><label for="toggle-005">ESPRESSIF ESP-IDF Getting Started Page</label></h2>
+  <input type="checkbox" id="toggle-005" style="display: none;">
+  
+  <div id="div-005">
+  Start with Board Support Package <br>
+  To speed up prototyping on some development boards, you can use Board Support Packages (BSPs), which makes initialization of a particular board as easy as few function calls.
+  A BSP typically supports all of the hardware components provided on development board. Apart from the pinout definition and initialization functions, a BSP ships with drivers for the external components such as sensors, displays, audio codecs etc.
+  The BSPs are distributed via <a href="https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/tools/idf-component-manager.html">IDF Component Manager</a>, so they can be found in <a href="https://components.espressif.com/">IDF Component Registry</a>.
+  Here is an example of how to add ESP-WROVER-KIT BSP to your project: <br>
+  <code>idf.py add-dependency esp_wrover_kit</code> <br>
+  </div>
+
+  <!-- SHOW HIDE END 005  -->
 
   <!-- SHOW HIDE START 006  -->
   <style type="text/css">
