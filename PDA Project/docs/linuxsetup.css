@@ -44,9 +44,11 @@ h3{
 }
 
 h4 {
-    font-family: 'Gruppo', cursive;
+    font-family: Georgia, serif;
     font-weight: 800;
     font-size: 25px;
+    margin-block-start: 10px;
+    margin-block-end: 10px;
 }
 
 span.tab{
@@ -163,6 +165,26 @@ a.button {
   background-color: #1e3348;
   padding-left: 20px;
   padding-right:20px;
+}
+
+.title_c
+{
+  font-family: "Lexend Exa", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 15px;
+  font-style: normal;
+  color: #FFDE69;
+  background-color: #737373;
+  padding-left: 20px;
+  padding-right:20px;
+  /*margin-left: 6%;*/
+  margin-right: 10%;
+  border-radius: 20px;
+}
+
+.article
+{
+  margin-left: 1%;
 }
 
 .title_b a

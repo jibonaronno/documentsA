@@ -207,6 +207,8 @@ void InitSharedMemory(U8 *pCMemVAddr)
       <a href="https://en.wikipedia.org/wiki/Comtrade"> Comtrade Wiki Page Link </a> . <br>
   </div>
   <!-- SHOW HIDE END 002A  -->
+  <h2>What is COMTRADE ?</h2>
+  <a href="https://en.wikipedia.org/wiki/Comtrade"> Comtrade Wiki Page Link </a> . <br>
 
 <!-- SHOW HIDE START 002B  -->
 <style type="text/css">
@@ -413,10 +415,48 @@ Have a UI to redirect either to ‘MLU Summary Page’ or ‘GLU Summary Page’
         }
     </style>
     
-    <h2><label for="toggle-006">blank</label></h2>
+    <h2><label for="toggle-006">4th Order Cumulant Filter Implementation</label></h2>
     <input type="checkbox" id="toggle-006" style="display: none;">
     
     <div id="div-006">
+      <div class="title_c">4th Order Cumulant Filter Implementation and Performance Test (Experimental)</div>
+      Suggested by @hanankibria we should apply method number 5, where this method is also completely described in the reference book with Matlab script. We need to convert the Matlab code into C, Python and may be C# for more performance testing.
+      This description discusses completely mathematical terms but no program or code application examples. The coding and performance testing are still experimental stage. Some terms used in this description are not commonly used in general programming filed. @hanankibria suggest that I should read and apply the code for more understanding.
+      This document states the term cumulant which I think is similar to harmonics of a time series signal or a signal that contains different frequencies. Our signal contains useful frequency and other noises as 1st 2nd 3rd 4rth … kth order harmonics. Document suggest that we will filter out 3rd 4rth and higher order harmonics / cumulants and we do not need to filter 2nd order harmonics.
+      Here the statement “The high order cumulant of a signal contaminated with static noise is equal to the high order cumulant of the signal without noise” , it looks applicable.
+      According to chat GPT I asked why we should apply 3rd and 4th order cumulants for Filters. Here are the responses:
+      In Digital Signal Processing (DSP), cumulants are a set of statistical measures that provide deeper insights into the characteristics of a signal, especially for analyzing non-Gaussian (non-normal) and non-linear systems. They are related to moments (like mean, variance, skewness, and kurtosis), but they are more focused on revealing the hidden structures in the data that are not captured by simpler statistics.
+      <br>
+
+      <h4>Convolution function for DSP Filter.</h4>
+      <pre>
+        def func_conv(kernel, input_array):
+          """
+          Custom convolution function similar to MATLAB code.
+          """
+          kernel_len = len(kernel)
+          input_len = len(input_array)
+          cum_conv = np.zeros(input_len)
+
+          kernel_indexes = []
+          #F = 0
+          for k in range(input_len):
+              F = 0
+              kernel_loop_count = 0
+              kernel_indexes.clear()
+              for j in range(max(0, k + 1 - input_len), min(k + 1, kernel_len)):
+                  F += kernel[j] * input_array[k - j]
+                  kernel_loop_count += 1
+                  kernel_indexes.append((max(0, k + 1 - input_len), min(k + 1, kernel_len), (k + 1 - input_len), ('j=',j)))
+              cum_conv[k] = F / min(k + 1, kernel_len)
+              print(f'kernel_loop_count = {kernel_loop_count} - k={k} {kernel_indexes}')
+              # print((min(k+1, m)))
+          #print(F)
+          return cum_conv
+      </pre> <br>
+
+      
+
     </div>
 
   <!-- SHOW HIDE END 006  -->
@@ -431,10 +471,12 @@ Have a UI to redirect either to ‘MLU Summary Page’ or ‘GLU Summary Page’
         }
     </style>
     
-    <h2><label for="toggle-007">blank</label></h2>
+    <h2><label for="toggle-007">Blank</label></h2>
     <input type="checkbox" id="toggle-007" style="display: none;">
     
     <div id="div-007">
+      
+      
     </div>
   <!-- SHOW HIDE END 007  -->
 
