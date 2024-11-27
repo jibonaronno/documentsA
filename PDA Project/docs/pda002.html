@@ -429,6 +429,19 @@ Have a UI to redirect either to ‘MLU Summary Page’ or ‘GLU Summary Page’
       <br>
 
       <h4>Convolution function for DSP Filter.</h4>
+      ChatGPT: what is convolution in programming term ? <br>
+      In programming, convolution typically refers to an operation often used in signal processing, image processing, and machine learning, particularly in the field of neural networks. 
+      It involves combining two sets of information to produce a third set that represents how one function modifies or filters another.
+      <br>Key Points: <br>
+      Mathematical Definition: The convolution of two functions f(x) and g(x) is mathematically defined as: <br>
+      <img src="img/img132.jpeg" alt=""> <br>
+      In programming, this is often implemented discretely for sequences: <br>
+      <img src="img/img133.jpeg" alt=""> <br>
+      The meaning of both equations above are same. First one is mathmatical notation and second one is programmers notation. Because we want to implement this equation on a sequence of time series data in the form of array.
+      The simplyfied programming concept of convolution is that a small 1 dimension array (3 element array called kernel or filter) will slides over a larger input array doing some math operations and returns a resultant output array. The resultant output array can be smaller than the input array or can be as same size as input array.
+      Same technique is applicable for 2d array where the kernel or filter is a 3x3 matrix slides over the input matrix and return a resultant matrix by doing some math operations.
+      ChatGPT provided convolve function and our convolve function are following same concept but some internal operations are different. Our convolve function returns the same size array as input array. <br>
+      
       <pre>
         def func_conv(kernel, input_array):
           """
@@ -439,23 +452,51 @@ Have a UI to redirect either to ‘MLU Summary Page’ or ‘GLU Summary Page’
           cum_conv = np.zeros(input_len)
 
           kernel_indexes = []
+          sum_arrays = []
           #F = 0
           for k in range(input_len):
               F = 0
               kernel_loop_count = 0
               kernel_indexes.clear()
+              sum_arrays.clear()
               for j in range(max(0, k + 1 - input_len), min(k + 1, kernel_len)):
                   F += kernel[j] * input_array[k - j]
                   kernel_loop_count += 1
+                  sum_arrays.append((kernel[j], input_array[k - j]))
                   kernel_indexes.append((max(0, k + 1 - input_len), min(k + 1, kernel_len), (k + 1 - input_len), ('j=',j)))
               cum_conv[k] = F / min(k + 1, kernel_len)
-              print(f'kernel_loop_count = {kernel_loop_count} - k={k} {kernel_indexes}')
+              # print(f'kernel_loop_count = {kernel_loop_count} - k={k} {kernel_indexes} F={F} cum_conv[k]={cum_conv[k]}')
+              print(f'kernel_loop_count = {kernel_loop_count} - k={k} sum_arrays=SUM({sum_arrays})  F={F} cum_conv[k]={cum_conv[k]}')
               # print((min(k+1, m)))
           #print(F)
           return cum_conv
-      </pre> <br>
+      </pre>
+      <pp>Output ::</pp><br>
+      <pre>
+        kernel_loop_count = 1 - k=0 sum_arrays=SUM([(-1, 1)])  F=-1 cum_conv[k]=-1.0
+        kernel_loop_count = 2 - k=1 sum_arrays=SUM([(-1, 10), (0, 1)])  F=-10 cum_conv[k]=-5.0
+        kernel_loop_count = 3 - k=2 sum_arrays=SUM([(-1, 2), (0, 10), (1, 1)])  F=-1 cum_conv[k]=-0.3333333333333333
+        kernel_loop_count = 3 - k=3 sum_arrays=SUM([(-1, 5), (0, 2), (1, 10)])  F=5 cum_conv[k]=1.6666666666666667
+        kernel_loop_count = 3 - k=4 sum_arrays=SUM([(-1, 9), (0, 5), (1, 2)])  F=-7 cum_conv[k]=-2.3333333333333335
+        kernel_loop_count = 3 - k=5 sum_arrays=SUM([(-1, 100), (0, 9), (1, 5)])  F=-95 cum_conv[k]=-31.666666666666668
+        kernel_loop_count = 3 - k=6 sum_arrays=SUM([(-1, 55), (0, 100), (1, 9)])  F=-46 cum_conv[k]=-15.333333333333334
+        kernel_loop_count = 3 - k=7 sum_arrays=SUM([(-1, 77), (0, 55), (1, 100)])  F=23 cum_conv[k]=7.666666666666667
+        kernel_loop_count = 3 - k=8 sum_arrays=SUM([(-1, 0), (0, 77), (1, 55)])  F=55 cum_conv[k]=18.333333333333332
+        kernel_loop_count = 3 - k=9 sum_arrays=SUM([(-1, -5), (0, 0), (1, 77)])  F=82 cum_conv[k]=27.333333333333332
+        kernel_loop_count = 3 - k=10 sum_arrays=SUM([(-1, 4), (0, -5), (1, 0)])  F=-4 cum_conv[k]=-1.3333333333333333
+        kernel_loop_count = 3 - k=11 sum_arrays=SUM([(-1, 9), (0, 4), (1, -5)])  F=-14 cum_conv[k]=-4.666666666666667
+        12 = 
 
+        [ -1.          -5.          -0.33333333   1.66666667  -2.33333333
+        -31.66666667 -15.33333333   7.66666667  18.33333333  27.33333333
+          -1.33333333  -4.66666667]
+      </pre>
+      <br>
+      A graphical representation below is an idea of how this function is calculating the convolution. <br>
+      <img src="img/img131.jpeg" alt=""> <br>
       
+      This calculation process can return a same size array as input array. The returned convolution 
+      array looks like an array of factors, like a slope or comparison factors. 
 
     </div>
 
