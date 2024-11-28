@@ -1,0 +1,45 @@
+gnuplot> set multiplot
+multiplot> plot sin((pi/90)*(x-120)) lt rgb "red"
+multiplot> clear
+multiplot> set xrange[0:180]
+multiplot> set grid
+multiplot> plot sin((pi/90)*(x-120)) lt rgb "red"
+multiplot> plot sin((pi/90)*(x)) lt rgb "green"   
+multiplot> clear
+multiplot> plot sin((pi/90)*(x)) lt rgb "green"
+multiplot> plot sin((pi/90)*(x+120)) lt rgb "red"  
+multiplot> plot sin((pi/90)*(x+240)) lt rgb "blue"  
+multiplot> clear                                  
+multiplot> 
+multiplot> plot sin((pi/180)*(x+240)) lt rgb "blue"  
+multiplot> clear                                   
+multiplot> set xrange[0:360]                       
+multiplot> plot sin((pi/180)*(x+240)) lt rgb "blue"
+multiplot> clear                                   
+multiplot> set xrange[0:180]                       
+multiplot> plot sin((1)*(x)) lt rgb "blue"          
+multiplot> clear                          
+multiplot> plot sin((pi/45)*(x+240)) lt rgb "blue"  
+multiplot> clear                                  
+multiplot> plot sin((pi/180)*(x)) lt rgb "blue"    
+multiplot> plot sin((pi/180)*(x+120)) lt rgb "blue"  
+multiplot> plot sin((pi/180)*(x+240)) lt rgb "red"   
+multiplot> clear                                   
+multiplot> plot sin((pi/90)*(x)) lt rgb "green"    
+multiplot> plot sin((pi/90)*(x+120)) lt rgb "red"  
+multiplot> clear                                 
+multiplot> set xrange[0:360]                       
+multiplot> plot sin((pi/90)*(x)) lt rgb "green"    
+multiplot> clear                               
+multiplot> set xrange[0:180]                     
+multiplot> set xrange[0:360]                     
+multiplot> plot sin((pi/180)*(x)) lt rgb "green"  
+multiplot> plot sin((pi/180)*(x+120)) lt rgb "red"  
+multiplot> plot sin((pi/180)*(x-120)) lt rgb "blue"  
+multiplot> replot
+multiplot> clear
+multiplot> unset border
+multiplot> plot sin((pi/180)*(x)) lt rgb "green"   
+multiplot> plot sin((pi/180)*(x-120)) lt rgb "blue"
+multiplot> plot sin((pi/180)*(x+120)) lt rgb "red" 
+multiplot> 
