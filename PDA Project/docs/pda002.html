@@ -441,7 +441,21 @@ Have a UI to redirect either to ‘MLU Summary Page’ or ‘GLU Summary Page’
       The simplyfied programming concept of convolution is that a small 1 dimension array (3 element array called kernel or filter) will slides over a larger input array doing some math operations and returns a resultant output array. The resultant output array can be smaller than the input array or can be as same size as input array.
       Same technique is applicable for 2d array where the kernel or filter is a 3x3 matrix slides over the input matrix and return a resultant matrix by doing some math operations.
       ChatGPT provided convolve function and our convolve function are following same concept but some internal operations are different. Our convolve function returns the same size array as input array. <br>
-      
+
+      <pp>Main Version From ChatGPT</pp><br>
+      <pre>
+        def func_conv(u, v):
+          m = len(u)
+          n = len(v)
+          Cum_conv = np.zeros(n)
+          for k in range(n):
+              F = 0
+              for j in range(max(0, k - n + 1), min(k + 1, m)):
+                  F += u[j] * v[k - j]
+              Cum_conv[k] = F / min(k + 1, m)
+          return Cum_conv
+      </pre>
+      <pp>Expanded Version for more readable and print outputs</pp><br>
       <pre>
         def func_conv(kernel, input_array):
           """
@@ -470,6 +484,16 @@ Have a UI to redirect either to ‘MLU Summary Page’ or ‘GLU Summary Page’
               # print((min(k+1, m)))
           #print(F)
           return cum_conv
+      </pre>
+      <pp>Function Call ::</pp><br>
+      <pre>
+        if __name__ == '__main__':
+          input_array = [1, 10, 2, 5, 9, 100, 55, 77, 0, -5, 4, 9]
+          kernel = [-1, 0, 1]
+          #print(convolve(input_array, kernel))
+          result = func_conv(kernel, input_array)
+          print(f'{len(result)} = \n')
+          print(result)
       </pre>
       <pp>Output ::</pp><br>
       <pre>
