@@ -189,5 +189,8 @@ https://youtu.be/aD8k4pYUBOk?t=890
 https://www.youtube.com/watch?v=tf3S2Cy1ooI
 Octave Tutorial #7: First 5 Things to Do For Productive Working Environment
 https://youtu.be/tf3S2Cy1ooI?t=220 :- Create Project Directories
+>> pwd
+ans = C:\Users\jibon\gnuoctave_files
+
 
 
