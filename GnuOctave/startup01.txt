@@ -192,5 +192,31 @@ https://youtu.be/tf3S2Cy1ooI?t=220 :- Create Project Directories
 >> pwd
 ans = C:\Users\jibon\gnuoctave_files
 
+click on change directory icon from icon bar on top
+or use cd command to change directory:
+
+>> cd C:\Users\jibon\matlab_files
+
+Octave Tutorial #8: Writing Scripts and Functions for Absolute Beginners
+Write Function In Script 
+https://youtu.be/NN_xxk7MHAw?t=738
+
+create a new script file fn_cal_area_vol.m and write a function in the working directory
+
+function [A,V] = fn_cal_area_vol(r)
+  A = 4*pi*r^2;
+  V=4/3*pi*r^3;
+end
+
+Now call the function from command prompt:
+
+>> [Area,Vol]=fn_cal_area_vol(3)
+Area = 113.10
+Vol = 113.10
+>> [Area,Vol]=fn_cal_area_vol(2)
+Area = 50.265
+Vol = 33.510
+>>
+
 
 
