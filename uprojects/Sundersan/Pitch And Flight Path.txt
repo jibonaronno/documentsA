@@ -1,0 +1,28 @@
+Understanding Aircraft Pitch and Flight Path ✈️
+Nose High, Level Flight:
+- Pitch > 0: The nose is pointed up relative to the horizon.
+- AoA > 0: The angle between the chord line of the wing and the flight path is positive.
+- Flight path level: The aircraft is maintaining a constant altitude.
+Nose Higher, Level Flight:
+- Pitch > 0: The nose is even more pointed up compared to the horizon.
+- AoA > 0: The angle of attack remains positive.
+- Flight path level: The aircraft continues to fly level without climbing or descending.
+Nose High, Climbing:
+- Pitch > 0: The nose is pointed up relative to the horizon.
+- AoA > 0: The angle of attack is positive.
+- Flight path upwards: The aircraft is ascending, gaining altitude.
+Nose High, Descending:
+- Pitch > 0: The nose is pointed up relative to the horizon.
+- AoA > 0: The angle of attack is positive.
+- Flight path downwards: The aircraft is descending, losing altitude.
+Nose Down, Descending:
+- Pitch < 0: The nose is pointed down relative to the horizon.
+- AoA > 0: The angle of attack is positive because the chord line is still above the flight path.
+- Flight path downwards: The aircraft is descending, losing altitude.
+Nose Level, Descending:
+- Pitch = 0: The aircraft is aligned horizontally with the horizon.
+- AoA > 0: The angle of attack is positive.
+- Flight path downwards: The aircraft is descending, losing altitude.
+This illustration explains different combinations of pitch (nose position relative to the horizon) 
+and angle of attack (AoA) with respect to the aircraft's flight path. These factors are crucial for 
+pilots to understand and manage to ensure safe and efficient flight operations.
