@@ -520,7 +520,22 @@ Have a UI to redirect either to ‘MLU Summary Page’ or ‘GLU Summary Page’
       <img src="img/img131.jpeg" alt=""> <br>
       
       This calculation process can return a same size array as input array. The returned convolution 
-      array looks like an array of factors, like a slope or comparison factors. 
+      array looks like an array of factors, like a slope or comparison factors. <br> 
+
+      <div class="title_c">Vectorized version of func_conv and func_cum4uni_vertical</div>
+
+      <pre>
+        def func_conv(u, v):
+        m = len(u)
+        n = len(v)
+        conv_uv = np.convolve(u, v)  # length = m+n-1
+        # We only need the first n points.
+        # Original code divides by min(k+1, m) for each k.
+        idxs = np.arange(n)   # Ex: np.arrange(10) returns [0,1,2,3,4,5,6,7,8,9]
+        denominator = np.where(idxs < m, idxs + 1, m)
+        Cum_conv = conv_uv[:n] / denominator
+        return Cum_conv
+      </pre>
 
     </div>
 
