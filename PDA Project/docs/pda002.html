@@ -526,16 +526,40 @@ Have a UI to redirect either to ‘MLU Summary Page’ or ‘GLU Summary Page’
 
       <pre>
         def func_conv(u, v):
-        m = len(u)
-        n = len(v)
-        conv_uv = np.convolve(u, v)  # length = m+n-1
-        # We only need the first n points.
-        # Original code divides by min(k+1, m) for each k.
-        idxs = np.arange(n)   # Ex: np.arrange(10) returns [0,1,2,3,4,5,6,7,8,9]
-        denominator = np.where(idxs < m, idxs + 1, m)
-        Cum_conv = conv_uv[:n] / denominator
-        return Cum_conv
+          m = len(u)
+          n = len(v)
+          conv_uv = np.convolve(u, v)  # length = m+n-1
+          # We only need the first n points.
+          # Original code divides by min(k+1, m) for each k.
+          idxs = np.arange(n)   # Ex: np.arrange(10) returns [0,1,2,3,4,5,6,7,8,9]
+          denominator = np.where(idxs &lt; m, idxs + 1, m) # Ex: if idsx[i] &lt; m : return idxs[i]+1 else return m # Here m is a constant value
+          Cum_conv = conv_uv[:n] / denominator
+          return Cum_conv
       </pre>
+      <br>
+      <pp>Vectorized version of func_cum4uni_vertical.</pp>
+      <pre>
+        def func_cum4uni_vertical(x):
+          x = x - np.mean(x)
+          N = len(x)
+          # Autocorrelation of x
+          Rxx_full = np.correlate(x, x, mode='full')
+          # Cross-correlation of x^3 with x
+          C4xx_full = np.correlate(x**3, x, mode='full')
+          
+          # For m in [0, N-1], we want Rxx(m) = Rxx_full[N-1+m] / (N-m)
+          # and C4xx(m) = C4xx_full[N-1+m] / (N-m)
+          m_idx = np.arange(N) + (N - 1)
+          denom = N - np.arange(N)  # (N-m)
+          
+          Rxx = Rxx_full[m_idx] / denom
+          C4xx = C4xx_full[m_idx] / denom
+          
+          C4x_uv = C4xx - 3 * Rxx * Rxx[0]
+          return C4x_uv
+      </pre>
+
+      Here <a href="https://en.wikipedia.org/wiki/Cross-correlation">Cross-correlation Wiki Article</a>
 
     </div>
 
