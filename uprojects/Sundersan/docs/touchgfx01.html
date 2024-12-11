@@ -102,10 +102,42 @@ div[id=div-001] {
     
     <h2><label for="toggle-006">Links To Example Codes & Tutorials</label></h2>
     <input type="checkbox" id="toggle-006" style="display: none;">
-    <div class="title_c">TouchGFX Youtube Video</div>
-    <a href="https://www.youtube.com/watch?v=12KXreXaLp0">STM32CubeIDE 1.2.1 and TouchGFX 4.13.0 with STM32F746G-DISC0 kit</a> <br>
-
+    
     <div id="div-006">
+      <div class="title_c">TouchGFX Youtube Video</div>
+      <a href="https://www.youtube.com/watch?v=12KXreXaLp0">STM32CubeIDE 1.2.1 and TouchGFX 4.13.0 with STM32F746G-DISC0 kit</a> <br>
+      <br>
+      This video <a href="https://youtu.be/rGxDZPYcWIs?list=PLfIJKC1ud8giOsk-C4BCOwSHtbXqTNb1W&t=275">Getting Started with TOUCH GFX || LED CONTROL using BUTTON</a> 
+      is based on <pp>STM32F705B-DK</pp> board. When TouchGFX creates the project, It configures <p5>QSPI Flash</p5>, <p5>SDRAM</p5>, <p5>Display Library</p5> 
+      and other things. <br>
+      <br>
+      In the test TouchGFX designer project I created a toggle button and OnClick event a function <code>modeChange</code> is assigned. After code generation 
+      this will be a virtual function defined in <code>Screen1ViewBase.hpp</code> and called in <code>Screen1ViewBase.cpp</code> -> <code>void Screen1ViewBase::buttonCallbackHandler(const touchgfx::AbstractButton& src)</code> . 
+      <img src="img/img011.jpg" alt=""> <br>
+      Observe that we should not modify code files under generated folder. <br>
+      Rather we have to change the codes under gui folder. <br>  
+      To toggle a LED check the GPIO Pin for the LED in CubeMX view. <br>
+      In my case for STM32F746G-DISC0 board, There is a LED on board with Pin PG6 . In the generated code it is called <code>HAL_GPIO_Init(MCU_ACTIVE_GPIO_Port, &GPIO_InitStruct);</code> <br>
+      Add this <code>virtual void modeChange();</code> to <p5>gui -> Screen1View.hpp</p5> <br>
+      Now implement the function in Screen1View.cpp as below: <br>
+      <pre>
+        void Screen1View::modeChange()
+        {
+          if(tglBtnA.getState())
+          {
+            HAL_GPIO_WritePin(GPIOG, GPIO_PIN_6, GPIO_PIN_SET);
+          }
+          else
+          {
+            HAL_GPIO_WritePin(GPIOG, GPIO_PIN_6, GPIO_PIN_RESET);
+          }
+        }
+      </pre>
+      <br>
+      <a href="https://www.youtube.com/watch?v=vy1c1LbypuM&list=PLfIJKC1ud8giOsk-C4BCOwSHtbXqTNb1W&index=3">TOUCH GFX #2. Counter || Text Area || Wildcards</a> <br>
+      <p5>SVG Image</p5> <br>
+      Just drop the image in the location like <code>C:\TouchGFXProjects\AirmanV0_1\TouchGFX\assets\images</code> folder. <br>
+      It will be appeared in the designer. <br>
       
     </div>
 
