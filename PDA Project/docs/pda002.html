@@ -568,7 +568,33 @@ Have a UI to redirect either to ‘MLU Summary Page’ or ‘GLU Summary Page’
       
         Some discussion from <a href="https://stackoverflow.com/questions/13439718/how-to-interpret-the-values-returned-by-numpy-correlate-and-numpy-corrcoef">Stack Overflow Article</a> <br>
 
-        
+        <div class="note">
+          I have two 1D arrays and I want to see their inter-relationships. What procedure should I 
+          use in numpy? I am using numpy.corrcoef(arrayA, arrayB) and numpy.correlate(arrayA, arrayB) 
+          and both are giving some results that I am not able to comprehend or understand.
+        </div> <br>
+        <div class="note">
+          numpy.correlate simply returns the cross-correlation of two vectors.
+          if you need to understand cross-correlation, then start with http://en.wikipedia.org/wiki/Cross-correlation.
+          A good example might be seen by looking at the autocorrelation function (a vector cross-correlated with itself):
+        </div>
+        <br>
+        <pre>
+          import numpy as np
+          # create a vector
+          vector = np.random.normal(0,1,size=1000) 
+          # insert a signal into vector
+          vector[::50]+=10
+          # perform cross-correlation for all data points
+          output = np.correlate(vector,vector,mode='full')
+        </pre>
+        <img src="img/png001.png" alt=""> <br>
+        <div class="note">
+          This will return a comb/shah function with a maximum when both data sets are overlapping. 
+          As this is an autocorrelation there will be no "lag" 
+          between the two input signals. The maximum of the correlation is therefore vector.size-1.
+          if you only want the value of the correlation for overlapping data, you can use mode='valid'.
+        </div>
 
 
     </div>
