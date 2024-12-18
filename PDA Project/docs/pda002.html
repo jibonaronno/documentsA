@@ -611,11 +611,50 @@ Have a UI to redirect either to ‘MLU Summary Page’ or ‘GLU Summary Page’
         }
     </style>
     
-    <h2><label for="toggle-007">Blank</label></h2>
+    <h2><label for="toggle-007">STarting with Jupyter lab</label></h2>
     <input type="checkbox" id="toggle-007" style="display: none;">
     
     <div id="div-007">
-      
+      <div class="title_c">Install commands in ubuntu 18.04</div>
+      <pre>
+        python3 -m pip install notebook
+        python3 -m pip install --upgrade pip
+        python3 -m pip install --upgrade pillow 
+        or
+        python3 -m pip install pillow 
+        python3 -m pip install numpy pandas matplotlib seaborn scipy
+        jupyter notebook --generate-config
+        jupyter notebook password
+        nano ~/.jupyter/jupyter_notebook_config.py
+        // Do the changes
+        c.NotebookApp.ip = '0.0.0.0'
+        c.NotebookApp.open_browser = False
+        c.NotebookApp.port = 8888
+
+        sudo ufw allow 8888
+
+        jupyter notebook
+
+        You can access it via http://<server-ip>:8888.
+        
+        // Modern Jupyter
+        pip3 install jupyterlab
+        jupyter lab
+
+      </pre>
+      To show plots install packages:
+      <pre>
+        python3 -m pip install ipympl
+        python3 -m pip install nodejs-bin # It may not needed
+        curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+        sudo apt-get install -y nodejs
+        jupyter labextension install @jupyter-widgets/jupyterlab-manager
+        jupyter labextension install jupyter-matplotlib
+        python3 -m pip install ipywidgets
+        python3 -m pip install widgetsnbextension
+        jupyter nbextension enable --py widgetsnbextension
+
+      </pre>
       
     </div>
   <!-- SHOW HIDE END 007  -->
