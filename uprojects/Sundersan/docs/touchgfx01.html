@@ -150,7 +150,8 @@ div[id=div-001] {
       from TouchGFX designer and STM32 Core codes are compiled with gcc and TouchGFX codes are 
       compiled with g++. Following video shows using FreeRTOS semaphore to pass signal from 
       processor to TouchGFX API. <br>
-      
+
+      <a href="https://www.youtube.com/watch?v=EbWOv_0Lp-U">Displaying analog voltage value on TouchGFX GUI using STM32F746G-DISCO kit.</a> <br>
 
     </div>
 
@@ -166,11 +167,22 @@ div[id=div-001] {
         }
     </style>
     
-    <h2><label for="toggle-007">Random Links Commands</label></h2>
+    <h2><label for="toggle-007">C++ Support With TouchGFX main.cpp</label></h2>
     <input type="checkbox" id="toggle-007" style="display: none;">
     
     <div id="div-007" class="article">
-
+      Initially ChatGPT suggested following include files to create a custom canvas: <br>
+      <pre>
+        #include &lt;touchgfx/widgets/canvas/CanvasWidget.hpp&gt;
+        #include &lt;touchgfx/widgets/canvas/PainterARGB8888Bitmap.hpp&gt;
+        #include &lt;touchgfx/Bitmap.hpp&gt;
+        //#include &lt;touchgfx/Canvas.hpp&gt;
+        //#include &lt;touchgfx/Geometry.hpp&gt;
+        #include &lt;math.h&gt;
+      </pre>
+      I could not find <code>touchgfx/Canvas.hpp and touchgfx/Geometry.hpp</code> yet. The location is: <br>
+      <pp>C:\TouchGFXProjects\Airbox\Middlewares\ST\touchgfx\framework\include\touchgfx</pp> <br>
+      To create a CustomCanvas, I need to include Canvas.hpp file.
     </div>
   <!-- SHOW HIDE END 007  -->
 
