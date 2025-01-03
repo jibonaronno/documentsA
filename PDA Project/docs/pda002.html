@@ -42,6 +42,34 @@
 <div style="padding: 20px;font-size: 24px; line-height: 40px">
 <div class="title_b">PD Sensor | </div>
 
+<!-- SHOW HIDE START 001A  -->
+
+<style type="text/css">
+  div[id=div-001A] {
+    display: none;
+  }
+    input[id=toggle-001A]:checked ~ div[id=div-001A] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-001A">PD Sensor Interface over ethernet. implement C++ pddau.c and pddau.h </label></h2>
+  <input type="checkbox" id="toggle-001A" style="display: none;">
+  
+  <div id="div-001A">
+      <tab></tab>
+      Since PD Data acquisition uses RTOS elements for quasi realtime operations, There are more than 
+      One thread to handle incoming data stream. Thread enabled functions are : <br>
+      <code>void* ProcessPDDataThread(void *params)</code> <br>
+      <code>void EnqueuePDData(int sockfd)</code> <br>
+      <code>void* RunPDDAU(void *params)</code> <br>
+      <code>unsigned char* dequeue(Queue* queue) </code> <br>
+      <code>void enqueue(Queue* queue, MSG_PD_BODY data) </code> <br>
+
+  
+  </div>
+  <!-- SHOW HIDE SEND 001A  -->
+
 <!-- SHOW HIDE START 001  -->
 
 <style type="text/css">
