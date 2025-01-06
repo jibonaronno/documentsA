@@ -150,6 +150,19 @@ div[id=div-001] {
       from TouchGFX designer and STM32 Core codes are compiled with gcc and TouchGFX codes are 
       compiled with g++. Following video shows using FreeRTOS semaphore to pass signal from 
       processor to TouchGFX API. <br>
+      <div class="title_c">Video 1</div>
+      <a href="https://www.youtube.com/watch?v=Q-mfuzW6S-0">Importing TouchGFX 4.16.0 project into STM32CubeIDE 1.6.1</a> <br>
+      So we have to be careful about versioning of Cube IDE and TouchGFX. Hence we are trying to use the latest one. <br>
+      In this video it shows that touchgfx generates whole project with the project name like <p3>STM32f746G_DISCO</p3>. 
+      To change the default project name open <p5>.project</p5> file from STM32CubeIDE folder and replace all text 
+      STM32F746G_DISC0 with prefered project name. <br>
+      Do the same for <p5>.cproject</p5> file. <br>
+      Again in the TouchGFX folder there are 2 touchgfx project file: <br>
+      <p5>1</p5>. <code>ApplicationTemplate.touchgfx.part</code> <br>
+      <p5>2</p5>. <code>My746Project.touchgfx</code> (User Given Project name) <br>
+      <p5>3</p5>. Also rename STM32F746G_DISC0.ioc file to prefered project name. <br>
+      Also open these files and replace those text. <br>
+
 
       <a href="https://www.youtube.com/watch?v=EbWOv_0Lp-U">Displaying analog voltage value on TouchGFX GUI using STM32F746G-DISCO kit.</a> <br>
 
