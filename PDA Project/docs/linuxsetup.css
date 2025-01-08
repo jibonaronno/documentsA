@@ -44,11 +44,9 @@ h3{
 }
 
 h4 {
-    font-family: Georgia, serif;
+    font-family: 'Gruppo', cursive;
     font-weight: 800;
     font-size: 25px;
-    margin-block-start: 10px;
-    margin-block-end: 10px;
 }
 
 span.tab{
@@ -151,6 +149,18 @@ a.button {
   color: #FAFAFA;
   background-color: #1e3348;
   padding: 10px;
+}
+
+title_d
+{
+  font: bold 30px 'Courier New';
+  font-weight: bold;
+  color: #FAFAFA;
+  background-color: #1e3348;
+  /* max-width: 30%; */
+  min-width: 30%;
+  padding-left: 20px;
+  padding-right: 100px;
 }
 
 .title_a a
