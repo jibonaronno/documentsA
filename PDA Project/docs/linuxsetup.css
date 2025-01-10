@@ -207,6 +207,21 @@ title_d
   border-radius: 20px;
 }
 
+.note_a
+{
+  font-family: "Lexend Exa", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 10px;
+  font-style: normal;
+  color: #3e4468b3;
+  background-color: #c9c9c9;
+  padding-left: 20px;
+  padding-right:20px;
+  /*margin-left: 6%;*/
+  margin-right: 30%;
+  border-radius: 20px;
+}
+
 .article
 {
   margin-left: 1%;
