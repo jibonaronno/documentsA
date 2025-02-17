@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>STM32 TFLite</title>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <!-- BEGIN syntax highlighter -->
+    <script type="text/javascript" src="sh/shCore.js"></script>
+    <script type="text/javascript" src="sh/shBrushJScript.js"></script>
+    <link type="text/css" rel="stylesheet" href="sh/shCore.css"/>
+    <link type="text/css" rel="stylesheet" href="sh/shThemeDefault.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Gruppo" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <script type="text/javascript">
+      SyntaxHighlighter.all();
+    </script>
+    <!-- END syntax highlighter -->
+
+    <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="linuxsetup.css">
+  </head>
+  <body>
+  
+<div style="padding: 20px;font-size: 24px; line-height: 40px">
+<div class="title_b">STM32 TFLite</div>
+
+<!-- SHOW HIDE START 001  -->
+
+<style type="text/css">
+div[id=div-001] {
+  display: none;
+}
+  input[id=toggle-001]:checked ~ div[id=div-001] {
+    display: block;
+    }
+</style>
+
+<h2><label for="toggle-001">Primary Links & Terms</label></h2>
+<input type="checkbox" id="toggle-001" style="display: none;">
+
+<div id="div-001">
+    
+    <p5>1.</p5> <p3>Online Source #</p3> <p4> <a href="https://medium.com/@learnembedded08/how-to-run-neural-network-on-stm32-part-1-e16ab74ff84a#id_token=eyJhbGciOiJSUzI1NiIsImtpZCI6IjVkMTJhYjc4MmNiNjA5NjI4NWY2OWU0OGFlYTk5MDc5YmI1OWNiODYiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiIyMTYyOTYwMzU4MzQtazFrNnFlMDYwczJ0cDJhMmphbTRsamRjbXMwMHN0dGcuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiIyMTYyOTYwMzU4MzQtazFrNnFlMDYwczJ0cDJhMmphbTRsamRjbXMwMHN0dGcuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMTA0NjE2NDI4MDE2ODIwNzc1NDYiLCJlbWFpbCI6InRlYnVuaWFAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5iZiI6MTczOTc2NjA5MiwibmFtZSI6IktoYW5kb2tlciBNYXppZHVsIEhhcXVlIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hL0FDZzhvY0tBNUY4NFFFNDZnYTZsVF90Nkkxa1luU1JfMWJFenRrLTNRaVhISFU4V0NvVG9zM2p6PXM5Ni1jIiwiZ2l2ZW5fbmFtZSI6IktoYW5kb2tlciIsImZhbWlseV9uYW1lIjoiTWF6aWR1bCBIYXF1ZSIsImlhdCI6MTczOTc2NjM5MiwiZXhwIjoxNzM5NzY5OTkyLCJqdGkiOiJkY2FhMTUzYWVjN2I4ZWUyZGI5ZjAyMWEwNTdjZDM0MTdmZjViNzA3In0.E5oEzoRe5fS9t-8WT7-JufRy_uLzlKJaR-bINW7jXVhACBeHlZABS1rccu3MEeqR0RjEJN4QwLw_aokrpwcoM_C963Mldt3-sY2uxceOyY7bjEuG38wZssQEdPVxCcON2DxNxW7oSWd4h41llRhlizB830fd0gVEk7s2Vfx5G_vofypvAdCsvVgxrc9jU00MZqfzGRd2fu6y4Z2PuYSXHWk1-467QWWUcuIqLdJYKBMPc55CWHQBWIsUT3JJaegX6DCD8q6IVoyLfwTifBBU3YlUon_RglyGu4R7Ef0_felOoKyRhr8DtoK8TPDC2aSGqcK0Ma38Zut6SaVzsshxlA">How to run Neural Network on STM32 (Part 1)</a> </p4><br>
+    <div class="note">
+      Google team uses a 14KB Neural Network model on a DSP Microcontroller to listen for 
+      wake words “OK Google”. In the 32bit microcontroller market
+    </div>
+    <br>
+    <div class="note">
+      There is a TF version specifically for Mobiles and Edge Devices, TensorFlow Lite, 
+      and an experimental port of this framework for microcontrollers, TensorFlow Lite for Microcontrollers
+    </div>
+    <br>
+    <p4>Author Main page at Feb-2025 <a href="https://mirzafahad.github.io/2020-06-23-tflite-stm32-part2/">2020-06-23-tflite-stm32-part2</a></p4><br>
+    <br>
+
+    <img src="img/img002.png" alt="NOT FOUND"><br>
+</div>
+<!-- SHOW HIDE END 001  -->
+  <!-- SHOW HIDE START 006  -->
+  <style type="text/css">
+    div[id=div-006] {
+      display: none;
+    }
+      input[id=toggle-006]:checked ~ div[id=div-006] {
+        display: block;
+        }
+    </style>
+    
+    <h2><label for="toggle-006">TFLite Hello World</label></h2>
+    <input type="checkbox" id="toggle-006" style="display: none;">
+    
+    <div id="div-006">
+      <p5>1.</p5> <a href="https://medium.com/@learnembedded08/how-to-run-neural-network-on-stm32-part-2-edb103c3e3ec">How to run Neural Network on STM32 (Part 2)</a> <br>
+      <p5>*</p5> <pp>How to build and train a model using TensorFlow</pp> <br>
+      <p5>*</p5> <pp>Convert the model to TFLite Micro with optimizations enabled for hardware</pp><br>
+      <p5>*</p5> <pp>Convert the model into a C source file that can be included in the microcontroller application</pp> <br>
+      <p5>*</p5> <pp>Run on-device inference and display output</pp> <br>
+
+
+
+    </div>
+
+  <!-- SHOW HIDE END 006  -->
+
+  <!-- SHOW HIDE START 007  -->
+  <style type="text/css">
+    div[id=div-007] {
+      display: none;
+    }
+      input[id=toggle-007]:checked ~ div[id=div-007] {
+        display: block;
+        }
+    </style>
+    
+    <h2><label for="toggle-007">Random Links Commands</label></h2>
+    <input type="checkbox" id="toggle-007" style="display: none;">
+    
+    <div id="div-007">
+     
+
+    </div>
+  <!-- SHOW HIDE END 007  -->
+
+<!-- SHOW HIDE START 008  -->
+<style type="text/css">
+  div[id=div-008] {
+    display: none;
+  }
+    input[id=toggle-008]:checked ~ div[id=div-008] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-008">Blank</p3> </label></h2>
+  <input type="checkbox" id="toggle-008" style="display: none;">
+  
+  <div id="div-008">
+  </div>
+<!-- SHOW HIDE END 008  -->
+
+<!-- SHOW HIDE START 009  -->
+<style type="text/css">
+  div[id=div-009] {
+    display: none;
+  }
+    input[id=toggle-009]:checked ~ div[id=div-009] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-009">Blank </label></h2>
+  <input type="checkbox" id="toggle-009" style="display: none;">
+  
+  <div id="div-009">
+      
+
+  </div>
+<!-- SHOW HIDE END 009  -->
+
+<!-- SHOW HIDE START 010  -->
+<style type="text/css">
+  div[id=div-010] {
+    display: none;
+  }
+    input[id=toggle-010]:checked ~ div[id=div-010] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-010"> Blank </label></h2>
+  <input type="checkbox" id="toggle-010" style="display: none;">
+  
+  <div id="div-010">
+    
+  </div>
+<!-- SHOW HIDE START 010  -->
+
+<!--   -->
+
+</div>
+
+<!--
+<pre class="brush:js;">
+</pre><br /><br />
+-->  
+</body>
+</html>
