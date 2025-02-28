@@ -2,3 +2,11 @@ https://randomnerdtutorials.com/esp-mesh-esp32-esp8266-painlessmesh/
 https://gitlab.com/painlessMesh/painlessMesh
 https://github.com/espressif/esp-mdf/tree/release/v1.0
 https://github.com/aZholtikov/zh_network
+
+Kaiterra API Access Instruction Document.
+https://dev.kaiterra.com/
+Kaiterra Technical Docs
+Technical Downloads
+https://www.kaiterra.com/technical-downloads
+
+Project Codes Location documentsA\uprojects\Laurent ESP Mesh\CrowPanel-ESP32-Display-Course-File\CrowPanel_ESP32_Tutorial\Codes

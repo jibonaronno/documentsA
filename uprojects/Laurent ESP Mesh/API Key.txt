@@ -1,0 +1,4 @@
+CcUdlG2ozUb4cKDhkqhCom6a3uOrJSeCRwuOXc6PaTkTIYum
+
+https://api.kaiterra.com/v1/devices/170fe28c-4c5f-47fa-889d-1a44c27cc852/top?key=CcUdlG2ozUb4cKDhkqhCom6a3uOrJSeCRwuOXc6PaTkTIYum
+
