@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    html { font-family: Arial; display: inline-block; text-align: center; }
+    h2 { font-size: 3.0rem; }
+    p { font-size: 2.0rem; }
+    body { max-width: 600px; margin: 0px auto; padding-bottom: 25px; }
+
+    /* Style for the push button */
+    .push-button {
+      background-color: #2196F3;
+      border: none;
+      color: white;
+      padding: 20px 40px;
+      font-size: 2.0rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .push-button:active {
+      background-color: #0b7dda;
+    }
+  </style>
+</head>
+<body>
+  <h2>ESP Web Server</h2>
+
+  <h4>LEFT - 1 - GPIO - 3</h4>
+  <button class="push-button" id="13" 
+    onmousedown="sendRequest(this, 1)" 
+    onmouseup="sendRequest(this, 0)" 
+    onmouseleave="sendRequest(this, 0)">
+    PUSH
+  </button>
+
+  <script>
+    function sendRequest(element, state) {
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "/update?relay=" + element.id + "&state=" + state, true);
+      xhr.send();
+    }
+  </script>
+
+</body>
+</html>
