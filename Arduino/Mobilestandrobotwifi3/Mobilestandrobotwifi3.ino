@@ -126,10 +126,10 @@ void execCmd(int rel, int stat)
     }
     else
     {
-      digitalWrite(relayGPIOs[0], LOW);
-      digitalWrite(relayGPIOs[1], LOW);
-      digitalWrite(relayGPIOs[2], LOW);
-      digitalWrite(relayGPIOs[3], LOW);
+      // digitalWrite(relayGPIOs[0], LOW);
+      // digitalWrite(relayGPIOs[1], LOW);
+      // digitalWrite(relayGPIOs[2], LOW);
+      // digitalWrite(relayGPIOs[3], LOW);
       flag_start = false;
     }
   }
@@ -145,10 +145,10 @@ void execCmd(int rel, int stat)
     }
     else
     {
-      digitalWrite(relayGPIOs[0], LOW);
-      digitalWrite(relayGPIOs[1], LOW);
-      digitalWrite(relayGPIOs[2], LOW);
-      digitalWrite(relayGPIOs[3], LOW);
+      // digitalWrite(relayGPIOs[0], LOW);
+      // digitalWrite(relayGPIOs[1], LOW);
+      // digitalWrite(relayGPIOs[2], LOW);
+      // digitalWrite(relayGPIOs[3], LOW);
       flag_start = false;
     }
   }
@@ -164,10 +164,10 @@ void execCmd(int rel, int stat)
     }
     else
     {
-      digitalWrite(relayGPIOs[0], LOW);
-      digitalWrite(relayGPIOs[1], LOW);
-      digitalWrite(relayGPIOs[2], LOW);
-      digitalWrite(relayGPIOs[3], LOW);
+      // digitalWrite(relayGPIOs[0], LOW);
+      // digitalWrite(relayGPIOs[1], LOW);
+      // digitalWrite(relayGPIOs[2], LOW);
+      // digitalWrite(relayGPIOs[3], LOW);
       flag_start = false;
     }
   }
@@ -183,10 +183,10 @@ void execCmd(int rel, int stat)
     }
     else
     {
-      digitalWrite(relayGPIOs[0], LOW);
-      digitalWrite(relayGPIOs[1], LOW);
-      digitalWrite(relayGPIOs[2], LOW);
-      digitalWrite(relayGPIOs[3], LOW);
+      // digitalWrite(relayGPIOs[0], LOW);
+      // digitalWrite(relayGPIOs[1], LOW);
+      // digitalWrite(relayGPIOs[2], LOW);
+      // digitalWrite(relayGPIOs[3], LOW);
       flag_start = false;
     }
   }
@@ -258,7 +258,7 @@ public:
 };
 
 int g_steps = 50;  // Number of steps for smooth transition
-int g_delayTime = 1000 / 50; // duration (ms) / steps
+int g_delayTime = 40;//1000 / 50; // duration (ms) / steps
 int millis_elapsed = 0;
 
 void setup(){
@@ -372,9 +372,9 @@ void loop(){
   {
     if(flag_start)
     {
-      if(duty <= MAX_DUTY_CYCLE)
+      if(g_duty <= MAX_DUTY_CYCLE)
       {
-        g_duty += (MAX_DUTY_CYCLE / 50);
+        g_duty += (MAX_DUTY_CYCLE / 100);
         ledcWrite(PWMChannel, g_duty);
       }
     }
@@ -382,15 +382,22 @@ void loop(){
     {
       if(g_duty > 0)
       {
-        if(g_duty < (g_duty - (MAX_DUTY_CYCLE / 50)))
+        if((g_duty - (MAX_DUTY_CYCLE / 100)) < 0)
         {
           g_duty = 0;
         }
         else
         {
-          g_duty -= (MAX_DUTY_CYCLE / 50);
+          g_duty -= (MAX_DUTY_CYCLE / 100);
         }
         ledcWrite(PWMChannel, g_duty);
+      }
+      else
+      {
+        digitalWrite(relayGPIOs[0], LOW);
+        digitalWrite(relayGPIOs[1], LOW);
+        digitalWrite(relayGPIOs[2], LOW);
+        digitalWrite(relayGPIOs[3], LOW);
       }
     }
     millis_elapsed = millis();
