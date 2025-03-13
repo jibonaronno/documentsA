@@ -13,7 +13,7 @@
 DNSServer dnsServer;
 AsyncWebServer server(80);
 
-const char* PARAM_INPUT_1 = "relay";  
+const char* PARAM_INPUT_1 = "relay";
 const char* PARAM_INPUT_2 = "state";
 
 // Set to true to define Relay as Normally Open (NO)
@@ -104,7 +104,7 @@ String processor(const String& var){
       else if(i == 4)
       {
         //buttons+= "<h4>BACK - " + String(i) + " - GPIO " + relayGPIOs[i-1] + "</h4><label class=\"switch\"><input type=\"checkbox\" onchange=\"toggleCheckbox(this)\" id=\"" + String(i) + "\" "+ relayStateValue +"><span class=\"slider\"></span></label>";
-        buttons+= "<h4>RIGHT</h4><button class=\"push-button\" id=\""+ String(i) +"\" ontouchstart=\"sendRequest(this, 1)\" ontouchend=\"sendRequest(this, 0)\" ontouchcancel=\"sendRequest(this, 0)\">PUSH</button>";
+        buttons+= "<h4>RIGHT</h4><button class=\"push-button\" id=\""+ String(i) +"\" ontouchstart=\"sendRequest(this, 1)\" ontouchend=\"sendRequest(this, 0)\" ontouchcancel=\"sendRequest(this, 0)\"></button>";
       }
     }
     return buttons;
@@ -122,6 +122,7 @@ void execCmd(int rel, int stat)
       digitalWrite(relayGPIOs[1], LOW);
       digitalWrite(relayGPIOs[2], LOW);
       digitalWrite(relayGPIOs[3], LOW);
+      flag_start = true;
     }
     else
     {
@@ -129,6 +130,7 @@ void execCmd(int rel, int stat)
       digitalWrite(relayGPIOs[1], LOW);
       digitalWrite(relayGPIOs[2], LOW);
       digitalWrite(relayGPIOs[3], LOW);
+      flag_start = false;
     }
   }
   else if(rel == 3)
@@ -139,6 +141,7 @@ void execCmd(int rel, int stat)
       digitalWrite(relayGPIOs[1], HIGH);
       digitalWrite(relayGPIOs[2], LOW);
       digitalWrite(relayGPIOs[3], LOW);
+      flag_start = true;
     }
     else
     {
@@ -146,6 +149,7 @@ void execCmd(int rel, int stat)
       digitalWrite(relayGPIOs[1], LOW);
       digitalWrite(relayGPIOs[2], LOW);
       digitalWrite(relayGPIOs[3], LOW);
+      flag_start = false;
     }
   }
   else if(rel == 2)
@@ -156,6 +160,7 @@ void execCmd(int rel, int stat)
       digitalWrite(relayGPIOs[1], LOW);
       digitalWrite(relayGPIOs[2], HIGH);
       digitalWrite(relayGPIOs[3], LOW);
+      flag_start = true;
     }
     else
     {
@@ -163,6 +168,7 @@ void execCmd(int rel, int stat)
       digitalWrite(relayGPIOs[1], LOW);
       digitalWrite(relayGPIOs[2], LOW);
       digitalWrite(relayGPIOs[3], LOW);
+      flag_start = false;
     }
   }
   else if(rel == 1)
@@ -173,6 +179,7 @@ void execCmd(int rel, int stat)
       digitalWrite(relayGPIOs[1], LOW);
       digitalWrite(relayGPIOs[2], LOW);
       digitalWrite(relayGPIOs[3], HIGH);
+      flag_start = true;
     }
     else
     {
@@ -180,6 +187,7 @@ void execCmd(int rel, int stat)
       digitalWrite(relayGPIOs[1], LOW);
       digitalWrite(relayGPIOs[2], LOW);
       digitalWrite(relayGPIOs[3], LOW);
+      flag_start = false;
     }
   }
 }
@@ -249,6 +257,9 @@ public:
   }
 };
 
+int g_steps = 50;  // Number of steps for smooth transition
+int g_delayTime = 1000 / 50; // duration (ms) / steps
+int millis_elapsed = 0;
 
 void setup(){
   //your other setup stuff...
@@ -324,6 +335,8 @@ void setup(){
   //ledcAttach(LEDPin, PWMFreq, PWMResolution);
 
   //ledcWrite(PWMChannel, 450);
+
+  millis_elapsed = millis();
 }
 
 void rampUp(int duration) 
@@ -351,6 +364,35 @@ void rampDown(int duration)
   }
 }
 
+int g_duty = 0;
+
 void loop(){
   dnsServer.processNextRequest();
+  if(millis() > (millis_elapsed + g_delayTime))
+  {
+    if(flag_start)
+    {
+      if(duty <= MAX_DUTY_CYCLE)
+      {
+        g_duty += (MAX_DUTY_CYCLE / 50);
+        ledcWrite(PWMChannel, g_duty);
+      }
+    }
+    else
+    {
+      if(g_duty > 0)
+      {
+        if(g_duty < (g_duty - (MAX_DUTY_CYCLE / 50)))
+        {
+          g_duty = 0;
+        }
+        else
+        {
+          g_duty -= (MAX_DUTY_CYCLE / 50);
+        }
+        ledcWrite(PWMChannel, g_duty);
+      }
+    }
+    millis_elapsed = millis();
+  }
 }
