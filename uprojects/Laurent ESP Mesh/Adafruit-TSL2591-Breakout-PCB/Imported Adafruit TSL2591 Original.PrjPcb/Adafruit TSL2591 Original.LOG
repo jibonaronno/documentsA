@@ -1,0 +1,61 @@
+Importer Log Report
+Project : Group
+
+Section : Analyze Document - D:\Documents\documentsA\uprojects\Laurent ESP Mesh\Adafruit-TSL2591-Breakout-PCB\Adafruit TSL2591 Original.brd
+    Analyzing data of D:\Documents\documentsA\uprojects\Laurent ESP Mesh\Adafruit-TSL2591-Breakout-PCB\Adafruit TSL2591 Original.brd
+    Load settings
+    Load layers 126
+    Load board
+    Load Library "microbuilder"
+    Load Packages 10
+EndSection
+
+Section : Analyze Document - D:\Documents\documentsA\uprojects\Laurent ESP Mesh\Adafruit-TSL2591-Breakout-PCB\Adafruit TSL2591 Original.sch
+    Analyzing data of D:\Documents\documentsA\uprojects\Laurent ESP Mesh\Adafruit-TSL2591-Breakout-PCB\Adafruit TSL2591 Original.sch
+    Load settings
+    Load layers 126
+    Load schematic
+    Load Libraries 1
+    Load Library "microbuilder"
+    Load Packages 39
+    Load Symbols 12
+    Load DeviceSets 12
+    Load Attributes 0
+    Load Classes 1
+    Load Parts 30
+    Load Sheets 1
+    ERROR: Unhandled type <errors>
+EndSection
+
+Section : Analyze Document - D:\Documents\documentsA\uprojects\Laurent ESP Mesh\Adafruit-TSL2591-Breakout-PCB\Adafruit TSL2591.brd
+    Analyzing data of D:\Documents\documentsA\uprojects\Laurent ESP Mesh\Adafruit-TSL2591-Breakout-PCB\Adafruit TSL2591.brd
+    Load settings
+    Load layers 177
+    Load board
+    Load Library "microbuilder"
+    Load Packages 13
+    Load Library "silks"
+    Load Packages 1
+    ERROR: Unhandled typemfgpreviewcolors
+EndSection
+
+Section : Analyze Document - D:\Documents\documentsA\uprojects\Laurent ESP Mesh\Adafruit-TSL2591-Breakout-PCB\Adafruit TSL2591.sch
+    Analyzing data of D:\Documents\documentsA\uprojects\Laurent ESP Mesh\Adafruit-TSL2591-Breakout-PCB\Adafruit TSL2591.sch
+    Load settings
+    Load layers 177
+    Load schematic
+    Load Libraries 2
+    Load Library "microbuilder"
+    Load Packages 55
+    Load Symbols 14
+    Load DeviceSets 14
+    Load Library "supply1"
+    Load Packages 0
+    Load Symbols 2
+    Load DeviceSets 2
+    Load Attributes 3
+    Load Classes 3
+    Load Parts 38
+    Load Sheets 1
+    ERROR: Unhandled type <errors>
+EndSection
