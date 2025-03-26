@@ -1,0 +1,2 @@
+https://microcontrollerstech.com/setting-and-keeping-time-on-your-rtc-using-freertos-lwip-and-sntp/?fbclid=IwY2xjawJJ345leHRuA2FlbQIxMQABHdvE7jAxoHsS_M6bYazRmqjxygTn9uP1LHugTstXpPFOK0TNKI1zzP85gg_aem_JJ99iqP7fQLa_SQk111_cg
+
