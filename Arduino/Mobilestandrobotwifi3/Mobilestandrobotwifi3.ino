@@ -138,8 +138,8 @@ void execCmd(int rel, int stat)
     if(stat == 1)
     {
       digitalWrite(relayGPIOs[0], LOW);
-      digitalWrite(relayGPIOs[1], HIGH);
-      digitalWrite(relayGPIOs[2], LOW);
+      digitalWrite(relayGPIOs[1], LOW);
+      digitalWrite(relayGPIOs[2], HIGH);
       digitalWrite(relayGPIOs[3], LOW);
       flag_start = true;
     }
@@ -156,7 +156,7 @@ void execCmd(int rel, int stat)
   {
     if(stat == 1)
     {
-      digitalWrite(relayGPIOs[0], LOW);
+      digitalWrite(relayGPIOs[0], HIGH);
       digitalWrite(relayGPIOs[1], LOW);
       digitalWrite(relayGPIOs[2], HIGH);
       digitalWrite(relayGPIOs[3], LOW);
@@ -176,7 +176,7 @@ void execCmd(int rel, int stat)
     if(stat == 1)
     {
       digitalWrite(relayGPIOs[0], LOW);
-      digitalWrite(relayGPIOs[1], LOW);
+      digitalWrite(relayGPIOs[1], HIGH);
       digitalWrite(relayGPIOs[2], LOW);
       digitalWrite(relayGPIOs[3], HIGH);
       flag_start = true;
