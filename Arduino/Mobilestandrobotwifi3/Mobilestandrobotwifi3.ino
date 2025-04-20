@@ -258,7 +258,7 @@ public:
 };
 
 int g_steps = 50;  // Number of steps for smooth transition
-int g_delayTime = 40;//1000 / 50; // duration (ms) / steps
+int g_delayTime = 60; //40;//1000 / 50; // duration (ms) / steps
 int millis_elapsed = 0;
 
 void setup(){
