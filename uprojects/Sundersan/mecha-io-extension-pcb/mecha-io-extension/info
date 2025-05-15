@@ -1,0 +1,316 @@
+{
+  "uuid": "1a334b678c662b16612e4041527ea311",
+  "path": "Offline/mecha-io-extension",
+  "name": "mecha-io-extension",
+  "content": "",
+  "created_at": "2024-10-09 15:12:37",
+  "updated_at": "2025-02-20 18:00:39",
+  "stick": "",
+  "documents": [
+    {
+      "uuid": "c82ad80df0dbeba7bd2e0c7b83ab5164",
+      "title": "Sheet_1",
+      "description": "",
+      "docType": "1",
+      "master": "",
+      "thumb": "/images/thumb-default.png",
+      "components": {
+        "88326eaff5f04bd5947a40aff653146a": 2,
+        "62adf998fa944dcfbb0153e45a9646ba": 1,
+        "a1a917159bf0428cb774136ee5fb1a08": 1,
+        "f5b1d9403e49471cab43bc5a1bec336f": 1,
+        "93b44d62463c4c9c82dd7108c8ee7d73": 1,
+        "34c60e2e106b4c4b83126f647e22f408": 1,
+        "32db131756294fb5941603d27d82755b": 2,
+        "35d0814f175c4a89882061fcd70a21a8": 2,
+        "1ddec69b16814d63ba218f2c527f283d": 1,
+        "30dc9760e9b14f1a8af8fff00fcd6b76": 1,
+        "e1ba632920574e8d958a2d5e2e726818": 1,
+        "a8eb290789c54bd689f749f8a6fdba02": 1,
+        "2fa609acdd154e72b827a7d2d4439766": 1,
+        "99a510ce18554a6a8e0e4230b5486218": 1
+      },
+      "BOM": [
+        [
+          "Value",
+          "Quantity",
+          "Package",
+          "Components",
+          "CustomPara"
+        ],
+        [
+          "4.7uF",
+          2,
+          "C0603",
+          "C1,C2",
+          {
+            "BOM_Manufacturer Part": "",
+            "puuid": "f8151fdc728a41ebbc304e11d39e5437",
+            "uuid": "32db131756294fb5941603d27d82755b"
+          }
+        ],
+        [
+          "HDR-M-2.54_1x4",
+          1,
+          "HDR-M-2.54_1X4",
+          "J1",
+          {
+            "BOM_Supplier Part": "C124378",
+            "BOM_Supplier": "LCSC",
+            "BOM_Manufacturer": "",
+            "BOM_Manufacturer Part": "",
+            "puuid": "282f7786cb6144d097ae00194c3e3fb3",
+            "uuid": "f5b1d9403e49471cab43bc5a1bec336f"
+          }
+        ],
+        [
+          "HDR-M-2.54_1x6",
+          1,
+          "HDR-M-2.54_1X6",
+          "J2",
+          {
+            "BOM_Supplier Part": "C190819",
+            "BOM_Supplier": "LCSC",
+            "BOM_Manufacturer": "",
+            "BOM_Manufacturer Part": "",
+            "puuid": "df3ca37cb13d499cb713e9aa6fdd0c7b",
+            "uuid": "93b44d62463c4c9c82dd7108c8ee7d73"
+          }
+        ],
+        [
+          "HL-PST-1608S9AC-04",
+          1,
+          "LED0603-RD_RED",
+          "LED1",
+          {
+            "BOM_Manufacturer Part": "",
+            "puuid": "267a6f7006e64285b145cfc7f6180b7f",
+            "uuid": "a8eb290789c54bd689f749f8a6fdba02"
+          }
+        ],
+        [
+          "10kΩ",
+          1,
+          "R0603",
+          "R1",
+          {
+            "BOM_Manufacturer Part": "",
+            "puuid": "398691f1f785460098bbe5ee6590333c",
+            "uuid": "34c60e2e106b4c4b83126f647e22f408"
+          }
+        ],
+        [
+          "1kΩ",
+          2,
+          "R0603",
+          "R2,R3",
+          {
+            "BOM_Manufacturer Part": "",
+            "puuid": "398691f1f785460098bbe5ee6590333c",
+            "uuid": "35d0814f175c4a89882061fcd70a21a8"
+          }
+        ],
+        [
+          "4.7kΩ",
+          1,
+          "R0603",
+          "R4",
+          {
+            "BOM_Manufacturer Part": "",
+            "puuid": "398691f1f785460098bbe5ee6590333c",
+            "uuid": "1ddec69b16814d63ba218f2c527f283d"
+          }
+        ],
+        [
+          "2kΩ",
+          1,
+          "R0603",
+          "R5",
+          {
+            "BOM_Manufacturer Part": "",
+            "puuid": "398691f1f785460098bbe5ee6590333c",
+            "uuid": "99a510ce18554a6a8e0e4230b5486218"
+          }
+        ],
+        [
+          "10x2-Pogo-Pins-Pads-2mm-Pitch",
+          2,
+          "10X2-POGO-PINS-PADS-2MM-PITCH",
+          "U2,U3",
+          {
+            "BOM_Manufacturer": "",
+            "BOM_Manufacturer Part": "",
+            "BOM_Supplier Part": "",
+            "BOM_Supplier": "",
+            "puuid": "f7ec4a2beefe4d43ae71ebbee68f72fe",
+            "uuid": "88326eaff5f04bd5947a40aff653146a"
+          }
+        ],
+        [
+          "19-213/GHC-XS1T1N/5T",
+          1,
+          "LED0603-FD_GREEN",
+          "U4",
+          {
+            "BOM_Manufacturer Part": "",
+            "puuid": "3ad8fd786199422490ef1097b1c20a81",
+            "uuid": "30dc9760e9b14f1a8af8fff00fcd6b76"
+          }
+        ],
+        [
+          "CP2102-GMR",
+          1,
+          "WQFN-28_L5.0-W5.0-P0.50-BL-EP3.2",
+          "U5",
+          {
+            "BOM_Manufacturer Part": "",
+            "puuid": "cfd5203a63ba4bd4b32f1d0bee0a79a2",
+            "uuid": "a1a917159bf0428cb774136ee5fb1a08"
+          }
+        ],
+        [
+          "mecha_gpio_40pin_header",
+          1,
+          "MECHA_GPIO_40PIN_HEADER",
+          "U6",
+          {
+            "BOM_Manufacturer": "",
+            "BOM_Manufacturer Part": "",
+            "BOM_Supplier Part": "",
+            "BOM_Supplier": "",
+            "puuid": "9a0aef8712f04fc1b18bb799c4fcf8a7",
+            "uuid": "62adf998fa944dcfbb0153e45a9646ba"
+          }
+        ],
+        [
+          "A-SP194B1C-C03-4T",
+          1,
+          "LED0603-R-RD_BLUE",
+          "U8",
+          {
+            "BOM_Manufacturer Part": "",
+            "puuid": "041cc9180dc046b7bb66bb309da71792",
+            "uuid": "e1ba632920574e8d958a2d5e2e726818"
+          }
+        ],
+        [
+          "TYPE-C-31-M-23",
+          1,
+          "USB-C-SMD_TYPE-C-31-M-23",
+          "USB2",
+          {
+            "BOM_Manufacturer Part": "",
+            "puuid": "71fb14976f8c4522b8cbc39b4112db94",
+            "uuid": "2fa609acdd154e72b827a7d2d4439766"
+          }
+        ]
+      ],
+      "updateTime": 1740054639,
+      "createTime": 1728466957,
+      "histories": [],
+      "created_at": "2024-10-09 15:12:37",
+      "updated_at": "2025-02-20 18:00:39"
+    },
+    {
+      "uuid": "dc19a51e40d4c0dccf04fffef6d3be2f",
+      "puuid": "1a334b678c662b16612e4041527ea311",
+      "title": "layout",
+      "filename": "layout.json",
+      "description": "",
+      "docType": "3",
+      "master": "",
+      "thumb": "/images/thumb-default.png",
+      "components": {},
+      "BOM": [],
+      "updateTime": 1728648102,
+      "createTime": 1728476964,
+      "histories": [],
+      "created_at": "2024-10-09 17:59:24",
+      "updated_at": "2024-10-11 17:31:42"
+    },
+    {
+      "uuid": "0366359de334959984e2625c3ffb5567",
+      "puuid": "1a334b678c662b16612e4041527ea311",
+      "title": "PCB_mecha-gpio-default-01",
+      "filename": "PCB_mecha-gpio-default-01.json",
+      "description": "",
+      "docType": "3",
+      "master": "",
+      "thumb": "/images/thumb-default.png",
+      "components": {
+        "f8151fdc728a41ebbc304e11d39e5437": 3,
+        "282f7786cb6144d097ae00194c3e3fb3": 1,
+        "df3ca37cb13d499cb713e9aa6fdd0c7b": 1,
+        "267a6f7006e64285b145cfc7f6180b7f": 1,
+        "398691f1f785460098bbe5ee6590333c": 5,
+        "3ad8fd786199422490ef1097b1c20a81": 1,
+        "cfd5203a63ba4bd4b32f1d0bee0a79a2": 1,
+        "9a0aef8712f04fc1b18bb799c4fcf8a7": 1,
+        "041cc9180dc046b7bb66bb309da71792": 1,
+        "71fb14976f8c4522b8cbc39b4112db94": 1,
+        "f7ec4a2beefe4d43ae71ebbee68f72fe": 2
+      },
+      "BOM": [],
+      "updateTime": 1728909357,
+      "createTime": 1728888086,
+      "histories": [],
+      "created_at": "2024-10-14 12:11:26",
+      "updated_at": "2024-10-14 18:05:57"
+    },
+    {
+      "uuid": "aa4237d9e46bb6714789d22e02b95af8",
+      "puuid": "1a334b678c662b16612e4041527ea311",
+      "title": "PCB_mecha-io-extension",
+      "filename": "PCB_mecha-io-extension.json",
+      "description": "",
+      "docType": "3",
+      "master": "",
+      "thumb": "/images/thumb-default.png",
+      "components": {
+        "f8151fdc728a41ebbc304e11d39e5437": 3,
+        "282f7786cb6144d097ae00194c3e3fb3": 1,
+        "df3ca37cb13d499cb713e9aa6fdd0c7b": 1,
+        "267a6f7006e64285b145cfc7f6180b7f": 1,
+        "398691f1f785460098bbe5ee6590333c": 5,
+        "3ad8fd786199422490ef1097b1c20a81": 1,
+        "cfd5203a63ba4bd4b32f1d0bee0a79a2": 1,
+        "9a0aef8712f04fc1b18bb799c4fcf8a7": 1,
+        "041cc9180dc046b7bb66bb309da71792": 1,
+        "71fb14976f8c4522b8cbc39b4112db94": 1,
+        "f7ec4a2beefe4d43ae71ebbee68f72fe": 2
+      },
+      "BOM": [],
+      "updateTime": 1740044031,
+      "createTime": 1728912047,
+      "histories": [],
+      "created_at": "2024-10-14 18:50:47",
+      "updated_at": "2025-02-20 15:03:51"
+    },
+    {
+      "uuid": "fd8a6e0e4ca452a8ba808eca245d2f91",
+      "puuid": "1a334b678c662b16612e4041527ea311",
+      "title": "PCB_mecha-keyboard-dummy",
+      "filename": "PCB_mecha-keyboard-dummy.json",
+      "description": "",
+      "docType": "3",
+      "master": "",
+      "thumb": "/images/thumb-default.png",
+      "components": {
+        "08842a68e5644655bc648513ffbbbdbb": 4,
+        "9a0aef8712f04fc1b18bb799c4fcf8a7": 1,
+        "f7ec4a2beefe4d43ae71ebbee68f72fe": 2
+      },
+      "BOM": [],
+      "updateTime": 1733994369,
+      "createTime": 1733987463,
+      "histories": [],
+      "created_at": "2024-12-12 12:41:03",
+      "updated_at": "2024-12-12 14:36:09"
+    }
+  ],
+  "sort": [],
+  "title": "mecha-io-extension",
+  "foldername": "mecha-io-extension",
+  "schfilename": "mecha-io-extension.json",
+  "schfilemtime": 1740054639570
+}
