@@ -1,0 +1,9 @@
+One of the challenges in designing the iMX8 ULP board was that we wanted to adhere to a designrule-set of 70um trace width and spacing. This was only possible due to a number of circumstances:
+ 
+The iMX8 ULP comes in a relatively small 512-pin 0.4mm pitch WLCSP. With 0.225mm VIAs and 70um clearance rules used on the PCB, this means that it won't be possible to route copper between two 0.4mm pitch VIAs. If the BGA package has a fully populated ball array, this is problematic as ground and power can't be routed to the center of the component where all the supply rail and ground connections are located.
+ 
+Fortunately, the signal pins on the 8ULP were clustered with ground pins in between, creating gaps in the pinout that can be used to route power and ground underneath the chip. Even though we are using an anylayer stackup and have some freedom to create this type of clustering to some extent, it will still cause space issues on the first inner layer underneath the package.
+ 
+The iMX8 ULP has relatively few pins. We are now working on a design using a 0.3mm pitch BGA with ~1600 pins and an almost fully populated ball array, except for some windows where no copper can be placed (so no VIAs on the top layer).
+ 
+Routing such a BGA requires tight design rules, for example 0.19mm VIAs and 45um trace width and spacing. These substrate-like boards are quite a cost jump compared to the 70um/75um rules that a few more board houses can support. Whenever possible, it is advisable to stay above the 75um "virtual barrier", below which the cost of the board increases dramatically. We will be sharing some insights into the cost structure and prototyping process of this design later in the process.
