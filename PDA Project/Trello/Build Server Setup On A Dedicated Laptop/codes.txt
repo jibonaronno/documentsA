@@ -1,0 +1,54 @@
+/nfs_resource       *(rw,sync,no_root_squash,no_all_squash,no_subtree_check)
+/opt       *(rw,sync,no_root_squash,no_all_squash,no_subtree_check)
+/sanion       *(rw,sync,no_root_squash,no_all_squash,no_subtree_check)
+
+
+
+
+sudo systemctl restart nfs-kernel-server
+
+
+
+sudo chmod -R 777 /sanion
+sudo chmod -R 777 /opt
+
+
+
+> echo $PATH
+> /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+
+
+
+export PATH="/opt/ti-processor-sdk-linux-rt-am57xx-evm-05.02.00.10/linux-devkit/sysroots/x86_64-arago-linux/usr/bin/:$PATH"
+
+
+
+sudo apt install samba
+
+
+
+[smbshare]
+   comment = smb on Ubuntu
+   path = /
+   read only = no
+   browseable = yes
+   write list = @sysadmin, jibon, taki
+   admin users = jibon, taki, root
+
+
+
+
+sudo service smbd restart
+sudo ufw allow samba
+sudo useradd new_user
+sudo passwd new_user
+sudo nano /etc/sudoers -> Add new_user to sudoers
+sudo smbpasswd -a new_user
+sudo reboot
+
+
+
+https://trello.com/c/2ItoYcit/778-build-server-setup-on-a-dedicated-laptop
+
+
+

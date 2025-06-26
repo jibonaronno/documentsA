@@ -1,0 +1,47 @@
+/****************************
+  * MSG_PD_BODY struct declared in spectrum_packet.h
+ *****************************/
+# pragma pack(push,1)
+typedef struct
+{
+	unsigned char ch_idx;
+	signed char EventAmpTh1;
+	signed char EventAmpTh2;
+	unsigned char EventPpsTh;
+	unsigned char data[256];
+} MSG_PD_BODY;
+# pragma pack(pop)
+/***************************/
+
+/***************************
+  * Then Node struct is declared in sensorcomm.c file.
+ */
+typedef struct node {
+    MSG_PD_BODY data;
+	unsigned char caliData[128];
+    struct node* next;
+} Node;
+
+typedef struct {
+    Node* head;
+    Node* tail;
+    int size;
+    pthread_mutex_t mutex;	
+} Queue;
+
+
+
+void* RunPDDAU(void *params);
+int setAmplification(int channel, int sockfd, MSG_RF_INFO_PACKET *msg_rf_info_packet);
+int getAmplification(int channel, int sockfd, MSG_RF_INFO_PACKET *msg_rf_info_packet);
+int resetPDDAU(int sockfd, MSG_PDDAU_INFO_PACKET *msg_pddau_info_packet);
+
+
+
+int setAmplification(int channel, int sockfd, MSG_RF_INFO_PACKET *msg_rf_info_packet);
+int getAmplification(int channel, int sockfd, MSG_RF_INFO_PACKET *msg_rf_info_packet);
+int resetPDDAU(int sockfd, MSG_PDDAU_INFO_PACKET *msg_pddau_info_packet);
+void printIPAddressesFromJson(const char *_filename);
+
+
+

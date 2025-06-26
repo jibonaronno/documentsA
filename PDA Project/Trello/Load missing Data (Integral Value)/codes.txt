@@ -1,0 +1,21 @@
+if(t1_buf[idxA] > 0xEFFF)
+{
+    //__builtin_bswap16(t1_buf[idxA]);
+    // If its MSB at 16th pos is 1 then it is a negative value. Then converted to Little Endian.
+    cb_file.cb_data.trip1_coil_current[idxA] = __builtin_bswap16((int16_t)((t1_buf[idxA] & 0x7FFF) - 0x7FFF));
+    coil_currentA = (float)(int32_t)((t1_buf[idxA] & 0x7FFF) - 0x7FFF);
+}
+else
+{
+    cb_file.cb_data.trip1_coil_current[idxA] = __builtin_bswap16(t1_buf[idxA]);
+    coil_currentA = (float)(int32_t)(t1_buf[idxA]);
+}
+
+if(coil_currentA > 100.0)
+{
+    t1_sum += coil_currentA * DT;
+    t1_time_span++;
+}
+
+
+

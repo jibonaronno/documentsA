@@ -1,0 +1,55 @@
+typedef struct _CB_FILE
+{
+    uint8_t  event_type;
+    uint32_t event_datetime;
+    uint32_t event_millisec;
+    uint8_t  alert_level;
+    float    contact_duty_A;
+    float    contact_duty_B;
+    float    contact_duty_C;
+    float    accum_contact_duty_A;
+    float    accum_contact_duty_B;
+    float    accum_contact_duty_C;
+    float    coil_integral_t1;
+    float    coil_max_current_t1;
+    float    coil_female_time_t1;
+    float    coil_integral_t2;
+    float    coil_max_current_t2;
+    float    coil_female_time_t2;
+    float    coil_integral_close;
+    float    coil_max_current_close;
+    float    coil_female_time_close;
+    float    contact_optime_A;
+    float    contact_optime_B;
+    float    block_close_time_A;
+    float    block_close_time_B;
+    float    block_close_time_C;
+    uint32_t op_cnt;
+    uint16_t smp_per_cyc;
+    uint16_t cyc_count;
+
+    CB_DATA  cb_data;
+}CB_FILE;
+
+
+
+    def readFullBytes(self):
+        _bytes_arr = []
+        self.readRecordCount()
+        _bytes_arr.append(self.readRegistersBytes(1200, 34, 1))
+        _bytes_arr.append(self.readRegistersBytes(1300, 64, 36))
+        _bytes_arr.append(self.readRegistersBytes(3604, 64, 36))
+        _bytes_arr.append(self.readRegistersBytes(5908, 64, 36))
+        self.readRegistersBytes(8212, 64, 36)
+        _bytes_arr.append(self.readRegistersBytes(10516, 64, 36))
+        _bytes_arr.append(self.readRegistersBytes(12820, 64, 36))
+        _bytes_arr.append(self.readRegistersBytes(15124, 64, 36))
+        _bytes_arr.append(self.readRegistersBytes(17428, 64, 18))
+        return _bytes_arr
+
+
+
+def readRegistersBytes(self, _start_address, _block_size, _number_of_blocks):
+
+
+

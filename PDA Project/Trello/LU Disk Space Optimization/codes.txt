@@ -1,0 +1,76 @@
+mkdir application
+mkdir application/mpu-arm
+mkdir application/shared
+mkdir application/test
+mkdir application/61850-code
+mkdir application/dmu_a15_app_code
+mkdir bsp
+mkdir bsp/extra-drivers
+mkdir bsp/linux-rt-4.14.79
+mkdir bsp/Qt5.6.1
+mkdir bsp/target-maker
+mkdir bsp/u-boot-2018.01
+mkdir version
+
+
+echo "#################################"
+echo "download source files from git."
+echo "Please insert your git ID and password on every Git repository !"
+echo "#################################"
+git clone ssh://git@git.sanion.com:8022/sur5000_code_base/version.git version/
+git clone ssh://git@git.sanion.com:8022/sur5000_code_base/a15_app_code.git -b develop application/mpu-arm/
+git clone ssh://git@git.sanion.com:8022/sur5000_code_base/sur5000_shared.git application/shared
+git clone ssh://git@git.sanion.com:8022/sur5000_code_base/sur5000_extra-drivers.git bsp/extra-drivers
+git clone ssh://git@git.sanion.com:8022/sur5000_code_base/sur5000_qt5.6.1.git bsp/Qt5.6.1
+git clone ssh://git@git.sanion.com:8022/sur5000_code_base/a15_linux_code.git -b develop bsp/linux-rt-4.14.79/
+git clone ssh://git@git.sanion.com:8022/sur5000_code_base/a15_uboot_code.git -b develop bsp/u-boot-2018.01/
+git clone ssh://git@git.sanion.com:8022/sur5000_code_base/a15_target_make_code.git -b develop bsp/target-maker/
+git clone ssh://git@git.sanion.com:8022/sur5000_code_base/61850-code.git -b Develop application/61850-code/
+git clone ssh://git@git.sanion.com:8022/zynq/im2_am5718_app.git -b develop application/dmu_a15_app_code/
+echo "##################################################################"
+echo "Finished source download !!!"
+echo "Fully Compile and install: make all_install"
+echo "Linux compile: make linux_install 	clean: make linux_clean "
+echo "uBoot compile: make boot_install 	clean: make boot_clean "
+echo "Application compile: make app 	clean: make app_clean "
+echo "Make image: make target IMG=ALL "
+echo "IMG TYPE: ALL / BOOT / KL / APP / UP / RFS / PLATFORM / ALL-RFS"
+echo "##################################################################
+
+
+
+cd /opt/ti-processor-sdk-linux-rt-am57xx-05.03.00.07/bin
+sudo ./create_sdcard.sh
+
+
+
+sudo make boot
+sudo make boot_install
+sudo make target IMG=ALL
+
+
+
+cp /home/jibon/projects/sur5000/sur5000_top/bsp/u-boot-2018.01/u-boot.img /home/jibon/projects/sur5000/sur5000_top/bsp/target-maker/boot/
+cp /home/jibon/projects/sur5000/sur5000_top/bsp/u-boot-2018.01/MLO /home/jibon/projects/sur5000/sur5000_top/bsp/target-maker/boot/
+
+
+
+# define DEFAULT_COMMON_BOOT_TI_ARGS \
+	"console=" CONSOLEDEV ",115200n8\0" \
+	"mmcroot=/dev/mmcblk0p3 rw\0" \
+	"bootpart=1:3\0" \
+	"bootpart2=0:2\0" \
+	"usbtty=cdc_acm\0" \
+	"vram=16M\0" \
+	"partitions=" PARTS_DEFAULT "\0" \
+	"optargs=\0" \
+	"ipaddr=192.168.246.232\0" \
+	"serverip=192.168.246.9\0" \
+	"uuid_gpt_disk=d540ad22-d2cd-4ea7-bfde-27f7dbac014f\0" \
+	"uuid_gpt_rootfs=bb6a04da-6cf5-469e-80aa-f4c941c23072\0" \
+	"uuid_gpt_upgradefs=2d5132cb-da22-40f5-ae9b-ca08952c4ef6\0" \
+	"uuid_gpt_datafs=1f610cb2-c728-49a5-b1b0-142b607587bf\0" \
+	"dofastboot=0\0"
+
+
+

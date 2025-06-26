@@ -1,0 +1,123 @@
+# ifdef CPP_BLOCK_ENABLED
+class _ACQ
+{
+    public:
+        _ACQ(void);
+        int openAcqBus(const char *ip_addr, int Port);
+        void closeModbus(void);
+        int readAll(void);
+        int writeSingleBlock(int sz, u16 address, uint16_t *mems);
+        int readMultiBlock(int blkSize, int numberOfBlocks, u16 address, uint16_t *mems);
+        int readTrip1(void);
+        int readTrip2(void);
+        int readCloseCoil(void);
+        int readVoltage(void);
+        int readPhaseACurr(void);
+        int readPhaseBCurr(void);
+        int readPhaseCCurr(void);
+        int readInitiateAndContact(void);
+        void printIPAddressesFromJson(const char *_filename);
+
+        modbus_t *busA;
+        bool_type is_modbus_opened;
+
+        int acq_index;
+        void printSample(int lidxA);
+        uint16_t setsA[30];
+        uint16_t flag_Records[2];
+        u16 tbl[3664];
+        u16 t1_buf[3664];
+        u16 t2_buf[3664];
+        u16 close_buf[3664];
+        u16 currA_buf[3664];
+        u16 currB_buf[3664];
+        u16 currC_buf[3664];
+        u16 init_cont_buf[3664];
+        char ip_address[16];
+        u8 *init_buf;
+};
+
+# endif
+
+
+void _ACQ::printIPAddressesFromJson(const char *_filename)
+{
+    int lidxA = 0;
+    const ST_CHAR *ps8configfile = "LUConfig.json";
+
+	if(!parseLUConfig(ps8configfile, &pdsluConfig))
+	{
+        printf("Error parsing 'LUConfig.json'\n");
+	}
+	else
+	{
+		printf("-----\n");
+		printf("----------------\n");
+		printf("SUCCESS parsing 'LUConfig.json'\n");
+		printf("LU Count :  %d\n\n-----------------\n---------\n", pdsluConfig.s8numLUs);
+
+        for (ST_INT i = 0; i < pdsluConfig.s8numLUs; i++)
+        {
+            //g_p61850IfcInfo->ps8IPAddr
+            if (strcmp(pdsluConfig.LUList[i].ps8luIP, g_p61850IfcInfo->ps8IPAddr) == 0)
+            {
+                printf("#################################################\n  Found IP : %s\n", pdsluConfig.LUList[i].ps8luIP);
+                for (int j = 0; j < pdsluConfig.LUList[i].s8numLNs; j++)
+                {
+                    // printf("  LN IP Address: %s Name: %s ID : %d\n", pdsluConfig.LUList[i].LNList[j].ps8ip_in, pdsluConfig.LUList[i].LNList[j].ps8name, pdsluConfig.LUList[i].LNList[j].s16id_ln);
+                    if(strstr(pdsluConfig.LUList[i].LNList[j].ps8name, "SCBR"))
+                    {
+                        //printf("  LN IP Address: %s Name: %s ID : %d\n", pdsluConfig.LUList[i].LNList[j].ps8ip_in, pdsluConfig.LUList[i].LNList[j].ps8name, pdsluConfig.LUList[i].LNList[j].s16id_ln);
+                        strcpy(this->ip_address, pdsluConfig.LUList[i].LNList[j].ps8ip_in);
+                        printf("  LN IP Address: %s Name: %s ID : %d\n", this->ip_address, pdsluConfig.LUList[i].LNList[j].ps8name, pdsluConfig.LUList[i].LNList[j].s16id_ln);
+
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+	}
+}
+
+
+int _ACQ::openAcqBus(const char *ip_addr, int Port)
+{
+    this->busA = modbus_new_tcp(ip_addr, Port);
+    this->is_modbus_opened = FALSE;
+    if (modbus_connect(this->busA) == -1)
+    {
+        //fprintf(stderr, "Modbus Connection failed: %s\n", modbus_strerror(errno));
+        modbus_free(this->busA);
+        return -1;
+    }
+    this->is_modbus_opened = TRUE;
+    return 0;
+}
+
+
+// SPECTRUM_PACKET_HEADER PDdatreq;
+// SPECTRUM_PACKET_HEADER PDdatack;
+// SPECTRUM_PACKET_HEADER PDstopreq;
+// SPECTRUM_PACKET_HEADER PDstopack;
+// SPECTRUM_PACKET_HEADER PDdatsend;
+// SPECTRUM_PACKET_HEADER RFInfoset;
+// SPECTRUM_PACKET_HEADER RFInfoack;
+// SPECTRUM_PACKET_HEADER RFInforeq;
+// SPECTRUM_PACKET_HEADER RFInforeqack;
+// SPECTRUM_PACKET_HEADER PDDAUset;
+// SPECTRUM_PACKET_HEADER PDDAUsetack;
+// SPECTRUM_PACKET_HEADER PDDAUreq;
+// SPECTRUM_PACKET_HEADER PDDAUreqack;
+// SPECTRUM_PACKET_HEADER Alarm;
+// SPECTRUM_PACKET_HEADER Alarmack;
+// SPECTRUM_PACKET_HEADER Keepalive;
+// SPECTRUM_PACKET_HEADER Keepaliveack;
+
+
+# define CPP_BLOCK_ENABLED
+
+
+# CC := $(TOOL_PREFIX)gcc
+CC := $(TOOL_PREFIX)g++
+

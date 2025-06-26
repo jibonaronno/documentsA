@@ -1,0 +1,39 @@
+Init_61850();
+g_p61850IfcInfo = Get61850IfcInfo();
+if(g_p61850IfcInfo)
+{
+	g_p61850MappingTbl = g_p61850IfcInfo->p61850mappingtbl;
+}
+
+
+printf("\n%s\n", g_p61850MappingTbl[5].ps8leafname);
+
+It shows : jibonGLU/LLN0$ST$Beh$t
+
+if(LU == MLU)
+	{
+		SearchLeafsX("SBSH1", &sbsh_leaflist[0]);
+		SearchLeafsX("SBSH2", &sbsh_leaflist[1]);
+		SearchLeafsX("SBSH3", &sbsh_leaflist[2]);
+		SearchLeafsX("SBSH4", &sbsh_leaflist[3]);
+		SearchLeafsX("SBSH5", &sbsh_leaflist[4]);
+		SearchLeafsX("SBSH6", &sbsh_leaflist[5]);
+
+		SearchLeafsX("SPDC1", &spdc_leaflist[0]);
+		SearchLeafsX("SPDC2", &spdc_leaflist[1]);
+		SearchLeafsX("SPDC3", &spdc_leaflist[2]);
+
+		PrintLeafs(&sbsh_leaflist[0]);
+	}
+	else
+	{
+		SearchLeafsX("SCBR1", &scbr_leaflist[0]);
+		SearchLeafsX("SLTC1", &oltc_leaflist[0]);
+		SearchLeafsX("SIML1", &siml_leaflist[0]);
+		SearchLeafsX("SPDC1", &spdc_leaflist[0]);
+
+		PrintLeafs(&scbr_leaflist[0]);
+	}
+
+
+

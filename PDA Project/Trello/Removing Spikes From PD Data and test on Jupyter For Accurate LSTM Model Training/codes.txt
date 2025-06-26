@@ -1,0 +1,57 @@
+# Import necessary libraries
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from binaryfilereader import BinaryFileReader
+from os.path import join, dirname, abspath
+import ipywidgets as widgets
+# %matplotlib notebook
+# %matplotlib inline
+# %matplotlib widget
+# %matplotlib ipympl # Error displaying widget: model not found
+
+bin_file_reader = BinaryFileReader()
+# bin_file_reader.readFil(join(dirname(abspath(__file__)), '04_00_20241022043555.dat'))
+bin_file_reader.readFil('04_00_20241022043555.dat')
+raw = bin_file_reader.getArray(4000,4400)
+raw_len = len(raw)
+raw_x_axis_array = np.arange(0, raw_len) * 0.1302
+print(f'*** raw bin size = {len(raw)}')
+# plt.switch_backend("module://ipympl")
+fig, ax = plt.subplots()
+ax.plot(raw_x_axis_array, raw, 'k')
+ax.set_title('Useful Signal')
+# plt.title('Useful Signal')
+ax.legend()
+plt.grid(True)
+plt.show()
+
+
+
+import numpy as np
+
+# Example time series signal
+signal = np.array(raw) #np.random.normal(loc=0, scale=1, size=1000)  # Normally distributed signal
+
+# Define percentiles to capture the central range (e.g., 90% of the data)
+lower_percentile = 5
+upper_percentile = 95
+
+# Compute the range band
+lower_bound = np.percentile(signal, lower_percentile)
+upper_bound = np.percentile(signal, upper_percentile)
+
+range_band = (lower_bound, upper_bound)
+
+print("Range band containing 90% of the values:", range_band)
+
+raw = np.clip(raw, lower_bound, upper_bound)
+fig, ax = plt.subplots()
+ax.plot(raw_x_axis_array, raw, 'k')
+ax.set_title('Useful Signal')
+plt.ylim(-70, 20)
+plt.grid(True)
+plt.show()
+
+
+
