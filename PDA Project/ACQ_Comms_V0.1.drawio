@@ -1,0 +1,31 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.4 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36" version="26.0.4">
+  <diagram name="Page-1" id="fAhKg3FZhKNZAuuXv9Xj">
+    <mxGraphModel dx="1036" dy="606" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="GM7a_HwQlCDNFJ31PC3U-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="GM7a_HwQlCDNFJ31PC3U-1" target="GM7a_HwQlCDNFJ31PC3U-2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GM7a_HwQlCDNFJ31PC3U-1" value="&lt;font face=&quot;Lucida Console&quot;&gt;Make Data Structre for each sensor object.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="80" y="80" width="350" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="GM7a_HwQlCDNFJ31PC3U-2" value="&lt;font face=&quot;Lucida Console&quot;&gt;Make Callable functions in the structure.&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="75" y="190" width="350" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="GM7a_HwQlCDNFJ31PC3U-4" value="&lt;font face=&quot;Lucida Console&quot;&gt;Create/Delete Sensor object array dynamically&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="70" y="420" width="350" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="GM7a_HwQlCDNFJ31PC3U-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="GM7a_HwQlCDNFJ31PC3U-6" target="GM7a_HwQlCDNFJ31PC3U-4" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GM7a_HwQlCDNFJ31PC3U-6" value="&lt;font face=&quot;Lucida Console&quot;&gt;Read or Get Sensor List from LUConfig.json&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="70" y="300" width="350" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="GM7a_HwQlCDNFJ31PC3U-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.527;entryY=0.027;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="GM7a_HwQlCDNFJ31PC3U-2" target="GM7a_HwQlCDNFJ31PC3U-6" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
