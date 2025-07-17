@@ -20,3 +20,17 @@ It is required to change settings using __SCLManager.exe__ when required for new
 
 <img alt="NO IMAGE" src="SCLManager.jpg"><br>
 
+Confluence Pages From PDA
+ACQ Operation and calculation / Integration of various current values
+Copy of 차단기 동작 특성 페이지
+https://jlee193.atlassian.net/wiki/spaces/PDA/pages/514129921/Copy+of
+
+Bushing Documentation Page From PDA 
+부싱 누설 전류 페이지
+https://jlee193.atlassian.net/wiki/spaces/PDA/pages/296812597
+
+An Initial Concept of hardware pptx file downloaded in Confluence folder
+종합예방진단시스템(20210625)_HW팀.pptx
+하드웨어 구성
+https://jlee193.atlassian.net/wiki/spaces/PDA/pages/154042616
+

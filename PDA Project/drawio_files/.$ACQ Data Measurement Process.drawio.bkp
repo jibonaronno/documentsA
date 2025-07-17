@@ -1,0 +1,40 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/26.0.4 Chrome/128.0.6613.186 Electron/32.2.5 Safari/537.36" version="26.0.4">
+  <diagram name="Page-1" id="e5sE7jgMJM4nQPkcs3wu">
+    <mxGraphModel dx="1036" dy="606" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="sfpw1DJitC0pyUbAKJhk-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="sfpw1DJitC0pyUbAKJhk-1" target="sfpw1DJitC0pyUbAKJhk-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sfpw1DJitC0pyUbAKJhk-1" value="Receive single channel 1 sec raw&lt;div&gt;data from queue.&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="270" y="80" width="230" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="sfpw1DJitC0pyUbAKJhk-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="sfpw1DJitC0pyUbAKJhk-3" target="sfpw1DJitC0pyUbAKJhk-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sfpw1DJitC0pyUbAKJhk-3" value="Downconvert each sample to 8 bit value range&lt;div&gt;sample = (raw_sample * ( 5.0 / 230 )) - 71.91&lt;/div&gt;&lt;div&gt;(This fornula given by SI)&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="195" y="150" width="380" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="sfpw1DJitC0pyUbAKJhk-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="sfpw1DJitC0pyUbAKJhk-4" target="sfpw1DJitC0pyUbAKJhk-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sfpw1DJitC0pyUbAKJhk-4" value="Add last 8 samples then devide by 8 ( Averaging )&lt;div&gt;For down sampling from 1024 sample / cycle to 128 sample / cycle&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="182.5" y="250" width="405" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="sfpw1DJitC0pyUbAKJhk-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="sfpw1DJitC0pyUbAKJhk-5" target="sfpw1DJitC0pyUbAKJhk-1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="385" y="450" />
+              <mxPoint x="160" y="450" />
+              <mxPoint x="160" y="105" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sfpw1DJitC0pyUbAKJhk-5" value="Fill up header data fields and save 1 sec accumulated data to storage.&lt;div&gt;Seperate files for each channel.&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="182.5" y="350" width="405" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
