@@ -1,0 +1,46 @@
+
+1
+TestBench_FDCAN_STM32 – jdios89/TestBench_FDCAN_STM32 
+CubeMX project for NUCLEO-H743ZI; uses HAL-FDCAN to send CiA 402 frames to a CL4-E-2-12-5VDI drive. Includes ready‐made init code, Control-/Status-word helpers, and position/velocity commands.
+2
+KaCANopen – KITmedical/kacanopen 
+Modern C++ CANopen stack with a maintained CL4-E-2-12.eds in its EDS library. Several users run it on STM32H7 (CubeIDE or bare-metal). Perfect when you want a high-level API (e.g., motor.set_entry("Target velocity", rpm)).
+3
+nanotec_can – shaevita/nanotec_can 
+Minimal repo that ships Nanotec EDS files (CL4-E & C5-E) plus example frame sequences. Good reference for object-dictionary constants when porting to an H7 master.
+4
+CanOpenSTM32 – CANopenNode/CanOpenSTM32 
+Official CubeIDE port of the lightweight CANopenNode stack; demo targets include NUCLEO-H743 and H755. Drop in the CL4-E EDS, map your PDOs, and you have a solid master that compiles out-of-the-box on H7.
+
+
+
+
+
+
+STM32 + Nanotec CL4 CANopen Repositories and Resources
+
+GitHub Repositories (STM32 & Nanotec CL4)
+	•	STM32H7 FDCAN + Nanotec CL4 Library – A testbench project by jdios89 using an STM32H743 Nucleo board to control Nanotec Plug & Drive stepper motors (CL4 series) via CAN (CiA 402). It includes an FDCAN HAL library and a Nanotec CANopen bus module with register definitions (e.g. Controlword 0x6040, Mode 0x6060) ￼ ￼. This repository demonstrates initializing the CAN peripheral in CubeMX and sending CiA 402 commands (enabling drives, setting modes, etc.) in C/C++.
+	•	Nanotec Stepper Driver (Rust) – An open-source Rust library for Nanotec motor controllers (CL4 and similar). It provides a high-level API to communicate with Nanotec drives over fieldbus (CANopen or Modbus). The crate allows reading/writing control registers and integrating Nanotec motors into applications ￼ ￼. While not STM32-specific, it’s a useful reference for Nanotec’s command interface (e.g. supports the same object dictionary entries used in embedded projects).
+	•	KaCANopen Stack (with Nanotec CL4-E) – The KITmedical kacanopen project is a portable CANopen stack (in C/C++) that has been used to interface with Nanotec CL4-E controllers. It includes an Electronic Data Sheet (EDS) for CL4-E-2-12 and code to encode/decode CANopen frames ￼. For example, the Aleph² Mars Rover project utilized a custom nanotec_driver (built on KaCANopen) to control multiple Nanotec wheel motors via an STM32-F series board ￼ ￼. This demonstrates how an STM32 can act as CANopen master using an open library to handle Nanotec’s CiA 402 objects.
+	•	CANopenNode STM32 Examples – The CANopenNode/CanOpenSTM32 repository provides a CubeIDE project integrating the CANopenNode stack on STM32 MCUs ￼. It includes ready-to-run demos (F4, G0, H7 boards) that can control CiA 402 devices like motor drives ￼. This is not Nanotec-specific, but it shows how to implement a CANopen master on STM32 (timers for 1ms ticks, CAN RX/TX interrupts, etc.) and could be adapted to send Nanotec CL4 commands. The repo’s README even references a video tutorial for porting CANopenNode onto custom STM32 boards ￼.
+	•	Maxon EPOS STM32 Control (Analogous) – As an analogous example, lywind’s libEPOS_STM32 is a CANopen-based driver for Maxon EPOS motors on STM32 ￼. It shows how to structure code for motor control via SDOs/PDOs (e.g. setting Modes of Operation at object 0x6060, Controlword 0x6040, etc.). The Nanotec CL4 implements the same CiA 402 profile, so this repo can be a helpful reference for the sequence of commands needed to achieve Profile Position, Profile Velocity, homing, etc., albeit for a different brand.
+
+Detailed Guides and Tutorials
+	•	Step-by-Step CANopen Motor Control (CubeMX) – A detailed Chinese blog post demonstrates controlling a CANopen drive with an STM32F407 (CubeMX + HAL) ￼ ￼. It walks through enabling the CAN peripheral and then issues CiA 402 commands for Profile Position Mode (PPM) and Cyclic Sync Position (CSP). For example, the sequence for PPM is: 1) disable drive (Controlword 0x6040 = 0x06), 2) set Mode of Operation to Profile Position (0x01) at 0x6060, 3) verify mode via 0x6061, 4) enable drive (Controlword = 0x0F), 5) check Statusword 0x6041 ￼. It then writes a target position & velocity (objects 0x607A, 0x6081) and starts motion. This guide (with code snippets) is extremely helpful to understand how to implement motion control modes (position/velocity) on the CL4.
+	•	Video: “CANopen Node STM32 – From Basics to Coding” – A comprehensive 3-hour YouTube tutorial (by Ahmed Khaled) that covers CANopen theory and implementation on STM32. It starts from why CAN and CANopen basics (object dictionary, NMT, PDO vs SDO) and goes through practical coding: setting up an STM32Cube project, importing the CANopenNode stack, and running examples ￼. Later chapters demonstrate programming examples on hardware and even editing EDS files for custom objects ￼ ￼. This video is highly detailed – by the end, you see how to control CANopen servo drives (which would include Nanotec CL4) using an STM32 master node.
+	•	CANopen Protocol Explained (CSS Electronics, 2025) – For a solid background on what the CL4’s CANopen interface requires, this online guide provides a simple, practical intro to CANopen ￼. It explains the Object Dictionary structure, common services (SDO upload/download for accessing control/status registers, PDO for real-time data), and device state machine. Understanding these basics is crucial before diving into Nanotec’s specifics – e.g. knowing that 0x6040 is the standard Controlword and the meaning of its bits, or that 0x6060 selects modes (e.g. 1=Profile Position, 3=Profile Velocity, 6=Homing, 8=CSP, etc.). This resource ensures you grasp the “why” behind the sequences used in code.
+	•	Byungchul Kim’s Blog – Motor Control using STM32 & CANopen – An informative article using an STM32 Nucleo-F446RE and Faulhaber CANopen drives (similar in concept to Nanotec’s). It describes the rationale for offloading motion control to a smart driver and then delves into how CANopen is used for motion commands ￼ ￼. The post covers sending Network Management (NMT) commands to transition the drive to Operational, then using SDOs to configure the drive, and PDOs for real-time control. While the hardware differs (Faulhaber vs Nanotec), the process (e.g. writing 0x6040, 0x6060, etc.) is virtually the same for the CL4. This is a great step-by-step conceptual guide with code snippets and explanations of CANopen frames (COB-IDs, data bytes) in the context of motor control.
+	•	Nanotec CL4-E Technical Documentation – Lastly, Nanotec’s own manuals are key reference material. The CL4-E CANopen Technical Manual lists every object in the CL4’s dictionary and the proper procedure for operations ￼ ￼. For example, it details the “Hybrid” closed-loop stepping mode (the CL4 supports open-loop or closed-loop stepper control with an encoder) and how to toggle it. It also confirms that the CL4 uses the standard CiA 402 states and modes. Pairing this with the code repositories above will allow a senior embedded engineer to decide whether to use Nanotec’s official tools (e.g. NanoCAN/NanoPRO software) or roll out a custom CANopen solution via CubeMX – typically, using an open CANopen stack on CubeIDE is the flexible choice, as evidenced by the repos and guides gathered here.
+
+Sources
+	1.	jdios89 – FDCAN Nanotec Stepper Test (GitHub) – “Test code for FDCAN communication and Nanotec stepper motor with integrated controller” ￼ ￼
+	2.	PS-3D – nanotec-stepper-driver (GitHub) – Rust library to communicate with Nanotec stepper controllers ￼ ￼
+	3.	KITmedical – kacanopen (GitHub PR) – Added device-side PDO mapping for Nanotec CL4-E (using CL4-E EDS) ￼
+	4.	Aleph^2 Rover Report – Custom Nanotec driver (kacanopen-based) on STM32 ￼ ￼
+	5.	CANopenNode STM32 (CubeIDE examples) – CANopen stack on STM32, with video tutorial reference ￼ ￼
+	6.	lywind – libEPOS_STM32 (GitHub) – STM32 CANopen driver for Maxon EPOS (CiA 402 servo) ￼
+	7.	Blog – STM32F4 CANopen Master (CSP & PPM) – CubeMX config and code for Profile Position & Cyclic Pos. modes ￼
+	8.	YouTube – CANopen STM32 Basics to Coding – Chaptered video covering CANopen on STM32 (CubeIDE) ￼ ￼
+	9.	CSS Electronics – CANopen Intro – Explains CANopen protocol (object dictionary, SDO, PDO, NMT, etc.) ￼
+	10.	Byungchul Kim – CANopen Motor Control – Article on using STM32 (Nucleo-F446RE) with CANopen motor drivers ￼ ￼
