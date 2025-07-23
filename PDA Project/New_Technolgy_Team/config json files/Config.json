@@ -1,0 +1,1917 @@
+{
+  "GMF": {
+    "version": "1.0",
+    "update_date": "2016-06-30 12:00:00",
+    "is_hmi": false,
+    "start_id": 1,
+    "LocalSystem": {
+      "web_global_company": 1,
+      "web_global_system_name": "종합예방진단시스템",
+      "web_global_login_policy": 1,
+      "web_page_alarmlist_row_cut": 20,
+      "web_page_eventlist_row_cut": 100,
+      "db_disk": "d",
+      "db_update_percent": 80,
+      "db_danger_percent": 90,
+      "db_minimum_row": 1000,
+      "comm_delay_timeout": 180,
+      "bushing_save_cycle": true,
+      "is_154_sys": true,
+      "target_vol": 154000,
+      "total_hmi_ip": null,
+      "total_hmi_port": null,
+      "bsm_sts": false,
+      "sornal_thrs": -55
+    },
+    "HMI": {
+      "name": "KEPCO 전력지사",
+      "ip_ex": "100.101.100.100",
+      "image_path": "/Images/3.전력연구원-시험용",
+      "Communication": {},
+      "DUList": [
+        {
+          "link_du": 1
+        }
+      ],
+      "Menu": {
+        "MenuItemList": [
+          {
+            "name": "지도",
+            "page_type": "LAYOUT",
+            "file_name": "/Images/3.전력연구원-시험용/HMI_지도.jpg",
+            "SymbolList": [
+              {
+                "image_type": 0,
+                "real_x": 1180,
+                "real_y": 220,
+                "info_x": 1185,
+                "info_y": 225,
+                "link_id": 0,
+                "link_du": 1
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "DUList": [
+      {
+        "name": "문백 변전소",
+        "id_du": 1,
+        "ip_ex": "192.168.10.211",
+        "ip_in": "192.168.10.250",
+        "image_path": "/Images/1.공용",
+        "MmsDU": {
+          "Assocation": {
+            "ap_t": "1,1,9999,1",
+            "ae_q": "1",
+            "psel": "00000001",
+            "ssel": "0001",
+            "tsel": "0001"
+          },
+          "RCB": {
+            "dom": "YHGLU",
+            "rcb_st": "LLN0$BR$rcb_Status",
+            "rcb_se": "LLN0$BR$rcb_Measure",
+            "rcb_mx": "LLN0$BR$rcb_Setting",
+            "rcb_dg": "LLN0$BR$rcb_Diag",
+            "rcb_no": "02"
+          }
+        },
+        "AlarmSetting": {
+          "GISPD": {
+            "Enable": {
+              "noise_event": true,
+              "noise_lv1": true,
+              "eventcnt_lv1": true,
+              "maxdbm": false,
+              "avrdbm": false,
+              "pd_engine2": false,
+              "pd_engine3": false,
+              "event_a" : 1,
+              "event_b" : 1
+            },
+            "Setting": {
+              "pdday_lv2_cnt": 60,
+              "pdhour_lv2_cnt": 20,
+              "pdhour_lv1_cnt": 10,
+              "maxdbm_lv2_val": -5.0,
+              "maxdbm_lv1_val": -10.0,
+              "avrdbm_lv2_val": -5.0,
+              "avrdbm_lv1_val": -9.0
+            }
+          },
+          "CBCM": {
+            "Enable": {
+              "trip_lv1" : 1,
+              "close_hh_caut" : 1,
+              "close_lv1" : 1,
+              "coilcurrflow_close_caut_crtr": 0,
+              "gaptime_close_caut" : 0,
+              "gaptime_open_caut" : 0
+            },  
+            "Setting": {
+              "close_hh_crtr_val" : 0, 
+              "con_part_hh_crtr_val" : 0,
+              "close_hh_crtr_val" : 0,
+              "coilcurrflow_close_crtr_val" : 0,
+              "coilcurrflow_open_crtr_val" : 0,
+              "coilcurrflow_open_caut_crtr_val" : 0,
+              "gaptime_close_caut_val" : 0,
+              "gaptime_open_caut_val" : 0               
+            },                     
+            "Default": {
+              "trip_lv2_per": 20,
+              "trip_lv1_per": 10,
+              "close_lv2_per": 20,
+              "close_lv1_per": 10,
+              "is_separation": false
+            }
+          },
+          "MTRPD": {
+            "Enable": {
+              "noise_event": true,
+              "noise_lv1": true,
+              "eventcnt_lv1": true,
+              "maxdbm": false,
+              "avrdbm": false,
+              "pd_engine2": false
+            },
+            "Setting": {
+              "pdday_lv2_cnt": 60,
+              "pdhour_lv2_cnt": 20,
+              "pdhour_lv1_cnt": 10,
+              "maxdbm_lv2_val": -5.0,
+              "maxdbm_lv1_val": -10.0,
+              "avrdbm_lv2_val": -5.0,
+              "avrdbm_lv1_val": -10.0
+            }
+          },
+          "DGA": {
+            "ShortTime": {
+              "Default": {
+                "h2o_lv2_val": 30.0,
+                "h2o_lv1_val": 20.0,
+                "h2_lv2_val": 400.0,
+                "h2_lv1_val": 200.0,
+                "co_lv2_val": 800.0,
+                "co_lv1_val": 400.0,
+                "c2h2_lv2_val": 0.5,
+                "c2h2_lv1_val": 0.5
+              }
+            },
+            "LongTime": {
+              "Default": {
+                "h2o_lv2_val": 40.0,
+                "h2o_lv1_val": 30.0,
+                "h2_lv2_val": 800.0,
+                "h2_lv1_val": 400.0,
+                "co_lv2_val": 1200.0,
+                "co_lv1_val": 800.0,
+                "c2h2_lv2_val": 60.0,
+                "c2h2_lv1_val": 20.0
+              }
+            },
+            "Setting": {
+              "save_period_min": 5,
+              "Mtr_Mid_Long_Entry_Year": 3,
+              "Mtr_Start_Oper_Date": "2015-01-01"
+            }
+          },
+          "OLTC": {
+            "Default": {
+              "tab_lv2_per": 20,
+              "tab_lv1_per": 10
+            },
+            "Setting": {
+              "save_period_min": 1,
+              "tmp_lv2_val": 50,
+              "tmp_lv1_val": 40,
+              "bar_lv2_val": 100,
+              "bar_lv1_val": 90,
+              "mst_lv2_val": 100,
+              "mst_lv1_val": 100,
+              "is_separation": false,
+              "sspot": 500.0
+            }
+          },
+          "BUSHING": {
+            "Enable": {
+              "lc_lv1" : 1,
+              "lc_lv2" : 1,
+              "lc_lv3" : 1,
+              "lc_decr_caut" : 1
+            },            
+            "Default": {
+              "lc_lv2_per": 20,
+              "lc_lv1_per": 10,
+              "ca_lv2_per": 20,
+              "ca_lv1_per": 10,
+              "pf_lv2_per": 20,
+              "pf_lv1_per": 10
+            },
+            "Setting": {
+              "crtr_cape_val": 1.0,
+              "crtr_curr_val" : 0,
+              "lc_lv3_per":30
+
+            }
+          }
+        },
+        "Menu": {
+          "MenuItemList": []
+        },
+        "Communication": {
+          "UPSList": [
+            {
+              "name": "UPS",
+              "id_cm": 60,
+              "ip_in": "192.168.10.251",
+              "enable_ups": true
+            }
+          ],
+          "LUList": [
+            {
+              "name": "GLU#101",
+              "id_cm": 1,
+              "ip_in": "192.168.10.200",
+              "lu_type": 2,
+              "MmsLU": {
+                "Assocation": {
+                  "ap_t": "1,1,9999,1",
+                  "ae_q": "1",
+                  "psel": "00000001",
+                  "ssel": "0001",
+                  "tsel": "0001"
+                },
+                "RCB": {
+                  "dom": "YHGLU",
+                  "rcb_st": "LLN0$BR$rcb_Status",
+                  "rcb_se": "LLN0$BR$rcb_Measure",
+                  "rcb_mx": "LLN0$BR$rcb_Setting",
+                  "rcb_dg": "LLN0$BR$rcb_Diag",
+                  "rcb_no": "03"
+                }
+              },
+              "LN": {
+                "GISPDList": [
+                  {
+                    "name": "GISPD1",
+                    "id_ln": 100,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 0,
+                    "rel_noise": 107,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "GISPD2",
+                    "id_ln": 101,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 0,
+                    "rel_noise": 107,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "GISPD3",
+                    "id_ln": 102,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 0,
+                    "rel_noise": 107,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "GISPD4",
+                    "id_ln": 103,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 0,
+                    "rel_noise": 107,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "GISPD5",
+                    "id_ln": 104,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 0,
+                    "rel_noise": 107,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "GISPD6",
+                    "id_ln": 105,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 0,
+                    "rel_noise": 107,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "GISPD7",
+                    "id_ln": 106,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 0,
+                    "rel_noise": 107,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "NOISE(1)",
+                    "id_ln": 107,
+                    "noise": true,
+                    "display_unit": "dBm",
+                    "type": 0,
+                    "rel_noise": 107,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "GISPD8",
+                    "id_ln": 108,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 0,
+                    "rel_noise": 111,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "GISPD9",
+                    "id_ln": 109,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 0,
+                    "rel_noise": 111,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "GISPD10",
+                    "id_ln": 110,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 0,
+                    "rel_noise": 111,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "NOISE(2)",
+                    "id_ln": 111,
+                    "noise": true,
+                    "display_unit": "dBm",
+                    "type": 0,
+                    "rel_noise": 111,
+                    "min_val": -55
+                  }
+                ],
+                "CBCMList": [
+                  {
+                    "name": "6200CB",
+                    "id_ln": 112,
+                    "Enable": {
+                      "trip1": true,
+                      "trip2": true,
+                      "close": true
+                    },
+                    "Setting": {
+                      "close_time": 100,
+                      "trip_time": 35,
+                      "warning_trip_time_per": 10.0,
+                      "warning_close_time_per": 10.0,
+                      "c_coil_time": 60,
+                      "t_coil_time": 60,
+                      "warning_c_coil_time_per": 10.0,
+                      "warning_t_coil_time_per": 10.0,
+                      "trip_gap": 6,
+                      "close_gap": 6,
+                      "ratio1_val": 2000.0,
+                      "ratio2_val": 5.0,
+                      "ct_type": 50,
+                      "phase_type": 5,
+                      "coil_th": 200,
+                      "op_th": 100,
+                      "separate": false,
+                      "contact": false
+                    }
+                  },
+                  {
+                    "name": "667CB",
+                    "id_ln": 113,
+                    "Enable": {
+                      "trip1": true,
+                      "trip2": true,
+                      "close": true
+                    },
+                    "Setting": {
+                      "close_time": 100,
+                      "trip_time": 35,
+                      "warning_trip_time_per": 10.0,
+                      "warning_close_time_per": 10.0,
+                      "c_coil_time": 60,
+                      "t_coil_time": 60,
+                      "warning_c_coil_time_per": 10.0,
+                      "warning_t_coil_time_per": 10.0,
+                      "trip_gap": 6,
+                      "close_gap": 6,
+                      "ratio1_val": 2000.0,
+                      "ratio2_val": 5.0,
+                      "ct_type": 50,
+                      "phase_type": 5,
+                      "coil_th": 200,
+                      "op_th": 100,
+                      "separate": false,
+                      "contact": false
+                    }
+                  },
+                  {
+                    "name": "6333CB",
+                    "id_ln": 114,
+                    "Enable": {
+                      "trip1": true,
+                      "trip2": true,
+                      "close": true
+                    },
+                    "Setting": {
+                      "close_time": 100,
+                      "trip_time": 35,
+                      "warning_trip_time_per": 10.0,
+                      "warning_close_time_per": 10.0,
+                      "c_coil_time": 60,
+                      "t_coil_time": 60,
+                      "warning_c_coil_time_per": 10.0,
+                      "warning_t_coil_time_per": 10.0,
+                      "trip_gap": 6,
+                      "close_gap": 6,
+                      "ratio1_val": 2000.0,
+                      "ratio2_val": 5.0,
+                      "ct_type": 50,
+                      "phase_type": 5,
+                      "coil_th": 200,
+                      "op_th": 100,
+                      "separate": false,
+                      "contact": false
+                    }
+                  },
+                  {
+                    "name": "657CB",
+                    "id_ln": 115,
+                    "Enable": {
+                      "trip1": true,
+                      "trip2": true,
+                      "close": true
+                    },
+                    "Setting": {
+                      "close_time": 100,
+                      "trip_time": 35,
+                      "warning_trip_time_per": 10.0,
+                      "warning_close_time_per": 10.0,
+                      "c_coil_time": 60,
+                      "t_coil_time": 60,
+                      "warning_c_coil_time_per": 10.0,
+                      "warning_t_coil_time_per": 10.0,
+                      "trip_gap": 6,
+                      "close_gap": 6,
+                      "ratio1_val": 2000.0,
+                      "ratio2_val": 5.0,
+                      "ct_type": 50,
+                      "phase_type": 5,
+                      "coil_th": 200,
+                      "op_th": 100,
+                      "separate": false,
+                      "contact": false
+                    }
+                  },
+                  {
+                    "name": "#65-55CB",
+                    "id_ln": 116,
+                    "Enable": {
+                      "trip1": true,
+                      "trip2": true,
+                      "close": true
+                    },
+                    "Setting": {
+                      "close_time": 100,
+                      "trip_time": 35,
+                      "warning_trip_time_per": 10.0,
+                      "warning_close_time_per": 10.0,
+                      "c_coil_time": 60,
+                      "t_coil_time": 60,
+                      "warning_c_coil_time_per": 10.0,
+                      "warning_t_coil_time_per": 10.0,
+                      "trip_gap": 6,
+                      "close_gap": 6,
+                      "ratio1_val": 2000.0,
+                      "ratio2_val": 5.0,
+                      "ct_type": 50,
+                      "phase_type": 5,
+                      "coil_th": 200,
+                      "op_th": 100,
+                      "separate": false,
+                      "contact": false
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "G102",
+              "id_cm": 2,
+              "ip_in": "192.168.10.201",
+              "lu_type": 2,
+              "MmsLU": {
+                "Assocation": {
+                  "ap_t": "1,1,9999,1",
+                  "ae_q": "1",
+                  "psel": "00000001",
+                  "ssel": "0001",
+                  "tsel": "0001"
+                },
+                "RCB": {
+                  "dom": "YHGLU",
+                  "rcb_st": "LLN0$BR$rcb_Status",
+                  "rcb_se": "LLN0$BR$rcb_Measure",
+                  "rcb_mx": "LLN0$BR$rcb_Setting",
+                  "rcb_dg": "LLN0$BR$rcb_Diag",
+                  "rcb_no": "03"
+                }
+              },
+              "LN": {
+                "GISPDList": [
+                  {
+                    "name": "GISPD1",
+                    "id_ln": 117,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 0,
+                    "rel_noise": 124,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "GISPD2",
+                    "id_ln": 118,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 0,
+                    "rel_noise": 124,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "GISPD3",
+                    "id_ln": 119,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 0,
+                    "rel_noise": 124,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "GISPD4",
+                    "id_ln": 120,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 0,
+                    "rel_noise": 124,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "GISPD5",
+                    "id_ln": 121,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 0,
+                    "rel_noise": 124,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "GISPD6",
+                    "id_ln": 122,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 0,
+                    "rel_noise": 124,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "GISPD7",
+                    "id_ln": 123,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 0,
+                    "rel_noise": 124,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "NOISE(1)",
+                    "id_ln": 124,
+                    "noise": true,
+                    "display_unit": "dBm",
+                    "type": 0,
+                    "rel_noise": 124,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "GISPD8",
+                    "id_ln": 125,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 0,
+                    "rel_noise": 128,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "GISPD9",
+                    "id_ln": 126,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 0,
+                    "rel_noise": 128,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "GISPD10",
+                    "id_ln": 127,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 0,
+                    "rel_noise": 128,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "NOISE(2)",
+                    "id_ln": 128,
+                    "noise": true,
+                    "display_unit": "dBm",
+                    "type": 0,
+                    "rel_noise": 128,
+                    "min_val": -55
+                  }
+                ],
+                "CBCMList": [
+                  {
+                    "name": "#60-61CB",
+                    "id_ln": 129,
+                    "Enable": {
+                      "trip1": true,
+                      "trip2": true,
+                      "close": true
+                    },
+                    "Setting": {
+                      "close_time": 100,
+                      "trip_time": 35,
+                      "warning_trip_time_per": 10.0,
+                      "warning_close_time_per": 10.0,
+                      "c_coil_time": 60,
+                      "t_coil_time": 60,
+                      "warning_c_coil_time_per": 10.0,
+                      "warning_t_coil_time_per": 10.0,
+                      "trip_gap": 6,
+                      "close_gap": 6,
+                      "ratio1_val": 2000.0,
+                      "ratio2_val": 5.0,
+                      "ct_type": 50,
+                      "phase_type": 5,
+                      "coil_th": 200,
+                      "op_th": 100,
+                      "separate": false,
+                      "contact": false
+                    }
+                  },
+                  {
+                    "name": "647CB",
+                    "id_ln": 130,
+                    "Enable": {
+                      "trip1": true,
+                      "trip2": true,
+                      "close": true
+                    },
+                    "Setting": {
+                      "close_time": 100,
+                      "trip_time": 35,
+                      "warning_trip_time_per": 10.0,
+                      "warning_close_time_per": 10.0,
+                      "c_coil_time": 60,
+                      "t_coil_time": 60,
+                      "warning_c_coil_time_per": 10.0,
+                      "warning_t_coil_time_per": 10.0,
+                      "trip_gap": 6,
+                      "close_gap": 6,
+                      "ratio1_val": 2000.0,
+                      "ratio2_val": 5.0,
+                      "ct_type": 50,
+                      "phase_type": 5,
+                      "coil_th": 200,
+                      "op_th": 100,
+                      "separate": false,
+                      "contact": false
+                    }
+                  },
+                  {
+                    "name": "6233CB",
+                    "id_ln": 131,
+                    "Enable": {
+                      "trip1": true,
+                      "trip2": true,
+                      "close": true
+                    },
+                    "Setting": {
+                      "close_time": 100,
+                      "trip_time": 35,
+                      "warning_trip_time_per": 10.0,
+                      "warning_close_time_per": 10.0,
+                      "c_coil_time": 60,
+                      "t_coil_time": 60,
+                      "warning_c_coil_time_per": 10.0,
+                      "warning_t_coil_time_per": 10.0,
+                      "trip_gap": 6,
+                      "close_gap": 6,
+                      "ratio1_val": 2000.0,
+                      "ratio2_val": 5.0,
+                      "ct_type": 50,
+                      "phase_type": 5,
+                      "coil_th": 200,
+                      "op_th": 100,
+                      "separate": false,
+                      "contact": false
+                    }
+                  },
+                  {
+                    "name": "637CB",
+                    "id_ln": 132,
+                    "Enable": {
+                      "trip1": true,
+                      "trip2": true,
+                      "close": true
+                    },
+                    "Setting": {
+                      "close_time": 100,
+                      "trip_time": 35,
+                      "warning_trip_time_per": 10.0,
+                      "warning_close_time_per": 10.0,
+                      "c_coil_time": 60,
+                      "t_coil_time": 60,
+                      "warning_c_coil_time_per": 10.0,
+                      "warning_t_coil_time_per": 10.0,
+                      "trip_gap": 6,
+                      "close_gap": 6,
+                      "ratio1_val": 2000.0,
+                      "ratio2_val": 5.0,
+                      "ct_type": 50,
+                      "phase_type": 5,
+                      "coil_th": 200,
+                      "op_th": 100,
+                      "separate": false,
+                      "contact": false
+                    }
+                  },
+                  {
+                    "name": "#1BUS TIE CB",
+                    "id_ln": 133,
+                    "Enable": {
+                      "trip1": true,
+                      "trip2": true,
+                      "close": true
+                    },
+                    "Setting": {
+                      "close_time": 100,
+                      "trip_time": 35,
+                      "warning_trip_time_per": 10.0,
+                      "warning_close_time_per": 10.0,
+                      "c_coil_time": 60,
+                      "t_coil_time": 60,
+                      "warning_c_coil_time_per": 10.0,
+                      "warning_t_coil_time_per": 10.0,
+                      "trip_gap": 6,
+                      "close_gap": 6,
+                      "ratio1_val": 2000.0,
+                      "ratio2_val": 5.0,
+                      "ct_type": 50,
+                      "phase_type": 5,
+                      "coil_th": 200,
+                      "op_th": 100,
+                      "separate": false,
+                      "contact": false
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "MLU#102",
+              "id_cm": 3,
+              "ip_in": "192.168.10.202",
+              "lu_type": 3,
+              "MmsLU": {
+                "Assocation": {
+                  "ap_t": "1,1,9999,1",
+                  "ae_q": "1",
+                  "psel": "00000001",
+                  "ssel": "0001",
+                  "tsel": "0001"
+                },
+                "RCB": {
+                  "dom": "YHMLU",
+                  "rcb_st": "LLN0$BR$rcb_Status",
+                  "rcb_se": "LLN0$BR$rcb_Measure",
+                  "rcb_mx": "LLN0$BR$rcb_Setting",
+                  "rcb_dg": "LLN0$BR$rcb_Diag",
+                  "rcb_no": "03"
+                }
+              },
+              "LN": {
+                "MTRPDList": [
+                  {
+                    "name": "MTRPD A상 상부",
+                    "id_ln": 134,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 1,
+                    "rel_noise": 134,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "MTRPD A상 하부",
+                    "id_ln": 135,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 1,
+                    "rel_noise": 135,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "MTRPD B상 상부",
+                    "id_ln": 136,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 1,
+                    "rel_noise": 136,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "MTRPD B상 하부",
+                    "id_ln": 137,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 1,
+                    "rel_noise": 137,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "MTRPD C상 상부",
+                    "id_ln": 138,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 1,
+                    "rel_noise": 138,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "MTRPD C상 하부",
+                    "id_ln": 139,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 1,
+                    "rel_noise": 139,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "SPARE(1)",
+                    "id_ln": 140,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 1,
+                    "rel_noise": 140,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "SPARE(2)",
+                    "id_ln": 141,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 1,
+                    "rel_noise": 141,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "OLTCPD A상",
+                    "id_ln": 142,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 2,
+                    "rel_noise": 142,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "OLTCPD B상",
+                    "id_ln": 143,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 2,
+                    "rel_noise": 143,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "OLTCPD C상",
+                    "id_ln": 144,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 2,
+                    "rel_noise": 144,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "NOISE",
+                    "id_ln": 145,
+                    "noise": true,
+                    "display_unit": "dBm",
+                    "type": 2,
+                    "rel_noise": 145,
+                    "min_val": -55
+                  }
+                ],
+                "DGAList": [
+                  {
+                    "name": "DGA A상",
+                    "id_ln": 146,
+                    "Enable": {
+                      "h2o": true,
+                      "h2": true,
+                      "co": true,
+                      "c2h2": true
+                    },
+                    "Setting": {
+                      "oper_start_date": "2023-07-04",
+                      "h2o_lv2_val": 400.0,
+                      "h2o_lv1_val": 300.0,
+                      "h2_lv2_val": 800.0,
+                      "h2_lv1_val": 200.0,
+                      "co_lv2_val": 400.0,
+                      "co_lv1_val": 100.0,
+                      "c2h2_lv2_val": 3.0,
+                      "c2h2_lv1_val": 5.0,
+                      "h2o_long_lv4_val": 30.0,
+                      "h2o_long_lv3_val": 20.0,
+                      "h2o_long_lv2_val": 500.0,
+                      "h2o_long_lv1_val": 400.0,
+                      "h2_long_lv4_val": 200.0,
+                      "h2_long_lv3_val": 900.0,
+                      "h2_long_lv2_val": 800.0,
+                      "h2_long_lv1_val": 400.0,
+                      "co_long_lv4_val": 1.0,
+                      "co_long_lv3_val": 0.9,
+                      "co_long_lv2_val": 0.7,
+                      "co_long_lv1_val": 0.5,
+                      "c2h2_long_lv4_val": 1.0,
+                      "c2h2_long_lv3_val": 0.9,
+                      "c2h2_long_lv2_val": 0.7,
+                      "c2h2_long_lv1_val": 0.5
+                    }
+                  },
+                  {
+                    "name": "DGA B상",
+                    "id_ln": 147,
+                    "Enable": {
+                      "h2o": true,
+                      "h2": true,
+                      "co": true,
+                      "c2h2": true
+                    },
+                    "Setting": {
+                      "oper_start_date": "2023-07-04",
+                      "h2o_lv2_val": 400.0,
+                      "h2o_lv1_val": 300.0,
+                      "h2_lv2_val": 800.0,
+                      "h2_lv1_val": 200.0,
+                      "co_lv2_val": 400.0,
+                      "co_lv1_val": 100.0,
+                      "c2h2_lv2_val": 3.0,
+                      "c2h2_lv1_val": 5.0,
+                      "h2o_long_lv4_val": 30.0,
+                      "h2o_long_lv3_val": 20.0,
+                      "h2o_long_lv2_val": 500.0,
+                      "h2o_long_lv1_val": 400.0,
+                      "h2_long_lv4_val": 200.0,
+                      "h2_long_lv3_val": 900.0,
+                      "h2_long_lv2_val": 800.0,
+                      "h2_long_lv1_val": 400.0,
+                      "co_long_lv4_val": 1.0,
+                      "co_long_lv3_val": 0.9,
+                      "co_long_lv2_val": 0.7,
+                      "co_long_lv1_val": 0.5,
+                      "c2h2_long_lv4_val": 1.0,
+                      "c2h2_long_lv3_val": 0.9,
+                      "c2h2_long_lv2_val": 0.7,
+                      "c2h2_long_lv1_val": 0.5
+                    }
+                  },
+                  {
+                    "name": "DGA C상",
+                    "id_ln": 148,
+                    "Enable": {
+                      "h2o": true,
+                      "h2": true,
+                      "co": true,
+                      "c2h2": true
+                    },
+                    "Setting": {
+                      "oper_start_date": "2023-07-04",
+                      "h2o_lv2_val": 400.0,
+                      "h2o_lv1_val": 300.0,
+                      "h2_lv2_val": 800.0,
+                      "h2_lv1_val": 200.0,
+                      "co_lv2_val": 400.0,
+                      "co_lv1_val": 100.0,
+                      "c2h2_lv2_val": 3.0,
+                      "c2h2_lv1_val": 5.0,
+                      "h2o_long_lv4_val": 30.0,
+                      "h2o_long_lv3_val": 20.0,
+                      "h2o_long_lv2_val": 500.0,
+                      "h2o_long_lv1_val": 400.0,
+                      "h2_long_lv4_val": 200.0,
+                      "h2_long_lv3_val": 900.0,
+                      "h2_long_lv2_val": 800.0,
+                      "h2_long_lv1_val": 400.0,
+                      "co_long_lv4_val": 1.0,
+                      "co_long_lv3_val": 0.9,
+                      "co_long_lv2_val": 0.7,
+                      "co_long_lv1_val": 0.5,
+                      "c2h2_long_lv4_val": 1.0,
+                      "c2h2_long_lv3_val": 0.9,
+                      "c2h2_long_lv2_val": 0.7,
+                      "c2h2_long_lv1_val": 0.5
+                    }
+                  }
+                ],
+                "OLTCList": [
+                  {
+                    "name": "OLTC",
+                    "id_ln": 149,
+                    "tab_cnt": 20,
+                    "Setting": {
+                      "sd_nomaltap_runtime": 4000,
+                      "sd_middletap_runtime": 8000,
+                      "warning_nomaltap_runtime_per": 10.0,
+                      "warning_middletap_runtime_per": 10.0,
+                      "sd_inrush_max": 30.0,
+                      "sd_inrush_runtime": 500,
+                      "sd_inrush_runtime_mid": 500,
+                      "warning_inrush_max_per": 10.0,
+                      "warning_inrush_runtime_per": 10.0,
+                      "sd_stendard_max": 2.5,
+                      "sd_stendard_runtime": 3500,
+                      "sd_stendard_runtime_mid": 7500,
+                      "warning_stendard_max_per": 15.0,
+                      "warning_stendard_runtime_per": 15.0,
+                      "made_company": 0,
+                      "mid_tap": 11
+                    }
+                  }
+                ],
+                "BUSHINGList": [
+                  {
+                    "name": "BUSHING A상",
+                    "id_ln": 150,
+                    "Enable": {
+                      "lc": true,
+                      "ca": false,
+                      "pf": false
+                    },
+                    "Setting": {
+                      "sd_capacitance": 225.0,
+                      "sd_leak": 30.0,
+                      "up_watch_per": 2.0,
+                      "up_warning_per": 3.0,
+                      "up_error_per": 5.0,
+                      "down_warning_per": 3.0,
+                      "is_rip": false,
+                      "rel_cb": 0
+                    }
+                  },
+                  {
+                    "name": "BUSHING B상",
+                    "id_ln": 151,
+                    "Enable": {
+                      "lc": true,
+                      "ca": false,
+                      "pf": false
+                    },
+                    "Setting": {
+                      "sd_capacitance": 225.0,
+                      "sd_leak": 30.0,
+                      "up_watch_per": 2.0,
+                      "up_warning_per": 3.0,
+                      "up_error_per": 5.0,
+                      "down_warning_per": 3.0,
+                      "is_rip": false,
+                      "rel_cb": 0
+                    }
+                  },
+                  {
+                    "name": "BUSHING C상",
+                    "id_ln": 152,
+                    "Enable": {
+                      "lc": true,
+                      "ca": false,
+                      "pf": false
+                    },
+                    "Setting": {
+                      "sd_capacitance": 225.0,
+                      "sd_leak": 30.0,
+                      "up_watch_per": 2.0,
+                      "up_warning_per": 3.0,
+                      "up_error_per": 5.0,
+                      "down_warning_per": 3.0,
+                      "is_rip": false,
+                      "rel_cb": 0
+                    }
+                  },
+                  {
+                    "name": "M102_BUSHING4",
+                    "id_ln": 153,
+                    "Enable": {
+                      "lc": true,
+                      "ca": false,
+                      "pf": false
+                    },
+                    "Setting": {
+                      "sd_capacitance": 225.0,
+                      "sd_leak": 30.0,
+                      "up_watch_per": 2.0,
+                      "up_warning_per": 3.0,
+                      "up_error_per": 5.0,
+                      "down_warning_per": 3.0,
+                      "is_rip": false,
+                      "rel_cb": 0
+                    }
+                  },
+                  {
+                    "name": "M102_BUSHING5",
+                    "id_ln": 154,
+                    "Enable": {
+                      "lc": true,
+                      "ca": false,
+                      "pf": false
+                    },
+                    "Setting": {
+                      "sd_capacitance": 225.0,
+                      "sd_leak": 30.0,
+                      "up_watch_per": 2.0,
+                      "up_warning_per": 3.0,
+                      "up_error_per": 5.0,
+                      "down_warning_per": 3.0,
+                      "is_rip": false,
+                      "rel_cb": 0
+                    }
+                  },
+                  {
+                    "name": "M102_BUSHING6",
+                    "id_ln": 155,
+                    "Enable": {
+                      "lc": true,
+                      "ca": false,
+                      "pf": false
+                    },
+                    "Setting": {
+                      "sd_capacitance": 225.0,
+                      "sd_leak": 30.0,
+                      "up_watch_per": 2.0,
+                      "up_warning_per": 3.0,
+                      "up_error_per": 5.0,
+                      "down_warning_per": 3.0,
+                      "is_rip": false,
+                      "rel_cb": 0
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "MLU#103",
+              "id_cm": 4,
+              "ip_in": "192.168.10.203",
+              "lu_type": 3,
+              "MmsLU": {
+                "Assocation": {
+                  "ap_t": "1,1,9999,1",
+                  "ae_q": "1",
+                  "psel": "00000001",
+                  "ssel": "0001",
+                  "tsel": "0001"
+                },
+                "RCB": {
+                  "dom": "YHMLU",
+                  "rcb_st": "LLN0$BR$rcb_Status",
+                  "rcb_se": "LLN0$BR$rcb_Measure",
+                  "rcb_mx": "LLN0$BR$rcb_Setting",
+                  "rcb_dg": "LLN0$BR$rcb_Diag",
+                  "rcb_no": "03"
+                }
+              },
+              "LN": {
+                "MTRPDList": [
+                  {
+                    "name": "MTRPD A상 상부",
+                    "id_ln": 156,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 1,
+                    "rel_noise": 156,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "MTRPD A상 하부",
+                    "id_ln": 157,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 1,
+                    "rel_noise": 157,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "MTRPD B상 상부",
+                    "id_ln": 158,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 1,
+                    "rel_noise": 158,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "MTRPD B상 하부",
+                    "id_ln": 159,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 1,
+                    "rel_noise": 159,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "MTRPD C상 상부",
+                    "id_ln": 160,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 1,
+                    "rel_noise": 160,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "MTRPD C상 하부",
+                    "id_ln": 161,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 1,
+                    "rel_noise": 161,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "SPARE(1)",
+                    "id_ln": 162,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 1,
+                    "rel_noise": 162,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "SPARE(2)",
+                    "id_ln": 163,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 1,
+                    "rel_noise": 163,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "OLTCPD A상",
+                    "id_ln": 164,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 2,
+                    "rel_noise": 164,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "OLTCPD B상",
+                    "id_ln": 165,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 2,
+                    "rel_noise": 165,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "OLTCPD C상",
+                    "id_ln": 166,
+                    "noise": false,
+                    "display_unit": "dBm",
+                    "type": 2,
+                    "rel_noise": 166,
+                    "min_val": -55
+                  },
+                  {
+                    "name": "NOISE",
+                    "id_ln": 167,
+                    "noise": true,
+                    "display_unit": "dBm",
+                    "type": 2,
+                    "rel_noise": 167,
+                    "min_val": -55
+                  }
+                ],
+                "DGAList": [
+                  {
+                    "name": "DGA A상",
+                    "id_ln": 168,
+                    "Enable": {
+                      "h2o": true,
+                      "h2": true,
+                      "co": true,
+                      "c2h2": true
+                    },
+                    "Setting": {
+                      "oper_start_date": "2023-07-04",
+                      "h2o_lv2_val": 400.0,
+                      "h2o_lv1_val": 300.0,
+                      "h2_lv2_val": 800.0,
+                      "h2_lv1_val": 200.0,
+                      "co_lv2_val": 400.0,
+                      "co_lv1_val": 100.0,
+                      "c2h2_lv2_val": 3.0,
+                      "c2h2_lv1_val": 5.0,
+                      "h2o_long_lv4_val": 30.0,
+                      "h2o_long_lv3_val": 20.0,
+                      "h2o_long_lv2_val": 500.0,
+                      "h2o_long_lv1_val": 400.0,
+                      "h2_long_lv4_val": 200.0,
+                      "h2_long_lv3_val": 900.0,
+                      "h2_long_lv2_val": 800.0,
+                      "h2_long_lv1_val": 400.0,
+                      "co_long_lv4_val": 1.0,
+                      "co_long_lv3_val": 0.9,
+                      "co_long_lv2_val": 0.7,
+                      "co_long_lv1_val": 0.5,
+                      "c2h2_long_lv4_val": 1.0,
+                      "c2h2_long_lv3_val": 0.9,
+                      "c2h2_long_lv2_val": 0.7,
+                      "c2h2_long_lv1_val": 0.5
+                    }
+                  },
+                  {
+                    "name": "DGA B상",
+                    "id_ln": 169,
+                    "Enable": {
+                      "h2o": true,
+                      "h2": true,
+                      "co": true,
+                      "c2h2": true
+                    },
+                    "Setting": {
+                      "oper_start_date": "2023-07-04",
+                      "h2o_lv2_val": 400.0,
+                      "h2o_lv1_val": 300.0,
+                      "h2_lv2_val": 800.0,
+                      "h2_lv1_val": 200.0,
+                      "co_lv2_val": 400.0,
+                      "co_lv1_val": 100.0,
+                      "c2h2_lv2_val": 3.0,
+                      "c2h2_lv1_val": 5.0,
+                      "h2o_long_lv4_val": 30.0,
+                      "h2o_long_lv3_val": 20.0,
+                      "h2o_long_lv2_val": 500.0,
+                      "h2o_long_lv1_val": 400.0,
+                      "h2_long_lv4_val": 200.0,
+                      "h2_long_lv3_val": 900.0,
+                      "h2_long_lv2_val": 800.0,
+                      "h2_long_lv1_val": 400.0,
+                      "co_long_lv4_val": 1.0,
+                      "co_long_lv3_val": 0.9,
+                      "co_long_lv2_val": 0.7,
+                      "co_long_lv1_val": 0.5,
+                      "c2h2_long_lv4_val": 1.0,
+                      "c2h2_long_lv3_val": 0.9,
+                      "c2h2_long_lv2_val": 0.7,
+                      "c2h2_long_lv1_val": 0.5
+                    }
+                  },
+                  {
+                    "name": "DGA C상",
+                    "id_ln": 170,
+                    "Enable": {
+                      "h2o": true,
+                      "h2": true,
+                      "co": true,
+                      "c2h2": true
+                    },
+                    "Setting": {
+                      "oper_start_date": "2023-07-04",
+                      "h2o_lv2_val": 400.0,
+                      "h2o_lv1_val": 300.0,
+                      "h2_lv2_val": 800.0,
+                      "h2_lv1_val": 200.0,
+                      "co_lv2_val": 400.0,
+                      "co_lv1_val": 100.0,
+                      "c2h2_lv2_val": 3.0,
+                      "c2h2_lv1_val": 5.0,
+                      "h2o_long_lv4_val": 30.0,
+                      "h2o_long_lv3_val": 20.0,
+                      "h2o_long_lv2_val": 500.0,
+                      "h2o_long_lv1_val": 400.0,
+                      "h2_long_lv4_val": 200.0,
+                      "h2_long_lv3_val": 900.0,
+                      "h2_long_lv2_val": 800.0,
+                      "h2_long_lv1_val": 400.0,
+                      "co_long_lv4_val": 1.0,
+                      "co_long_lv3_val": 0.9,
+                      "co_long_lv2_val": 0.7,
+                      "co_long_lv1_val": 0.5,
+                      "c2h2_long_lv4_val": 1.0,
+                      "c2h2_long_lv3_val": 0.9,
+                      "c2h2_long_lv2_val": 0.7,
+                      "c2h2_long_lv1_val": 0.5
+                    }
+                  }
+                ],
+                "OLTCList": [
+                  {
+                    "name": "OLTC",
+                    "id_ln": 171,
+                    "tab_cnt": 20,
+                    "Setting": {
+                      "sd_nomaltap_runtime": 4000,
+                      "sd_middletap_runtime": 8000,
+                      "warning_nomaltap_runtime_per": 10.0,
+                      "warning_middletap_runtime_per": 10.0,
+                      "sd_inrush_max": 30.0,
+                      "sd_inrush_runtime": 500,
+                      "sd_inrush_runtime_mid": 500,
+                      "warning_inrush_max_per": 10.0,
+                      "warning_inrush_runtime_per": 10.0,
+                      "sd_stendard_max": 2.5,
+                      "sd_stendard_runtime": 3500,
+                      "sd_stendard_runtime_mid": 7500,
+                      "warning_stendard_max_per": 15.0,
+                      "warning_stendard_runtime_per": 15.0,
+                      "made_company": 0,
+                      "mid_tap": 11
+                    }
+                  }
+                ],
+                "BUSHINGList": [
+                  {
+                    "name": "BUSHING A상",
+                    "id_ln": 172,
+                    "Enable": {
+                      "lc": true,
+                      "ca": false,
+                      "pf": false
+                    },
+                    "Setting": {
+                      "sd_capacitance": 225.0,
+                      "sd_leak": 30.0,
+                      "up_watch_per": 2.0,
+                      "up_warning_per": 3.0,
+                      "up_error_per": 5.0,
+                      "down_warning_per": 3.0,
+                      "is_rip": false,
+                      "rel_cb": 0
+                    }
+                  },
+                  {
+                    "name": "BUSHING B상",
+                    "id_ln": 173,
+                    "Enable": {
+                      "lc": true,
+                      "ca": false,
+                      "pf": false
+                    },
+                    "Setting": {
+                      "sd_capacitance": 225.0,
+                      "sd_leak": 30.0,
+                      "up_watch_per": 2.0,
+                      "up_warning_per": 3.0,
+                      "up_error_per": 5.0,
+                      "down_warning_per": 3.0,
+                      "is_rip": false,
+                      "rel_cb": 0
+                    }
+                  },
+                  {
+                    "name": "BUSHING C상",
+                    "id_ln": 174,
+                    "Enable": {
+                      "lc": true,
+                      "ca": false,
+                      "pf": false
+                    },
+                    "Setting": {
+                      "sd_capacitance": 225.0,
+                      "sd_leak": 30.0,
+                      "up_watch_per": 2.0,
+                      "up_warning_per": 3.0,
+                      "up_error_per": 5.0,
+                      "down_warning_per": 3.0,
+                      "is_rip": false,
+                      "rel_cb": 0
+                    }
+                  },
+                  {
+                    "name": "M103_BUSHING4",
+                    "id_ln": 175,
+                    "Enable": {
+                      "lc": true,
+                      "ca": false,
+                      "pf": false
+                    },
+                    "Setting": {
+                      "sd_capacitance": 225.0,
+                      "sd_leak": 30.0,
+                      "up_watch_per": 2.0,
+                      "up_warning_per": 3.0,
+                      "up_error_per": 5.0,
+                      "down_warning_per": 3.0,
+                      "is_rip": false,
+                      "rel_cb": 0
+                    }
+                  },
+                  {
+                    "name": "M103_BUSHING5",
+                    "id_ln": 176,
+                    "Enable": {
+                      "lc": true,
+                      "ca": false,
+                      "pf": false
+                    },
+                    "Setting": {
+                      "sd_capacitance": 225.0,
+                      "sd_leak": 30.0,
+                      "up_watch_per": 2.0,
+                      "up_warning_per": 3.0,
+                      "up_error_per": 5.0,
+                      "down_warning_per": 3.0,
+                      "is_rip": false,
+                      "rel_cb": 0
+                    }
+                  },
+                  {
+                    "name": "M103_BUSHING6",
+                    "id_ln": 177,
+                    "Enable": {
+                      "lc": true,
+                      "ca": false,
+                      "pf": false
+                    },
+                    "Setting": {
+                      "sd_capacitance": 225.0,
+                      "sd_leak": 30.0,
+                      "up_watch_per": 2.0,
+                      "up_warning_per": 3.0,
+                      "up_error_per": 5.0,
+                      "down_warning_per": 3.0,
+                      "is_rip": false,
+                      "rel_cb": 0
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "GroupList": [
+          {
+            "name": "GIS",
+            "Menu": {
+              "MenuItemList": []
+            },
+            "EquipList": [
+              {
+                "name": "G101",
+                "id_eq": 1,
+                "equip_type": "GIS",
+                "color": "#87f542",
+                "LNList": [
+                  {
+                    "link_ln": 100
+                  },
+                  {
+                    "link_ln": 101
+                  },
+                  {
+                    "link_ln": 102
+                  },
+                  {
+                    "link_ln": 103
+                  },
+                  {
+                    "link_ln": 104
+                  },
+                  {
+                    "link_ln": 105
+                  },
+                  {
+                    "link_ln": 106
+                  },
+                  {
+                    "link_ln": 107
+                  },
+                  {
+                    "link_ln": 108
+                  },
+                  {
+                    "link_ln": 109
+                  },
+                  {
+                    "link_ln": 110
+                  },
+                  {
+                    "link_ln": 111
+                  },
+                  {
+                    "link_ln": 112
+                  },
+                  {
+                    "link_ln": 113
+                  },
+                  {
+                    "link_ln": 114
+                  },
+                  {
+                    "link_ln": 115
+                  },
+                  {
+                    "link_ln": 116
+                  }
+                ],
+                "Menu": {
+                  "MenuItemList": []
+                }
+              },
+              {
+                "name": "G102",
+                "id_eq": 2,
+                "equip_type": "GIS",
+                "color": "#87f542",
+                "LNList": [
+                  {
+                    "link_ln": 117
+                  },
+                  {
+                    "link_ln": 118
+                  },
+                  {
+                    "link_ln": 119
+                  },
+                  {
+                    "link_ln": 120
+                  },
+                  {
+                    "link_ln": 121
+                  },
+                  {
+                    "link_ln": 122
+                  },
+                  {
+                    "link_ln": 123
+                  },
+                  {
+                    "link_ln": 124
+                  },
+                  {
+                    "link_ln": 125
+                  },
+                  {
+                    "link_ln": 126
+                  },
+                  {
+                    "link_ln": 127
+                  },
+                  {
+                    "link_ln": 128
+                  },
+                  {
+                    "link_ln": 129
+                  },
+                  {
+                    "link_ln": 130
+                  },
+                  {
+                    "link_ln": 131
+                  },
+                  {
+                    "link_ln": 132
+                  },
+                  {
+                    "link_ln": 133
+                  }
+                ],
+                "Menu": {
+                  "MenuItemList": []
+                }
+              }
+            ]
+          },
+          {
+            "name": "MTR",
+            "Menu": {
+              "MenuItemList": []
+            },
+            "EquipList": [
+              {
+                "name": "M102",
+                "id_eq": 3,
+                "equip_type": "MTR",
+                "color": "#87f542",
+                "LNList": [
+                  {
+                    "link_ln": 134
+                  },
+                  {
+                    "link_ln": 135
+                  },
+                  {
+                    "link_ln": 136
+                  },
+                  {
+                    "link_ln": 137
+                  },
+                  {
+                    "link_ln": 138
+                  },
+                  {
+                    "link_ln": 139
+                  },
+                  {
+                    "link_ln": 140
+                  },
+                  {
+                    "link_ln": 141
+                  },
+                  {
+                    "link_ln": 142
+                  },
+                  {
+                    "link_ln": 143
+                  },
+                  {
+                    "link_ln": 144
+                  },
+                  {
+                    "link_ln": 145
+                  },
+                  {
+                    "link_ln": 149
+                  },
+                  {
+                    "link_ln": 146
+                  },
+                  {
+                    "link_ln": 147
+                  },
+                  {
+                    "link_ln": 148
+                  },
+                  {
+                    "link_ln": 150
+                  },
+                  {
+                    "link_ln": 151
+                  },
+                  {
+                    "link_ln": 152
+                  },
+                  {
+                    "link_ln": 153
+                  },
+                  {
+                    "link_ln": 154
+                  },
+                  {
+                    "link_ln": 155
+                  }
+                ],
+                "Menu": {
+                  "MenuItemList": []
+                }
+              },
+              {
+                "name": "M103",
+                "id_eq": 4,
+                "equip_type": "MTR",
+                "color": "#87f542",
+                "LNList": [
+                  {
+                    "link_ln": 156
+                  },
+                  {
+                    "link_ln": 157
+                  },
+                  {
+                    "link_ln": 158
+                  },
+                  {
+                    "link_ln": 159
+                  },
+                  {
+                    "link_ln": 160
+                  },
+                  {
+                    "link_ln": 161
+                  },
+                  {
+                    "link_ln": 162
+                  },
+                  {
+                    "link_ln": 163
+                  },
+                  {
+                    "link_ln": 164
+                  },
+                  {
+                    "link_ln": 165
+                  },
+                  {
+                    "link_ln": 166
+                  },
+                  {
+                    "link_ln": 167
+                  },
+                  {
+                    "link_ln": 171
+                  },
+                  {
+                    "link_ln": 168
+                  },
+                  {
+                    "link_ln": 169
+                  },
+                  {
+                    "link_ln": 170
+                  },
+                  {
+                    "link_ln": 172
+                  },
+                  {
+                    "link_ln": 173
+                  },
+                  {
+                    "link_ln": 174
+                  },
+                  {
+                    "link_ln": 175
+                  },
+                  {
+                    "link_ln": 176
+                  },
+                  {
+                    "link_ln": 177
+                  }
+                ],
+                "Menu": {
+                  "MenuItemList": []
+                }
+              }
+            ]
+          }
+        ],
+        "LNRelationshipList": [
+          {
+            "name": "M102:DGA",
+            "LinkList": [
+              146,
+              147,
+              148
+            ]
+          },
+          {
+            "name": "M102: BUSHING",
+            "LinkList": [
+              150,
+              151,
+              152,
+              153,
+              154,
+              155
+            ]
+          },
+          {
+            "name": "M103:DGA",
+            "LinkList": [
+              168,
+              169,
+              170
+            ]
+          },
+          {
+            "name": "M103: BUSHING",
+            "LinkList": [
+              172,
+              173,
+              174,
+              175,
+              176,
+              177
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

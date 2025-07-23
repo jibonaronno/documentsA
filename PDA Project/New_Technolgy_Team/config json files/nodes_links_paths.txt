@@ -1,0 +1,13 @@
+{Root}.DUList[0].AlarmSetting.GISPD.Enable
+{
+  "noise_event": true,
+  "noise_lv1": true,
+  "eventcnt_lv1": true,
+  "maxdbm": false,
+  "avrdbm": false,
+  "pd_engine2": false,
+  "pd_engine3": false,
+  "event_a": 1,
+  "event_b": 1
+}
+
