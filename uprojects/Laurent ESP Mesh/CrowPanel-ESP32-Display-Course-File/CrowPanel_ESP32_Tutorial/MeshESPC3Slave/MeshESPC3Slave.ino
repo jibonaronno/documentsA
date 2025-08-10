@@ -146,7 +146,7 @@ void loop() {
 void sendMessage() {
   an0 = analogRead(A0);
   getLuminance();
-  doc["intense"] = luminosity;
+  doc["intense"] = an0; //  luminosity; // Temporary change for testing
   serializeJson(doc, json);
   String msg = String(json);
   //msg += mesh.getNodeId();
