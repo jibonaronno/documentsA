@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <export version="E">
   <design>
-    <source>C:\Users\haque\Documents\KiCad\7.0\projects\kicad_upwork\jonathan\touch_switch\touch_switch.kicad_sch</source>
-    <date>8/21/2025 9:28:33 PM</date>
+    <source>E:\kicads\jonathan\touch_switch\touch_switch.kicad_sch</source>
+    <date>8/26/2025 11:20:41 PM</date>
     <tool>Eeschema 7.0.9</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -139,21 +139,19 @@
       <tstamps>ddd53360-9a88-40cc-bc05-d0618a8e5028</tstamps>
     </comp>
     <comp ref="R2">
-      <value>3K3</value>
+      <value>330</value>
       <footprint>Resistor_SMD:R_0805_2012Metric</footprint>
       <fields>
-        <field name="Supplier">Digikey</field>
-        <field name="Supplier Part Number 1">408-1639-2-ND</field>
+        <field name="Supplier Part Number 1">CR0805-JW-331ELFTR-ND</field>
       </fields>
-      <libsource lib="Device" part="R" description="Resistor"/>
-      <property name="Supplier Part Number 1" value="408-1639-2-ND"/>
-      <property name="Supplier" value="Digikey"/>
+      <libsource lib="Device" part="R_Small" description="Resistor, small symbol"/>
+      <property name="Supplier Part Number 1" value="CR0805-JW-331ELFTR-ND"/>
       <property name="Sheetname" value=""/>
       <property name="Sheetfile" value="touch_switch.kicad_sch"/>
-      <property name="ki_description" value="Resistor"/>
-      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_description" value="Resistor, small symbol"/>
+      <property name="ki_keywords" value="R resistor"/>
       <sheetpath names="/" tstamps="/"/>
-      <tstamps>24ffbf27-7e7d-4bd5-9f29-ecb7a3f81206</tstamps>
+      <tstamps>54923028-d3c8-4b74-ab2b-5427c10c3fac</tstamps>
     </comp>
     <comp ref="U1">
       <value>TTP223-BA6</value>
@@ -183,6 +181,19 @@
       <property name="Sheetfile" value="touch_switch.kicad_sch"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamps>6ef22e01-edcc-4b67-9806-cfd032845135</tstamps>
+    </comp>
+    <comp ref="U2">
+      <value>H11F1S</value>
+      <footprint>H11F1SM:OPTOCOUPLER_H11F3SR2M</footprint>
+      <fields>
+        <field name="Supplier Part Number 1">H11F1SM-ND</field>
+      </fields>
+      <libsource lib="touch_switch" part="H11F1S" description=""/>
+      <property name="Supplier Part Number 1" value="H11F1SM-ND"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="touch_switch.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>0bac0406-297f-4067-8732-38ee7ee36dfd</tstamps>
     </comp>
   </components>
   <libparts>
@@ -292,15 +303,15 @@
         <pin num="2" name="A" type="passive"/>
       </pins>
     </libpart>
-    <libpart lib="Device" part="R">
-      <description>Resistor</description>
+    <libpart lib="Device" part="R_Small">
+      <description>Resistor, small symbol</description>
       <docs>~</docs>
       <footprints>
         <fp>R_*</fp>
       </footprints>
       <fields>
         <field name="Reference">R</field>
-        <field name="Value">R</field>
+        <field name="Value">R_Small</field>
         <field name="Datasheet">~</field>
       </fields>
       <pins>
@@ -332,6 +343,21 @@
         <pin num="6" name="TOG" type="input"/>
       </pins>
     </libpart>
+    <libpart lib="touch_switch" part="H11F1S">
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Footprint">H11F1SM:OPTOCOUPLER_H11F3SR2M</field>
+        <field name="Supplier Part Number 1">H11F1SM-ND</field>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+        <pin num="3" name="3" type="passive"/>
+        <pin num="4" name="4" type="passive"/>
+        <pin num="5" name="5" type="passive"/>
+        <pin num="6" name="6" type="passive"/>
+      </pins>
+    </libpart>
   </libparts>
   <libraries>
     <library logical="Connector">
@@ -344,7 +370,10 @@
       <uri>C:\Program Files\KiCad\7.0\share\kicad\symbols\/Device.kicad_sym</uri>
     </library>
     <library logical="TTP223-BA6">
-      <uri>C:\Users\haque\Documents\KiCad\7.0\projects\kicad_upwork\jonathan\touch_switch/TTP223-BA6/TTP223-BA6.kicad_sym</uri>
+      <uri>E:\kicads\jonathan\touch_switch/TTP223-BA6/TTP223-BA6.kicad_sym</uri>
+    </library>
+    <library logical="touch_switch">
+      <uri>E:\kicads\jonathan\touch_switch/touch_switch.kicad_sym</uri>
     </library>
   </libraries>
   <nets>
@@ -359,8 +388,8 @@
       <node ref="D1" pin="1" pinfunction="K" pintype="passive"/>
       <node ref="J1" pin="4" pinfunction="GND" pintype="power_out"/>
       <node ref="J1" pin="5" pinfunction="Shield" pintype="passive"/>
-      <node ref="J2" pin="2" pinfunction="Pin_2" pintype="passive"/>
       <node ref="U1" pin="2" pinfunction="VSS" pintype="power_in"/>
+      <node ref="U2" pin="2" pinfunction="2" pintype="passive"/>
     </net>
     <net code="3" name="Net-(D1-A)">
       <node ref="D1" pin="2" pinfunction="A" pintype="passive"/>
@@ -368,30 +397,44 @@
     </net>
     <net code="4" name="Net-(J2-Pin_1)">
       <node ref="J2" pin="1" pinfunction="Pin_1" pintype="passive"/>
-      <node ref="R2" pin="2" pintype="passive"/>
+      <node ref="U2" pin="6" pinfunction="6" pintype="passive"/>
     </net>
-    <net code="5" name="Net-(J3-Pin_1)">
+    <net code="5" name="Net-(J2-Pin_2)">
+      <node ref="J2" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="U2" pin="4" pinfunction="4" pintype="passive"/>
+    </net>
+    <net code="6" name="Net-(J3-Pin_1)">
       <node ref="C1" pin="1" pintype="passive"/>
       <node ref="J3" pin="1" pinfunction="Pin_1" pintype="passive"/>
       <node ref="J3" pin="2" pinfunction="Pin_2" pintype="passive"/>
       <node ref="U1" pin="3" pinfunction="I" pintype="bidirectional"/>
     </net>
-    <net code="6" name="Net-(U1-Q)">
+    <net code="7" name="Net-(R2-Pad2)">
+      <node ref="R2" pin="2" pintype="passive"/>
+      <node ref="U2" pin="1" pinfunction="1" pintype="passive"/>
+    </net>
+    <net code="8" name="Net-(U1-Q)">
       <node ref="R1" pin="1" pintype="passive"/>
       <node ref="R2" pin="1" pintype="passive"/>
       <node ref="U1" pin="1" pinfunction="Q" pintype="output"/>
     </net>
-    <net code="7" name="unconnected-(J1-D+-Pad3)">
+    <net code="9" name="unconnected-(J1-D+-Pad3)">
       <node ref="J1" pin="3" pinfunction="D+" pintype="bidirectional"/>
     </net>
-    <net code="8" name="unconnected-(J1-D--Pad2)">
+    <net code="10" name="unconnected-(J1-D--Pad2)">
       <node ref="J1" pin="2" pinfunction="D-" pintype="bidirectional"/>
     </net>
-    <net code="9" name="unconnected-(U1-AHLB-Pad4)">
+    <net code="11" name="unconnected-(U1-AHLB-Pad4)">
       <node ref="U1" pin="4" pinfunction="AHLB" pintype="input+no_connect"/>
     </net>
-    <net code="10" name="unconnected-(U1-TOG-Pad6)">
+    <net code="12" name="unconnected-(U1-TOG-Pad6)">
       <node ref="U1" pin="6" pinfunction="TOG" pintype="input+no_connect"/>
+    </net>
+    <net code="13" name="unconnected-(U2-Pad3)">
+      <node ref="U2" pin="3" pinfunction="3" pintype="passive"/>
+    </net>
+    <net code="14" name="unconnected-(U2-Pad5)">
+      <node ref="U2" pin="5" pinfunction="5" pintype="passive"/>
     </net>
   </nets>
 </export>
