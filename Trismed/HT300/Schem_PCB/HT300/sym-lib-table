@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "ATSAM4S16BB_AN")(type "KiCad")(uri "${KIPRJMOD}/ATSAM4S16BB_AN/ATSAM4S16BB_AN.kicad_sym")(options "")(descr ""))
+)
