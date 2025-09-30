@@ -1,0 +1,6 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "TTP223-BA6")(type "KiCad")(uri "${KIPRJMOD}/TTP223-BA6/TTP223-BA6.kicad_sym")(options "")(descr ""))
+  (lib (name "SD103AWS-E3-08GITR-ND")(type "KiCad")(uri "${KIPRJMOD}/SD103AWS_E3_08/SD103AWS-E3-08GITR-ND.kicad_sym")(options "")(descr ""))
+  (lib (name "touch_switch")(type "KiCad")(uri "${KIPRJMOD}/touch_switch.kicad_sym")(options "")(descr ""))
+)
