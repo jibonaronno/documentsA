@@ -1,0 +1,13 @@
+# /etc/ppp/options
+/dev/modemPPP
+115200
+asyncmap 0
+crtscts
+modem
+defaultroute
+noipdefault
+usepeerdns
+replacedefaultroute
+# Set low MTU for harsh comms environments
+# mtu 450
+

@@ -1,0 +1,882 @@
+Using username "pi".
+pi@192.168.0.102's password:
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+pi@raspi:~ $ ls
+scan.txt
+pi@raspi:~ $ lsusb
+Bus 001 Device 004: ID 046d:0825 Logitech, Inc. Webcam C270
+Bus 001 Device 003: ID 0424:ec00 Standard Microsystems Corp. SMSC9512/9514 Fast                                                 Ethernet Adapter
+Bus 001 Device 002: ID 0424:9514 Standard Microsystems Corp.
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+pi@raspi:~ $ sudo gcc --version
+gcc (Raspbian 4.9.2-10) 4.9.2
+Copyright (C) 2014 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+pi@raspi:~ $ cd /usr/lib
+pi@raspi:/usr/lib $ ls
+apt                           libgs.so.9                 modules-load.d
+arm-linux-gnueabihf           libgs.so.9.06              openssh
+avahi                         libident.so.0              os-release
+binfmt.d                      libident.so.0.22           perl5
+bluetooth                     libisccc.so.90             pkgconfig
+colord                        libisccc.so.90.0.6         pm-utils
+compat-ld                     libisccfg.so.90            policykit-1
+coreutils                     libisccfg.so.90.1.0        preloadable_libintl.so
+cups                          libisc.so.95               pymodules
+dbus-1.0                      libisc.so.95.5.0           python2.6
+dconf                         libjbig2dec.so.0           python2.7
+debug                         libjbig2dec.so.0.0.0       python3
+dpkg                          liblwres.so.90             qt3
+gcc                           liblwres.so.90.0.7         raspberrypi-sys-mods
+gettext                       libopcodes-2.25-system.so  raspi-config
+gnupg                         libqt-mt.so.3              rpm
+gold-ld                       libqt-mt.so.3.3            rsyslog
+klibc                         libqt-mt.so.3.3.8          sasl2
+ldscripts                     libqui.so.1                sendmail
+libbfd-2.25-system.so         libqui.so.1.0              sftp-server
+libbind9.so.90                libqui.so.1.0.0            ssl
+libbind9.so.90.0.9            libsigc-1.2.so.5           sudo
+libboost_iostreams.so.1.49.0  libsigc-1.2.so.5.0.7       sysctl.d
+libboost_iostreams.so.1.50.0  libsupp.a                  systemd
+libboost_iostreams.so.1.53.0  libxapian.so.22            tar
+libdns.so.100                 libxapian.so.22.6.6        tasksel
+libdns.so.100.2.2             locale                     tc
+libgettextlib-0.19.3.so       lognorm                    tmpfiles.d
+libgettextsrc-0.19.3.so       lsb                        valgrind
+libgsasl.so.7                 man-db                     X11
+libgsasl.so.7.9.6             mime
+pi@raspi:/usr/lib $ cd arm-linux-gnueabihf/
+pi@raspi:/usr/lib/arm-linux-gnueabihf $ ls
+alsa-lib                            libmu_auth.so.4.0.0
+audit                               libmu_cfg.so.0
+avahi                               libmu_cfg.so.0.0.0
+cifs-utils                          libmu_compat.so.0
+colord-plugins                      libmu_compat.so.0.0.0
+colord-sensors                      libmu_dbm.so.4
+crt1.o                              libmu_dbm.so.4.0.0
+crti.o                              libmu_imap.so.4
+crtn.o                              libmu_imap.so.4.0.0
+dri                                 libmu_maildir.so.4
+gconv                               libmu_maildir.so.4.0.0
+gcrt1.o                             libmu_mailer.so.4
+gdk-pixbuf-2.0                      libmu_mailer.so.4.0.0
+gio                                 libmu_mbox.so.4
+glib-2.0                            libmu_mbox.so.4.0.0
+gtk-2.0                             libmu_mh.so.4
+guile                               libmu_mh.so.4.0.0
+guile-2.0                           libmu_pop.so.4
+gutenprint                          libmu_pop.so.4.0.0
+krb5                                libmu_py.so.4
+libanl.a                            libmu_py.so.4.0.0
+libanl.so                           libmu_scm.so.4
+libapt-inst.so.1.5                  libmu_scm.so.4.0.0
+libapt-inst.so.1.5.0                libmu_sieve.so.4
+libapt-pkg.so.4.12                  libmu_sieve.so.4.0.0
+libapt-pkg.so.4.12.0                libmysqlclient_r.so.18
+libapt-private.so.0.0               libmysqlclient_r.so.18.0.0
+libapt-private.so.0.0.0             libmysqlclient.so.18
+libarmmem.so                        libmysqlclient.so.18.0.0
+libasan.so.1                        libnettle.so.4
+libasan.so.1.0.0                    libnettle.so.4.7
+libasound.so.2                      libnewt.so.0.52
+libasound.so.2.0.0                  libnewt.so.0.52.17
+libasprintf.a                       libnfnetlink.so.0
+libasprintf.so                      libnfnetlink.so.0.2.0
+libasprintf.so.0                    libnsl.a
+libasprintf.so.0.0.0                libnsl.so
+libatk-1.0.so.0                     libnspr4.so
+libatk-1.0.so.0.21409.1             libnss3.so
+libatomic.so.1                      libnss_compat.so
+libatomic.so.1.1.0                  libnss_dns.so
+libaudio.so.2                       libnss_files.so
+libaudio.so.2.4                     libnss_hesiod.so
+libavahi-client.so.3                libnss_nisplus.so
+libavahi-client.so.3.2.9            libnss_nis.so
+libavahi-common.so.3                libnssutil3.so
+libavahi-common.so.3.5.3            libntlm.so.0
+libavahi-core.so.7                  libntlm.so.0.0.19
+libavahi-core.so.7.0.2              libopenjpeg_JPWL.so.1.5.2
+libavahi-glib.so.1                  libopenjpeg_JPWL.so.5
+libavahi-glib.so.1.0.2              libopenjpeg.so.1.5.2
+libboost_iostreams.so.1.54.0        libopenjpeg.so.5
+libboost_iostreams.so.1.55.0        libopts.so.25
+libBrokenLocale.a                   libopts.so.25.16.0
+libBrokenLocale.so                  libp11-kit.so.0
+libc.a                              libp11-kit.so.0.0.0
+libcairo.so.2                       libpanel.so.5
+libcairo.so.2.11400.0               libpanel.so.5.9
+libcap-ng.so.0                      libpanelw.so.5
+libcap-ng.so.0.0.0                  libpanelw.so.5.9
+libcidn.so                          libpango-1.0.so.0
+libcloog-isl.so.4                   libpango-1.0.so.0.3600.8
+libcloog-isl.so.4.0.0               libpangocairo-1.0.so.0
+libc_nonshared.a                    libpangocairo-1.0.so.0.3600.8
+libcolordprivate.so.2               libpangoft2-1.0.so.0
+libcolordprivate.so.2.0.1           libpangoft2-1.0.so.0.3600.8
+libcolord.so.2                      libpangox-1.0.so.0
+libcolord.so.2.0.1                  libpangox-1.0.so.0.0.0
+libcolorhug.so.2                    libpangoxft-1.0.so.0
+libcolorhug.so.2.0.1                libpangoxft-1.0.so.0.3600.8
+libcroco-0.6.so.3                   libpaper.so.1
+libcroco-0.6.so.3.0.1               libpaper.so.1.1.2
+libcrypt.a                          libpcreposix.so.3
+libcrypto.so.1.0.0                  libpcreposix.so.3.13.1
+libcrypt.so                         libpcsclite.so.1
+libc.so                             libpcsclite.so.1.0.0
+libcupscgi.so.1                     libperl.so.5.20
+libcupsfilters.so.1                 libperl.so.5.20.2
+libcupsfilters.so.1.0.0             libpipeline.so.1
+libcupsimage.so.2                   libpipeline.so.1.4.0
+libcupsmime.so.1                    libpixman-1.so.0
+libcupsppdc.so.1                    libpixman-1.so.0.33.3
+libcups.so.2                        libplc4.so
+libcurl-gnutls.so.3                 libplds4.so
+libcurl-gnutls.so.4                 libpng12.a
+libcurl-gnutls.so.4.3.0             libpng12.so
+libcurl.so.3                        libpng12.so.0
+libcurl.so.4                        libpng.a
+libcurl.so.4.3.0                    libpng.so
+libcwidget.so.3                     libpolkit-agent-1.so.0
+libcwidget.so.3.0.0                 libpolkit-agent-1.so.0.0.0
+libdaemon.so.0                      libpolkit-backend-1.so.0
+libdaemon.so.0.5.0                  libpolkit-backend-1.so.0.0.0
+libdatrie.so.1                      libpolkit-gobject-1.so.0
+libdatrie.so.1.3.1                  libpolkit-gobject-1.so.0.0.0
+libdb-5.3.so                        libpoppler.so.46
+libdconf.so.1                       libpoppler.so.46.0.0
+libdconf.so.1.0.0                   libpsl.so.0
+libdebconfclient.so.0               libpsl.so.0.2.2
+libdebconfclient.so.0.0.0           libpthread.a
+libdl.a                             libpthread_nonshared.a
+libdl.so                            libpthread.so
+libdrm_amdgpu.so.1                  libpython2.7.so.1
+libdrm_amdgpu.so.1.0.0              libpython2.7.so.1.0
+libdrm_freedreno.so.1               libqpdf.so.13
+libdrm_freedreno.so.1.0.0           libqpdf.so.13.1.2
+libdrm_nouveau.so.2                 libQtCLucene.so.4
+libdrm_nouveau.so.2.0.0             libQtCLucene.so.4.8
+libdrm_radeon.so.1                  libQtCLucene.so.4.8.6
+libdrm_radeon.so.1.0.1              libQtCore.so.4
+libdrm.so.2                         libQtCore.so.4.8
+libdrm.so.2.4.0                     libQtCore.so.4.8.6
+libedit.so.2                        libQtDBus.so.4
+libedit.so.2.0.51                   libQtDBus.so.4.8
+libelf-0.159.so                     libQtDBus.so.4.8.6
+libelf.so.1                         libQtGui.so.4
+libestr.so.0                        libQtGui.so.4.8
+libestr.so.0.0.0                    libQtGui.so.4.8.6
+libevent-2.0.so.5                   libQtNetwork.so.4
+libevent-2.0.so.5.1.9               libQtNetwork.so.4.8
+libexif.so.12                       libQtNetwork.so.4.8.6
+libexif.so.12.3.3                   libQtOpenGL.so.4
+libexpatw.so.1                      libQtOpenGL.so.4.8
+libexpatw.so.1.6.0                  libQtOpenGL.so.4.8.6
+libfakeroot                         libQtSql.so.4
+libffi.so.6                         libQtSql.so.4.8
+libffi.so.6.0.2                     libQtSql.so.4.8.6
+libfontconfig.so.1                  libQtSvg.so.4
+libfontconfig.so.1.8.0              libQtSvg.so.4.8
+libfontembed.so.1                   libQtSvg.so.4.8.6
+libfontembed.so.1.0.0               libQtXml.so.4
+libfontenc.so.1                     libQtXml.so.4.8
+libfontenc.so.1.0.0                 libQtXml.so.4.8.6
+libform.so.5                        libresolv.a
+libform.so.5.9                      libresolv.so
+libformw.so.5                       librpcsvc.a
+libformw.so.5.9                     librpmbuild.so.3
+libfreetype.a                       librpmbuild.so.3.2.2
+libfreetype.la                      librpmio.so.3
+libfreetype.so                      librpmio.so.3.2.2
+libfreetype.so.6                    librpmsign.so.1
+libfreetype.so.6.12.0               librpmsign.so.1.2.2
+libfribidi.so.0                     librpm.so.3
+libfribidi.so.0.3.5                 librpm.so.3.2.2
+libg.a                              librt.a
+libgccpp.so.1                       librtmp.so.1
+libgccpp.so.1.0.3                   librt.so
+libgc.so.1                          libsamplerate.so.0
+libgc.so.1.0.3                      libsamplerate.so.0.1.8
+libgdbm_compat.so.3                 libsane.la
+libgdbm_compat.so.3.0.0             libsane.so.1
+libgdbm.so.3                        libsane.so.1.0.24
+libgdbm.so.3.0.0                    libsasl2.so.2
+libgdk_pixbuf-2.0.so.0              libsasl2.so.2.0.25
+libgdk_pixbuf-2.0.so.0.3100.1       libsemanage.so.1
+libgdk_pixbuf_xlib-2.0.so.0         libsigc-2.0.so.0
+libgdk_pixbuf_xlib-2.0.so.0.3100.1  libsigc-2.0.so.0.0.0
+libgdk-x11-2.0.so.0                 libsigsegv.so.2
+libgdk-x11-2.0.so.0.2400.25         libsigsegv.so.2.0.3
+libgd.so.3                          libsmime3.so
+libgd.so.3.0.0                      libSM.so.6
+libGeoIP.so.1                       libSM.so.6.0.1
+libGeoIP.so.1.6.2                   libsqlite3.so.0
+libgettextpo.a                      libsqlite3.so.0.8.6
+libgettextpo.so                     libssh2.so.1
+libgettextpo.so.0                   libssh2.so.1.0.1
+libgettextpo.so.0.5.2               libssl3.so
+libgio-2.0.so.0                     libssl.so.1.0.0
+libgio-2.0.so.0.4200.1              libstdc++.so.6
+libglapi.so.0                       libstdc++.so.6.0.20
+libglapi.so.0.0.0                   libtalloc.so.2
+libGL.so.1                          libtalloc.so.2.1.2
+libGL.so.1.2.0                      libtasn1.so.6
+libGLU.so.1                         libtasn1.so.6.3.2
+libGLU.so.1.3.1                     libthai.so.0
+libgmodule-2.0.so.0                 libthai.so.0.2.0
+libgmodule-2.0.so.0.4200.1          libthread_db.so
+libgmp.so.10                        libtic.so.5
+libgmp.so.10.2.0                    libtic.so.5.9
+libgnutls-deb0.so.28                libtiff.so.5
+libgnutls-deb0.so.28.41.0           libtiff.so.5.2.0
+libgnutls-openssl.so.27             libtxc_dxtn_s2tc.so.0
+libgnutls-openssl.so.27.0.2         libtxc_dxtn_s2tc.so.0.0.0
+libgobject-2.0.so.0                 libtxc_dxtn.so
+libgobject-2.0.so.0.4200.1          libubsan.so.0
+libgomp.so.1                        libubsan.so.0.0.0
+libgomp.so.1.0.0                    libunistring.so.0
+libgphoto2                          libunistring.so.0.1.2
+libgphoto2_port                     libusb-0.1.so.4
+libgphoto2_port.so.10               libustr-1.0.so.1
+libgphoto2_port.so.10.1.1           libustr-1.0.so.1.0.4
+libgphoto2.so.6                     libutil.a
+libgphoto2.so.6.0.0                 libutil.so
+libgraphite2.so.2.0.0               libv4l
+libgraphite2.so.3                   libv4l1.so.0
+libgraphite2.so.3.0.1               libv4l1.so.0.0.0
+libgssapi_krb5.so.2                 libv4l2rds.so.0
+libgssapi_krb5.so.2.2               libv4l2rds.so.0.0.0
+libgthread-2.0.so.0                 libv4l2.so.0
+libgthread-2.0.so.0.4200.1          libv4l2.so.0.0.0
+libgtk2.0-0                         libv4lconvert0
+libgtk-x11-2.0.so.0                 libv4lconvert.so.0
+libgtk-x11-2.0.so.0.2400.25         libv4lconvert.so.0.0.0
+libgudev-1.0.so.0                   libvpx.so.1
+libgudev-1.0.so.0.2.0               libvpx.so.1.3
+libguile-2.0.so.22                  libvpx.so.1.3.0
+libguile-2.0.so.22.7.2              libwbclient.so.0
+libguilereadline-v-18.so            libwbclient.so.0.12
+libguilereadline-v-18.so.18         libX11.so.6
+libguilereadline-v-18.so.18.0.0     libX11.so.6.3.0
+libgusb.so.2                        libX11-xcb.so.1
+libgusb.so.2.0.3                    libX11-xcb.so.1.0.0
+libgutenprint.so.2                  libXau.so.6
+libgutenprint.so.2.3.0              libXau.so.6.0.0
+libharfbuzz.so.0                    libXaw7.so.7
+libharfbuzz.so.0.935.0              libXaw7.so.7.0.0
+libhogweed.so.2                     libXaw.so.7
+libhogweed.so.2.5                   libxcb-dri2.so.0
+libICE.so.6                         libxcb-dri2.so.0.0.0
+libICE.so.6.3.0                     libxcb-dri3.so.0
+libicudata.so.52                    libxcb-dri3.so.0.0.0
+libicudata.so.52.1                  libxcb-glx.so.0
+libicui18n.so.52                    libxcb-glx.so.0.0.0
+libicui18n.so.52.1                  libxcb-present.so.0
+libicuio.so.52                      libxcb-present.so.0.0.0
+libicuio.so.52.1                    libxcb-render.so.0
+libicule.so.52                      libxcb-render.so.0.0.0
+libicule.so.52.1                    libxcb-shape.so.0
+libiculx.so.52                      libxcb-shape.so.0.0.0
+libiculx.so.52.1                    libxcb-shm.so.0
+libicutest.so.52                    libxcb-shm.so.0.0.0
+libicutest.so.52.1                  libxcb.so.1
+libicutu.so.52                      libxcb.so.1.1.0
+libicutu.so.52.1                    libxcb-sync.so.1
+libicuuc.so.52                      libxcb-sync.so.1.0.0
+libicuuc.so.52.1                    libXcomposite.so.1
+libidn.so.11                        libXcomposite.so.1.0.0
+libidn.so.11.6.12                   libXcursor.so.1
+libieee1284.so.3                    libXcursor.so.1.0.2
+libieee1284.so.3.2.2                libXdamage.so.1
+libieee.a                           libXdamage.so.1.1.0
+libijs-0.35.so                      libXdmcp.so.6
+libisl.so.10                        libXdmcp.so.6.0.0
+libisl.so.10.2.2                    libXext.so.6
+libjasper.so.1                      libXext.so.6.4.0
+libjasper.so.1.0.0                  libXfixes.so.3
+libjbig.so.0                        libXfixes.so.3.1.0
+libjim.so.0.75                      libXft.so.2
+libjpeg.so.62                       libXft.so.2.3.2
+libjpeg.so.62.1.0                   libXinerama.so.1
+libjpeg.so.8                        libXinerama.so.1.0.0
+libjpeg.so.8.4.0                    libXi.so.6
+libk5crypto.so.3                    libXi.so.6.1.0
+libk5crypto.so.3.1                  libxml2.so.2
+libkrb5.so.3                        libxml2.so.2.9.1
+libkrb5.so.3.3                      libXmu.so.6
+libkrb5support.so.0                 libXmu.so.6.2.0
+libkrb5support.so.0.1               libXmuu.so.1
+libkyotocabinet.so.16               libXmuu.so.1.0.0
+libkyotocabinet.so.16.13.0          libXpm.so.4
+liblber-2.4.so.2                    libXpm.so.4.11.0
+liblber-2.4.so.2.10.3               libXrandr.so.2
+liblcms2.so.2                       libXrandr.so.2.2.0
+liblcms2.so.2.0.6                   libXrender.so.1
+libldap-2.4.so.2                    libXrender.so.1.3.0
+libldap_r-2.4.so.2                  libxshmfence.so.1
+libldap_r-2.4.so.2.10.3             libxshmfence.so.1.0.0
+libLLVM-3.9.so                      libXt.so.6
+libLLVM-3.9.so.1                    libXt.so.6.0.0
+liblogging-stdlog.so.0              libXtst.so.6
+liblogging-stdlog.so.0.0.0          libXtst.so.6.1.0
+liblognorm.so.1                     libXv.so.1
+liblognorm.so.1.0.0                 libXv.so.1.0.0
+libltdl.a                           libXxf86dga.so.1
+libltdl.la                          libXxf86dga.so.1.0.0
+libltdl.so                          libXxf86vm.so.1
+libltdl.so.7                        libXxf86vm.so.1.0.0
+libltdl.so.7.3.0                    libz.a
+liblua5.2.so.0                      libz.so
+liblua5.2.so.0.0.0                  lognorm
+libm.a                              mailutils
+libmagic.so.1                       Mcrt1.o
+libmagic.so.1.0.0                   nss
+libmailutils.so.4                   openssl-1.0.0
+libmailutils.so.4.0.0               perl
+libmcheck.a                         perl5
+libmenu.so.5                        pkgconfig
+libmenu.so.5.9                      plymouth
+libmenuw.so.5                       polkit-1
+libmenuw.so.5.9                     qt4
+libmng.so.1                         qtchooser
+libmng.so.1.1.0.10                  qt-default
+libmpc.so.3                         rpm-plugins
+libmpc.so.3.0.0                     samba
+libmpfr.so.4                        sane
+libmpfr.so.4.1.2                    sasl2
+libm.so                             Scrt1.o
+libmu_auth.so.4                     vfp
+pi@raspi:/usr/lib/arm-linux-gnueabihf $ ls | grep libturbo
+pi@raspi:/usr/lib/arm-linux-gnueabihf $ ls | grep turbo
+pi@raspi:/usr/lib/arm-linux-gnueabihf $ ls | grep jpeg
+libjpeg.so.62
+libjpeg.so.62.1.0
+libjpeg.so.8
+libjpeg.so.8.4.0
+libopenjpeg_JPWL.so.1.5.2
+libopenjpeg_JPWL.so.5
+libopenjpeg.so.1.5.2
+libopenjpeg.so.5
+pi@raspi:/usr/lib/arm-linux-gnueabihf $ cd /
+pi@raspi:/ $ cd
+pi@raspi:~ $ sudo mount -o remount,rw /
+pi@raspi:~ $ sudo apt install libturbojpeg
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+Package libturbojpeg is not available, but is referred to by another package.
+This may mean that the package is missing, has been obsoleted, or
+is only available from another source
+However the following packages replace it:
+  libturbojpeg1
+
+E: Package 'libturbojpeg' has no installation candidate
+pi@raspi:~ $ sudo apt install libturbojpeg1
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following NEW packages will be installed:
+  libturbojpeg1
+0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
+Need to get 104 kB of archives.
+After this operation, 259 kB of additional disk space will be used.
+Get:1 http://mirrordirector.raspbian.org/raspbian/ jessie/main libturbojpeg1 arm                                                hf 1:1.3.1-12 [104 kB]
+Fetched 104 kB in 5s (20.2 kB/s)
+Selecting previously unselected package libturbojpeg1:armhf.
+(Reading database ... 40580 files and directories currently installed.)
+Preparing to unpack .../libturbojpeg1_1%3a1.3.1-12_armhf.deb ...
+Unpacking libturbojpeg1:armhf (1:1.3.1-12) ...
+Setting up libturbojpeg1:armhf (1:1.3.1-12) ...
+Processing triggers for libc-bin (2.19-18+deb8u7) ...
+pi@raspi:~ $ cd /usr/lib/arm-linux-gnueabihf/
+pi@raspi:/usr/lib/arm-linux-gnueabihf $ ls | grep turbo
+libturbojpeg.so.1
+libturbojpeg.so.1.3.1
+pi@raspi:/usr/lib/arm-linux-gnueabihf $ sudo ln -s libturbojpeg.so.1 libturbojpe                                                g.so
+pi@raspi:/usr/lib/arm-linux-gnueabihf $ ls | grep turbo                                                                         libturbojpeg.so
+libturbojpeg.so.1
+libturbojpeg.so.1.3.1
+pi@raspi:/usr/lib/arm-linux-gnueabihf $ sudo cmake --version
+sudo: cmake: command not found
+pi@raspi:/usr/lib/arm-linux-gnueabihf $ sudo apt install cmake
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following extra packages will be installed:
+  cmake-data libarchive13 libjsoncpp0
+Suggested packages:
+  codeblocks eclipse ninja-build lrzip
+The following NEW packages will be installed:
+  cmake cmake-data libarchive13 libjsoncpp0
+0 upgraded, 4 newly installed, 0 to remove and 0 not upgraded.
+Need to get 3,839 kB of archives.
+After this operation, 19.1 MB of additional disk space will be used.
+Do you want to continue? [Y/n] y
+Get:1 http://archive.raspberrypi.org/debian/ jessie/main cmake-data all 3.6.2-2~                                                bpo8+1 [1,168 kB]
+Get:2 http://mirrordirector.raspbian.org/raspbian/ jessie/main libarchive13 armh                                                f 3.1.2-11+deb8u3 [231 kB]
+Get:3 http://mirrordirector.raspbian.org/raspbian/ jessie/main libjsoncpp0 armhf                                                 0.6.0~rc2-3.1 [61.1 kB]
+Get:4 http://archive.raspberrypi.org/debian/ jessie/main cmake armhf 3.6.2-2~bpo                                                8+1 [2,379 kB]
+Fetched 3,839 kB in 1min 42s (37.5 kB/s)
+Selecting previously unselected package cmake-data.
+(Reading database ... 40587 files and directories currently installed.)
+Preparing to unpack .../cmake-data_3.6.2-2~bpo8+1_all.deb ...
+Unpacking cmake-data (3.6.2-2~bpo8+1) ...
+Selecting previously unselected package libarchive13:armhf.
+Preparing to unpack .../libarchive13_3.1.2-11+deb8u3_armhf.deb ...
+Unpacking libarchive13:armhf (3.1.2-11+deb8u3) ...
+Selecting previously unselected package libjsoncpp0.
+Preparing to unpack .../libjsoncpp0_0.6.0~rc2-3.1_armhf.deb ...
+Unpacking libjsoncpp0 (0.6.0~rc2-3.1) ...
+Selecting previously unselected package cmake.
+Preparing to unpack .../cmake_3.6.2-2~bpo8+1_armhf.deb ...
+Unpacking cmake (3.6.2-2~bpo8+1) ...
+Processing triggers for man-db (2.7.0.2-5) ...
+Setting up cmake-data (3.6.2-2~bpo8+1) ...
+Setting up libarchive13:armhf (3.1.2-11+deb8u3) ...
+Setting up libjsoncpp0 (0.6.0~rc2-3.1) ...
+Setting up cmake (3.6.2-2~bpo8+1) ...
+Processing triggers for libc-bin (2.19-18+deb8u7) ...
+pi@raspi:/usr/lib/arm-linux-gnueabihf $ cd
+pi@raspi:~ $ git --version
+-bash: git: command not found
+pi@raspi:~ $ sudo apt install git
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following extra packages will be installed:
+  git-man liberror-perl
+Suggested packages:
+  git-daemon-run git-daemon-sysvinit git-doc git-el git-email git-gui gitk
+  gitweb git-arch git-cvs git-mediawiki git-svn
+The following NEW packages will be installed:
+  git git-man liberror-perl
+0 upgraded, 3 newly installed, 0 to remove and 0 not upgraded.
+Need to get 4,015 kB of archives.
+After this operation, 20.4 MB of additional disk space will be used.
+Do you want to continue? [Y/n] y
+Get:1 http://mirrordirector.raspbian.org/raspbian/ jessie/main liberror-perl all                                                 0.17-1.1 [22.4 kB]
+Get:2 http://mirrordirector.raspbian.org/raspbian/ jessie/main git-man all 1:2.1                                                .4-2.1+deb8u2 [1,267 kB]
+Get:3 http://mirrordirector.raspbian.org/raspbian/ jessie/main git armhf 1:2.1.4                                                -2.1+deb8u2 [2,725 kB]
+Fetched 4,015 kB in 1min 15s (53.4 kB/s)
+Selecting previously unselected package liberror-perl.
+(Reading database ... 42673 files and directories currently installed.)
+Preparing to unpack .../liberror-perl_0.17-1.1_all.deb ...
+Unpacking liberror-perl (0.17-1.1) ...
+Selecting previously unselected package git-man.
+Preparing to unpack .../git-man_1%3a2.1.4-2.1+deb8u2_all.deb ...
+Unpacking git-man (1:2.1.4-2.1+deb8u2) ...
+Selecting previously unselected package git.
+Preparing to unpack .../git_1%3a2.1.4-2.1+deb8u2_armhf.deb ...
+Unpacking git (1:2.1.4-2.1+deb8u2) ...
+Processing triggers for man-db (2.7.0.2-5) ...
+Setting up liberror-perl (0.17-1.1) ...
+Setting up git-man (1:2.1.4-2.1+deb8u2) ...
+Setting up git (1:2.1.4-2.1+deb8u2) ...
+pi@raspi:~ $ sudo git clone https://github.com//pupil-labs/libuvc
+Cloning into 'libuvc'...
+remote: Counting objects: 696, done.
+remote: Total 696 (delta 0), reused 0 (delta 0), pack-reused 696
+Receiving objects: 100% (696/696), 376.91 KiB | 83.00 KiB/s, done.
+Resolving deltas: 100% (414/414), done.
+Checking connectivity... done.
+pi@raspi:~ $ ls
+libuvc  scan.txt
+pi@raspi:~ $ cd libuvc/
+pi@raspi:~/libuvc $ sudo mkdir build
+pi@raspi:~/libuvc $ cd build/
+pi@raspi:~/libuvc/build $ sudo cmake ..
+-- The C compiler identification is GNU 4.9.2
+-- The CXX compiler identification is GNU 4.9.2
+-- Check for working C compiler: /usr/bin/cc
+-- Check for working C compiler: /usr/bin/cc -- works
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Check for working CXX compiler: /usr/bin/c++
+-- Check for working CXX compiler: /usr/bin/c++ -- works
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- No build type selected, default to Release
+-- No target type selected, default to shared library
+CMake Warning at CMakeLists.txt:71 (message):
+  JPEG not found.  libuvc will not support JPEG decoding.
+
+
+CMake Error: The following variables are used in this project, but they are set                                                 to NOTFOUND.
+Please set them or make sure they are set and tested correctly in the CMake file                                                s:
+LIBUSB_INCLUDE_DIR
+   used as include directory in directory /home/pi/libuvc
+   used as include directory in directory /home/pi/libuvc
+   used as include directory in directory /home/pi/libuvc
+   used as include directory in directory /home/pi/libuvc
+   used as include directory in directory /home/pi/libuvc
+   used as include directory in directory /home/pi/libuvc
+   used as include directory in directory /home/pi/libuvc
+LIBUSB_LIBRARY_NAMES
+    linked by target "uvc" in directory /home/pi/libuvc
+
+-- Configuring incomplete, errors occurred!
+See also "/home/pi/libuvc/build/CMakeFiles/CMakeOutput.log".
+pi@raspi:~/libuvc/build $ sudo apt install libusb
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+E: Unable to locate package libusb
+pi@raspi:~/libuvc/build $ python --version
+Python 2.7.9
+pi@raspi:~/libuvc/build $ pip --version
+-bash: pip: command not found
+pi@raspi:~/libuvc/build $ sudo apt install pip
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+E: Unable to locate package pip
+pi@raspi:~/libuvc/build $ sudo apt install python-pip
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following extra packages will be installed:
+  python-chardet python-colorama python-distlib python-html5lib python-ndg-httpsclient python-openssl python-pkg-resources
+  python-pyasn1 python-requests python-setuptools python-six python-urllib3 python-wheel
+Suggested packages:
+  python-genshi python-lxml python-openssl-doc python-openssl-dbg python-distribute python-distribute-doc doc-base
+Recommended packages:
+  python-dev-all
+The following NEW packages will be installed:
+  python-chardet python-colorama python-distlib python-html5lib python-ndg-httpsclient python-openssl python-pip
+  python-pkg-resources python-pyasn1 python-requests python-setuptools python-six python-urllib3 python-wheel
+0 upgraded, 14 newly installed, 0 to remove and 0 not upgraded.
+Need to get 1,209 kB of archives.
+After this operation, 5,041 kB of additional disk space will be used.
+Do you want to continue? [Y/n] y
+Get:1 http://mirrordirector.raspbian.org/raspbian/ jessie/main python-pkg-resources all 5.5.1-1 [64.4 kB]
+Get:2 http://mirrordirector.raspbian.org/raspbian/ jessie/main python-chardet all 2.3.0-1 [96.2 kB]
+Get:3 http://mirrordirector.raspbian.org/raspbian/ jessie/main python-colorama all 0.3.2-1 [20.3 kB]
+Get:4 http://mirrordirector.raspbian.org/raspbian/ jessie/main python-distlib all 0.1.9-1 [113 kB]
+Get:5 http://mirrordirector.raspbian.org/raspbian/ jessie/main python-six all 1.8.0-1 [12.6 kB]
+Get:6 http://mirrordirector.raspbian.org/raspbian/ jessie/main python-html5lib all 0.999-3 [84.0 kB]
+Get:7 http://mirrordirector.raspbian.org/raspbian/ jessie/main python-openssl armhf 0.13.1-2 [85.5 kB]
+Get:8 http://mirrordirector.raspbian.org/raspbian/ jessie/main python-ndg-httpsclient all 0.3.2-1 [20.5 kB]
+Get:9 http://mirrordirector.raspbian.org/raspbian/ jessie/main python-urllib3 all 1.9.1-3 [55.4 kB]
+Get:10 http://mirrordirector.raspbian.org/raspbian/ jessie/main python-requests all 2.4.3-6 [204 kB]
+Get:11 http://mirrordirector.raspbian.org/raspbian/ jessie/main python-setuptools all 5.5.1-1 [242 kB]
+Get:12 http://mirrordirector.raspbian.org/raspbian/ jessie/main python-pip all 1.5.6-5 [114 kB]
+Get:13 http://mirrordirector.raspbian.org/raspbian/ jessie/main python-pyasn1 all 0.1.7-1 [49.3 kB]
+Get:14 http://mirrordirector.raspbian.org/raspbian/ jessie/main python-wheel all 0.24.0-1 [47.5 kB]
+Fetched 1,209 kB in 26s (45.3 kB/s)
+Selecting previously unselected package python-pkg-resources.
+(Reading database ... 43444 files and directories currently installed.)
+Preparing to unpack .../python-pkg-resources_5.5.1-1_all.deb ...
+Unpacking python-pkg-resources (5.5.1-1) ...
+Selecting previously unselected package python-chardet.
+Preparing to unpack .../python-chardet_2.3.0-1_all.deb ...
+Unpacking python-chardet (2.3.0-1) ...
+Selecting previously unselected package python-colorama.
+Preparing to unpack .../python-colorama_0.3.2-1_all.deb ...
+Unpacking python-colorama (0.3.2-1) ...
+Selecting previously unselected package python-distlib.
+Preparing to unpack .../python-distlib_0.1.9-1_all.deb ...
+Unpacking python-distlib (0.1.9-1) ...
+Selecting previously unselected package python-six.
+Preparing to unpack .../python-six_1.8.0-1_all.deb ...
+Unpacking python-six (1.8.0-1) ...
+Selecting previously unselected package python-html5lib.
+Preparing to unpack .../python-html5lib_0.999-3_all.deb ...
+Unpacking python-html5lib (0.999-3) ...
+Selecting previously unselected package python-openssl.
+Preparing to unpack .../python-openssl_0.13.1-2_armhf.deb ...
+Unpacking python-openssl (0.13.1-2) ...
+Selecting previously unselected package python-ndg-httpsclient.
+Preparing to unpack .../python-ndg-httpsclient_0.3.2-1_all.deb ...
+Unpacking python-ndg-httpsclient (0.3.2-1) ...
+Selecting previously unselected package python-urllib3.
+Preparing to unpack .../python-urllib3_1.9.1-3_all.deb ...
+Unpacking python-urllib3 (1.9.1-3) ...
+Selecting previously unselected package python-requests.
+Preparing to unpack .../python-requests_2.4.3-6_all.deb ...
+Unpacking python-requests (2.4.3-6) ...
+Selecting previously unselected package python-setuptools.
+Preparing to unpack .../python-setuptools_5.5.1-1_all.deb ...
+Unpacking python-setuptools (5.5.1-1) ...
+Selecting previously unselected package python-pip.
+Preparing to unpack .../python-pip_1.5.6-5_all.deb ...
+Unpacking python-pip (1.5.6-5) ...
+Selecting previously unselected package python-pyasn1.
+Preparing to unpack .../python-pyasn1_0.1.7-1_all.deb ...
+Unpacking python-pyasn1 (0.1.7-1) ...
+Selecting previously unselected package python-wheel.
+Preparing to unpack .../python-wheel_0.24.0-1_all.deb ...
+Unpacking python-wheel (0.24.0-1) ...
+Processing triggers for man-db (2.7.0.2-5) ...
+Setting up python-pkg-resources (5.5.1-1) ...
+Setting up python-chardet (2.3.0-1) ...
+Setting up python-colorama (0.3.2-1) ...
+Setting up python-distlib (0.1.9-1) ...
+Setting up python-six (1.8.0-1) ...
+Setting up python-html5lib (0.999-3) ...
+Setting up python-openssl (0.13.1-2) ...
+Setting up python-ndg-httpsclient (0.3.2-1) ...
+Setting up python-urllib3 (1.9.1-3) ...
+Setting up python-requests (2.4.3-6) ...
+Setting up python-setuptools (5.5.1-1) ...
+Setting up python-pip (1.5.6-5) ...
+Setting up python-pyasn1 (0.1.7-1) ...
+Setting up python-wheel (0.24.0-1) ...
+Processing triggers for python-support (1.0.15) ...
+pi@raspi:~/libuvc/build $ sudo apt install python-dev
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following extra packages will be installed:
+  libexpat1-dev libpython-dev libpython2.7-dev python2.7-dev
+The following NEW packages will be installed:
+  libexpat1-dev libpython-dev libpython2.7-dev python-dev python2.7-dev
+0 upgraded, 5 newly installed, 0 to remove and 0 not upgraded.
+Need to get 18.3 MB of archives.
+After this operation, 26.3 MB of additional disk space will be used.
+Do you want to continue? [Y/n] y
+Get:1 http://mirrordirector.raspbian.org/raspbian/ jessie/main libexpat1-dev armhf 2.1.0-6+deb8u3 [115 kB]
+Get:2 http://mirrordirector.raspbian.org/raspbian/ jessie/main python-dev armhf 2.7.9-1 [1,188 B]
+Get:3 http://mirrordirector.raspbian.org/raspbian/ jessie/main libpython2.7-dev armhf 2.7.9-2+deb8u1 [17.9 MB]
+Get:4 http://mirrordirector.raspbian.org/raspbian/ jessie/main libpython-dev armhf 2.7.9-1 [19.6 kB]
+Get:5 http://mirrordirector.raspbian.org/raspbian/ jessie/main python2.7-dev armhf 2.7.9-2+deb8u1 [287 kB]
+Fetched 18.3 MB in 4min 17s (71.2 kB/s)
+Selecting previously unselected package libexpat1-dev:armhf.
+(Reading database ... 44083 files and directories currently installed.)
+Preparing to unpack .../libexpat1-dev_2.1.0-6+deb8u3_armhf.deb ...
+Unpacking libexpat1-dev:armhf (2.1.0-6+deb8u3) ...
+Selecting previously unselected package libpython2.7-dev:armhf.
+Preparing to unpack .../libpython2.7-dev_2.7.9-2+deb8u1_armhf.deb ...
+Unpacking libpython2.7-dev:armhf (2.7.9-2+deb8u1) ...
+Selecting previously unselected package libpython-dev:armhf.
+Preparing to unpack .../libpython-dev_2.7.9-1_armhf.deb ...
+Unpacking libpython-dev:armhf (2.7.9-1) ...
+Selecting previously unselected package python2.7-dev.
+Preparing to unpack .../python2.7-dev_2.7.9-2+deb8u1_armhf.deb ...
+Unpacking python2.7-dev (2.7.9-2+deb8u1) ...
+Selecting previously unselected package python-dev.
+Preparing to unpack .../python-dev_2.7.9-1_armhf.deb ...
+Unpacking python-dev (2.7.9-1) ...
+Processing triggers for man-db (2.7.0.2-5) ...
+Setting up libexpat1-dev:armhf (2.1.0-6+deb8u3) ...
+Setting up libpython2.7-dev:armhf (2.7.9-2+deb8u1) ...
+Setting up libpython-dev:armhf (2.7.9-1) ...
+Setting up python2.7-dev (2.7.9-2+deb8u1) ...
+Setting up python-dev (2.7.9-1) ...
+pi@raspi:~/libuvc/build $ cd
+pi@raspi:~ $ ls
+libuvc  scan.txt
+pi@raspi:~ $ sudo rm -rf libuvc
+pi@raspi:~ $ sudo git clone https://github.com/ktossell/libuvc
+Cloning into 'libuvc'...
+remote: Counting objects: 636, done.
+remote: Total 636 (delta 0), reused 0 (delta 0), pack-reused 636
+Receiving objects: 100% (636/636), 347.59 KiB | 163.00 KiB/s, done.
+Resolving deltas: 100% (367/367), done.
+Checking connectivity... done.
+pi@raspi:~ $ ls
+libuvc  scan.txt
+pi@raspi:~ $ cd libuvc/
+pi@raspi:~/libuvc $ ls
+cameras        CMakeLists.txt  include                libuvcConfigVersion.cmake.in  README.md  standard-units.yaml
+changelog.txt  doxygen.conf    libuvcConfig.cmake.in  LICENSE.txt                   src
+pi@raspi:~/libuvc $ sudo mkdir build
+pi@raspi:~/libuvc $ cd build/
+pi@raspi:~/libuvc/build $ sudo cmake ..
+-- The C compiler identification is GNU 4.9.2
+-- The CXX compiler identification is GNU 4.9.2
+-- Check for working C compiler: /usr/bin/cc
+-- Check for working C compiler: /usr/bin/cc -- works
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Check for working CXX compiler: /usr/bin/c++
+-- Check for working CXX compiler: /usr/bin/c++ -- works
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- No build type selected, default to Release
+-- No target type selected, default to shared library
+-- Found PkgConfig: /usr/bin/pkg-config (found version "0.28")
+-- Checking for module 'libusb-1.0'
+--   No package 'libusb-1.0' found
+CMake Warning at CMakeLists.txt:53 (message):
+  JPEG not found.  libuvc will not support JPEG decoding.
+
+
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/pi/libuvc/build
+pi@raspi:~/libuvc/build $ sudo apt install libusb-1.0
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+Note, selecting 'libusb-1.0-0-dbg' for regex 'libusb-1.0'
+Note, selecting 'libusb-1.0-0-dev' for regex 'libusb-1.0'
+Note, selecting 'libusb-1.0-doc' for regex 'libusb-1.0'
+Note, selecting 'libusb-1.0-0' for regex 'libusb-1.0'
+libusb-1.0-0 is already the newest version.
+libusb-1.0-0 set to manually installed.
+The following NEW packages will be installed:
+  libusb-1.0-0-dbg libusb-1.0-0-dev libusb-1.0-doc
+0 upgraded, 3 newly installed, 0 to remove and 0 not upgraded.
+Need to get 260 kB of archives.
+After this operation, 1,611 kB of additional disk space will be used.
+Do you want to continue? [Y/n] y
+Get:1 http://mirrordirector.raspbian.org/raspbian/ jessie/main libusb-1.0-0-dev armhf 2:1.0.19-1 [57.3 kB]
+Get:2 http://mirrordirector.raspbian.org/raspbian/ jessie/main libusb-1.0-doc all 2:1.0.19-1 [120 kB]
+Get:3 http://mirrordirector.raspbian.org/raspbian/ jessie/main libusb-1.0-0-dbg armhf 2:1.0.19-1 [82.6 kB]
+Fetched 260 kB in 6s (41.8 kB/s)
+Selecting previously unselected package libusb-1.0-0-dev:armhf.
+(Reading database ... 44247 files and directories currently installed.)
+Preparing to unpack .../libusb-1.0-0-dev_2%3a1.0.19-1_armhf.deb ...
+Unpacking libusb-1.0-0-dev:armhf (2:1.0.19-1) ...
+Selecting previously unselected package libusb-1.0-doc.
+Preparing to unpack .../libusb-1.0-doc_2%3a1.0.19-1_all.deb ...
+Unpacking libusb-1.0-doc (2:1.0.19-1) ...
+Selecting previously unselected package libusb-1.0-0-dbg:armhf.
+Preparing to unpack .../libusb-1.0-0-dbg_2%3a1.0.19-1_armhf.deb ...
+Unpacking libusb-1.0-0-dbg:armhf (2:1.0.19-1) ...
+Setting up libusb-1.0-0-dev:armhf (2:1.0.19-1) ...
+Setting up libusb-1.0-doc (2:1.0.19-1) ...
+Setting up libusb-1.0-0-dbg:armhf (2:1.0.19-1) ...
+pi@raspi:~/libuvc/build $ sudo cmake ..
+-- Checking for module 'libusb-1.0'
+--   Found libusb-1.0, version 1.0.19
+CMake Warning at CMakeLists.txt:53 (message):
+  JPEG not found.  libuvc will not support JPEG decoding.
+
+
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/pi/libuvc/build
+pi@raspi:~/libuvc/build $ sudo apt install libjpeg
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+E: Unable to locate package libjpeg
+pi@raspi:~/libuvc/build $ sudo apt install libjpegdev
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+E: Unable to locate package libjpegdev
+pi@raspi:~/libuvc/build $ sudo apt install libjpeg-turbo8-dev
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+Package libjpeg-turbo8-dev is not available, but is referred to by another package.
+This may mean that the package is missing, has been obsoleted, or
+is only available from another source
+
+E: Package 'libjpeg-turbo8-dev' has no installation candidate
+pi@raspi:~/libuvc/build $ sudo apt install libjpeg-turbo-dev
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+E: Unable to locate package libjpeg-turbo-dev
+pi@raspi:~/libuvc/build $ sudo apt install libjpeg-turbo62-dev
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+E: Unable to locate package libjpeg-turbo62-dev
+pi@raspi:~/libuvc/build $ sudo apt install libjpeg62-turbo-dev
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following NEW packages will be installed:
+  libjpeg62-turbo-dev
+0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
+Need to get 400 kB of archives.
+After this operation, 1,794 kB of additional disk space will be used.
+Get:1 http://mirrordirector.raspbian.org/raspbian/ jessie/main libjpeg62-turbo-dev armhf 1:1.3.1-12 [400 kB]
+Fetched 400 kB in 9s (44.4 kB/s)
+Selecting previously unselected package libjpeg62-turbo-dev:armhf.
+(Reading database ... 44341 files and directories currently installed.)
+Preparing to unpack .../libjpeg62-turbo-dev_1%3a1.3.1-12_armhf.deb ...
+Unpacking libjpeg62-turbo-dev:armhf (1:1.3.1-12) ...
+Setting up libjpeg62-turbo-dev:armhf (1:1.3.1-12) ...
+pi@raspi:~/libuvc/build $ sudo cmake ..
+-- Building libuvc with JPEG support.
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/pi/libuvc/build
+pi@raspi:~/libuvc/build $ sudo make
+Scanning dependencies of target uvc
+[ 10%] Building C object CMakeFiles/uvc.dir/src/ctrl.c.o
+[ 20%] Building C object CMakeFiles/uvc.dir/src/ctrl-gen.c.o
+[ 30%] Building C object CMakeFiles/uvc.dir/src/device.c.o
+[ 40%] Building C object CMakeFiles/uvc.dir/src/diag.c.o
+[ 50%] Building C object CMakeFiles/uvc.dir/src/frame.c.o
+[ 60%] Building C object CMakeFiles/uvc.dir/src/init.c.o
+[ 70%] Building C object CMakeFiles/uvc.dir/src/stream.c.o
+[ 80%] Building C object CMakeFiles/uvc.dir/src/misc.c.o
+[ 90%] Building C object CMakeFiles/uvc.dir/src/frame-mjpeg.c.o
+[100%] Linking C shared library libuvc.so
+[100%] Built target uvc
+pi@raspi:~/libuvc/build $ ls
+CMakeCache.txt  CMakeFiles  cmake_install.cmake  include  libuvcConfigVersion.cmake  libuvc.so  libuvcTargets.cmake  Makefile
+pi@raspi:~/libuvc/build $ sudo make install
+[100%] Built target uvc
+Install the project...
+-- Install configuration: "Release"
+-- Installing: /usr/local/lib/libuvc.so
+-- Installing: /usr/local/include/libuvc/libuvc.h
+-- Installing: /usr/local/include/libuvc/libuvc_config.h
+-- Installing: /usr/local/lib/cmake/libuvc/libuvcConfig.cmake
+-- Installing: /usr/local/lib/cmake/libuvc/libuvcConfigVersion.cmake
+-- Installing: /usr/local/lib/cmake/libuvc/libuvcTargets.cmake
+-- Installing: /usr/local/lib/cmake/libuvc/libuvcTargets-release.cmake
+pi@raspi:~/libuvc/build $ sudo pip install cython
+Downloading/unpacking cython
+  Downloading Cython-0.25.2.tar.gz (1.7MB): 1.7MB downloaded
+  Running setup.py (path:/tmp/pip-build-HPCGbN/cython/setup.py) egg_info for package cython
+    Unable to find pgen, not compiling formal grammar.
+
+    warning: no files found matching '*.pyx' under directory 'Cython/Debugger/Tests'
+    warning: no files found matching '*.pxd' under directory 'Cython/Debugger/Tests'
+    warning: no files found matching '*.h' under directory 'Cython/Debugger/Tests'
+    warning: no files found matching '*.pxd' under directory 'Cython/Utility'
+Installing collected packages: cython
+  Running setup.py install for cython
+    Unable to find pgen, not compiling formal grammar.
+    cythoning /tmp/pip-build-HPCGbN/cython/Cython/Plex/Scanners.py to /tmp/pip-build-HPCGbN/cython/Cython/Plex/Scanners.c
+    building 'Cython.Plex.Scanners' extension
+    arm-linux-gnueabihf-gcc -pthread -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -fno-strict-aliasing -D_FORTIFY_SOURCE=2 -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC -I/usr/include/python2.7 -c /tmp/pip-build-HPCGbN/cython/Cython/Plex/Scanners.c -o build/temp.linux-armv7l-2.7/tmp/pip-build-HPCGbN/cython/Cython/Plex/Scanners.o
+    arm-linux-gnueabihf-gcc -pthread -shared -Wl,-O1 -Wl,-Bsymbolic-functions -Wl,-z,relro -fno-strict-aliasing -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -D_FORTIFY_SOURCE=2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wl,-z,relro -D_FORTIFY_SOURCE=2 -g -fstack-protector-strong -Wformat -Werror=format-security build/temp.linux-armv7l-2.7/tmp/pip-build-HPCGbN/cython/Cython/Plex/Scanners.o -o build/lib.linux-armv7l-2.7/Cython/Plex/Scanners.so
+    cythoning /tmp/pip-build-HPCGbN/cython/Cython/Plex/Actions.py to /tmp/pip-build-HPCGbN/cython/Cython/Plex/Actions.c
+    building 'Cython.Plex.Actions' extension
+    arm-linux-gnueabihf-gcc -pthread -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -fno-strict-aliasing -D_FORTIFY_SOURCE=2 -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC -I/usr/include/python2.7 -c /tmp/pip-build-HPCGbN/cython/Cython/Plex/Actions.c -o build/temp.linux-armv7l-2.7/tmp/pip-build-HPCGbN/cython/Cython/Plex/Actions.o
+    arm-linux-gnueabihf-gcc -pthread -shared -Wl,-O1 -Wl,-Bsymbolic-functions -Wl,-z,relro -fno-strict-aliasing -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -D_FORTIFY_SOURCE=2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wl,-z,relro -D_FORTIFY_SOURCE=2 -g -fstack-protector-strong -Wformat -Werror=format-security build/temp.linux-armv7l-2.7/tmp/pip-build-HPCGbN/cython/Cython/Plex/Actions.o -o build/lib.linux-armv7l-2.7/Cython/Plex/Actions.so
+    cythoning /tmp/pip-build-HPCGbN/cython/Cython/Compiler/Lexicon.py to /tmp/pip-build-HPCGbN/cython/Cython/Compiler/Lexicon.c
+    building 'Cython.Compiler.Lexicon' extension
+    arm-linux-gnueabihf-gcc -pthread -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -fno-strict-aliasing -D_FORTIFY_SOURCE=2 -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC -I/usr/include/python2.7 -c /tmp/pip-build-HPCGbN/cython/Cython/Compiler/Lexicon.c -o build/temp.linux-armv7l-2.7/tmp/pip-build-HPCGbN/cython/Cython/Compiler/Lexicon.o
+    arm-linux-gnueabihf-gcc -pthread -shared -Wl,-O1 -Wl,-Bsymbolic-functions -Wl,-z,relro -fno-strict-aliasing -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -D_FORTIFY_SOURCE=2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wl,-z,relro -D_FORTIFY_SOURCE=2 -g -fstack-protector-strong -Wformat -Werror=format-security build/temp.linux-armv7l-2.7/tmp/pip-build-HPCGbN/cython/Cython/Compiler/Lexicon.o -o build/lib.linux-armv7l-2.7/Cython/Compiler/Lexicon.so
+    cythoning /tmp/pip-build-HPCGbN/cython/Cython/Compiler/Scanning.py to /tmp/pip-build-HPCGbN/cython/Cython/Compiler/Scanning.c
+    building 'Cython.Compiler.Scanning' extension
+    arm-linux-gnueabihf-gcc -pthread -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -fno-strict-aliasing -D_FORTIFY_SOURCE=2 -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC -I/usr/include/python2.7 -c /tmp/pip-build-HPCGbN/cython/Cython/Compiler/Scanning.c -o build/temp.linux-armv7l-2.7/tmp/pip-build-HPCGbN/cython/Cython/Compiler/Scanning.o
+    arm-linux-gnueabihf-gcc -pthread -shared -Wl,-O1 -Wl,-Bsymbolic-functions -Wl,-z,relro -fno-strict-aliasing -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -D_FORTIFY_SOURCE=2 -g -fstack-protector-strong -Wformat -Werror=format-security -Wl,-z,relro -D_FORTIFY_SOURCE=2 -g -fstack-protector-strong -Wformat -Werror=format-security build/temp.linux-armv7l-2.7/tmp/pip-build-HPCGbN/cython/Cython/Compiler/Scanning.o -o build/lib.linux-armv7l-2.7/Cython/Compiler/Scanning.so
+    cythoning /tmp/pip-build-HPCGbN/cython/Cython/Compiler/Parsing.py to /tmp/pip-build-HPCGbN/cython/Cython/Compiler/Parsing.c
+    building 'Cython.Compiler.Parsing' extension
+    arm-linux-gnueabihf-gcc -pthread -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -fno-strict-aliasing -D_FORTIFY_SOURCE=2 -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC -I/usr/include/python2.7 -c /tmp/pip-build-HPCGbN/cython/Cython/Compiler/Parsing.c -o build/temp.linux-armv7l-2.7/tmp/pip-build-HPCGbN/cython/Cython/Compiler/Parsing.o
+    /tmp/pip-build-HPCGbN/cython/Cython/Compiler/Parsing.c:72168:1: fatal error: error writing to /tmp/ccDvJOQV.s: No space left on device
+     }
+     ^
+    compilation terminated.
+^CCleaning up...
+Operation cancelled by user
+Storing debug log for failure in /root/.pip/pip.log
+pi@raspi:~/libuvc/build $ cd
+pi@raspi:~ $ sudo nano /etc/fstab
+pi@raspi:~ $ sudo reboot

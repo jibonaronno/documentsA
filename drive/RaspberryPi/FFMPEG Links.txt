@@ -1,0 +1,24 @@
+https://ffmpeg.org/ffmpeg-codecs.html
+https://ffmpeg.org/ffmpeg.html#Automatic-stream-selection
+https://ffmpeg.org/ffmpeg.html
+https://ffmpeg.org/documentation.html
+https://ffmpeg.org/
+
+
+https://saveriomiroddi.github.io/Converting-processing-a-video-using-ffmpeg-for-viewing-on-an-digital-media-player/
+
+https://askubuntu.com/questions/204640/how-to-stream-a-local-video-file-over-internet-using-avconv-avserver
+
+https://superuser.com/questions/877068/avconv-stream-video-from-usb-webcam-without-delay
+
+https://opensource.com/article/17/6/ffmpeg-convert-media-file-formats
+
+https://www.dacast.com/blog/how-to-broadcast-live-stream-using-ffmpeg/
+
+https://wiki.libav.org/Snippets/avconv
+
+
+Motion Project Link
+
+https://motion-project.github.io/motion_config.html
+

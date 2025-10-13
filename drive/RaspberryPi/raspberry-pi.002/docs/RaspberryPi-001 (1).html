@@ -1,0 +1,343 @@
+    <!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>RaspberryPi - 001.</title>
+
+    <!-- BEGIN syntax highlighter -->
+    <script type="text/javascript" src="sh/shCore.js"></script>
+    <script type="text/javascript" src="sh/shBrushJScript.js"></script>
+    <link type="text/css" rel="stylesheet" href="sh/shCore.css"/>
+    <link type="text/css" rel="stylesheet" href="sh/shThemeDefault.css"/>
+    <script type="text/javascript">
+      SyntaxHighlighter.all();
+    </script>
+    <!-- END syntax highlighter -->
+
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="linuxsetup.css">
+  </head>
+  <body>
+  
+  <div class="title_a"> RaspberryPi Setup and Commands.</div><br>
+  
+  <div class="content_text_gen" style="padding: 20px;font-size: 24px;font-weight: bold;">
+
+<div class="title_b">Raspberry Pi Raspbian Jassie Lite Initial Setups</div>
+
+Image downloaded in <p3>(BALLISTIC)P:\Armbian_5.25_Orangepizero_Ubuntu_xenial_default_3.4.113\2017-03-02-raspbian-jessie-lite</p3> . 
+<br />
+<h2>ssh</h2>
+
+After image burn to SD, create a new empty file named <p3>ssh</p3> in the /boot partition of the SDCARD. This partition is FAT32 . So the <p3>ssh</p3> empty file can be created from windows.<br /><br />
+
+Initial User:<p3>pi</p3> Password:<p3>raspberry</p3>.<br /><br />
+
+SSH <a href="https://www.digitalocean.com/community/tutorials/how-to-use-ssh-to-connect-to-a-remote-server-in-ubuntu">Commands Link</a><br />
+SSH to a specific port other than 22 : <br />
+<code>sudo ssh -p 3238 pi@144.48.2.11</code><br /><br />
+
+<br /><br />
+
+<div class="title_b">Raspberry Pi Low Disk R/W Setup</div>
+
+<h2><p5>Create a robust Raspberry PI setup for 24×7 operation</p5></h2>
+2014/06/25 / NARCISOCEREZO<br /><br />
+Saved in <p3>/Dropbox/Raspberry Pi/Create a robust Raspberry PI setup for 24×7 operation _ Narciso Cerezo.pdf</p3><br />
+<br />
+
+Write the ISO image : <a href="https://www.raspberrypi.org/documentation/installation/installing-images/linux.md">Installing Images</a> <br />
+<code>unmount /dev/sdd1</code> or <code>unmount mmcblk0p1</code> and <code>unmount mmcblk0p2</code> unmount all partitions of the SDCARD.<br />
+<code>dd bs=4M if=2017-02-16-raspbian-jessie.img of=/dev/sdd status=progress</code><br />
+<code>sync</code><br />
+<br />
+
+Use <code>raspi-config</code> command to set VRAM to 16Mb. <br />
+Now check <p3>/etc/fstab</p3> , it should like:<br />
+
+<pre class="brush:js;">
+proc            /proc           proc    defaults          0       0
+/dev/mmcblk0p1  /boot           vfat    defaults       0       2
+/dev/mmcblk0p2  /               ext4    noatime,defaults  0       1
+# a swapfile is not a swap partition, so no using swapon|off from here on, use  dphys-swapfile swap[on|off]  for that
+</pre><br /><br />
+
+That means that your SD cards is /dev/mmcblk0, you have partition 1 of type vfat mounted as /boot, and partition 2 of type ext4 mounted as root.
+
+<h2><p5>Create a data partition</p5></h2>
+Resize the partition using Gparted:<br /><br />
+<img alt="NO IMAGE" src="img/img005.png"><br /><br />
+
+<pre class="brush:js;">
+$ sudo fdisk /dev/mmcblk0
+Command (m for help): p
+Disk /dev/mmcblk0: 29,8 GiB, 32010928128 bytes, 62521344 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x0cf63fa8
+
+Device         Boot   Start     End Sectors  Size Id Type
+/dev/mmcblk0p1         8192  131071  122880   60M  c W95 FAT32 (LBA)
+/dev/mmcblk0p2       131072 7870463 7739392  3,7G 83 Linux
+</pre><br />
+
+<p5>Type n to create a new partition:</p5><br />
+
+<pre class="brush:js;">
+Partition type
+   p   primary (2 primary, 0 extended, 2 free)
+   e   extended (container for logical partitions)
+</pre><br /><br />
+
+<p5>We can use a primary partition, so press p (you can use an extended one if you wish).</p5>
+
+<pre class="brush:js;">
+Selected partition 4
+First sector (2048-62521343, default 2048): 7870464
+</pre><br /><br />
+
+Be careful here, it says that the default first sector is 2048 because /boot starts at 8192, but you must use the next free sector after the root partition, in this case 7870464.<br /><br />
+
+Now we choose the size, if we hit enter it will use all available space (recommended option), but we can set a specific size easily (500Mb here):<br />
+<pre class="brush:js;">
+Last sector, +sectors or +size{K,M,G,T,P} (8894464-62521343, default 62521343): +500M
+</pre><br /><br />
+
+If you type p to print the partition table it should look like:<br /><br />
+
+<pre class="brush:js;">
+Device         Boot   Start      End  Sectors  Size Id Type
+/dev/mmcblk0p1         8192   131071   122880   60M  c W95 FAT32 (LBA)
+/dev/mmcblk0p2       131072  7870463  7739392  3,7G 83 Linux
+/dev/mmcblk0p3      7870464  8894463  1024000  500M 83 Linux
+</pre><br /><br />
+
+After rebooting you need to format the partition, we’ll use ext4:<br />
+
+<pre class="brush:js;">
+sudo shutdown -r now
+
+mkfs.ext4 /dev/mmcblk0p3
+</pre><br /><br />
+
+Let’s create a mount point for our data partition:<br />
+
+And create also a folder that will need afterwards:<br />
+
+<pre class="brush:js;">
+sudo mkdir /data
+sudo mkdir /var/spool/mqueue
+</pre><br /><br />
+
+Now lets change /etc/fstab using our favorite editor, it should end up like:<br />
+
+<pre class="brush:js;">
+proc            /proc           proc    defaults          0       0
+/dev/mmcblk0p1  /boot           vfat    ro                0       0
+/dev/mmcblk0p2  /               ext4    noatime,ro        0       0
+/dev/mmcblk0p3  /data           ext4    noatime,ro        0       0
+tmpfs    /var/log    tmpfs    defaults,noatime,nosuid,mode=0755,size=50m    0 0
+tmpfs    /var/lib/sudo    tmpfs    defaults,noatime,nosuid,mode=0755,size=2m    0 0
+tmpfs    /var/spool/mqueue    tmpfs    defaults,noatime,nosuid,mode=0700,gid=12,size=30m    0 0
+tmpfs   /tmp    tmpfs   defaults,noatime,mode=1777,size=30m
+
+</pre><br /><br />
+
+So, we changed boot and root partitions to readonly (ro) and removed the chkdsk option. This last is important because sometimes, as the PI does not have a hardware clock, after reboot it will determine that a file system has changes in the future and wait for a manual fsck to be confirmed. That’s not what we want for our resilient setup.<br /><br />
+
+We added the partition 3 mounted at <p3>/data</p3> also readonly.<br /><br />
+
+And we created mount points using tmpfs (RAM file system) for several programs and processes that need to write to the filesystem to work properly. You can change the maximum amount of RAM used for that if you want, but remember that the size is the maximum, it will use only the RAM as it needs it, up to that maximum. If a mount point is empty, it will use almost no RAM.<br /><br />
+
+We will now apply a little trick to save RAM, by pointing <p3>/var/tmp</p3> to <p3>/tmp</p3> :<br />
+<pre class="brush:js;">
+$ cd /var
+$ sudo rmdir tmp
+$ sudo ln -s /tmp .
+</pre><br />
+That way /tmp and /var/tmp go to the same ram filesystem.<br />
+
+Ok, now a few tweaks to make everything work as expected.<br />
+
+<h2><p5>Prevent fsck from running at boot:</p5></h2>
+
+<pre class="brush:js;">
+sudo tune2fs -c -1 -i 0 /dev/mmcblk0p2
+sudo tune2fs -c -1 -i 0 /dev/mmcblk0p3
+</pre><br />
+
+From <p3>/boot/cmdline.txt</p3> remove the command <code>fsck.repair=yes</code> .<br /><br />
+
+<h2><p5>Remove temporary fake-hwclock files:</p5></h2>
+
+Edit <p3>/etc/cron.hourly/fake-hwclock</p3> and put an exit 0 command at the beginning.<br />
+
+<h2><p5> Logrotate configuration </p5></h2>
+Log rotate needs a place to keep track of its state to work, so we need to modify /etc/cron.daily/logrotate, adding –state /var/log/logrotate.state to the command line, so it ends up like:<br /><br />
+
+<pre class="brush:js;">
+#!/bin/sh
+
+test -x /usr/sbin/logrotate || exit 0
+/usr/sbin/logrotate --state /var/log/logrotate.state /etc/logrotate.conf
+</pre><br /><br />
+
+<h2>Now we have to remove the swap:</h2>
+
+<pre class="brush:js;">
+$ sudo update-rc.d -f dphys-swapfile remove
+$ sudo swapoff /var/swap
+$ sudo rm /var/swap
+</pre><br /><br />
+
+<h2>Finally, we disable man indexing:</h2>
+Edit <p3>/etc/cron.weekly/man-db</p3> and <p3>/etc/cron.daily/man-db</p3> and put an exit 0 command as the first line.
+<br /><br />
+And that’s it.
+You can now reboot your PI:<br />
+
+<code>sudo shutdown -r now</code><br /><br />
+
+<h2>Writing when you need it</h2>
+
+Ok, I’ve got my PI up and running, but I need to update it, add new programs, data, How do I do that?<br />
+That’s pretty easy!<br />
+You need to remount the filesystem you want to modify for writing. For example, to write something on <p3>/data</p3>:<br />
+<code>sudo mount -o remount,rw /data</code><br /><br />
+When you are finished just type:<br /><br />
+<code>sudo mount -o remount,ro /data</code><br />
+<br /><br />
+
+I did search a lot to make this possible, and a lot of credit goes to these pages and their authors:<br /><br />
+
+<a href="http://www.a-netz.de/2013/02/read-only-root-filesystem/"> http://www.a-netz.de/2013/02/read-only-root-filesystem/</a><br />
+<a href="http://www.raspberrypi.org/forums/viewtopic.php?f=29&t=22596"> http://www.raspberrypi.org/forums/viewtopic.php?f=29&t=22596</a><br />
+<a href="http://www.element14.com/community/message/67167/l/re-how-do-i-permanently-disable-the-swap-service#67167"> http://www.element14.com/community/message/67167/l/re-how-do-i-permanently-disable-the-swap-service#67167</a><br />
+<a href="http://www.cyberciti.biz/faq/linux-unix-bypassing-fsck/"> http://www.cyberciti.biz/faq/linux-unix-bypassing-fsck/</a><br /><br />
+
+<div class="title_b">Step-By-Step Testing tmpfs or RAMDISK file system transfer</div>
+As previous instruction, A disk location can be mounted on tmpfs. So that any file under that locationshould be temporary. Because tmpfs is RAMDISK filesystem module. At first I am trying to temporise the <p3>/var/log</p3> location, so that files under this location will be temporary. Added following lines to <p3>/etc/fstab</p3> . <br />
+<code>tmpfs   /var/log        tmpfs   defaults,noatime,nosuid,mode=0755,size=3m       0       0 </code><br /><br />
+
+After reboot we observed that <p3>/var/log/messages</p3> this file has only present messages.<br /><br />
+<img alt="NO IMAGE" src="img/img001.png"><br /><br />
+
+Now <code>df -h</code> reflects the changes. <br />
+<img alt="NO IMAGE" src="img/img002.png"><br /><br />
+
+Also add the following lines to <p3>/etc/fstab</p3> to temporise some other locations::<br />
+<pre class="brush:js;">
+tmpfs    /var/lib/sudo    tmpfs    defaults,noatime,nosuid,mode=0755,size=2m    0 0
+tmpfs    /var/spool/mqueue    tmpfs    defaults,noatime,nosuid,mode=0700,gid=12,size=30m    0 0
+tmpfs   /tmp    tmpfs   defaults,noatime,mode=1777,size=30m
+</pre><br /><br />
+
+Here <p3>/var/spool/mqueue</p3> is a new folder. Make this new folder before reboot. Also apply the procedure after fstab editing as listed above then reboot.<br /><br />
+
+It seems that I did made this SDCARD readonly as I could not write any files in my user location. Now it is needed to create a <p3>/data</p3> partition, but the root partition seems took maximum SDCARD spaces. 
+<br /><br />
+
+<div class="title_b">lightdm and OpenBox. startx login without password</div>
+
+Downloaded in <p3>/Dropbox/Raspberry Pi/Raspbian Lite with PIXEL_LXDE_XFCE_MATE_Openbox GUI.pdf</p3> . This full document is about to show 4 popular Desktop environment. I am now only using very basic X server without any application. Needed some tweaks to run X in read only environment. 
+
+<br /><br />
+
+Packages to install::<br /><br />
+<pre class="brush:js;">
+sudo apt-get install xserver-xorg
+sudo apt-get install openbox
+sudo apt-get install lightdm
+</pre><br /><br />
+
+lightdm writes its own data in <p3>/var/lib/lightdm</p3> location. So this location is needed to be temporise. Now I pointed the location to a read/write partition location. <br /><br />
+
+<img alt="NO IMAGE" src="img/img003.png"><br /><br />
+
+This tweaks also need to edit a config file: <p3>/etc/lightdm/lightdm.conf</p3> ::<br />
+<code>user-authority-in-system-dir=true</code><br />
+<code>autologin-user = pi</code><br />
+So that the lightdm will start X and autologin without user and password. <br /><br />
+
+<div class="title_b">Autostart A gui program after X window starts</div>
+<a href="http://openbox.org/wiki/Help:Autostart">http://openbox.org/wiki/Help:Autostart</a><br /><br />
+<img alt="NO IMAGE" src="img/img007.jpg"><br /><br />
+Create a new file as <p3> ~/.config/openbox/autostart</p3>. Then assign commands here to autostart the programs after X window starts. As we assigned a simple command <code>epiphany eurekabd.com/Doctorola/</code> to start a browser with a page.<br /> 
+Apply <code>sudo chmod a+x autostart</code>. 
+<br /><br />
+
+<h2>PyDuino_0.0.0.3 On RPi</h2>
+Install <p3>pyserial</p3><br />
+<code>sudo pip install pyserial</code><br />
+Then run pyduino.py .
+
+<br /><br />
+
+<h2>vnc vncviewer vncserver tightvncserver</h2>
+With this minimal lightdm setup I am facing a problem to run PyQt program with sudo previlage. To setup tightvncserver I followed my prevoius tutorial from <p3>/Dropbox/LINUX/DOCS/LINUXPAGES/web/development2.html</p3> . The problem is pending until find a solution.<br /><br />
+
+<div class="title_b">Some wlan iw network commands</div>
+<img alt="NO IMAGE" src="img/network001.jpeg"><br /><br />
+<img alt="NO IMAGE" src="img/network002.jpeg"><br /><br />
+Apply executable permission to all files recursively: <code>sudo chmod -R 777 /home/jibon/scripts</code><br /><br />
+
+<div class="title_b">wlan network on Raspberry Pi 2 / RaspberryPi 2 / RaspberryPi 3</div>
+Recently I am having trouble to connect to WiFi network on Raspberry Pi 2 B+. One of the solution is given in this <a href="https://learn.adafruit.com/adafruits-raspberry-pi-lesson-3-network-setup/setting-up-wifi-with-occidentalis">LINK</a>. Here folllowing are the steps:<br /><br />
+
+<p5>1</p5>. Start Raspberry Pi without WiFi Adapter plugged in.<br />
+<p5>2</p5>. Run command - <code>sudo nano /etc/network/interfaces</code> to edit this file.<br />
+<p5>3</p5>. Apply config code as follows from line <code>auto wlan0</code><br />
+<code>
+# Please note that this file is written to be used with dhcpcd<br />
+# For static IP, consult /etc/dhcpcd.conf and 'man dhcpcd.conf'<br /><br />
+
+# Include files from /etc/network/interfaces.d:<br />
+source-directory /etc/network/interfaces.d<br /><br />
+
+auto lo<br />
+iface lo inet loopback<br /><br />
+
+iface eth0 inet manual<br /><br />
+
+auto wlan0<br />
+allow-hotplug wlan0<br />
+iface wlan0 inet dhcp<br />
+    wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf<br /><br />
+
+allow-hotplug wlan1<br />
+iface wlan1 inet manual<br />
+    wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf<br />
+</code><br />
+
+<img src="img/img008.png"</br >
+
+Also uncomment the stuffs from /etc/lightdm/lightdm.conf : [VNCServer] section. <br /><br />
+
+<img src="img/img009.png"><br /><br />
+
+<pre class="brush:js;">
+</pre><br /><br />
+
+
+  <br /><br />
+ <pp>PAGE-25</pp><br />
+ <img alt="NO IMAGE" src="img/img.jpg"><br /><br />
+
+  <pre class="brush:js;">
+  </pre><br /><br />
+
+
+    <br />
+    <img alt="NO IMAGE" src="img/img.jpg"><br />
+  	<br />
+  </div>
+
+  </div>
+
+  </body>
+  
+  </html>

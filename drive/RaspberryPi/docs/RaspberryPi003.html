@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>RPi Projects</title>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <!-- BEGIN syntax highlighter -->
+    <script type="text/javascript" src="sh/shCore.js"></script>
+    <script type="text/javascript" src="sh/shBrushJScript.js"></script>
+    <link type="text/css" rel="stylesheet" href="sh/shCore.css"/>
+    <link type="text/css" rel="stylesheet" href="sh/shThemeDefault.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Gruppo" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <script type="text/javascript">
+      SyntaxHighlighter.all();
+    </script>
+    <!-- END syntax highlighter -->
+
+    <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="linuxsetup.css">
+  </head>
+  <body>
+  
+<div style="padding: 20px;font-size: 24px; line-height: 40px">
+
+<div class="title_b">RPi GPRS Dial Up</div>
+<style type="text/css">
+div[id=div-001] {
+  display: none;
+}
+  input[id=toggle-001]:checked ~ div[id=div-001] {
+    display: block;
+    }
+</style>
+<h2><label for="toggle-001">Raspberry Pi pppd over gprs</label></h2>
+<input type="checkbox" id="toggle-001" style="display: none;">
+<div id="div-001">
+Docs came from <a href="https://www.rhydolabz.com/wiki/?p=16325">https://www.rhydolabz.com/wiki/?p=16325</a> , Downloaded in 
+<p3>/drive.google/RaspberryPi/GSM _ GPRS Modem (SIM900_SIM800).pdf</p3> . <br />
+There is an error in this document. The Serial Port will be enable and Serial Console will be disable.<br />
+Also need to edit <p3>/etc/chatscripts/gprs</p3> file. <br />
+I had to modify <p3>/etc/chatscripts/gprs</p3> file to add "internet" as apn name as follows. <br />
+<img alt="NO IMAGE" src="img/png002.png"><br />
+
+After config as above docs, use command <code>sudo pon rnet</code>. Because <pp>rnet</pp> is a identity script for ppp connection in 
+<p3>/etc/ppp/peers/rnet</p3> . To edit or create a new script you must <code>cd /etc/ppp</code> then <code>sudo su</code> then 
+<code>cd peers</code> and create or edit a config file. see rnet few lines below.<br /><br />
+
+<p3>Another config file</p3><p5>/etc/ppp/peers/home</p5> To connect with my home PPTP VPN<br />
+<img alt="NO IMAGE" src="img/png003.png"><br />
+
+
+<br /><br />
+Also downloaded some examples at <p3>drive.google\RaspberryPi\ppp-example\</p3> which is not seems helpful.
+<br />
+
+<br /><br /><br />
+I did run wvdial as instructed from <a href="http://www.embeddedpi.com/documentation/3g-4g-modems/mypi-industrial-raspberry-pi-connecting-to-the-internet">This Site</a>.
+But even after connected ppp0 interface does not appear in the interface list <pp>ifconfig</pp> list. Config Files :<br />
+<p5>1.</p5><p3>/etc/wvdial.conf</p3><br />
+<pre>
+noauth
+name wvdial
+usepeerdns
+defaultroute
+replacedefaultroute
+</pre><br />
+<p5>2.</p5><p3>/etc/ppp/peers/wvdial</p3><br />
+<pre>
+
+</pre><br />
+<p5>3.</p5><p3>rnet</p3><br />
+<pre>
+  #internet is the apn for idea connection
+  connect "/usr/sbin/chat -v -f /etc/chatscripts/gprs -T internet"
+  
+  # For Raspberry Pi3 use /dev/ttyS0 as the communication port:
+  /dev/ttyS0
+  
+  # Baudrate
+  9600
+  
+  # Assumes that your IP address is allocated dynamically by the ISP.
+  noipdefault
+  
+  # Try to get the name server addresses from the ISP.
+  usepeerdns
+  
+  # Use this connection as the default route to the internet.
+  defaultroute
+  
+  # Makes PPPD "dial again" when the connection is lost.
+  #persist
+  
+  # Do not ask the remote to authenticate.
+  noauth
+  
+  # No hardware flow control on the serial link with GSM Modem
+  nocrtscts
+  
+  # No modem control lines with GSM Modem
+  local  
+</pre><br /><br />
+
+<p3>Trying to route all traffiq through ppp0 when ppp0 exist</p3>. Example of script to extract IP address of specific interface and check if 
+exist. This script could be more efficiently handled. First check if ppp0 exist.
+<pre>
+  IP=$(ifconfig ppp0 | grep inet | cut -d: -f2 |awk '{print $2}') #IP assigned post connected to ppp0 VPN
+  if [[ $IP == *"Device not found"* ]]; then
+    echo "Modem Not Connected"
+  else
+    echo $IP
+  fi
+</pre><br />
+
+Another link from <p3>sourceforgenet</p3> has pptp tunnel example::
+<a href="http://pptpclient.sourceforge.net/howto-debian.phtml#configure_by_hand">PPTP CLIENT</a>. <br />
+<img alt="NO IMAGE" src="img/png004.png"><br />
+
+<pre class="brush:js;">
+</pre><br /><br />
+<tab></tab>
+
+</div>
+
+<!-- START 002 -->
+<div class="title_b">RPi Projects</div>
+<style type="text/css">
+div[id=div-002] {
+  display: none;
+}
+  input[id=toggle-002]:checked ~ div[id=div-002] {
+    display: block;
+    }
+</style>
+<h2><label for="toggle-002">Raspberry Pi</label></h2>
+<input type="checkbox" id="toggle-002" style="display: none;">
+<div id="div-002">
+
+
+<pre class="brush:js;">
+</pre><br />
+
+<tab></tab>
+
+</div>
+<!-- END 002 -->
+
+<!-- START 003 -->
+<div class="title_b">RPi Projects</div>
+<style type="text/css">
+div[id=div-003] {
+  display: none;
+}
+  input[id=toggle-003]:checked ~ div[id=div-003] {
+    display: block;
+    }
+</style>
+<h2><label for="toggle-003">Raspberry Pi</label></h2>
+<input type="checkbox" id="toggle-003" style="display: none;">
+<div id="div-003">
+<pre class="brush:js;">
+</pre><br />
+<tab></tab>
+</div>
+<!-- END 003 -->
+
+</div>
+<!--
+<pre class="brush:js;">
+</pre><br /><br />
+-->  
+</body>
+</html>

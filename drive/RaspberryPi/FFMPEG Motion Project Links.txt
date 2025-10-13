@@ -1,0 +1,14 @@
+
+Motion Project Link
+
+Main project that works in 2020
+https://pimylifeup.com/raspberry-pi-webcam-server/
+
+https://motion-project.github.io/motion_config.html
+
+https://motion-project.github.io/motion_config.html#commandlineoptions
+
+https://motion-project.github.io/motion_guide.html
+
+
+
