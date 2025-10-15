@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Scripts 001</title>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <!-- BEGIN syntax highlighter -->
+    <script type="text/javascript" src="sh/shCore.js"></script>
+    <script type="text/javascript" src="sh/shBrushJScript.js"></script>
+    <link type="text/css" rel="stylesheet" href="sh/shCore.css"/>
+    <link type="text/css" rel="stylesheet" href="sh/shThemeDefault.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Gruppo" rel="stylesheet">
+    <script type="text/javascript">
+      SyntaxHighlighter.all();
+    </script>
+    <!-- END syntax highlighter -->
+
+    <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="linuxsetup.css">
+  </head>
+  <body>
+  
+  <div class="title_a"> Linux Scripts 001 <a href="linuxsetup.html">Previous - linuxsetup</a> </div><br>
+
+  <div class="rotateMinus90"><img alt="NO IMAGE" src="scriptimg/script001.jpeg"></div>
+  <div class="rotateMinus90"><img alt="NO IMAGE" src="scriptimg/script002.jpeg"></div><br /><br />
+  <img alt="NO IMAGE" src="scriptimg/script003.jpg"><br /><br />
+
+  <div class="content_text_gen" style="padding: 20px;font-size: 24px;font-weight: bold;">
+  <code>background-color:#CCC;</code><br />
+  This tutorials came from <a href="https://www.tutorialspoint.com/unix/unix-special-variables.htm">https://www.tutorialspoint.com/unix/unix-special-variables.htm</a> . 
+  <br /><br />
+  <p3>$?</p3> variable holds the exit status of the last command execution. Simply type <code>echo $?</code> on command prompt to show last command exit status. Generally value 0 indicates that the command executed successfully. We can observe a script in <p3>/Dropbox/ORANGE Pi/docs/OrangePi-001.html</p3> under section <pp>Network</pp> . This script helps to connect to a wifi network. The script as follows:<br />
+<pre class="brush:js;">
+#!/usr/bin/env bash
+DEV=$(iw dev | awk '/Interface/ {interf=$2} END {print interf}')
+DHCL_PIDFILE=/var/run/dhclient-$DEV.pid
+WPA_PIDFILE=/var/run/wpa_supplicant-$DEV.pid
+if [[ -f $DHCL_PIDFILE ]] && kill -9 $(cat $DHCL_PIDFILE)
+then
+    dhclient -v -r $DEV
+    echo "IP address released"
+fi
+if [[ -f $WPA_PIDFILE ]] && kill -9 $(cat $WPA_PIDFILE)
+    then
+    echo "WPA supplicant killed"
+fi
+killall wpa_supplicant
+echo "wpa_supplicant killed :)"
+ifconfig -v $DEV down
+sleep 1
+ifconfig -v $DEV up
+echo "$DEV interface is up again"
+iwconfig $DEV essid 'TP-LINK_CCCEEA' channel 6
+echo "starting wpa_supplicant.."
+sleep 2
+wpa_supplicant -B -dd -i$DEV -P$WPA_PIDFILE -c/etc/wpa_supplicant/wifi.conf
+sleep 2
+echo "getting IP address.."
+dhclient -v -pf $DHCL_PIDFILE $DEV
+</pre><br /><br />
+
+<a href="https://www.tutorialspoint.com/unix/unix-basic-operators.htm">https://www.tutorialspoint.com/unix/unix-basic-operators.htm</a> Logical operations:<br />
+It is very important to understand that all the conditional expressions should be inside square braces with spaces around them, for example <code>[ $a == $b ]</code> is correct whereas, <code>[$a==$b]</code> is incorrect.<br /><br />
+
+<h2>Relational Operators</h2>
+Bourne Shell supports the following relational operators that are specific to numeric values. These operators do not work for string values unless their value is numeric.<br />
+<img alt="NO IMAGE" src="scriptimg/img004.jpg"><br /><br />
+It is very important to understand that all the conditional expressions should be placed inside square braces with spaces around them. For example, <code>[ $a <= $b ]</code> is correct whereas, <code>[$a <= $b]</code> is incorrect.
+<br /><br />
+
+<h2>Boolean Operators</h2>
+<img alt="NO IMAGE" src="scriptimg/img005.png"><br /><br />
+<a href="https://www.tutorialspoint.com/unix/unix-relational-operators.htm">Code Link</a><br />
+<pre class="brush:js;">
+#!/bin/sh
+
+a=10
+b=20
+
+if [ $a -eq $b ]
+then
+   echo "$a -eq $b : a is equal to b"
+else
+   echo "$a -eq $b: a is not equal to b"
+fi
+
+if [ $a -ne $b ]
+then
+   echo "$a -ne $b: a is not equal to b"
+else
+   echo "$a -ne $b : a is equal to b"
+fi
+
+if [ $a -gt $b ]
+then
+   echo "$a -gt $b: a is greater than b"
+else
+   echo "$a -gt $b: a is not greater than b"
+fi
+
+if [ $a -lt $b ]
+then
+   echo "$a -lt $b: a is less than b"
+else
+   echo "$a -lt $b: a is not less than b"
+fi
+
+if [ $a -ge $b ]
+then
+   echo "$a -ge $b: a is greater or  equal to b"
+else
+   echo "$a -ge $b: a is not greater or equal to b"
+fi
+
+if [ $a -le $b ]
+then
+   echo "$a -le $b: a is less or  equal to b"
+else
+   echo "$a -le $b: a is not less or equal to b"
+fi
+</pre><br /><br />
+
+<h2>String Operations</h2>
+<img alt="NO IMAGE" src="scriptimg/img006.jpg"><br /><br />
+<a href="https://www.tutorialspoint.com/unix/unix-string-operators.htm">Code Link</a><br />
+<pre class="brush:js;">
+#!/bin/sh
+
+a="abc"
+b="efg"
+
+if [ $a = $b ]
+then
+   echo "$a = $b : a is equal to b"
+else
+   echo "$a = $b: a is not equal to b"
+fi
+
+if [ $a != $b ]
+then
+   echo "$a != $b : a is not equal to b"
+else
+   echo "$a != $b: a is equal to b"
+fi
+
+if [ -z $a ]
+then
+   echo "-z $a : string length is zero"
+else
+   echo "-z $a : string length is not zero"
+fi
+
+if [ -n $a ]
+then
+   echo "-n $a : string length is not zero"
+else
+   echo "-n $a : string length is zero"
+fi
+
+if [ $a ]
+then
+   echo "$a : string is not empty"
+else
+   echo "$a : string is empty"
+fi
+</pre><br /><br />
+
+Observe the tutorials point web page. The left list is showing more tutorials and examples.<br /><br />
+<img alt="NO IMAGE" src="scriptimg/img007.jpg"><br /><br />
+
+It is stated that bash does not have the ability to do mathmetical operations. So it can perform math by <p3>awk</p3> or <p3>exp</p3> tools. 
+<br /><br />
+
+<h2>File Folder Directory related commands</h2>
+Following script can take one parameter as a folder name and detect if the folder exist??<br /><br />
+<img alt="NO IMAGE" src="scriptimg/img008.jpg"><br /><br />
+<img alt="NO IMAGE" src="scriptimg/img009.jpg"><br /><br />
+
+<pp>example file operation script</pp>
+<pre class="brush:js;">
+#!/bin/sh
+
+file="/var/www/tutorialspoint/unix/test.sh"
+
+if [ -r $file ]
+then
+   echo "File has read access"
+els e
+   echo "File does not have read access"
+fi
+
+if [ -w $file ]
+then
+   echo "File has write permission"
+else
+   echo "File does not have write permission"
+fi
+
+if [ -x $file ]
+then
+   echo "File has execute permission"
+else
+   echo "File does not have execute permission"
+fi
+
+if [ -f $file ]
+then
+   echo "File is an ordinary file"
+else
+   echo "This is sepcial file"
+fi
+
+if [ -d $file ]
+then
+   echo "File is a directory"
+else
+   echo "This is not a directory"
+fi
+
+if [ -s $file ]
+then
+   echo "File size is zero"
+else
+   echo "File size is not zero"
+fi
+
+if [ -e $file ]
+then
+   echo "File exists"
+else
+   echo "File does not exist"
+fi
+</pre><br /><br />
+
+<h2>loops</h2>
+Script Example Page::<br />
+<a href="https://www.tutorialspoint.com/unix/unix-shell-loops.htm">https://www.tutorialspoint.com/unix/unix-shell-loops.htm</a><br />
+<img alt="NO IMAGE" src="scriptimg/img010.jpg"><br /><br />
+<img alt="NO IMAGE" src="scriptimg/img011.jpg"><br /><br />
+
+Observe that <code>echo -n</code> option prevents new line character at the end. Why the variables are inside "" double quotes??? Also observe that <code>`expr $b - 1`</code> is inside single quote which is shift-tiled on keyboard. 
+<br /><br />
+
+Spaces are sensitive issues for bash scripts. When assigning value to a variable, take care about spaces between variable, value and = equal sign. <code>a=`expr $a - 1`</code> would be correct spacing.
+<br /><br />
+<img alt="NO IMAGE" src="scriptimg/img012.jpg"><br /><br />
+
+<h2>scp (secure copy) command</h2>
+<img alt="NO IMAGE" src="scriptimg/script004.jpg"><br /><br />
+
+<div class="title_b">Radxa Rock service stop disable command</div>
+My Radxa Rock RK3188 linux image uses lightdm as desktop manager. We can stop lightdm by command <code>service lightdm stop</code> . 
+
+<br /><br />
+
+Finally we disable the lightdm service parmanently. We did applied <code>sudo systemctl disable lightdm.service</code> command, which internally run a command <code>/usr/sbin/update-rc.d lightdm disable</code> that shows a message like <code>Removed symlink /etc/systemd/system/display-manager.service</code> . 
+<br /><br />
+
+<h2>service systemctl list services</h2>
+<a href="https://www.digitalocean.com/community/tutorials/how-to-use-systemctl-to-manage-systemd-services-and-units">https://www.digitalocean.com/community/tutorials/how-to-use-systemctl-to-manage-systemd-services-and-units</a><br />
+<img alt="NO IMAGE" src="scriptimg/Systemctl_tw.png"><br /><br />
+List only services : <code>systemctl list-units --type=serice</code> or <code>systemctl list-units --type=service > services.txt</code> then I applied scp command to get the file from remote machine as <code>sudo scp -P 3231 rock@180.234.12.125:/home/rock/services.txt /home/aronno</code> . 
+<br /><br />
+
+<h2> rsync </h2>
+Before rsync the remote directory has to be <code>sudo chmode 777 remote_dir</code> . <br /><br />
+<code>sudo rsync -rvz -e 'ssh -p 3231' --progress PROJECTS/ rock@180.234.12.125:/home/rock/PROJECTS/</code><br />
+<code>rsync -rvz -e 'ssh -p 2222' --progress --remove-sent-files ./dir user@host:/path</code><br />
+<code>rsync -azP -e "ssh -p 2121" /path/to/files/source user@remoteip:/path/to/files/destination</code>
+<br /><br />
+rsync command syncronizes source to destination folder. 
+<br /><br />
+
+<h2> wget all files with skip existing</h2>
+<a href="http://stackoverflow.com/questions/4944295/skip-download-if-files-exist-in-wget">newer only wget link</a><br />
+<a href="http://stackoverflow.com/questions/273743/using-wget-to-recursively-fetch-a-directory-with-arbitrary-files-in-it">stackoverflow link</a><br />
+First cd to destination directory. Then:<br />
+<code>sudo wget -N -r --no-parent ftp://ftp.cadsoft.de/eagle/userfiles/libraries/</code>
+<br /><br />
+This command will download all files recursively from the specified URL location folder. If same file exists in local location then it does not download those files. 
+<br /><br />
+
+<style type="text/css">
+
+div[id=div-008] {
+  display: none;
+}
+
+  input[id=toggle-008]:checked ~ div {
+    display: block;
+    }
+</style>
+
+<h2> <label for="toggle-008">Simple Bash script with awk gawk support</label></h2>
+<input type="checkbox" id="toggle-008" style="display: none;">
+<div id="div-008">
+<img alt="NO IMAGE" src="scriptimg/img013.png"><br /><br />
+
+I did create a text file to store dropbox and my own server folder locations for synchronizations as follows:<br /><br />
+<pp>links.list</pp><br />
+<pre class="brush:js;">
+src001        source001/file1.txt             dest001/file1.txt
+src002        source002/file2.xzf             dest002/file2.xzf
+src003        rock@180.234.12.125             rock@180.234.12.125:/var/www/html....
+</pre><br /><br />
+
+Initially I want a script that could takes a parameter as a key for which pair of location I wanted to sync. Suppose "src001" as a parameter for the script. So the script can takes source and dest location for later use. Following simple code can help to do such a job:<br /><br />
+<pre class="brush:js;">
+#!/bin/bash
+
+echo ""
+
+awk "/$2/ {print \$3}" $1
+</pre><br /><br />
+
+Command example using this script:<br /><br />
+
+<code>./script007.sh links.list rock</code><br />
+Output:<br />
+<code>rock@180.234.12.125:/var/www/html/droptest/linux/script/script001.sh</code>
+<br />
+
+Observe the escape character before $ sign to pass $3 for awk command. This awk command should be like follows:<br />
+<code>awk '/rock/ {print $3}' links.list</code><br /><br />
+where the pattern is in between double back slash as <code>/rock/</code> and the operations are in between single quotes. But in the bash script we did use double quotes, because bash variable does not work in single quote. So we used double quote and passed a variable to awk by using escape character. Simply apply the command on command prompt that applies double quote with awk sub command:<br />
+<code>awk "/rock/ {print \$3}" links.list</code><br /><br />
+Without "\"(back slash) before "$"(dollar sign) the command acted different.
+<br /><br />
+</div>
+
+  </div><br /><br />
+      
+      <div class="content_text_gen" style="padding: 20px;font-size: 24px;font-weight: bold;">
+      <br /><br />
+      <div class="title_b"> NEXT TOPIC.</div><br>
+      <pp>SITE ADDR</pp><br>
+
+<pre class="brush:js;">
+</pre><br /><br />
+  
+</body>
+</html>

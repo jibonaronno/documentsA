@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Scripts 002</title>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <!-- BEGIN syntax highlighter -->
+    <script type="text/javascript" src="sh/shCore.js"></script>
+    <script type="text/javascript" src="sh/shBrushJScript.js"></script>
+    <link type="text/css" rel="stylesheet" href="sh/shCore.css"/>
+    <link type="text/css" rel="stylesheet" href="sh/shThemeDefault.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Gruppo" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <script type="text/javascript">
+      SyntaxHighlighter.all();
+    </script>
+    <!-- END syntax highlighter -->
+
+    <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="linuxsetup.css">
+  </head>
+  <body>
+  
+<div style="padding: 20px;font-size: 24px; line-height: 40px">
+<div class="title_b">MISC Commands</div>
+<style type="text/css">
+div[id=div-008] {
+  display: none;
+}
+  input[id=toggle-008]:checked ~ div[id=div-008] {
+    display: block;
+    }
+</style>
+<h2><label for="toggle-008">Image resize / convert command</label></h2>
+<input type="checkbox" id="toggle-008" style="display: none;">
+<div id="div-008">
+<a href="https://askubuntu.com/questions/135477/how-can-i-scale-all-images-in-a-folder-to-the-same-width">askubuntu</a><br />
+Following command will set all images resolution to 1200 pixel width and match the height with aspect ratio.<br />
+<code>$ convert '*.JPG[1200x]' resized%03d.png</code><br />
+</div>
+
+
+<style type="text/css">
+div[id=div-009] {
+  display: none;
+}
+  input[id=toggle-009]:checked ~ div[id=div-009] {
+    display: block;
+    }
+</style>
+<h2><label for="toggle-009">NFS Network File System Setup</label></h2>
+<input type="checkbox" id="toggle-009" style="display: none;">
+<div id="div-009">
+NFS Setup is described in <br />
+<a href="https://wiki.archlinux.org/index.php/NFS">https://wiki.archlinux.org/index.php/NFS</a><br />
+<br />
+PDF Downloaded in <a href="http://180.234.12.125:8090/droptest/linux/scripts/NFS-ArchWiki.pdf">180.234.12.125:8090:/droptest/linux/scripts/NFS-ArchWiki.pdf</a> <br />
+<br />
+Here we found that NFS has a root location folder and another folder/drive location is mounted inside NFS root location. By mounting, many other drives and locations can be used inside NFS root location. Same can be done for <pp>/var/www/htm</pp> folder. We may could create a folder that actually mounts other drives location. For parmanent mounts after every reboots, <pp>/etc/fstab</pp> can be edited acording to the above documents.
+<br />
+
+</div>
+
+<style type="text/css">
+div[id=div-010] {
+  display: none;
+}
+  input[id=toggle-010]:checked ~ div[id=div-010] {
+    display: block;
+    }
+</style>
+<h2><label for="toggle-010">Shell Script Examples</label></h2>
+<input type="checkbox" id="toggle-010" style="display: none;">
+<div id="div-010">
+This <a href="http://www.macs.hw.ac.uk/~hwloidl/Courses/LinuxIntro/x864.html">Shell Script Examples</a> web page shows some example scripts.
+
+<style type="text/css">
+div[id=div-010a] {
+  display: none;
+}
+  input[id=toggle-010a]:checked ~ div[id=div-010a] {
+    display: block;
+    }
+</style>
+<br /><br /><p3><label for="toggle-010a">Shell Script: Line Count Of a file</label></p3>
+<input type="checkbox" id="toggle-010a" style="display: none;">
+<div id="div-010a">
+<pre class="brush:js;">
+#!/bin/bash
+# Simple line count example, using bash
+#
+# Bash tutorial: http://linuxconfig.org/Bash_scripting_Tutorial#8-2-read-file-into-bash-array
+# My scripting link: http://www.macs.hw.ac.uk/~hwloidl/docs/index.html#scripting
+#
+# Usage: ./line_count.sh file
+# -----------------------------------------------------------------------------
+
+# Link filedescriptor 10 with stdin
+exec 10<&0
+# stdin replaced with a file supplied as a first argument
+exec < $1
+# remember the name of the input file
+in=$1
+
+# init
+file="current_line.txt"
+let count=0
+
+# this while loop iterates over all lines of the file
+while read LINE
+do
+    # increase line counter 
+    ((count++))
+    # write current line to a tmp file with name $file (not needed for counting)
+    echo $LINE > $file
+    # this checks the return code of echo (not needed for writing; just for demo)
+    if [ $? -ne 0 ] 
+     then echo "Error in writing to file ${file}; check its permissions!"
+    fi
+done
+
+echo "Number of lines: $count"
+echo "The last line of the file is: `cat ${file}`"
+
+# Note: You can achieve the same by just using the tool wc like this
+echo "Expected number of lines: `wc -l $in`"
+
+# restore stdin from filedescriptor 10
+# and close filedescriptor 10
+exec 0<&10 10<&-
+</pre><br /><br />
+<div style="font-family: Montserrat; font-size: 17px;">
+This script uses file descriptor to redirect I/O to different directions. A file descriptor could be think as a file handler. A file descriptor is accessed by a numeric number. In a script, value 0, 1 and 2 are stdin, stdout and stderr file descriptors. Other values are general fd (file descriptor) values. File I/O Redirection in a script is done by these descriptors. Suppose <code>exec < $1</code> or <code>exec 0< $1</code> code replace the stdin with first supplied argument filename ($1). That means, $1 supplied file name is the default input for the script instead keyboard (stdin) input.<br /><br />
+
+Some File I/O redirection information <a href="http://www.tldp.org/LDP/abs/html/io-redirection.html">Page</a>.
+
+<br /><br />
+
+Above code the first three commands:<br />
+
+<pre>
+# Link filedescriptor 10 with stdin
+exec 10<&0
+# stdin replaced with a file supplied as a first argument
+exec < $1
+# remember the name of the input file
+in=$1
+</pre>
+are file I/O redirection commands. This command <code>exec 10<&0</code> creates file descriptor 10 and redirects stdin (&0) to fd 10. <br /><br />
+
+This script is about to count the number of lines only, file redirection was not necessary for this operation, it is used only for learning purposes.<br />
+<br />
+Still there are some questions remains. Complete uses of & sign in redirection commands, The purpose of first redirection etc.<br />
+<br />
+
+</div>
+
+</div>
+
+<style type="text/css">
+div[id=div-010b] {
+  display: none;
+}
+  input[id=toggle-010b]:checked ~ div[id=div-010b] {
+    display: block;
+    }
+</style>
+<br /><br /><p3><label for="toggle-010b">Redirection Codes / commands + file descriptors</label></p3>
+<input type="checkbox" id="toggle-010b" style="display: none;">
+
+<div id="div-010b">
+<div style="font-family: Montserrat; font-size: 17px;">
+From this page <a href="http://www.tldp.org/LDP/abs/html/io-redirection.html">http://www.tldp.org/LDP/abs/html/io-redirection.html</a> we could find some clues about redirection phenomenons. Following code / command will try to overwrite a file (dir_tree.list) if the file exist or will create the file and writes the dir tree list to this file. <br />
+<code>ls -lR > dir-tree.list</code><br />
+Following two commands creates or truncates a file to zero length or creates new one if not exist.<br />
+<pre>
+: > filename
+      # The > truncates file "filename" to zero length.
+      # If file not present, creates zero-length file (same effect as 'touch').
+      # The : serves as a dummy placeholder, producing no output.
+
+   > filename    
+      # The > truncates file "filename" to zero length.
+      # If file not present, creates zero-length file (same effect as 'touch').
+      # (Same result as ": >", above, but this does not work with some shells.)
+</pre><br />
+<br />
+Follow the docs:
+<pre>
+	2>&1
+      # Redirects stderr to stdout.
+      # Error messages get sent to same place as standard output.
+        >>filename 2>&1
+            bad_command >>filename 2>&1
+            # Appends both stdout and stderr to the file "filename" ...
+        2>&1 | [command(s)]
+            bad_command 2>&1 | awk '{print $5}'   # found
+            # Sends stderr through a pipe.
+            # |& was added to Bash 4 as an abbreviation for 2>&1 |.
+
+   i>&j
+      # Redirects file descriptor i to j.
+      # All output of file pointed to by i gets sent to file pointed to by j.
+
+   >&j
+      # Redirects, by default, file descriptor 1 (stdout) to j.
+      # All stdout gets sent to file pointed to by j.
+</pre><br /><br />
+Example of open a file using file descriptor number. Write something at a specified position using file descriptor::
+<pre>
+	0< FILENAME
+    < FILENAME
+      # Accept input from a file.
+      # Companion command to ">", and often used in combination with it.
+      #
+      # grep search-word <filename
+
+
+   [j]<>filename
+      #  Open file "filename" for reading and writing,
+      #+ and assign file descriptor "j" to it.
+      #  If "filename" does not exist, create it.
+      #  If file descriptor "j" is not specified, default to fd 0, stdin.
+      #
+      #  An application of this is writing at a specified place in a file. 
+      echo 1234567890 > File    # Write string to "File".
+      exec 3<> File             # Open "File" and assign fd 3 to it.
+      read -n 4 <&3             # Read only 4 characters.
+      echo -n . >&3             # Write a decimal point there.
+      exec 3>&-                 # Close fd 3.
+      cat File                  # ==> 1234.67890
+      #  Random access, by golly.
+
+
+
+   |
+      # Pipe.
+      # General purpose process and command chaining tool.
+      # Similar to ">", but more general in effect.
+      # Useful for chaining commands, scripts, files, and programs together.
+      cat *.txt | sort | uniq > result-file
+      # Sorts the output of all the .txt files and deletes duplicate lines,
+      # finally saves results to "result-file".
+</pre><br /><br />
+
+Be carefull about the spaces in case of file descriptor and file names.
+
+<br /><br />
+
+Bash script concept of feeding file to a loop:
+<pre>
+#!/bin/bash
+# redirloop001.sh
+
+if [ -z "$1" ]
+then
+  Filename=names.data       # Default, if no filename specified.
+else
+  Filename=$1
+fi  
+#+ Filename=${1:-names.data}
+#  can replace the above test (parameter substitution).
+
+count=0
+
+echo
+
+while [ "$name" != Smith ]  # Why is variable $name in quotes?
+do
+  read name                 # Reads from $Filename, rather than stdin.
+  echo $name
+  let "count += 1"
+  if [ $count -gt 15 ]
+  	then
+  	break
+  fi
+done <"$Filename"           # Redirects stdin to file $Filename. 
+#    ^^^^^^^^^^^^
+
+echo; echo "$count names read"; echo
+
+exit 0
+
+</pre><br />
+<img alt="NO IMAGE" src="scriptimg/img015.png"><br /><br />
+
+Later on for my own experiment I wrote a script to redirect a general file in to a file descriptor and then feed this descriptor to the loop::<br />
+<img alt="NO IMAGE" src="scriptimg/img018.png"><br /><br />
+
+Following script iterates through each line of a file and count the number of words of each line and echos the word counts.
+<img alt="NO IMAGE" src="scriptimg/img019.png"><br /><br />
+
+Using file descriptor to feed a file into a loop:
+<pre>
+#!/bin/bash
+
+# This is an alternate form of the preceding script.
+
+#  Suggested by Heiner Steven
+#+ as a workaround in those situations when a redirect loop
+#+ runs as a subshell, and therefore variables inside the loop
+# +do not keep their values upon loop termination.
+
+
+if [ -z "$1" ]
+then
+  Filename=names.data     # Default, if no filename specified.
+else
+  Filename=$1
+fi  
+
+
+exec 3<&0                 # Save stdin to file descriptor 3.
+exec 0<"$Filename"        # Redirect standard input.
+
+count=0
+echo
+
+
+while [ "$name" != Smith ]
+do
+  read name               # Reads from redirected stdin ($Filename).
+  echo $name
+  let "count += 1"
+done                      #  Loop reads from file $Filename
+                          #+ because of line 20.
+
+#  The original version of this script terminated the "while" loop with
+#+      done <"$Filename" 
+#  Exercise:
+#  Why is this unnecessary?
+
+
+exec 0<&3                 # Restore old stdin.
+exec 3<&-                 # Close temporary fd 3.
+
+echo; echo "$count names read"; echo
+
+exit 0
+</pre><br /><br />
+
+<img alt="NO IMAGE" src="scriptimg/img016.png"><br /><br />
+
+Feed a function output (print) to a loop. The function prints 2 values as fileSize and fileName. These two values are feeded to the loop like a tuple. <br />
+
+<img alt="NO IMAGE" src="scriptimg/img017.png"><br /><br />
+
+These examples came from <a href="http://www.tldp.org/LDP/abs/html/redircb.html">http://www.tldp.org/LDP/abs/html/redircb.html</a> and downloaded in <a href="http://180.234.12.125:8090/droptest/linux/scripts/RedirectingCodeBlocks.pdf">RedirectingCodeBlocks.pdf</a> . There are more scripts to learn about redirection in this site.<br />
+
+</div>
+</div>
+
+<style type="text/css">
+div[id=div-010c] {
+  display: none;
+}
+  input[id=toggle-010c]:checked ~ div[id=div-010c] {
+    display: block;
+    }
+</style>
+<br /><br /><p3><label for="toggle-010c">file descriptors redirection rules</label></p3>
+<input type="checkbox" id="toggle-010c" style="display: none;">
+
+<div id="div-010c">
+<div style="font-family: Montserrat; font-size: 17px;">
+Generaly file descriptors are used associated with redirected files. i.e. A file descriptor is always created linked with another file. Initial file descriptor assignment is done with <code>exec</code> command. Follow this <a href="http://www.tldp.org/LDP/abs/html/x17974.html">http://www.tldp.org/LDP/abs/html/x17974.html</a> page for primary exec operation documents. Downloaded in <a href="http://180.234.12.125:8090/droptest/linux/scripts/Usingexec.pdf">Usingexec.pdf</a> . Check out following code:<br />
+<pre>
+#!/bin/bash
+# Redirecting stdin using 'exec'.
+
+
+exec 6<&0          # Link file descriptor #6 with stdin.
+                   # Saves stdin.
+
+exec < data-file   # stdin replaced by file "data-file"
+
+read a1            # Reads first line of file "data-file".
+read a2            # Reads second line of file "data-file."
+
+echo
+echo "Following lines read from file."
+echo "-------------------------------"
+echo $a1
+echo $a2
+
+echo; echo; echo
+
+exec 0<&6 6<&-
+#  Now restore stdin from fd #6, where it had been saved,
+#+ and close fd #6 ( 6<&- ) to free it for other processes to use.
+#
+# <&6 6<&-    also works.
+
+echo -n "Enter data  "
+read b1  # Now "read" functions as expected, reading from normal stdin.
+echo "Input read from stdin."
+echo "----------------------"
+echo "b1 = $b1"
+
+echo
+
+exit 0
+</pre>
+The first two commands first assignes stdin to fd 6 and a general file to stdin as well. At the end the command <code>exec 0<&6 6<&-</code> restores the stdin and closed fd 6. Note that both opening and closing of fd 6 uses the same "Less Than" (<) sign in command. This direction sign "<" or ">" is important when opening and closing a descriptor. <br /><br />
+
+Following code uses a file descriptor for redirecting the stdout::<br />
+<pre>
+#!/bin/bash
+# reassign-stdout.sh
+
+LOGFILE=logfile.txt
+
+exec 6>&1           # Link file descriptor #6 with stdout.
+                    # Saves stdout.
+
+exec > $LOGFILE     # stdout replaced with file "logfile.txt".
+
+# ----------------------------------------------------------- #
+# All output from commands in this block sent to file $LOGFILE.
+
+echo -n "Logfile: "
+date
+echo "-------------------------------------"
+echo
+
+echo "Output of \"ls -al\" command"
+echo
+ls -al
+echo; echo
+echo "Output of \"df\" command"
+echo
+df
+
+# ----------------------------------------------------------- #
+
+exec 1>&6 6>&-      # Restore stdout and close file descriptor #6.
+
+echo
+echo "== stdout now restored to default == "
+echo
+ls -al
+echo
+
+exit 0
+</pre>
+Observe the use of ">" direction sign in this case of stdout redirection and when restoring and closing descriptors:<code>exec 1>&6 6>&-</code>.
+
+<br /><br />
+Redirecting both stdin and stdout in the same script with exec.<br />
+<pre>
+#!/bin/bash
+# upperconv.sh
+# Converts a specified input file to uppercase.
+
+E_FILE_ACCESS=70
+E_WRONG_ARGS=71
+
+if [ ! -r "$1" ]     # Is specified input file readable?
+then
+  echo "Can't read from input file!"
+  echo "Usage: $0 input-file output-file"
+  exit $E_FILE_ACCESS
+fi                   #  Will exit with same error
+                     #+ even if input file ($1) not specified (why?).
+
+if [ -z "$2" ]
+then
+  echo "Need to specify output file."
+  echo "Usage: $0 input-file output-file"
+  exit $E_WRONG_ARGS
+fi
+
+
+exec 4<&0
+exec < $1            # Will read from input file.
+
+exec 7>&1
+exec > $2            # Will write to output file.
+                     # Assumes output file writable (add check?).
+
+# -----------------------------------------------
+    cat - | tr a-z A-Z   # Uppercase conversion.
+#   ^^^^^                # Reads from stdin.
+#           ^^^^^^^^^^   # Writes to stdout.
+# However, both stdin and stdout were redirected.
+# Note that the 'cat' can be omitted.
+# -----------------------------------------------
+
+exec 1>&7 7>&-       # Restore stout.
+exec 0<&4 4<&-       # Restore stdin.
+
+# After restoration, the following line prints to stdout as expected.
+echo "File \"$1\" written to \"$2\" as uppercase conversion."
+
+exit 0
+</pre>
+
+</div>
+</div>
+
+<style type="text/css">
+div[id=div-010d] {
+  display: none;
+}
+  input[id=toggle-010d]:checked ~ div[id=div-010d] {
+    display: block;
+    }
+</style>
+<br /><br /><p3><label for="toggle-010d">Nix Craft nixcraft examples</label></p3>
+<input type="checkbox" id="toggle-010d" style="display: none;">
+
+<div id="div-010d">
+<div style="font-family: Montserrat; font-size: 17px;">
+
+Example from <a href="https://www.cyberciti.biz/tips/shell-scripting-bash-how-to-create-temporary-random-file-name.html">nixcraft</a> downloaded in <a href="http://180.234.12.125:8090/droptest/linux/scripts/nixcraft001.pdf">nixcraft001.pdf</a> .<br /><br />
+
+<img alt="NO IMAGE" src="scriptimg/img020.png"><br /><br />
+
+<pre>
+#!/bin/bash
+s="https://server1.cyberciti.biz/?Download=ips-v4&Format=text"
+f="$(mktemp /tmp/myscript.XXXXXX)"
+wget -q -O $f $s
+echo "IPv4 address downloaded to '$f'.."
+echo "Processing..."
+#
+# logic to do something on $f here
+#
+# Delete the temp file 
+rm -f "$f"
+</pre><br /><br />
+
+From <a href="https://www.cyberciti.biz/faq/unix-loop-through-files-in-a-directory/">nixcraft</a><br />
+Following script identify and iterate each file in present directory:<br />
+<br />
+<img alt="NO IMAGE" src="scriptimg/img021.png"><br /><br />
+<img alt="NO IMAGE" src="scriptimg/img022.png"><br /><br />
+
+This for loop can also iterate over specific filename extensions in present folder as::<br />
+<pre>
+for file in *.sh
+do
+  [ -f "$file" ] && echo -n "--"; echo $file
+done
+</pre><br />
+OR
+<pre>
+#!/bin/bash
+
+for file in tc*.sh
+do
+  [ -f "$file" ] && echo -n "--"; echo $file
+done
+
+exit 0
+</pre><br />
+
+Make sure to put double quote around "$file" or any variable that indicates file name.
+<br /><br />
+
+<a href="https://www.cyberciti.biz/faq/unix-loop-through-files-in-a-directory/">nixcraft</a><br /> 
+<img alt="NO IMAGE" src="scriptimg/img023.png"><br /><br />
+
+In this script it uses some options with read command and before read command, that is 'IFS= ' and '-r' option. These options may be needed in some cases, But I test a code without these options as follows to see that file names with spaces can be accessed:<br />
+
+<pre>
+while read f <&3;
+do
+  echo "$f"
+  if [ "$f" == "tc r 02.sh" ]
+    then
+      echo
+      cat < "$f"
+      echo
+  fi
+done 3< delete.txt
+
+exit 0
+</pre>
+Care should be taken when file name has spaces and to refer them inside double quote as "$f" or "tc r 02.sh".
+<br /><br />
+
+<a href="https://www.cyberciti.biz/faq/unix-loop-through-files-in-a-directory/">nixcraft</a><br />
+Before implement a complete script, I am trying to apply some basic command into a script and test them as well.<br />
+<img alt="NO IMAGE" src="scriptimg/img024.png"><br /><br />
+
+The first command here <code>"${0##*/}"</code> is an example of parameter expansion. Parameter example docs at <a href="http://wiki.bash-hackers.org/syntax/pe">http://wiki.bash-hackers.org/syntax/pe</a> . Params are same as variables in bash script. Param Expansion is a set of small syntex feature to simplify some operation. Suppose if we want to add some text with our parameter then the code would be like <code>echo "${1}_some_text"</code> , Not like 
+<code>echo "$1_some_text"</code> . Param expansion works inside braces "{}" . The code <code>"${0##*/}"</code> operates on the param 0 (script name itself "./script.sh") . This code starts operating from beginning position of the string then starts deleting everythin until and including '/' (slash). ## - start at beginning, * - delete everything, / - until this pattern.<br />
+
+<img alt="NO IMAGE" src="scriptimg/img025.png"><br /><br />
+
+Indirection: Pointer similar indirect syntex: <code>TMP=125; PARAMETER=TMP; echo ${!PARAMETER}</code> : point to variable <code>TMP</code>. <br /><br />
+
+Study and download this <a href="http://wiki.bash-hackers.org/syntax/pe">http://wiki.bash-hackers.org/syntax/pe</a> document for many important command examples. <br />
+
+</div>
+</div>
+
+
+
+<!--   -->
+<style type="text/css">
+div[id=div-010e] {
+  display: none;
+}
+  input[id=toggle-010e]:checked ~ div[id=div-010e] {
+    display: block;
+    }
+</style>
+<br /><br /><p3><label for="toggle-010e">Linux <pp>tr</pp> (translate) command examples</label></p3>
+<input type="checkbox" id="toggle-010e" style="display: none;">
+
+<div id="div-010e">
+<div style="font-family: Montserrat; font-size: 17px;">
+
+From <a href="http://www.thegeekstuff.com/2012/12/linux-tr-command">www.thegeekstuff.com</a> some example of translate commands could be usefull.<br />
+1. Translate white spaces to tabs:<br />
+<code>
+$ echo "This is for testing" | tr [:space:] '\t'<br />
+This  is  for testing
+</code><br /><br />
+
+These examples are downloaded in <a href="http://180.234.12.125:8090/droptest/linux/scripts/trcommands.pdf">trcommands.pdf</a> .<br /><br />
+
+</div>
+</div>
+
+
+</div>
+
+<style type="text/css">
+div[id=div-011] {
+  display: none;
+}
+  input[id=toggle-011]:checked ~ div[id=div-011] {
+    display: block;
+    }
+</style>
+<h2><label for="toggle-011">Youtube Downloader</label></h2>
+<input type="checkbox" id="toggle-011" style="display: none;">
+<div id="div-011">
+<code>
+sudo apt install youtube-dl<br />
+youtube-dl https://www.youtube.com/watch?v=H8Wprp8jdp4 -F    //To list available formats<br />
+youtube-dl https://www.youtube.com/watch?v=H8Wprp8jdp4 -f 22 //To download 22 No format<br />
+</code>
+</div>
+
+<style type="text/css">
+div[id=div-012] {
+  display: none;
+}
+  input[id=toggle-012]:checked ~ div[id=div-012] {
+    display: block;
+    }
+</style>
+<h2><label for="toggle-012">Nautilus Connect To server through ssh and port</label></h2>
+<input type="checkbox" id="toggle-012" style="display: none;">
+<div id="div-012">
+Nautilus is a file manager. We will be using nautilus in linux to connect to server through ssh and port number. <br />
+<code>
+sudo apt install nautilus</code><br />
+<br />
+
+Run nautilus by just <code>nautilus &</code> without sudo. If sudo is used then it could not connect to server. Then in the left side bar click on Other Locations, then connect to server option came, then write down the address as <br /><code>sftp://rock@180.234.12.125:3231/home/rock</code> to the bottom right address bar. <br /><br />
+
+<img alt="NO IMAGE" src="scriptimg/img014.png"><br /><br />
+</div>
+
+<style type="text/css">
+div[id=div-013] {
+  display: none;
+}
+  input[id=toggle-013]:checked ~ div[id=div-013] {
+    display: block;
+    }
+</style>
+<h2><label for="toggle-013">Setting Up PiVPN OpenVpn With Script</label></h2>
+<input type="checkbox" id="toggle-013" style="display: none;">
+
+<div id="div-013">
+This <a href="http://pimylifeup.com/raspberry-pi-vpn-server/">http://pimylifeup.com/raspberry-pi-vpn-server/</a> article or tutorial shows a simple way to make a raspberry pi VPN server. It uses OpenVPN to create a RPi Linux freindly VPN. These are a set of bash scripts to make and manage VPN for you. Though it is called PiVPN, It can run on most debian based Linux systems. 
+<br /><br />
+<img alt="NO IMAGE" src="scriptimg/img026.png"><br /><br />
+
+There is also <a href="https://github.com/pivpn/pivpn">PiVPN GITHUB page</a> for the main script source code. <br />
+
+<img alt="NO IMAGE" src="scriptimg/img027.png"><br /><br />
+
+</div>
+
+<style type="text/css">
+div[id=div-014] {
+  display: none;
+}
+  input[id=toggle-014]:checked ~ div[id=div-014] {
+    display: block;
+    }
+</style>
+<h2><label for="toggle-014">VLC Aspect Ratio Command</label></h2>
+<input type="checkbox" id="toggle-014" style="display: none;">
+
+<div id="div-014">
+This <a href="https://askubuntu.com/questions/722129/how-can-vlc-be-made-to-stretch-a-video-such-that-it-fills-a-display">how-can-vlc-be-made-to-stretch-a-video-such-that-it-fills-a-display</a> example command to change the aspect ratio.<br />
+<code>vlc --aspect-ratio 16:9 -L -f /directory/to/file/filename</code>
+
+</div>
+
+<style type="text/css">
+div[id=div-015] {
+  display: none;
+}
+  input[id=toggle-015]:checked ~ div[id=div-015] {
+    display: block;
+    }
+</style>
+<h2><label for="toggle-015">Youtube Downloader Setup And Update</label></h2>
+<input type="checkbox" id="toggle-015" style="display: none;">
+<div id="div-015">
+This page <a href="https://github.com/ytdl-org/youtube-dl/blob/master/README.md#how-do-i-update-youtube-dl">README.md#how-do-i-update-youtube-dl</a> downloaded as pdf in <p3>/Dropbox/LINUX/Scripts_Command/...</p3><br />
+	How do I update youtube-dl?
+If you've followed our manual installation instructions, you can simply run <br /><code>youtube-dl -U </code><br /> (or, on Linux, sudo youtube-dl -U).
+
+If you have used pip, a simple<br /><code> sudo pip install -U youtube-dl</code><br /> is sufficient to update.
+
+If you have installed youtube-dl using a package manager like apt-get or yum, use the standard system update mechanism to update. Note that distribution packages are often outdated. As a rule of thumb, youtube-dl releases at least once a month, and often weekly or even daily. Simply go to https://yt-dl.org to find out the current version. Unfortunately, there is nothing we youtube-dl developers can do if your distribution serves a really outdated version. You can (and should) complain to your distribution in their bugtracker or support forum.
+
+As a last resort, you can also uninstall the version installed by your package manager and follow our manual installation instructions. For that, remove the distribution's package, with a line like
+
+sudo apt-get remove -y youtube-dl
+Afterwards, simply follow our manual installation instructions:
+
+sudo wget https://yt-dl.org/latest/youtube-dl -O /usr/local/bin/youtube-dl
+sudo chmod a+x /usr/local/bin/youtube-dl
+hash -r
+Again, from then on you'll be able to update with sudo youtube-dl -U.
+</div>
+
+<style type="text/css">
+  div[id=div-016] {
+    display: none;
+  }
+    input[id=toggle-016]:checked ~ div[id=div-016] {
+      display: block;
+      }
+  </style>
+  <h2><label for="toggle-016">Alarm clock Set Timeout For A Shell Command</label></h2>
+  <input type="checkbox" id="toggle-015" style="display: none;">
+  <div id="div-016">
+    Article came from <a href="https://www.cyberciti.biz/faq/shell-scripting-run-command-under-alarmclock/">shell-scripting-run-command-under-alarmclock</a>
+    <br />
+  </div>
+
+
+</div>
+<!--
+<pre class="brush:js;">
+</pre><br /><br />
+-->  
+</body>
+</html>

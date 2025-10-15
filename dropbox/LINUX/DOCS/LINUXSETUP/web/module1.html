@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Some Module Development 1</title>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="linuxsetup.css">
+  </head>
+  <body>
+<div id="container" style="padding-left:20px; padding-right:20px">
+  		
+        <nav>
+            <ul class=""> <!-- class="menu" -->
+                <li><a href="#"><span class="iconic headphones"></span> Linux Setup </a>
+                  <ul>
+                    <li><a href="linuxsetup.html">Linux Setup - HP Laptop Arch Linux Part-1.</a></li>
+                  </ul>
+                </li>
+                
+                <li><a href="#"><span class="iconic plus-alt"></span> Embedded System Development</a>
+                    <ul>
+                        <li><a href="embedded_linux_system_development.html">Embedded Linux System Develoment Part-1.</a></li>
+                        <li><a href="embedded_linux_system_development2.html">Embedded Linux System Develoment Part-2.</a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><span class="iconic magnifying-glass"></span>Raspberry Pi</a>
+                    <ul>
+                        <li><a href="rpi.html">RPi Bugs, Problems, Forums</a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><span class="iconic map-pin"></span> Module Development</a>
+                    <ul>
+                        <li><a href="module1.html">Module Examples</a></li>
+                        <li><a href="#">Module Development</a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><span class="iconic mail"></span> Software Development</a>
+                    <ul>
+                        <li><a href="development1.html">Linux System Software Development.</a></li>
+                        <li><a href="#">Scripts Examples</a></li>
+                    </ul>
+                    
+                <li><a href="#"><span class="iconic mail"></span> Device Hacking</a>
+                    <ul>
+                        <li><a href="hackingthinclient.html">Hacking Thin Client EP9307.</a></li>
+                        <li><a href="#">Thin Client Linux Setup</a></li>
+                    </ul>
+                </li>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+        </nav>
+    
+    </div>
+      <div class="title_a"> Module Experiments 1. <a href="linuxsetup.html">Previous - Linux Setup 1</a> </div><br>
+      <div class="content_text_gen" style="padding: 20px;font-size: 24px;font-weight: bold; background-color:#CCC;">
+      	<div class="title_b"> Intentionally Left Blank.</div><br>
+      </div><br>
+      
+      <div class="content_text_gen" style="padding: 20px;font-size: 24px;font-weight: bold;">
+      
+      From <a href="http://tech.firdooze.com/2011/11/16/how-to-instal-davicom-9601-drivers-dm9601-on-linux/">THIS</a> web link I found some 
+      examples on how to modify a driver module and replace it with existing driver. The driver is for a USB to LAN device from Kontron. Kernel 
+      module name is <p3>DM9601</p3>. The site says that the driver was too old, so they are going to modify the old driver. The issues may be 
+      solved to new kernel, but I am document this for gathering knowledge for module development and management. <br>
+      <img alt="NO IMAGE" src="images/module1.jpg"><br>
+      <img alt="NO IMAGE" src="images/module2.jpg"><br>
+      <img alt="NO IMAGE" src="images/module3.jpg"><br>
+      <br>
+      Here is the <p3>Makefile</p3>.<br>
+      <pre>
+      <code>
+##================================================================
+##     Davicom Semiconductor Inc.       For DM9601 V0.00
+##   --------------------------------------------------------
+## Description:
+##              Compile driver dm9601.c to dm9601.o
+##
+## Modification List:
+## 09/05/2000   Fixed SMPFALGS wrong on smp &amp; smp_mod
+## 08/02/2000   Changed some description string &amp; include file path
+## 07/25/2000   Append smp_mod and changed some descriptions
+## 01/25/2000   by Sten Wang
+##================================================================
+# Comment/uncomment the following line to disable/enable debugging
+#DEBUG = y
+
+# Add your debugging flag (or not) to CFLAGS
+ifeq ($(DEBUG),y)
+DEBFLAGS = -O -g # "-O" is needed to expand inlines
+else
+DEBFLAGS = -O2
+endif
+
+EXTRA_CFLAGS += $(DEBFLAGS) -I$(LDDINCDIR)
+
+ifneq ($(KERNELRELEASE),)
+# call from kernel build system
+
+obj-m   := dm9601.o
+
+else
+
+KERNELDIR ?= /lib/modules/$(shell uname -r)/build
+PWD       := $(shell pwd)
+
+default:
+$(MAKE) -C $(KERNELDIR) M=$(PWD) LDDINCDIR=$(PWD)/../include modules
+
+endif
+
+clean:
+rm -rf *.o *~ core .depend .*.cmd *.ko *.mod.c .tmp_versions
+
+depend .depend dep:
+$(CC) $(EXTRA_CFLAGS) -M *.c &gt; .depend
+
+ifeq (.depend,$(wildcard .depend))
+include .depend
+endif
+      </code>
+      </pre>
+      
+      In my case on HP laptop arch linux 3.12.7 version, the command <p5>dmesg | tail -20 </p5> shows that the device name is <br>
+      <p3>Devicom DM9601 USB Ethernet</p3><br>
+      <p3>usbcore: registered new interface driver dm9601</p3><br>
+      <p3>usbcore: registered new interface driver sr9700</p3><br>
+      <br>
+      So 2 driver is loaded when the device plugged in. Also found that the module files are in the form of compressed format in <p3>/lib/modules/3.12.7-2-ARCH/kernel/drivers/net/usb</p3> 
+      directory. The files are :<br>
+      <p3>usbnet.ko.gz</p3><br>
+      <p3>dm9601.ko.gz</p3><br>
+      <p3>sr9700.ko.gz</p3><br>
+      <br>
+      In my Arch linux 3.12.7 it works with minimum error messages. Initially it shows an error message like "kevent may drop". Later I connect the device to
+      Internet with following commands :<br>
+      Release eth0 addresses - <br>
+      <p5>ip addr flush dev eth0</p5><br>
+      Now setup the eth1 device - <br>
+      <p5>ip link set dev eth1 up</p5><br>
+      <p5>ip addr add 27.147.234.151/28 broadcast 27.147.234.151 dev eth1</p5><br>
+      <p5>ip route add default via 27.147.234.145</p5><br>
+      <br>
+      Then I ping to google and also made some 200MB download as well. <br>
+
+      
+      <div class="title_b"> New Topics.</div><br>
+      <pp>Site Address</pp><br>
+      
+      
+      </div>
+      <div class="title_b"><a href="module1.html"> Next </a> </div><br>
+  
+</body>
+</html>

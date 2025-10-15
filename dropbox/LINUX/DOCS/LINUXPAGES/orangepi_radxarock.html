@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Orange Pi , Radxa Rock Development And Hacking</title>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <!-- BEGIN syntax highlighter -->
+    <script type="text/javascript" src="sh/shCore.js"></script>
+    <script type="text/javascript" src="sh/shBrushJScript.js"></script>
+    <link type="text/css" rel="stylesheet" href="sh/shCore.css"/>
+    <link type="text/css" rel="stylesheet" href="sh/shThemeDefault.css"/>
+    <script type="text/javascript">
+      SyntaxHighlighter.all();
+    </script>
+    <!-- END syntax highlighter -->
+
+    <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="linuxsetup.css">
+  </head>
+  <body>
+  
+<div id="container" style="padding-left:20px; padding-right:20px">
+  		
+        <nav>
+            <ul class=""> <!-- class="menu" -->
+                <li><a href="#"><span class="iconic headphones"></span> Linux Setup </a>
+                  <ul>
+                    <li><a href="linuxsetup.html">Linux Setup - HP Laptop Arch Linux Part-1.</a></li>
+                  </ul>
+                </li>
+                
+                <li><a href="#"><span class="iconic plus-alt"></span> Embedded System Development</a>
+                    <ul>
+                        <li><a href="embedded_linux_system_development.html">Embedded Linux System Develoment Part-1.</a></li>
+                        <li><a href="embedded_linux_system_development2.html">Embedded Linux System Develoment Part-2.</a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><span class="iconic magnifying-glass"></span>Raspberry Pi</a>
+                    <ul>
+                        <li><a href="rpi.html">RPi Bugs, Problems, Forums</a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><span class="iconic map-pin"></span> Module Development</a>
+                    <ul>
+                        <li><a href="module1.html">Module Examples</a></li>
+                        <li><a href="#">Module Development</a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><span class="iconic mail"></span> Software Development</a>
+                    <ul>
+                        <li><a href="development1.html">Linux System Software Development.</a></li>
+                        <li><a href="#">Scripts Examples</a></li>
+                    </ul>
+                </li>
+                
+                <li><a href="#"><span class="iconic mail"></span> Device Hacking</a>
+                    <ul>
+                        <li><a href="hackingthinclient.html">Hacking Thin Client EP9307.</a></li>
+                        <li><a href="#">Thin Client Linux Setup</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+        </nav>
+    
+    </div>
+  
+      <div class="title_a"> Development And Hacking 2. <a href="linuxsetup.html">Previous - linuxsetup</a> </div><br>
+      
+      <div class="content_text_gen" style="padding: 20px;font-size: 24px;font-weight: bold; background-color:#CCC;">
+      	<div class="title_b"> Intentionally Left Blank.</div><br>
+      </div><br>
+      
+      <div class="content_text_gen" style="padding: 20px;font-size: 24px;font-weight: bold;">
+      
+      <div class="title_b"> Radxa Rock Setup With LUBUNTU, Dual boot image taken from radxa site.</div><br>
+      Prebuilt images page <a href="http://radxa.com/Rock/prebuilt_images">Link</a>. <br /><br />
+      <img alt="NO IMAGE" src="images/img002.jpg"><br /><br />
+
+      <div class="title_b">Radxa Rock Setup With Rabian.</div>
+      The image is downloaded from <a href="http://dl.radxa.com/rock_pro/images/rabian/">http://dl.radxa.com/rock_pro/images/rabian/</a>. Itself 
+      should contain the tool for flashing the rock board. The rock board needs to be connected with Host PC with a micro USB Cable. Then enter 
+      to loader mode by pressing recovery button when starting or restarting. The loader is look like as follows::<br />
+      <img alt="NO IMAGE" src="images/img007.jpg"><br /><br />
+      <img alt="NO IMAGE" src="images/img008.jpg"><br /><br />
+
+      First it was in chinese language, you amy need to set it to english. But at the end I did not use this tool. I used following tool as follows. <br /><br />
+
+      Official <a href="http://radxa.com/Rock/flash_the_image">this</a> and <a href="http://www.hagensieker.com/styled-26/index.html">this</a> Page describes information on how to install Linux Image on Radxa board. It is needed to 
+      install the driver manually for the first time. Then install <p3>AndroidTool_Release_v2.3.zip</p3> tool to load the Rabian image. <br /><br />
+
+      <img alt="NO IMAGE" src="images/img009.jpg"><br /><br />
+
+      <a href="http://dl.radxa.com/rock_pro/tools/windows/">This </a> page has some tools to work with the board. <br /><br />
+
+      <img alt="NO IMAGE" src="images/img010.jpg"><br /><br />
+
+      The Rabian Image downloaded from official page was not running properly, I downloaded another nightly Image from Following link::<br />
+      <a href="http://build.radxa.com/rabian/nightly/rock_pro/">http://build.radxa.com/rabian/nightly/rock_pro/</a><br />
+      The source code is also here. Found this <a href="http://talk.radxa.com/topic/953/introduce-rabian">Link</a> from the community page. 
+
+      <br /><br />
+
+      <p3>Present status till 27-7-2016. build.radxa.com and talk.radxa.com is down. The main site is alive. 
+      Also the GIT, dl.radxa.com and some other chinese sites are alive yet. could not found 
+      nightly builds.</p3> There are supports for rockchip based devices on the web as:<br />
+      <a href="http://www.cnx-software.com/2014/12/11/boot-ubuntu-linux-or-android-from-an-sd-card-on-rockchip-rk3288-devices/">Boot Ubuntu (Linux) or Android from an SD Card on Rockchip RK3288 Devices</a><br />
+      <a href="http://linux-rockchip.info/mw/index.php?title=Main_Page">linux-rockchip.info</a><br /> <br />
+      I downloaded all files from the Radxa GIT site in <pp>(Transcend 500)Q:\RADXA GIT\</pp>.<br /><br />
+      <img alt="NO IMAGE" src="images/dev4.jpg"><br /><br />
+
+      Check the Rabian apt-get update and upgrade commands leads to link http://apt.radxa.us/...
+      <br /><br />
+
+      My Radxa Rock RK3188 linux image uses lightdm as desktop manager. We can stop lightdm by command <code>service lightdm stop</code> . 
+
+      <br /><br />
+
+      Finally we disable the lightdm service parmanently. We did applied <code>sudo systemctl disable lightdm.service</code> command, which internally run a command <code>/usr/sbin/update-rc.d lightdm disable</code> that shows a message like <code>Removed symlink /etc/systemd/system/display-manager.service</code> . 
+
+      <br /><br />
+
+      List only services : <code>systemctl list-units --type=serice</code> or <code>systemctl list-units --type=service > services.txt</code> then I applied scp command to get the file from remote machine as <code>sudo scp -P 3231 rock@180.234.12.125:/home/rock/services.txt /home/aronno</code> . 
+      <br /><br />
+
+      <div class="title_b">lsb. Linux Standard Base</div>
+      <p3>lsb_release</p3> command was not working in Rabian. lsb stands for Linux Standard Base. So we need to install lsb. It seems that 
+      lsb is not a small package, It takes near 200MB. After installing lsb, the <p3>lsb_release</p3> command is working. As the name LSB - Linux Standard Base is a tool set that should be common to all different linux distributions. So that a standard command set can be used within any linux distribution. It also includes C and C++ and other standard compilers sets and tools. 
+
+      <br /><br />
+
+      <div class="title_b"> Orange PI Setup.</div><br>
+      To know the present lubuntu version:<br /><br />
+
+      <p5>lsb_release -a</p5><br /><br />
+      following command must be fetced for aptitude package manager:<br /><br />
+
+      <p5>sudo apt-get update</p5><br />
+      <p5>sudo apt-get upgrade</p5><br /><br />
+
+      To setup Orange Pi One we downloaded an lubuntu Image from <a href="http://www.orangepi.org/downloaded/download.html"> Here </a>. The other 
+      distro links are also here. The main site for the various OS images is <a href="https://mega.nz/#F!wh8l2BjK!OBep3nMldBletvNNwkH2Jg"> mega </a>. 
+      We downloaded lubuntu image from mega. There are some troubles about using monitor through HDMI-DVI cable. Does not work. There are articles about to 
+      change some config in BOOT partition of the SD card. To do it we need to insert the SD card into a Linux system and use a tool called sunxi-tools to 
+      modify the configs. The problem is, I inserted the SD card in my RADXA system and RADXA OS is lubuntu 14.04 and it could not install sunxi-tools.
+      It may ave some issues with the lubuntu version. The command <p5>sudo add-apt-repository [repo address]</p5> not working. To get it work we are installing following packages :<br /><br />
+      
+        <p5>sudo apt-get install software-properties-common</p5><br />
+        <p5>sudo apt-get install python-software-properties</p5><br /><br />
+
+      After installing tese packages the add-apt-repo... command is working. Now we are trying to install lubuntu-software-center trough apt-get. 
+      These instructions came from <a href="http://lifeonubuntu.com/ubuntu-missing-add-apt-repository-command/"> this link </a>.  <br /><br />
+
+      <p5>sudo apt-get install lubuntu-software-center</p5><br /><br />
+
+      But till now not geting work with installing sunxi-tools on RADXA ROCK PRO. <br /><br />
+
+      Later we connected the orange pi with the ethernet network and installed sunxi-tools by command ::<br /><br />
+      <p5>sudo apt-get install sunxi-tools</p5><br /><br />
+
+      <a href="http://www.orangepi.org/orangepibbsen/forum.php?mod=viewthread&tid=475&page=1#pid4648">This blog post</a> described on how to apply sunxi tools 
+      to perform orange pi with HDMI-DVI monitors. <br /><br />
+
+      <img alt="NO IMAGE" src="images/img003.jpg"><br /><br />
+
+      <pre class="brush:js;">
+      sudo apt-get install sunxi-tools
+
+
+      sudo su
+      cd /media/boot
+      cp script.bin script.bin.bak
+      bin2fex script.bin script.fex
+      nano script.fex
+
+      hdcp_enable = 0
+      hdmi_cts_compatibility = 1
+
+      fex2bin script.fex script.bin
+
+      </pre><br /><br />
+
+      <p3>NOTE</p3>: that I have prevoiusly downloaded the latest kernel <p3>boot image</p3> and <p3>scrip.bin</p3> from <a href="https://mega.nz/#F!wh8l2BjK!OBep3nMldBletvNNwkH2Jg">mega</a>. 
+
+      <br /><br />
+      <pp>USER orangpi BROKEN </pp><br />
+      We had some issues that after running some update and upgrades and script.bin change, the orangepi cannot login with the user orangepi. But 
+      it could login with root user pass:orangepi . Then I added a user named jibon by command <p5>adduser jibon</p5>. It takes a password and prepares 
+      locations and files for user jibon. <br />
+      In lubuntu 15.04 we had to use the command <p5>adduser jibon</p5>. Then it requires a password to create the new user. Then we apply another command 
+    <p5>visudo</p5>. It is actually an env variable to open <p3>/etc/sudoers</p3> file to add the user privilages.<br /><br />
+      <p5>
+      newuser ALL=(ALL:ALL) ALL
+      </p5>
+
+      <br /><br />
+      <pp>Installing tightvncserver</pp><br />
+      Now we are trying to install and configure <p3>tightvncserver</p3>. To search if it is already installed apply command:<br />
+      <p5>apt search vnc</p5> or <p5>apt search tightvncserver</p5><br />
+      if not installed then install it by <p5>sudo apt-get install tightvncserver</p5>.<br />
+      After installation we need to apply command <p5>tightvncserver</p5>. It will ask for a password and then do some of its own setup. After this we 
+      may need to stop vncserver by <p5>vncserver -kill :1</p5> . Now we have to edit <pp>home/jibon/.vnc/xstartup</pp>: add these codes::<br /><br />
+
+      <pre class="brush:js;">
+      !/bin/sh
+      xrdb $HOME/.Xresources
+      xsetroot -solid black
+      /usr/bin/lxsession -s LXDE &
+      </pre>
+
+      <br />
+      Then we can start the vncserver by following command::<br />
+      <p5>vncserver :1</p5><br />
+      We are starting session from number <pp>:1</pp> . It can also be start from 0. When connecting from viewer, the port number should start from 5900. 
+      For :1 the port number is 5901. If the orange pi IP Address is 192.168.20.100 then from vnc viewer, connecting address 
+      is <p3>192.168.20.100:5901</p3> . <br /><br />
+
+      We had a problem with running a python Qt GUI program from vncviewer. The setup was in a RPi with lightdm minimul setup. It issues permission problem when trying to run the program as sudo. Very few documents are available online about this issue::<br />
+      <a href="http://thepiandi.blogspot.ca/2013/10/can-python-script-with-gui-run-from.html">This Post</a> advises to add <code>xhost +</code> to <p3>~/.bashrc</p3> script. But didnt solved the issues completely. Without sudo the program runs and shows every GUI components with fewer problems. But could not find any better suport on how to run GUI apps over vnc with sudo support. Otherhand complete desktop setup may run well...
+      <br /><br />
+
+      <br />
+      <div class="title_b">Start VNC Server At Startup</div>
+      Document source <a href="http://www.orangepi.org/Docs/LogintotheOrangePi.html">Login to the Orange Pi</a> , this page described on how to setup 
+      remote access for OrangePi. First of all it shows that <p3>openssh-server</p3> should start automatically.<br />
+      <img alt="NO IMAGE" src="images/img004.jpg"><br /><br />
+      The command ::<br />
+      <p5>ps -e</p5> <br />
+      shows every process running in the system. It says to check if <p3>sshd</p3> exists in the process list as :: <br />
+      <p5>ps -e | grep sshd</p5> or <p5>ps auxw | grep sshd</p5><br />
+      More ps related commands can be found <a href="http://linuxcommand.org/man_pages/ps1.html">here</a>. To check whether openssh-server is 
+      installed or not apply the command ::<br />
+      <p5>apt search openssh-server</p5><br />
+      If not installed then install it. The above docs shows how to start or stop <p3>sshd</p3>. Following method sows how to start ssh server 
+      on startup.
+      <br /><br />
+
+      <img alt="NO IMAGE" src="images/img005.jpg"><br /><br />
+
+      SSH <a href="https://www.digitalocean.com/community/tutorials/how-to-use-ssh-to-connect-to-a-remote-server-in-ubuntu">Commands Link</a><br />
+      SSH to a specific port other than 22 : <br />
+      <code>sudo ssh -p 3238 pi@144.48.2.11</code><br /><br />
+
+      I found that ssh server <p3>sshd</p3> is running and I can log into OrangePi from putty using OrangePi's IP Address and port 22. But 
+      <p3>/etc/rc.local</p3> does not contains any script to start ssh server::<br />
+      <pre class="brush:js;">
+jibon@OrangePI:~$ cat /etc/rc.local
+#!/bin/sh -e
+#
+# rc.local
+#
+# This script is executed at the end of each multiuser runlevel.
+# Make sure that the script will "exit 0" on success or any other
+# value on error.
+#
+# In order to enable or disable this script just change the execution
+# bits.
+#
+# By default this script does nothing.
+
+# ** Overclock to 1.728 GHz
+#echo 1728000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+
+echo 0 > /proc/sys/kernel/hung_task_timeout_secs
+
+dmesg -n 1
+
+exit 0
+jibon@OrangePI:~$
+      </pre><br /><br />
+
+    May be it is started by only putting <p3>ssh</p3> in the <pp>/etc/init.d/</pp> location. <br /><br />
+
+<div class="title_b">Armbian Setup Feb-17-17</div>
+Armbian is debian based distribution for ARM based processors. Looks like more lightweight and manageable distribution with lightdm support. Docs are looking good. Lets see...
+
+<br /><br />
+
+<img alt="NO IMAGE" src="images/img201.png"><br /><br />
+
+From <a href="https://docs.armbian.com/">docs.armbian.com</a> link to <a href="https://docs.armbian.com/User-Guide_Getting-Started/">Getting Started Guide</a> . <br />
+
+<img alt="NO IMAGE" src="images/img202.png"><br /><br />
+
+We downloaded a nightly build <p3>Armbian_5.26.170219_Orangepizero_Ubuntu_xenial_dev_4.10.0.img</p3> . The SD Card may be faulty sometimes during image writing or power related issues, SDFormatter software could be used repair the errors. <br /><br />
+<pp>BALLISTIC(P):\K(SOFT)\win32diskimager-v0.8-binary\SDFormatterv4.zip</pp><br />
+<img alt="NO IMAGE" src="images/img203.png"><br /><br />
+Apply the option as above image. Then use <p3>win32diskimager</p3> to write the image.
+<br /><br />
+
+<div class="title_b">Hand Written Notes</div>
+<h2>mjpg streamer</h2>
+<pp>/Dropbox/ORANGE Pi/docs/img/mjpg streamer install.jpeg</pp><br />
+
+
+<br /><br />
+
+<div class="title_b">MEGA Link of the linux images for orange pi</div>
+Many linux images are here. Try to download them all in some locations later. <br /><br />
+<img alt="NO IMAGE" src="images/img012.jpg"><br /><br />
+
+<div class="title_b">Cloud Linux Server Setup at DigitalOcean</div>
+
+    We have established a connection with a cloud linux server running Ubuntu 15.10 Wily through openssh. There are 2 users as ::<br />
+
+    root Redhat1997 and aronno redhat1980 . Droplet Name: autopilot<br />
+	IP Address: 45.55.217.83 <br />
+	Username: root<br />
+
+	From putty login as <p5>root@45.55.217.83</p5> password: Redhat1997. <br />
+	Or <p5>aronno@45.55.217.83</p5> password: redhat1980. <br />
+	Or from linux: <p5>ssh aronno@45.55.217.83</p5>.<br />
+
+	<br />
+
+     
+    After Installing Linux droplet, I noticed that 512MB memory is not sufficient. Sometimes it consumes memory by itself even no extra program is 
+    running. May be UBUNTU 15.10 does consumes such memory. I used <p3>htop</p3> to see memory usage as follows::<br />
+
+    <img alt="NO IMAGE" src="images/img006.jpg"><br /><br />
+
+    The information may come from <pp>/proc/meminfo</pp> . <br /><br />
+
+    Installing::<br />
+    <p3>sudo apt-get install python-minimal</p3><br />
+    <p3>sudo apt-get install python-sqlite</p3><br />
+    <p5>sudo apt-get install sqlite3</p5><br />
+
+    type <p5>python</p5> in command line. It will enter to python interactive shell. Type <p5>exit()</p5> to exit 
+    from interactive shell.<br />
+    Then type <p5>sqlite3</p5> to enter to sqlite shell. Type <p5>.exit</p5> to exit.<br /><br />
+
+    After installing these packages check them from inside python shell::<br /><br />
+    <pre class="brush:js;">
+    rock@rabian-rock-pro:~$ python
+    Python 2.7.9 (default, Mar  1 2015, 13:48:22)
+    [GCC 4.9.2] on linux2
+    Type "help", "copyright", "credits" or "license" for more information.
+    >>> import sqlite3
+    >>> sqlite3.version
+    '2.6.0'
+    >>> sqlite3.sqlite_version
+    '3.8.7.1'
+    >>>
+    </pre>
+    <img alt="NO IMAGE" src="images/img011.jpg"><br /><br />
+
+    This is related to python programming. Go to python page in <pp>/Dropbox/Python/Docs/python01.html</pp>.<br />
+
+      <br /><br />
+      <div class="title_b"> NEXT TOPIC.</div><br>
+      <pp>SITE ADDR</pp><br>      
+      
+      
+      </div>
+      <div class="title_b"><a href="embedded_linux_system_development2.html"> Next </a> </div><br>
+  
+</body>
+</html>

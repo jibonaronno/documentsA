@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>LINUXSETUP</title>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="linuxsetup.css">
+  </head>
+  <body>
+  
+<div id="container" style="padding-left:20px; padding-right:20px">
+  		
+        <nav>
+            <ul class=""> <!-- class="menu" -->
+                <li><a href="#"><span class="iconic headphones"></span> Linux Setup </a>
+                  <ul>
+                    <li><a href="linuxsetup.html">Linux Setup - HP Laptop Arch Linux Part-1.</a></li>
+                  </ul>
+                </li>
+                
+                <li><a href="#"><span class="iconic plus-alt"></span> Embedded System Development</a>
+                    <ul>
+                        <li><a href="embedded_linux_system_development.html">Embedded Linux System Develoment Part-1.</a></li>
+                        <li><a href="embedded_linux_system_development2.html">Embedded Linux System Develoment Part-2.</a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><span class="iconic magnifying-glass"></span>Raspberry Pi</a>
+                    <ul>
+                        <li><a href="rpi.html">RPi Bugs, Problems, Forums</a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><span class="iconic map-pin"></span> Module Development</a>
+                    <ul>
+                        <li><a href="module1.html">Module Examples</a></li>
+                        <li><a href="#">Module Development</a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><span class="iconic mail"></span> Software Development</a>
+                    <ul>
+                        <li><a href="development1.html">Linux System Software Development.</a></li>
+                        <li><a href="#">Scripts Examples</a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><span class="iconic mail"></span> Device Hacking</a>
+                    <ul>
+                        <li><a href="hackingthinclient.html">Hacking Thin Client EP9307.</a></li>
+                        <li><a href="#">Thin Client Linux Setup</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+        </nav>
+    
+    </div>
+      <div class="title_a"> Embedded Linux System Develoment. <a href="embedded_linux_system_development.html">Link</a> </div><br>
+      
+      <div class="content_text_gen" style="padding: 20px;font-size: 24px;font-weight: bold; background-color:#CCC;">
+      	<div class="title_b"> Buildroot Configurations.</div><br>
+        Most of the documents about Buildroot are in <p3>/dropbox/LINUX/BUILDROOT</p3> directory. Buildroot creates the whole linux system 
+        depends on the configuration created from <p5>make menuconfig</p5>. It creates a .config file and then the buildroot script depends
+        on it to create the Linux Image.
+      </div><br>
+      
+      <div class="content_text_gen" style="padding: 20px;font-size: 24px;font-weight: bold;">
+      This document is based on the book Embedded Linux System Development resides in <p3>/dropbox/LINUX/EMBEDDED LINUX SYSTEM DEVELOPMENT</p3>. There are
+      some image documents on the same folder about some introduction. We are starting from <p3>2.4 Linux Start-Up Sequence (page-41)</p3>. <br>
+      <img alt="NO IMAGE" src="images/doc1.jpg"><br>
+      I will discuss this start up sequences based on this ebook and also from other sources.<br>
+      Bootloader operations.<br>
+      <img alt="NO IMAGE" src="images/doc2.jpg"><br>
+      Downloading Kernel Image and initrd.<br>
+      <img alt="NO IMAGE" src="images/doc3.jpg"><br>
+      Setting Up Kernel Arguments :<br>
+      <img alt="NO IMAGE" src="images/doc4.jpg"><br>
+      From Bootloader to Kernel Entry Point :<br>
+      <img alt="NO IMAGE" src="images/doc5.jpg"><br>
+      Kernel Start-Up:<br>
+      <img alt="NO IMAGE" src="images/doc6.jpg"><br>
+      <img alt="NO IMAGE" src="images/doc7.jpg"><br>
+      <img alt="NO IMAGE" src="images/doc8.jpg"><br>
+      <img alt="NO IMAGE" src="images/doc9.jpg"><br>
+      <img alt="NO IMAGE" src="images/doc10.jpg"><br>
+      <img alt="NO IMAGE" src="images/doc11.jpg"><br>
+      <img alt="NO IMAGE" src="images/doc12.jpg"><br>
+      <img alt="NO IMAGE" src="images/doc13.jpg"><br>
+      <img alt="NO IMAGE" src="images/doc14.jpg"><br>
+      <img alt="NO IMAGE" src="images/doc15.jpg"><br>
+      <img alt="NO IMAGE" src="images/doc16.jpg"><br>
+      <img alt="NO IMAGE" src="images/doc17.jpg"><br>
+      <img alt="NO IMAGE" src="images/doc18.jpg"><br>
+      <img alt="NO IMAGE" src="images/doc19.jpg"><br>
+      <img alt="NO IMAGE" src="images/doc20.jpg"><br>
+      <img alt="NO IMAGE" src="images/doc21.jpg"><br>
+      <img alt="NO IMAGE" src="images/doc22.jpg"><br>
+      <img alt="NO IMAGE" src="images/doc23.jpg"><br>
+      
+      <div class="title_b"> SYSVINIT Articles. --start . SYSVINIT is obsolate in new Linux systems. systemd is used now.</div><br>
+      <img alt="NO IMAGE" src="images/doc24.jpg"><br>
+      <img alt="NO IMAGE" src="images/doc25.jpg"><br>
+      <img alt="NO IMAGE" src="images/doc26.jpg"><br>
+      <img alt="NO IMAGE" src="images/doc27.jpg"><br>
+      <img alt="NO IMAGE" src="images/doc28.jpg"><br>
+      Note that this files are not available in newer linux systems.<br>
+      <img alt="NO IMAGE" src="images/doc29.jpg"><br>
+      <img alt="NO IMAGE" src="images/doc30.jpg"><br>
+      Neither this files and systems are present in newer linux systems. 
+      <div class="title_b"> SYSVINIT Articles. --end .</div><br>
+      
+      But recent linux sustems are not using <p3>SYSVINIT</p3>. It is obsolate now. <p3>systemd</p3> is used now.<br>
+      
+      <div class="title_b"> Cross Tool Chain .</div><br>
+      <pp>PAGE 50</pp><br>
+      Cross tool chain compiler and other tools are needed to build programs for target machines. I used <p3>crosstool-ng</p3> for
+      this purpose. Other hand, binutils is an important set of tools needed by the GNU toolchain. It has the following tools for
+      various operations.<br>
+      1. <p3>addr2line</p3>.<br>
+      2. <p3>ar</p3>.<br>
+      3. <p3>as</p3>.<br>
+      4. <p3>c++filt</p3>.<br>
+      5. <p3>gasp</p3>.<br>
+      6. <p3>ld</p3>.<br>
+      7. <p3>nm</p3>.<br>
+      8. <p3>objcopy</p3>.<br>
+      9. <p3>objdump</p3>.<br>
+      10. <p3>ranlib</p3>.<br>
+      11. <p3>readelf</p3>.<br>
+      12. <p3>size</p3>.<br>
+      13. <p3>strings</p3>.<br>
+      14. <p3>strip</p3>.<br>
+      <br>
+      <pp>PAGE 50</pp><br>
+      Following section of the book has description on how to make a complete cross toolchain manually.<br>
+      <img alt="NO IMAGE" src="images/doc31.jpg"><br>
+      
+      <br>
+      
+      </div>
+      <div class="title_b"><a href="embedded_linux_system_development2.html"> Next </a> </div><br>
+  
+</body>
+</html>

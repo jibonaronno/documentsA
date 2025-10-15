@@ -1,0 +1,4 @@
+src001				source001/file1.txt							dest001/file1.txt
+src002				source002/file2.xzf							dest002/file2.xzf
+src003 				rock@180.234.12.125							rock@180.234.12.125:/var/www/html/droptest/linux/script/script001.sh
+scripts_commands	Dropbox/LINUX/SCRIPTS_COMMANDS/ 	rock@180.234.12.125:/var/www/html/droptest/linux/scripts/

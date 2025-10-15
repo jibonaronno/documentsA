@@ -1,0 +1,4 @@
+#!/bin/bash
+trans=script008.sh $1 $2
+print $trans
+rsync -rvz -e 'ssh -p 3231' --progress $trans

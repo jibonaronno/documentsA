@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>LINUXSETUP</title>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="linuxsetup.css">
+  </head>
+  <body>
+  
+<div id="header"></div>
+    
+    <div id="container" style="padding-left:20px; padding-right:20px">
+  		
+        <nav>
+            <ul class=""> <!-- class="menu" -->
+                <li><a href="#"><span class="iconic headphones"></span> Linux Setup </a>
+                  <ul>
+                    <li><a href="linuxsetup.html">Linux Setup - HP Laptop Arch Linux Part-1.</a></li>
+                    <li><a href="commandsandfeatures.html">Linux Commands & Features.</a></li>
+                  </ul>
+                </li>
+                
+                <li><a href="#"><span class="iconic plus-alt"></span> Embedded System Development</a>
+                    <ul>
+                        <li><a href="embedded_linux_system_development.html">Embedded Linux System Develoment Part-1.</a></li>
+                        <li><a href="embedded_linux_system_development2.html">Embedded Linux System Develoment Part-2.</a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><span class="iconic magnifying-glass"></span>Raspberry Pi</a>
+                    <ul>
+                        <li><a href="rpi.html">RPi Bugs, Problems, Forums</a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><span class="iconic map-pin"></span> Module Development</a>
+                    <ul>
+                        <li><a href="module1.html">Module Examples</a></li>
+                        <li><a href="#">Module Development</a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><span class="iconic mail"></span> Software Development</a>
+                    <ul>
+                        <li><a href="development1.html">Linux System Software Development.</a></li>
+                        <li><a href="#">Scripts Examples</a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><span class="iconic mail"></span> Device Hacking</a>
+                    <ul>
+                        <li><a href="hackingthinclient.html">Hacking Thin Client EP9307.</a></li>
+                        <li><a href="#">Thin Client Linux Setup</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+        </nav>
+    
+    </div>
+    
+    <div id="footer" style="clear:both;"></div>
+    <div class="title_a"> HP Laptop Setup GRUB Problem. <a href=""></a> </div><br>
+    
+    <div class="content_text_gen" style="padding: 20px;font-size: 24px;font-weight: bold;">
+    After install Arch Linux the GRUB command <p5>grub-mkconfig -o /boot/grub/grub.cfg</p5> shows out of memory like errors. Adding this line <p3>GRUB_DISABLE_SUBMENU=y</p3>
+    to /etc/default/grub file solves the problem.
+    </div>
+    
+    <div class="title_a"> HP Laptop Setup. <a href=""></a> </div><br>
+    
+    <div class="content_text_gen" style="padding: 50px;font-size: 24px;font-weight: bold;"> During installation, linux could not use hp's LAN card and wifi card. So I had to connect a 
+    TP-Link Wifi card for installation. I Had to go through the whole WPA Supplicant setup. After general installation the WiFi didnt worked. Most of the time I had to run the
+    dmesg command to find out the related messages. Like <p5"> dmesg | grep usbcore </p5> to see the USB related messages. The command 
+    <p5> ip link </p5> shows the network interfaces as a list. From the list we could find out the LAN card name and WiFi card name. In my case
+    my TP-Link WiFi card interface name is <p3 class="content_text_command"> wlp0s29f7u2u1 </p3>. This naming convention issues will be discuss later. My LAN card module name is
+    e100. Initially after general installation, this LAN card did not work. So I had to connect the WiFi first through the WiFi USB dongle. Then issued command 
+    <p5> pacman -Syy </p5> and <p5> pacman -Syu </p5>. I ussued command 
+    <p5> modprobe -r e100 </p5> to remove the e100 module and then the command <p5> modprobe e100 </p5> to reload the
+    e100 module. The it replies with error like "EEPROM corrupted". To see the kernek messages about e100 I did <p5> dmesg | grep e100 </p5> and
+    it also shows same kind of EEPROM corrupted errors. So I need to apply an option for the e100 module to ignore the EEPROM error. In 
+    <a href="https://wiki.archlinux.org/index.php/Kernel_modules"> https://wiki.archlinux.org/index.php/Kernel_modules </a> article's <p3 class="content_text_command">
+    Setting Module Options </p3> section describes on how to set module options. <br>
+    <img alt="NO IMAGE" src="images/img1.jpg"><br>
+    As describes here I did the following steps:<br>
+    <div class="content_text_gen" style="padding: 20px;font-size: 24px;font-weight: bold;">
+    1. Create a file named e100.conf in /etc/modprobe.d/<br>
+    2. Then wrote this line <p3> options e100 eeprom_bad_csum_allow=1 </p3> .
+    </div>
+    
+    Then also applied 2 bin files as described follows. 
+    <br>
+    <div class="content_text_gen" style="padding: 20px;font-size: 24px;font-weight: bold;">
+    1. Download the nonfree-firmwires from <a href="">here</a>.<br>
+    2. Unzip the files and find a folder named e100.<br>
+    3. There should be three files named : d101m_ucode.bin, d101s_ucode.bin and d102e_ucode.bin. <br>
+    4. Copy these files to  /lib/firmware/e100 . If the e100 folder does not exist then create it and reboot the system. <br>
+    </div>
+    
+    These steps solves the problems. The <p5> dmesg | grep e100 </p5> still showes the EEPROM corrupted error but the modules loaded and then I could use
+    <p5>ip link set up dev enp2s8</p5> command to activate the ethernet device. Here <p3>enp2s8</p3> is the interface name of my ethernet device. <br><br>
+    Now setup the internet connection and create a systemd service that will establish the internet connection everytime the computer starts. Following commands
+    may be needed time to time when there are a problems about device drivers and modules.<br>
+    <div class="content_text_gen" style="padding: 20px;font-size: 24px;font-weight: bold;">
+    1. <p5>lspci -v</p5><br>
+    2. <p5>lsusb -v</p5> or <p5>lsusb</p5> or <p5>lsusb -v | grep .... (i.e. related device name)</p5><br>
+    3. <p5>dmesg | grep usbcore</p5> to show related driver names.<br>
+    4. <p5>lsmod</p5><br>
+    </div>
+    
+    Nework Interface Naming Scheme : Initially my TP-Link USB WiFi card's name was wlp0s29f7u2u1. From <a href="https://wiki.archlinux.org/index.php/Network_Configuration"> 
+    Arch Wiki Document </a> It says to ignore these naming scheme by command: <p5> ln -s /dev/null /etc/udev/rules.d/80-net-name-slot.rules </p5>. After this command my 
+    network interface names were normal. Now to find out the related module names of the network interfaces, <a href=""> This Link </a> says to use command 
+    <p5>ls -l /sys/class/net/wlan0/device/driver/module --color </p5> . Here 'wlan0' can be replaced with any network interface name. This command will show the related
+    linked module file. Remember not to place a '/' at the end of the path. Follow this 
+    <a href="http://askubuntu.com/questions/216110/how-do-i-find-what-kernel-module-is-behind-a-network-interface"> Link</a>.<br>
+    <img alt="NO IMAGE" src="images/img2.jpg"><br>
+    
+    <div class="title_b"> Setup A Wired Network </div>
+    <div class="content_text_gen" style="padding: 20px;font-size: 24px;font-weight: bold;">
+    First download and install the rfkill package with command <p5>pacman -S rfkill</p5>. Then follow the steps:<br>
+    1. Craete a file <p3>/etc/conf.d/network@eth0</p3>.<br>
+    2. Write follwoing codes:<br>
+    <pre><code>
+address=27.147.234.151
+netmask=28
+broadcast=27.147.234.151
+gateway=27.147.234.145
+    </code>
+    </pre><br>
+    3. Create another file <p3>/etc/systemd/system/network@.service</p3>. Write following code.<br>
+    <pre>
+    <code>
+[Unit]
+Description=Network connectivity (%i)
+Wants=network.target
+Before=network.target
+BindsTo=sys-subsystem-net-devices-%i.device
+After=sys-subsystem-net-devices-%i.device
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+EnvironmentFile=/etc/conf.d/network@%i
+
+ExecStart=/usr/bin/rfkill unblock all
+ExecStart=/usr/bin/ip link set dev eth0 up
+ExecStart=/usr/bin/ip addr add 27.147.234.151/28 broadcast 27.147.234.151 dev eth0
+ExecStart=/usr/bin/ip route add default via 27.147.234.145
+
+ExecStart=/usr/bin/ip link set dev wlan1 up
+ExecStart=/usr/bin/ip addr add 192.168.10.12/24 dev wlan1
+
+
+ExecStop=/usr/bin/ip addr flush dev eth0
+ExecStop=/usr/bin/ip link set dev eth0 down
+
+[Install]
+WantedBy=multi-user.target
+	</code>
+	</pre><br>
+    Note that I assign a fixed IP to wlan1 interface.<br>
+    4. Now issue the command <p5>systemctl enable network@eth0.service</p5>.<br>
+    5. Add the dns addresses to <p3>/etc/resolv.conf</p3> file as:<br>
+    <p3>nameserver 203.76.96.5<br>nameserver 203.76.127.4</p3><br>
+    Reboot the system. <br>
+    
+    <br>
+    This setup methods are for fixed IPs. I assign fixed IP to wlan1 to share my internet connection. Install hostapd for software access point. 
+    Also need to install dhcpd for dhcp server. The hostapd uses<p3> /etc/hostapd/hostapd.conf</p3> file for setup. Here is a very simple 
+    <p3>hostapd.conf</p3> file.<br>
+    <pre>
+    <code>
+    interface=wlan1
+    bridge=br0
+    driver=nl80211
+    ssid=TEST
+    channel=1
+    hw_mode=g
+    macaddr_acl=0
+    </code>
+    </pre><br>
+    Use command <p5>hostapd /etc/hostapd/hostapd.conf</p5> to start hostapd manually. Go to another terminal by <p5>alt+F2</p5> command. Need to run the 
+    dhcpd service. Edit the dhcpd config file <p3>/etc/dhcpd.conf</p3> as follows:<br>
+    <pre>
+    <code>
+    option domain-name-servers 203.76.96.5;
+    option subnet-mask 255.255.255.0;
+    option routers 192.168.10.12;
+    subnet 192.168.10.0 netmask 255.255.255.0 {
+    range 192.168.10.13 192.168.10.30;
+    }
+    </code>
+    </pre><br>
+    Run dhcpd service 
+    by <p5>systemctl start dhcpd4.service</p5> command. See the status of the dhcpd service by <p5> systemctl status dhcpd4.service</p5> command. hostapd 
+    can also be run as a service. I will do it later. This way a WiFi client can connect to this soft access point, but cannot communication properly.
+    
+    </div>
+    
+    <br>
+    <br>
+    <p3>Hostapd Config File </p3> <a href="http://hostap.epitest.fi/cgit/hostap/plain/hostapd/hostapd.conf"> Link</a>. Local <a href="contents/hostapd.conf.txt">Link</a>.<br>
+    
+    <br>
+    <p3>Some Hostapd config links</p3>.<br>
+    <a href="http://madwifi-project.org/wiki/UserDocs/HostAP">http://madwifi-project.org/wiki/UserDocs/HostAP</a><br>
+    
+    <br>
+    <p3>Hostapd source links</p3>.<br>
+    <a href="http://svn.dd-wrt.com/browser/src/router/hostapd-wps/src/ap/wpa_auth.c?rev=16922">http://svn.dd-wrt.com/browser/src/router/hostapd-wps/src/ap/wpa_auth.c?rev=16922</a><br>
+    
+    <br>
+    Later on after many trial and error, The soft router works by create_ap script. <a href="https://github.com/oblique/create_ap">Link</a>. I used the command:
+    <p5>create_ap --no-virt wlan1 eth0 TEST2 123456789</p5>. Here TEST2 is SSID and 123456789 is the password. Initially I set up the wlan1 with a fixed ip as 
+    <p3>192.168.10.12</p3>. And also set up the <p3>dhcpd</p3> server as to assign ip from <p3>192.168.10.13</p3>. But It didnt worked, The client machines could
+    connect but could not even ping to that address. Later I found that create_ap assign an ip <p3>192.168.12.1</p3> to wlan1 interface, and iptables started to 
+    route through this address. So later on I changed the wlan1 ip address to <p3>192.168.12.1</p3> in <p3>/etc/systemd/system/network@.service</p3> file and also 
+    edit the <p3>/etc/dhcpd.conf</p3> script to act properly:
+    
+    <code>
+    <pre>
+[Unit]
+Description=Network connectivity (%i)
+Wants=network.target
+Before=network.target
+BindsTo=sys-subsystem-net-devices-%i.device
+After=sys-subsystem-net-devices-%i.device
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+EnvironmentFile=/etc/conf.d/network@%i
+
+ExecStart=/usr/bin/rfkill unblock all
+ExecStart=/usr/bin/ip link set dev eth0 up
+ExecStart=/usr/bin/ip addr add 27.147.234.151/28 broadcast 27.147.234.151 dev eth0
+ExecStart=/usr/bin/ip route add default via 27.147.234.145
+
+ExecStart=/usr/bin/ip link set dev wlan1 up
+ExecStart=/usr/bin/ip addr add 192.168.12.1/24 dev wlan1
+
+
+ExecStop=/usr/bin/ip addr flush dev eth0
+ExecStop=/usr/bin/ip link set dev eth0 down
+
+[Install]
+WantedBy=multi-user.target
+    </code>
+    </pre><br>
+    
+    <code>
+    <pre>
+    option domain-name-servers 203.76.96.5;
+    option subnet-mask 255.255.255.0;
+    option routers 192.168.12.1;
+    subnet 192.168.12.0 netmask 255.255.255.0 {
+    range 192.168.12.13 192.168.12.30;
+    </code>
+    </pre><br>
+    
+    I needed to start the whole process by some commands. Let assume that the proper WiFi card is wlan1 in the system and internet is accessible at eth0.
+    
+    
+    
+    </div><br>
+    
+    <div class="content_text_gen" style="padding: 20px;font-size: 24px;font-weight: bold;">
+    <div class="title_b"> Installing TP-Link TL-WN725N V2 ON RASPBIAN kernel 3.12.22+. 
+    <a href="http://tech.enekochan.com/2014/02/15/tp-link-tl-wn725n-version-2-in-raspbian-2014-01-07-wheezy-raspbian-with-kernel-3-10-25/">Link</a></div><br>
+    <img alt="NO IMAGE" src="images/rpi10.jpg"><br>
+    In case of Raspbian update of kernel 3.12.22+, we need to get the updated driver for this TP-Link adapter.
+    This <a href="http://www.mendrugox.net/2013/08/tp-link-tl-wn725n-v2-working-on-raspberry-raspbian/"> website </a> provides support 
+    for this adapters driver module and firmware.<br>
+    <img alt="NO IMAGE" src="images/rpi13.jpg"><br>
+    Following <a href="http://tech.enekochan.com/2014/02/15/tp-link-tl-wn725n-version-2-in-raspbian-2014-01-07-wheezy-raspbian-with-kernel-3-10-25/"> 
+    article </a> shows detailed instructions.<br>
+    <img alt="NO IMAGE" src="images/rpi11.jpg"><br>
+    <img alt="NO IMAGE" src="images/rpi12.jpg"><br> 
+    This articles shows instructions for kernel 3.10.25+ but in the middle of 2014 the kernel is 3.12.22+. So we need to download the 
+    proper driver module match with the kernel.<br>
+    <p5> wget -O 8188eu_31222_691.zip http://www.mendrugox.net/downloads/15 </p5><br>
+    <p5>
+    unzip 8188eu_31024_614.zip<br>
+	sudo cp 8188eu.ko /lib/modules/`uname -r`/kernel/drivers/net/wireless<br>
+	sudo chown root:root /lib/modules/`uname -r`/kernel/drivers/net/wireless/8188eu.ko<br>
+	sudo cp rtl8188eufw.bin /lib/firmware/rtlwifi/<br>
+	sudo chown root:root /lib/firmware/rtlwifi/rtl8188eufw.bin<br>
+	sudo depmod -a<br>
+	sudo modprobe 8188eu
+    </p5><br>
+    Here <p5>uname -r</p5> command is used to retrive the kernel version number. Later we used the GUI mode to configure the WiFi. Now 
+    we will try for SSH login. <br>
+    
+    <p3>Go to rpi.html page for more docs.</p3>
+    
+    </div>
+    
+    
+    <div class="title_b"> Iptables Documents. <a href="http://www.revsys.com/writings/quicktips/nat.html">Link</a><br>
+    Downloaded in Dropbox\LINUX\DOCS\EBOOKS\HOWTO_ Linux NAT in Four Steps using iptables.pdf </div>
+    <img alt="NO IMAGE" src="images/doc46.jpg"><br>
+    <img alt="NO IMAGE" src="images/doc47.jpg"><br>
+    
+    <div class="title_b"> Disabling Services in HP Laptop. </div>
+    <div class="content_text_gen" style="padding: 20px;font-size: 24px;font-weight: bold;">
+    After installing external WiFi router, I have disabled the services from the HP Laptop. <br>
+    <p5>systemctl disable dhcpd4</p5><br>
+    <p5>systemctl disable iptables</p5><br>
+    Last known working rules file of iptables : <p3>/etc/iptables/iptables.rules</p3><br>
+    <img alt="NO IMAGE" src="images/doc49.jpg"><br>
+    </div>
+    
+    <div class="title_a"> HP Laptop Setup RF-Kill issues. <a href=""></a> </div><br>
+    <div class="content_text_gen" style="padding: 20px;font-size: 24px;font-weight: bold;">
+    rfkill related messages could be arrived if the hard switch of the wireless network of the laptop is switched off. Generally rfkill apps are not installed, download the rfkill
+    manually and issue a command like <p3>rfkill unblock all</p3>. Also look for hard switch on the laptop.
+    </div>
+    
+  </body>
+</html>

@@ -1,0 +1,2 @@
+A Makefile is prepared for compiling multifile source for mega8. Charge Controller Source Code has been compiled. 
+Its location is /home/aronno/study/current projects/Mppt.

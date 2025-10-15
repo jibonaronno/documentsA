@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Tinycore Linux 001</title>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <!-- BEGIN syntax highlighter -->
+    <script type="text/javascript" src="sh/shCore.js"></script>
+    <script type="text/javascript" src="sh/shBrushJScript.js"></script>
+    <link type="text/css" rel="stylesheet" href="sh/shCore.css"/>
+    <link type="text/css" rel="stylesheet" href="sh/shThemeDefault.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Gruppo" rel="stylesheet">
+    <script type="text/javascript">
+      SyntaxHighlighter.all();
+    </script>
+    <!-- END syntax highlighter -->
+
+    <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="linuxsetup.css">
+  </head>
+  <body>
+  
+<div id="container" style="padding-left:20px; padding-right:20px">
+  		
+        <nav>
+            <ul class=""> <!-- class="menu" -->
+                <li><a href="#"><span class="iconic headphones"></span> Linux Setup </a>
+                  <ul>
+                    <li><a href="linuxsetup.html">Linux Setup - HP Laptop Arch Linux Part-1.</a></li>
+                  </ul>
+                </li>
+                
+                <li><a href="#"><span class="iconic plus-alt"></span> Embedded System Development</a>
+                    <ul>
+                        <li><a href="embedded_linux_system_development.html">Embedded Linux System Develoment Part-1.</a></li>
+                        <li><a href="embedded_linux_system_development2.html">Embedded Linux System Develoment Part-2.</a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><span class="iconic magnifying-glass"></span>Raspberry Pi</a>
+                    <ul>
+                        <li><a href="rpi.html">RPi Bugs, Problems, Forums</a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><span class="iconic map-pin"></span> Module Development</a>
+                    <ul>
+                        <li><a href="module1.html">Module Examples</a></li>
+                        <li><a href="#">Module Development</a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><span class="iconic mail"></span> Software Development</a>
+                    <ul>
+                        <li><a href="development1.html">Linux System Software Development.</a></li>
+                        <li><a href="#">Scripts Examples</a></li>
+                    </ul>
+                </li>
+                
+                <li><a href="#"><span class="iconic mail"></span> Device Hacking</a>
+                    <ul>
+                        <li><a href="hackingthinclient.html">Hacking Thin Client EP9307.</a></li>
+                        <li><a href="#">Thin Client Linux Setup</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+        </nav>
+    
+    </div>
+  
+      <div class="title_a"> tinyCore Linux 001 <a href="linuxsetup.html">Previous - linuxsetup</a> </div><br>
+      
+      <div class="content_text_gen" style="padding: 20px;font-size: 24px;font-weight: bold; background-color:#CCC;">
+      	<div class="title_b"> Intentionally Left Blank.</div><br>
+      </div><br>
+      
+      <div class="content_text_gen" style="padding: 20px;font-size: 24px;font-weight: bold;">
+
+      <a href="https://mountpeaks.wordpress.com/2012/03/01/some-notes-on-tinycore/">https://mountpeaks.wordpress.com/2012/03/01/some-notes-on-tinycore/</a><br />
+      <a href="http://distro.ibiblio.org/tinycorelinux/concepts.html">http://distro.ibiblio.org/tinycorelinux/concepts.html</a><br />
+      <a href="http://wiki.tinycorelinux.net/wiki:start">http://wiki.tinycorelinux.net/wiki:start</a><br />
+      <a href="http://wiki.tinycorelinux.net/wiki:persistence_for_dummies">http://wiki.tinycorelinux.net/wiki:persistence_for_dummies</a><br />
+
+      <br /><br />
+      <div class="title_b"> Into the Core - tinyCore Linux book.pdf </div><br>
+      Ebook saved in <p3>/Dropbox/EBOOK/tinyCore Linux book.pdf</p3>. We will cover the statements step by step. <br />
+      <h2>Frugal Install</h2>
+      Page - 16 says that in Frugal installation, there are only 2 files: <br />
+      <p5>1</p5>. vmlinuz and<br />
+      <p5>2</p5>. core.gz ( initrd . A basic linux filesystem that will be deployed in to RAM)<br /><br />
+
+      <img alt="NO IMAGE" src="images/tcl001.jpg"><br /><br />
+
+      <pp>bootloader</pp> has a special purpose to start the tinyCore. bootloader loads these 2 files and starts the OS. <br />
+
+      <h2>Boot codes</h2>
+
+      <img alt="NO IMAGE" src="images/tcl002.jpg"><br /><br />
+
+      Boot codes or boot arguments defines the nature of tinyCore. <p3>GRUB</p3> , <p3>LILO</p3> etc bootloaders uses boot codes or boot arguments to load tinyCore. Use <p5>F2</p5>, <p5>F3</p5> or <p5>F4</p5> at the boot prompt to see the boot code lists. It says <p5>boot code base</p5> is notable to load basic tinyCore only.<br /><br />
+      
+      <img alt="NO IMAGE" src="images/tcl003.jpg"><br /><br />      
+
+      Press TAB when selecting Window Manager. It will show a prompt for boot codes. Then press <p5>F1</p5> or <p5>F2</p5> to show available options of boot codes. <br /><br />
+
+      <img alt="NO IMAGE" src="images/tcl004.jpg"><br /><br />
+
+      <br /><br />
+      <div class="title_b"> NEXT TOPIC.</div><br>
+      <pp>SITE ADDR</pp><br>      
+      
+      
+      </div>
+      <div class="title_b"><a href="embedded_linux_system_development2.html"> Next </a> </div><br>
+  
+</body>
+</html>

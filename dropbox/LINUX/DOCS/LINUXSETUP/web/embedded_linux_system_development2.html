@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>LINUXSETUP</title>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="linuxsetup.css">
+  </head>
+  <body>
+<div id="container" style="padding-left:20px; padding-right:20px">
+  		
+        <nav>
+            <ul class=""> <!-- class="menu" -->
+                <li><a href="#"><span class="iconic headphones"></span> Linux Setup </a>
+                  <ul>
+                    <li><a href="linuxsetup.html">Linux Setup - HP Laptop Arch Linux Part-1.</a></li>
+                  </ul>
+                </li>
+                
+                <li><a href="#"><span class="iconic plus-alt"></span> Embedded System Development</a>
+                    <ul>
+                        <li><a href="embedded_linux_system_development.html">Embedded Linux System Develoment Part-1.</a></li>
+                        <li><a href="embedded_linux_system_development2.html">Embedded Linux System Develoment Part-2.</a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><span class="iconic magnifying-glass"></span>Raspberry Pi</a>
+                    <ul>
+                        <li><a href="rpi.html">RPi Bugs, Problems, Forums</a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><span class="iconic map-pin"></span> Module Development</a>
+                    <ul>
+                        <li><a href="module1.html">Module Examples</a></li>
+                        <li><a href="#">Module Development</a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><span class="iconic mail"></span> Software Development</a>
+                    <ul>
+                        <li><a href="development1.html">Linux System Software Development.</a></li>
+                        <li><a href="#">Scripts Examples</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+        </nav>
+    
+    </div>
+      <div class="title_a"> Embedded Linux System Develoment 2. <a href="embedded_linux_system_development.html">Previous</a> </div><br>
+      
+      <div class="content_text_gen" style="padding: 20px;font-size: 24px;font-weight: bold; background-color:#CCC;">
+      	<div class="title_b"> Intentionally Left Blank.</div><br>
+      </div><br>
+      
+      <div class="content_text_gen" style="padding: 20px;font-size: 24px;font-weight: bold;">
+      This document is based on the book Embedded Linux System Development resides in <p3>/dropbox/LINUX/EMBEDDED LINUX SYSTEM DEVELOPMENT</p3>. There are
+      some image documents on the same folder about some introduction. We are starting from <p3> Chapter 3, Board Support Package </p3> <pp>PAGE 59</pp>. <br>
+      <img alt="NO IMAGE" src="images/doc32.jpg"><br>
+      <img alt="NO IMAGE" src="images/doc33.jpg"><br>
+      <pp>PAGE 60</pp><br>
+      <img alt="NO IMAGE" src="images/doc34.jpg"><br>
+      <img alt="NO IMAGE" src="images/doc35.jpg"><br>
+      <img alt="NO IMAGE" src="images/doc36.jpg"><br>
+      <img alt="NO IMAGE" src="images/doc37.jpg"><br>
+      <pp>PAGE 61</pp><br>
+      <img alt="NO IMAGE" src="images/doc38.jpg"><br>
+      
+      <pp>PAGE 61</pp>
+      <br>
+      This page has some description about configuring MIPS based Eureka board. How to configure during <p5>make menuconfig</p5> and how to edit 
+      <p3>/arch/mips/Makefile</p3> for board support. I didnt find <p3>/arch/mips/eureka</p3> directory. May be provided by the vendor.<br>
+      <img alt="NO IMAGE" src="images/doc39.jpg"><br>
+      
+      <div class="title_b"> Boot Loader.</div><br>
+      <pp>PAGE 64</pp><br>
+      POST = Power On Self Test.<br>
+      <img alt="NO IMAGE" src="images/doc40.jpg"><br>
+      
+      <pp>PAGE 64</pp><pp>PAGE 65</pp><pp>PAGE 66</pp><br>
+      Discussion about various boot loader capabilities as follows: <br>
+      1. <p3>Support for embedded hardware</p3>.<br>
+      2. <p3>Licensing Issues</p3>.<br>
+      3. <p3>Storage footprint</p3> (Compression Support).<br>
+      4. <p3>Support for network booting</p3>.<br>
+      5. <p3>Support for flash booting</p3> (Flash reader, File system reader supports).<br>
+      6. <p3>Console UI support.</p3>.<br>
+      7. <p3>Firmware upgrade support</p3>.<br>
+      <br>
+      <pp>PAGE 65</pp><br>
+      Bootloader can pass various information to kernel after kernel image has been loaded and when jumping to kernel entry point.
+      The book is calling it Bootloader to Kernel interface. The options are:<br>
+      1. <p3>Argument passing to the kernel</p3>.<br>
+      &emsp;Bootloader can pass argument to the kernel in a specific form. The kernel can take the argument for itself or pass it 
+      to appropriate module/driver. After system start-up, the argument can be seen from <p5>cat /proc/cmdline</p5> command.<br>
+      <img alt="NO IMAGE" src="images/doc41.jpg"><br>
+      <img alt="NO IMAGE" src="images/doc42.jpg"><br>
+      From VirtualBox Arch Linux I found following informations.<br>
+      <img alt="NO IMAGE" src="images/doc43.jpg"><br>
+      Some architechtures also passes the memory map to the kernel :<br>
+      <img alt="NO IMAGE" src="images/doc44.jpg"><br>
+      
+      <div class="title_b"> Memory Map.</div><br>
+      <pp>PAGE 66</pp><br>
+      
+      
+      </div>
+      <div class="title_b"><a href="embedded_linux_system_development2.html"> Next </a> </div><br>
+  
+</body>
+</html>
