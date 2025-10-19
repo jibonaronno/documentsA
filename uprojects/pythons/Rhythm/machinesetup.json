@@ -1,0 +1,1 @@
+{"ACC": "1000", "xmax": "145", "xamb": "60", "xrect": "115", "xcon_offset": "5", "vtmax": "600", "motor_i_min":"650", "pre_step_mm":"140", "post_step_mm":"200", "home_sense":"8", "ipap_tol":"1", "vol_tol":"25"}
