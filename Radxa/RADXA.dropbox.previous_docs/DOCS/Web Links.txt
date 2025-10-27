@@ -1,3 +1,5 @@
+httpswww.notion.soRockchip-Radxa-Compile-Kernel-1c8a010ba2de80a88460c3d47d2490ad
+
 http://opensource.rock-chips.com/wiki_Linux_SDK :- This is claimed to be Rock Chip Support For Linux.
 https://github.com/rockchip-linux :- GITHUB Page from RockChip
 
