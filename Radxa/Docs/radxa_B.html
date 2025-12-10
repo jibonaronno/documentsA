@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Radxa from documentsB</title>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <!-- BEGIN syntax highlighter -->
+    <script type="text/javascript" src="sh/shCore.js"></script>
+    <script type="text/javascript" src="sh/shBrushJScript.js"></script>
+    <link type="text/css" rel="stylesheet" href="sh/shCore.css"/>
+    <link type="text/css" rel="stylesheet" href="sh/shThemeDefault.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Gruppo" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <script type="text/javascript">
+      SyntaxHighlighter.all();
+    </script>
+    <!-- END syntax highlighter -->
+
+    <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="linuxsetup.css">
+    <link rel="stylesheet" href="bash-highlight.css">
+  </head>
+  <body>
+  
+<div style="padding: 20px;font-size: 24px; line-height: 40px">
+<div class="title_b">Radxa Compile</div>
+
+<!-- SHOW HIDE START 001  -->
+
+<style type="text/css">
+div[id=div-001] {
+  display: none;
+}
+  input[id=toggle-001]:checked ~ div[id=div-001] {
+    display: block;
+    }
+</style>
+
+<h2><label for="toggle-001">Compiling Command & References</label></h2>
+<input type="checkbox" id="toggle-001" style="display: none;">
+
+<div id="div-001">
+    <img src="img/img00.jpg" width="45%" alt="IMAGE"> <br>
+
+    <pp>Parameter From Original radxa_rock_pro For Vendor Provided Linux 3.0.18</pp> <br>
+    <a href="https://github.com/frep/radxa/blob/fefb7bbb5eedc8e20aae77934e4126c429f283e7/rock_pro/kernel/rabian/150815/parameter#L11-L11">Parameter Source Github Link</a> <br>
+    <pre>
+        FIRMWARE_VER:4.2.2
+        MACHINE_MODEL:radxa_rock_pro
+        MACHINE_ID:007
+        MANUFACTURER:RADXA
+        MAGIC: 0x5041524B
+        ATAG: 0x60000800
+        MACHINE: 3066
+        CHECK_MASK: 0x80
+        KERNEL_IMG: 0x60408000
+        #RECOVER_KEY: 1,1,0,20,0
+        CMDLINE:console=ttyFIQ0,115200 console=tty0 root=/dev/block/mtd/by-name/linuxroot rw rootfstype=ext4 init=/sbin/init mac_addr=de:ad:de:ad:be:ef initrd=0x62000000,0x00800000 mtdparts=rk29xxnand:0x00002000@0x00002000(uboot),0x00008000@0x00004000(boot),-@0x000c0000(linuxroot)
+    </pre>
+    <br>
+    <pp>Compile Device Tree Blob for Radxa Rock using Linux Kernel 5.15.196</pp>
+    <br>
+    <pre>
+        jibon@ubuntu22:~/radxa/linux-5.15.196$ make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- -j4 zImage
+        jibon@ubuntu22:~/radxa/linux-5.15.196$ make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- rk3188-radxarock.dtb
+    </pre>
+    <br>
+    <pre>
+        jibon@ubuntu22:~/radxa/linux-5.15.196$ sudo cat arch/arm/boot/zImage arch/arm/boot/dts/rk3188-radxarock.dtb > zImage-dtb
+        jibon@ubuntu22:~/radxa/linux-5.15.196$ sudo mkbootimg --kernel zImage-dtb --ramdisk /dev/null -o xboot.img
+        jibon@ubuntu22:~/radxa/linux-5.15.196$ sudo cp xboot.img /mnt/shared/
+        
+        jibon@ubuntu22:~/radxa/linux-5.15.196$ sudo cp arch/arm/boot/dts/rk3188-radxarock.dts /mnt/shared/
+
+    </pre>
+
+    Download and compile mtd-utils for ARM using arm-linux-gnueabihf toolchain <br>
+    <pre>
+        jibon@ubuntu22:~/radxa/linux-5.15.196$ sudo apt install automake libtool libtool- pkg-config build-essential git
+        jibon@ubuntu22:~/radxa/linux-5.15.196$ cd /tmp && git clone --depth 1 --branch v2.1.5 git://git.infradead.org/mtd-utils.git mtd-utils-build 2>&1
+        jibon@ubuntu22:/tmp$ cd /tmp/mtd-utils-build && ./autogen.sh 2>&1
+        jibon@ubuntu22:/tmp/mtd-utils-build$ ./configure --host=arm-linux-gnueabihf --without-ubifs --without-jffs --disable-tests --disable-unit-tests 2>&1 | grep -E "(checking|configure:|WARNING|error)" | tail -20
+        jibon@ubuntu22:/tmp/mtd-utils-build$ make -j$(nproc) 2>&1
+        jibon@ubuntu22:/tmp/mtd-utils-build$ file flash_erase nandwrite nanddump mtdinfo 2>&1
+        jibon@ubuntu22:/tmp/mtd-utils-build$ arm-linux-gnueabihf-strip flash_erase nandwrite nanddump mtdinfo
+        jibon@ubuntu22:/tmp/mtd-utils-build$ sudo cp flash_erase nandwrite nanddump mtdinfo /home/jibon/radxa/tiny-rootfx/bin/
+        jibon@ubuntu22:/tmp/mtd-utils-build$ ls -lh /home/jibon/radxa/tiny-rootfx/bin/{flash_erase,nandwrite,nanddump,mtdinfo}
+        jibon@ubuntu22:/tmp/mtd-utils-build$ arm-linux-gnueabihf-readelf -d /tmp/mtd-utils-build/flash_erase | grep NEEDED
+        jibon@ubuntu22:/tmp/mtd-utils-build$ 
+        jibon@ubuntu22:/tmp/mtd-utils-build$ 
+    </pre>
+    <br>
+    
+    mtd utils binaries uses dynamic linking by default which requires libraries to be present in the target system <br>
+    arm-linux-gnueabihf toolchain provides dynamic libraries under /usr/arm-linux-gnueabihf/lib/ <br>
+    Copy these libraries to the target system's /lib/ folder to make the mtd-utils work <br>
+    Alternatively we can compile static version of mtd-utils binaries to avoid dependency on target system libraries <br>
+    <br>
+    Compiling static version of mtd-utils nandwrite mtdinfo and other binaries <br>
+    <pp>Find the location of libc.so.6 and ld-linux-armhf.so.3 for arm-linux-gnueabihf toolchain</pp> <br>
+    <pre class="bash-highlight">
+        <span class="prompt">jibon@ubuntu22:/tmp/mtd-utils-build$</span> find /usr/arm-linux-gnueabihf -name "libc.so.6" -o -name "ld-linux-armhf.so.3" <span class="comment"># -o means OR</span>
+        /usr/arm-linux-gnueabihf/lib/libc.so.6
+        /usr/arm-linux-gnueabihf/lib/ld-linux-armhf.so.3
+        <span class="prompt">jibon@ubuntu22:~/radxa/linux-5.15.196$</span> find /usr -name "ld-linux-armhf.so.3"
+        /usr/arm-linux-gnueabihf/lib/ld-linux-armhf.so.3
+    </pre>
+    
+    <br>
+    <pre>
+        jibon@ubuntu22:/tmp/mtd-utils-build$ make clean
+        jibon@ubuntu22:/tmp/mtd-utils-build$ CFLAGS="-static" LDFLAGS="-static" make -j$(nproc) 2>&1
+        jibon@ubuntu22:/tmp/mtd-utils-build$ file flash_erase nandwrite nanddump mtdinfo
+        jibon@ubuntu22:/tmp/mtd-utils-build$ sudo cp flash_erase nandwrite nanddump mtdinfo /home/jibon/radxa/tiny-rootfx/bin/
+        jibon@ubuntu22:/tmp/mtd-utils-build$ ls -lh /home/jibon/radxa/tiny-rootfx/bin/{flash_erase,nandwrite,nanddump,mtdinfo}
+        jibon@ubuntu22:/tmp/mtd-utils-build$ arm-linux-gnueabihf-readelf -d /tmp/mtd-utils-build/flash_erase | grep NEEDED
+        jibon@ubuntu22:/tmp/mtd-utils-build$
+
+    </pre>
+</div>
+<!-- SHOW HIDE END 001  -->
+
+
+  <!-- SHOW HIDE START 006  -->
+  <style type="text/css">
+    div[id=div-006] {
+      display: none;
+    }
+      input[id=toggle-006]:checked ~ div[id=div-006] {
+        display: block;
+        }
+    </style>
+    
+    <h2><label for="toggle-006">Blank</label></h2>
+    <input type="checkbox" id="toggle-006" style="display: none;">
+    
+    <div id="div-006">
+      
+      
+    </div>
+
+  <!-- SHOW HIDE END 006  -->
+
+  <!-- SHOW HIDE START 007  -->
+  <style type="text/css">
+    div[id=div-007] {
+      display: none;
+    }
+      input[id=toggle-007]:checked ~ div[id=div-007] {
+        display: block;
+        }
+    </style>
+    
+    <h2><label for="toggle-007">Random Links Commands</label></h2>
+    <input type="checkbox" id="toggle-007" style="display: none;">
+    
+    <div id="div-007">
+     
+
+    </div>
+  <!-- SHOW HIDE END 007  -->
+
+<!-- SHOW HIDE START 008  -->
+<style type="text/css">
+  div[id=div-008] {
+    display: none;
+  }
+    input[id=toggle-008]:checked ~ div[id=div-008] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-008">Blank</p3> </label></h2>
+  <input type="checkbox" id="toggle-008" style="display: none;">
+  
+  <div id="div-008">
+  </div>
+<!-- SHOW HIDE END 008  -->
+
+<!-- SHOW HIDE START 009  -->
+<style type="text/css">
+  div[id=div-009] {
+    display: none;
+  }
+    input[id=toggle-009]:checked ~ div[id=div-009] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-009">Blank </label></h2>
+  <input type="checkbox" id="toggle-009" style="display: none;">
+  
+  <div id="div-009">
+      
+
+  </div>
+<!-- SHOW HIDE END 009  -->
+
+<!-- SHOW HIDE START 010  -->
+<style type="text/css">
+  div[id=div-010] {
+    display: none;
+  }
+    input[id=toggle-010]:checked ~ div[id=div-010] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-010"> Blank </label></h2>
+  <input type="checkbox" id="toggle-010" style="display: none;">
+  
+  <div id="div-010">
+    
+  </div>
+<!-- SHOW HIDE START 010  -->
+
+<!--   -->
+
+</div>
+
+<!--
+<pre class="brush:js;">
+</pre><br /><br />
+-->  
+</body>
+</html>

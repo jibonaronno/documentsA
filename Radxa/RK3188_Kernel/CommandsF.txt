@@ -1,0 +1,6 @@
+jibon@ubuntu22:~/radxa/linux-5.15.196$ sudo cat arch/arm/boot/zImage arch/arm/boot/dts/rk3188-radxarock.dtb > zImage-dtb
+jibon@ubuntu22:~/radxa/linux-5.15.196$ sudo mkbootimg --kernel zImage-dtb --ramdisk /dev/null -o xboot.img
+jibon@ubuntu22:~/radxa/linux-5.15.196$ sudo cp xboot.img /mnt/shared/
+jibon@ubuntu22:~/radxa/linux-5.15.196$
+
+

@@ -1,0 +1,78 @@
+/* Simple Bash Syntax Highlighting CSS */
+
+.bash-highlight {
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+  padding: 15px;
+  border-radius: 5px;
+  overflow-x: auto;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  border-left: 4px solid #007acc;
+}
+
+/* Comments */
+.bash-highlight .comment {
+  color: #6a9955;
+  font-style: italic;
+}
+
+/* Commands */
+.bash-highlight .command {
+  color: #4ec9b0;
+  font-weight: bold;
+}
+
+/* Strings */
+.bash-highlight .string {
+  color: #ce9178;
+}
+
+/* Variables */
+.bash-highlight .variable {
+  color: #9cdcfe;
+}
+
+/* Numbers */
+.bash-highlight .number {
+  color: #b5cea8;
+}
+
+/* Operators */
+.bash-highlight .operator {
+  color: #d4d4d4;
+}
+
+/* Keywords */
+.bash-highlight .keyword {
+  color: #c586c0;
+  font-weight: bold;
+}
+
+/* Paths */
+.bash-highlight .path {
+  color: #4fc1ff;
+}
+
+/* Flags/Options */
+.bash-highlight .flag {
+  color: #dcdcaa;
+}
+
+/* Output/Success */
+.bash-highlight .output {
+  color: #b5cea8;
+}
+
+/* Error */
+.bash-highlight .error {
+  color: #f48771;
+  background-color: rgba(244, 135, 113, 0.1);
+}
+
+/* Prompt */
+.bash-highlight .prompt {
+  color: #858585;
+  font-weight: bold;
+}
