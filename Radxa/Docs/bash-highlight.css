@@ -1,78 +1,79 @@
 /* Simple Bash Syntax Highlighting CSS */
 
 .bash-highlight {
-  background-color: #1e1e1e;
-  color: #d4d4d4;
-  padding: 15px;
-  border-radius: 5px;
+  background-color: #f6f8fa;
+  color: #24292e;
+  padding: 16px;
+  border-radius: 6px;
   overflow-x: auto;
-  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-  font-size: 14px;
-  line-height: 1.5;
-  border-left: 4px solid #007acc;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 13.6px;
+  line-height: 1.45;
+  border: 1px solid #d1d5da;
+  margin: 16px 0;
 }
 
 /* Comments */
 .bash-highlight .comment {
-  color: #6a9955;
+  color: #6a737d;
   font-style: italic;
 }
 
 /* Commands */
 .bash-highlight .command {
-  color: #4ec9b0;
-  font-weight: bold;
+  color: #005cc5;
+  font-weight: 600;
 }
 
 /* Strings */
 .bash-highlight .string {
-  color: #ce9178;
+  color: #032f62;
 }
 
 /* Variables */
 .bash-highlight .variable {
-  color: #9cdcfe;
+  color: #e36209;
 }
 
 /* Numbers */
 .bash-highlight .number {
-  color: #b5cea8;
+  color: #005cc5;
 }
 
 /* Operators */
 .bash-highlight .operator {
-  color: #d4d4d4;
+  color: #d73a49;
 }
 
 /* Keywords */
 .bash-highlight .keyword {
-  color: #c586c0;
-  font-weight: bold;
+  color: #d73a49;
+  font-weight: 600;
 }
 
 /* Paths */
 .bash-highlight .path {
-  color: #4fc1ff;
+  color: #032f62;
 }
 
 /* Flags/Options */
 .bash-highlight .flag {
-  color: #dcdcaa;
+  color: #005cc5;
 }
 
 /* Output/Success */
 .bash-highlight .output {
-  color: #b5cea8;
+  color: #22863a;
 }
 
 /* Error */
 .bash-highlight .error {
-  color: #f48771;
-  background-color: rgba(244, 135, 113, 0.1);
+  color: #cb2431;
+  background-color: #ffeef0;
 }
 
 /* Prompt */
 .bash-highlight .prompt {
-  color: #858585;
-  font-weight: bold;
+  color: #6a737d;
+  font-weight: 600;
 }
