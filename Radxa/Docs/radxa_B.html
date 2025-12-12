@@ -75,10 +75,10 @@ div[id=div-001] {
 
     </pre>
 
-    Download and compile mtd-utils for ARM using arm-linux-gnueabihf toolchain <br>
+    <pp> Download and compile mtd-utils for ARM using arm-linux-gnueabihf toolchain </pp> <br>
     <pre>
         jibon@ubuntu22:~/radxa/linux-5.15.196$ sudo apt-get install autoconf automake pkg-config m4
-        jibon@ubuntu22:~/radxa/linux-5.15.196$ sudo apt install automake libtool libtool- pkg-config build-essential git
+        jibon@ubuntu22:~/radxa/linux-5.15.196$ sudo apt install automake libtool libtool-bin pkg-config build-essential git
         jibon@ubuntu22:~/radxa/linux-5.15.196$ cd /tmp && git clone --depth 1 --branch v2.1.5 git://git.infradead.org/mtd-utils.git mtd-utils-build 2>&1
         jibon@ubuntu22:/tmp$ cd /tmp/mtd-utils-build && ./autogen.sh 2>&1
         jibon@ubuntu22:/tmp/mtd-utils-build$ ./configure --host=arm-linux-gnueabihf --without-ubifs --without-jffs --disable-tests --disable-unit-tests 2>&1 | grep -E "(checking|configure:|WARNING|error)" | tail -20
@@ -119,6 +119,9 @@ div[id=div-001] {
         jibon@ubuntu22:/tmp/mtd-utils-build$
 
     </pre>
+    <br>
+    <p3>rockchip-nand-controller.c</p3> <br>
+    <p4>..../linux-5.15..../drivers/mtd/nand/raw/rockchip-nand-controller.c</p4> <br>
 </div>
 <!-- SHOW HIDE END 001  -->
 
@@ -133,11 +136,27 @@ div[id=div-001] {
         }
     </style>
     
-    <h2><label for="toggle-006">Blank</label></h2>
+    <h2><label for="toggle-006">Linux Kernel rk3188-stable-3.0</label></h2>
     <input type="checkbox" id="toggle-006" style="display: none;">
     
     <div id="div-006">
+
+        <p5>https://apt.radxa.com/ </p5> <br>
+        <p5>https://github.com/radxa/apt </p5> <br>
       
+        <code>sudo git clone https://github.com/radxa/linux-rockchip.git</code> <br>
+        <code>git config --global --add safe.directory /home/jibon/radxa/linux-rockchip</code> <br>
+        <code>sudo git checkout remotes/origin/mirror/rk3188-stable-3.0</code> <br>
+
+        <pre>
+            jibon@ubuntu22:~/radxa/linux-rockchip$ ls drivers/mtd/
+            afs.c      cmdlinepart.c  inftlcore.c   lpddr     mtd_blkdevs.c  mtdchar.c    mtdcore.h  mtdsuper.c  nftlcore.c   onenand    rknand    ssfdc.c
+            ar7part.c  devices        inftlmount.c  Makefile  mtdblock.c     mtdconcat.c  mtdoops.c  mtdswap.c   nftlmount.c  redboot.c  sm_ftl.c  tests
+            chips      ftl.c          Kconfig       maps      mtdblock_ro.c  mtdcore.c    mtdpart.c  nand        ofpart.c     rfd_ftl.c  sm_ftl.h  ubi
+            jibon@ubuntu22:~/radxa/linux-rockchip$ ls drivers/mtd/rknand/
+            api_flash.h  Kconfig  Makefile  rknand_base.h  rknand_base_ko.c
+            jibon@ubuntu22:~/radxa/linux-rockchip$
+        </pre>
       
     </div>
 

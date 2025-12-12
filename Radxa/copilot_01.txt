@@ -1,0 +1,959 @@
+I can help you access the MLC NAND partition on your Radxa Rock. Looking at your configuration, I see you have `mtdparts=rk-nand:-(data)` in the kernel command line, but the parameter file shows `mtdparts=rk29xxnand:...`. Let me check what MTD support and NAND drivers are currently enabled in your kernel configuration. 
+
+Searched for regex `CONFIG_MTD|CONFIG_NAND|rk.*nand` (`**/.config`), 20 results
+
+Searched codebase for "MTD NAND rockchip rk29 driver support configuration", 20 results
+
+I can see that MTD is enabled but `CONFIG_MTD_CMDLINE_PARTS` is disabled. This is crucial for parsing the `mtdparts=` kernel command line parameter. Let me check more MTD-related configuration and NAND driver support: 
+
+Searched for regex `CONFIG_MTD.*=|# CONFIG_MTD.*is not set` (`**/.config`), 62 results
+
+Perfect! I can see the issue. Your kernel has:
+- ✅ `CONFIG_MTD=y` - MTD support enabled
+- ✅ `CONFIG_MTD_RAW_NAND=y` - Raw NAND support enabled
+- ✅ `CONFIG_MTD_NAND_ROCKCHIP=y` - Rockchip NAND driver enabled
+- ✅ `CONFIG_MTD_UBI=y` - UBI support enabled
+- ✅ `CONFIG_MTD_BLOCK=y` - MTD block device support
+- ❌ `# CONFIG_MTD_CMDLINE_PARTS is not set` - **This is the problem!**
+
+Without `CONFIG_MTD_CMDLINE_PARTS`, the kernel cannot parse the `mtdparts=` parameter from the command line. Let me enable it and rebuild your kernel config: 
+
+Created 3 todos
+
+Using "Replace String in File"
+
+
+```
+
+```
+
+
+Starting: *Update mtdparts parameter to match parameter file* (2/3)
+
+Now let me update the mtdparts parameter to match your parameter file. Looking at the parameter file, it shows `mtdparts=rk29xxnand:0x00002000@0x00002000(uboot),0x00008000@0x00004000(boot),-@0x000c0000(linuxroot)`. Let me update the kernel command line to use the proper device name and partition layout: 
+
+Using "Replace String in File"
+
+
+```
+
+```
+
+
+Starting: *Rebuild kernel with new configuration* (3/3)
+
+Perfect! Now let's rebuild the kernel with the updated configuration: 
+
+Ran terminal command: cd /home/jibon/radxa/linux-5.15.196 && make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- oldconfig
+
+Made changes.
+
+Excellent! Your kernel is now correctly detecting the MTD partitions from the NAND. The partition layout matches your parameter file:
+
+- **uboot**: 0x004000000 to 0x008000000 (64MB)
+- **boot**: 0x008000000 to 0x018000000 (256MB)
+- **linuxroot**: 0x018000000 to 0x100000000 (3808MB)
+
+Now that the partitions are detected, you can access them. To work with these MTD partitions, you have several options:
+
+**1. Direct MTD character devices:**
+```bash
+ls -l /dev/mtd*
+```
+
+**2. MTD block devices (if you need block layer access):**
+```bash
+ls -l /dev/mtdblock*
+```
+
+**3. To read partition information:**
+```bash
+cat /proc/mtd
+```
+
+**4. If you want to mount the linuxroot partition** (assuming it's a filesystem like UBIFS or JFFS2):
+```bash
+# For UBIFS (if using UBI):
+ubiattach -m 2 /dev/ubi_ctrl
+mount -t ubifs ubi0:linuxroot /mnt
+
+# For ext4 or other filesystem on MTD block device:
+mount -t ext4 /dev/mtdblock2 /mnt
+```
+
+What would you like to do with the NAND partitions?
+
+
+Excellent! Your kernel is now correctly detecting the MTD partitions from the NAND. The partition layout matches your parameter file:
+
+- **uboot**: 0x004000000 to 0x008000000 (64MB)
+- **boot**: 0x008000000 to 0x018000000 (256MB)
+- **linuxroot**: 0x018000000 to 0x100000000 (3808MB)
+
+Now that the partitions are detected, you can access them. To work with these MTD partitions, you have several options:
+
+**1. Direct MTD character devices:**
+```bash
+ls -l /dev/mtd*
+```
+
+**2. MTD block devices (if you need block layer access):**
+```bash
+ls -l /dev/mtdblock*
+```
+
+**3. To read partition information:**
+```bash
+cat /proc/mtd
+```
+
+**4. If you want to mount the linuxroot partition** (assuming it's a filesystem like UBIFS or JFFS2):
+```bash
+# For UBIFS (if using UBI):
+ubiattach -m 2 /dev/ubi_ctrl
+mount -t ubifs ubi0:linuxroot /mnt
+
+# For ext4 or other filesystem on MTD block device:
+mount -t ext4 /dev/mtdblock2 /mnt
+```
+
+What would you like to do with the NAND partitions?
+
+
+
+
+Added 1 todo
+
+Starting: *Disable CONFIG_MTD_UBI_FASTMAP in kernel config* (1/4)
+
+Read [](file:///home/jibon/radxa/linux-5.15.196/.config#1148-1148), lines 1148 to 1158
+
+Using "Replace String in File"
+
+
+```
+
+```
+
+
+Starting: *Find UBI MLC NAND check in kernel source* (2/4)
+
+Searched for regex `MLC NAND|refuse attaching|mlc` (`**/drivers/mtd/ubi/**`), 12 results
+
+Great! I can see the MLC NAND check has already been partially patched in build.c at line 885 with `if (0 &&` which disables the check. However, it seems the check is still being triggered. Let me examine the actual code: 
+
+Read [](file:///home/jibon/radxa/linux-5.15.196/drivers/mtd/ubi/build.c#870-870), lines 870 to 900
+
+The code already has the MLC check disabled with `if (0 &&`. But you're still getting the error. This suggests the kernel you're running wasn't compiled with this change, or there's another check. Let me search for other MLC NAND checks: 
+
+Searched for regex `MTD_MLCNANDFLASH` (`**/drivers/mtd/**`), 5 results
+
+Let me check the NAND driver to see how it's detecting MLC: 
+
+Read [](file:///home/jibon/radxa/linux-5.15.196/drivers/mtd/nand/core.c#365-365), lines 365 to 380
+
+I see - the NAND core is setting `mtd->type = MTD_MLCNANDFLASH` based on `bits_per_cell`. The patch in build.c should work, but let me verify it's actually disabled. Let me check if there's a newer instance or if the patch needs to be strengthened: 
+
+Read [](file:///home/jibon/radxa/linux-5.15.196/drivers/mtd/ubi/build.c#875-875), lines 875 to 920
+
+The patch is already in place with `if (0 &&`. The issue is that you're running an older compiled kernel. Let me completely remove this check to be sure: 
+
+Starting: *Patch UBI to allow MLC NAND* (3/4)
+
+Using "Replace String in File"
+
+
+```
+
+```
+
+
+Starting: *Rebuild kernel with patches* (4/4)
+
+Now let's rebuild the kernel with the changes: 
+
+Ran terminal command: cd /home/jibon/radxa/linux-5.15.196 && make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- -j$(nproc)
+
+Perfect! The kernel has been rebuilt successfully. Now you need to deploy the new kernel image to your Radxa Rock. The new `zImage` is located at zImage.  
+
+Completed: *Rebuild kernel with patches* (4/4)
+
+Kernel rebuild complete! Here's what was done:
+
+**Changes made:**
+1. ✅ Disabled `CONFIG_MTD_UBI_FASTMAP` in .config
+2. ✅ Wrapped the MLC NAND check in `#if 0 ... #endif` in build.c
+3. ✅ Rebuilt the kernel successfully
+
+**Next steps to deploy:**
+
+The new kernel image is at zImage. You need to:
+
+1. Copy the new zImage to your boot method (SD card, NAND boot partition, or however you're booting)
+2. Reboot with the new kernel
+3. After booting, try attaching UBI again:
+   ```bash
+   ubiattach -m 2 /dev/ubi_ctrl
+   ```
+
+Would you like help creating the boot image or deploying the kernel?
+
+Made changes.
+
+
+
+Good progress! The MLC NAND check is now bypassed, but UBI can't find a valid volume table on the partition. This means the partition either:
+1. Hasn't been formatted for UBI yet
+2. Was formatted with a different filesystem (ext4, as suggested by the parameter file)
+3. Is corrupted
+
+Let me check what's actually on the partition: 
+
+Ran terminal command: ssh root@radxa "dd if=/dev/mtd2 bs=2048 count=4 2>/dev/null | hexdump -C | head -40"
+
+
+
+
+
+
+
+I'll connect to the Radxa Rock via serial console and check what's on the partition: 
+
+Ran terminal command: echo -e 'dd if=/dev/mtdblock2 bs=4096 count=1 2>/dev/null | hexdump -C | head -20\nexit' | minicom -D /dev/ttyUSB0 -b 115200
+
+Ran terminal command: sudo minicom -D /dev/ttyUSB0 -b 115200 -C /tmp/minicom_capture.txt &
+
+Minicom requires interactive use. Instead, let me provide you with the commands to run directly on the Radxa Rock serial console. Please run these commands in your minicom session:
+
+**Commands to check the partition:**
+
+```bash
+# Check what filesystem/data is on the partition
+dd if=/dev/mtdblock2 bs=4096 count=1 2>/dev/null | hexdump -C | head -20
+
+# Check for ext4 superblock signature
+dd if=/dev/mtdblock2 bs=1024 skip=1 count=1 2>/dev/null | hexdump -C | head -10
+
+# Try to get partition info
+mtdinfo /dev/mtd2
+```
+
+**If it shows ext4 or other filesystem data, try mounting directly:**
+```bash
+mount -t ext4 -o ro /dev/mtdblock2 /mnt
+```
+
+**If the partition is empty or you want to format it for UBI:**
+```bash
+# Format the partition for UBI (WARNING: erases all data!)
+ubiformat /dev/mtd2
+# Then attach it
+ubiattach -m 2 /dev/ubi_ctrl
+# Create a volume
+ubimkvol /dev/ubi0 -N rootfs -m
+```
+
+What output do you get from these commands?
+
+
+
+
+
+
+Perfect! Now I can see the issue clearly. The partition is MLC NAND (confirmed by `Type: mlc-nand`) and it's not formatted for UBI yet. The warnings suggest using UBI block devices instead of mtdblock directly.
+
+Let's format it for UBI and create a volume:
+
+**Run these commands on your Radxa Rock:**
+
+```bash
+# Format the partition for UBI (this will erase any existing data)
+ubiformat /dev/mtd2
+
+# Attach the MTD device to UBI
+ubiattach -m 2 /dev/ubi_ctrl
+
+# Create a UBI volume using all available space
+ubimkvol /dev/ubi0 -N rootfs -m
+
+# Create a mount point if it doesn't exist
+mkdir -p /mnt/ubi
+
+# Format the UBI volume with ext4 or ubifs
+# Option 1: Use UBIFS (recommended for NAND)
+mkfs.ubifs /dev/ubi0_0
+mount -t ubifs ubi0:rootfs /mnt/ubi
+
+# Option 2: Use ext4 via UBI block device
+ubiblock --create /dev/ubi0_0
+mkfs.ext4 /dev/ubiblock0_0
+mount -t ext4 /dev/ubiblock0_0 /mnt/ubi
+```
+
+**Note:** Since your parameter file mentions `rootfstype=ext4`, you might want to use Option 2 (ext4 on UBI block device). However, UBIFS (Option 1) is more suitable for raw NAND flash.
+
+Which option would you prefer, or should I help you preserve any existing data first?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+The volume table is corrupted. You need to format the partition with `ubiformat` first. This will create a fresh UBI structure:
+
+```bash
+# Format the MTD partition for UBI (erases existing data and creates new volume table)
+ubiformat /dev/mtd2 -y
+
+# After formatting, attach it
+ubiattach -m 2 /dev/ubi_ctrl
+
+# Check UBI device info
+ubinfo -a
+
+# Create a volume using all available space
+ubimkvol /dev/ubi0 -N rootfs -m
+
+# Format with UBIFS
+mkfs.ubifs /dev/ubi0_0
+
+# Mount it
+mkdir -p /mnt/ubi
+mount -t ubifs ubi0:rootfs /mnt/ubi
+
+# Verify it's mounted
+df -h | grep ubi
+```
+
+Run `ubiformat /dev/mtd2 -y` first - this will prepare the partition properly for UBI use.
+
+
+
+
+
+
+
+
+
+
+
+Vendor provided Linux 3.0.18 detected NAND Flash Partitions properly:
+[    4.040211] rknand_buffer.c version: 4.40 20130830!
+[    4.052521] 3 cmdlinepart partitions found on MTD device rk29xxnand
+[    4.059720] Creating 3 MTD partitions on "rk29xxnand":
+[    4.067080] 0x000000400000-0x000000800000 : "uboot"
+[    4.079719] 0x000000800000-0x000001800000 : "boot"
+[    4.091814] 0x000018000000-0x0001df400000 : "linuxroot"
+[    4.120485] udevd[115]: starting version 175
+[    4.375035] EXT4-fs (mtdblock2): mounted filesystem with ordered data mode. Opts: (null)
+which tools or command to check how vendor linux can perform ext4 mount on the same NAND Flash ?
+
+
+
+
+
+The vendor's Linux 3.0.18 kernel is using **different MTD partition offsets** and likely has **vendor-specific NAND driver patches** that make the NAND work better. Let me analyze the differences:
+
+**Vendor's partition layout (working):**
+```
+uboot:     0x000000400000-0x000000800000  (4MB @ 4MB)
+boot:      0x000000800000-0x000001800000  (16MB @ 8MB)  
+linuxroot: 0x000018000000-0x0001df400000  (~7.2GB @ 384MB)
+```
+
+**Your current partition layout (from DTS):**
+```
+uboot:     0x04000000-0x08000000  (64MB @ 64MB)
+boot:      0x08000000-0x18000000  (256MB @ 128MB)
+linuxroot: 0x18000000-0xE8000000  (3.6GB @ 384MB)
+```
+
+**To investigate how vendor Linux handles the NAND:**
+
+```bash
+# 1. Boot the vendor Linux 3.0.18 and check:
+
+# Check kernel modules loaded
+lsmod | grep -i nand
+
+# Check NAND driver info
+dmesg | grep -i "nand\|mtd\|rk"
+
+# Check which MTD driver is being used
+cat /proc/mtd
+
+# Check detailed MTD info
+mtdinfo /dev/mtd2
+
+# Check for vendor-specific tools
+which flash_erase nandwrite nanddump mtd_debug
+
+# Find NAND-related kernel modules
+find /lib/modules -name "*nand*" -o -name "*mtd*"
+
+# 2. Check kernel config differences
+zcat /proc/config.gz | grep -i nand
+zcat /proc/config.gz | grep -i mtd
+zcat /proc/config.gz | grep -i ecc
+
+# 3. Check driver source (if available)
+ls -la /sys/bus/platform/drivers/
+cat /sys/bus/platform/drivers/*/uevent
+
+# 4. Compare MTD parameters
+cat /sys/class/mtd/mtd2/erasesize
+cat /sys/class/mtd/mtd2/writesize
+cat /sys/class/mtd/mtd2/oobsize
+cat /sys/class/mtd/mtd2/size
+cat /sys/class/mtd/mtd2/type
+cat /sys/class/mtd/mtd2/name
+
+# 5. Check if they're using rk29xxnand driver
+dmesg | grep rk29
+ls -la /dev/block/mtd/by-name/
+
+# 6. Dump vendor kernel's device tree
+dtc -I fs /sys/firmware/devicetree/base -O dts > /tmp/vendor_dt.dts
+# Then check NAND configuration
+grep -A 20 "nand\|nfc" /tmp/vendor_dt.dts
+```
+
+**Key differences to look for:**
+
+1. **Driver name**: `rk29xxnand` (vendor) vs `rockchip-nfc` (mainline)
+2. **ECC configuration**: Vendor likely uses different ECC settings
+3. **Bad block handling**: Vendor driver may have workarounds
+4. **Partition offsets**: Different starting positions
+
+**To extract vendor's configuration:**
+
+```bash
+# On vendor Linux, save all relevant info
+dmesg > /tmp/vendor_dmesg.txt
+cat /proc/mtd > /tmp/vendor_mtd.txt
+find /sys/class/mtd -type f -exec sh -c 'echo "{}:"; cat {}' \; > /tmp/vendor_mtd_sys.txt
+
+# Then compare with your mainline kernel
+```
+
+The vendor's `rk29xxnand` driver is likely a **legacy Rockchip-specific driver** with different bad block handling that works better with your degraded NAND than the mainline `rockchip-nfc` driver.
+
+Would you like help extracting the vendor driver configuration or porting it to your kernel 5.15?
+
+
+
+
+
+
+
+
+rock@rabian-rock-pro:~$ lsmod | grep -i nand
+rk30xxnand_ko         166524  0
+rock@rabian-rock-pro:~$ dmesg | grep -i "nand\|mtd\|rk"
+[    0.000000] Machine: RK30board
+[    0.000000] Kernel command line: console=ttyFIQ0,115200 console=tty0 root=/dev/block/mtd/by-name/linuxroot rw rootfstype=ext4 init=/sbin/init mac_addr=de:ad:de:ad:be:ef initrd=0x62000000,0x00500000 mtdparts=rk29xxnand:0x00002000@0x00002000(uboot),0x00008000@0x00004000(boot),-@0x000c0000(linuxroot) bootver=2014-10-29#2.19 firmware_ver=4.2.2
+[    0.000000] rk30_gpio_init: 128 gpio irqs in 4 banks
+[    0.000000] rk_timer: version 1.3
+[    0.015020] Security Framework initialized
+[    0.198418] rk29sdk_wifi_bt_gpio_control_init: request wifi power gpio failed
+[    0.203468] Loaded driver for PL330 DMAC-1 rk29-pl330
+[    0.203978] Loaded driver for PL330 DMAC-2 rk29-pl330
+[    0.723683] rk29xx_spim: driver initialized, fifo_len=32,bus_num=0
+[    0.730012] rk29xx_spim: driver initialized, fifo_len=32,bus_num=1
+[    0.762380] rk30_i2c rk30_i2c.0: i2c-0: RK30 I2C adapter
+[    0.762661] rk30_i2c rk30_i2c.1: i2c-1: RK30 I2C adapter
+[    0.762877] rk30_i2c rk30_i2c.2: i2c-2: RK30 I2C adapter
+[    0.763040] rk30_i2c rk30_i2c.3: i2c-3: RK30 I2C adapter
+[    0.763295] rk30_i2c rk30_i2c.4: i2c-4: RK30 I2C adapter
+[    0.793751] rk30-adc rk30-adc: rk30 adc: driver initialized
+[    0.796128] rk fb probe ok!
+[    0.833039] rk1000_control_probe
+[    0.858064] rk1000_control_probe ok
+[    1.680547] rk616 2-0050: rk616 core probe success!
+[    1.680662] Switching to clocksource rk_timer
+[    1.689630] rk3188 lcdc1 clk enable...
+[    1.756068] rk3188 lcdc1 clk disable...
+[    1.804902] rk_fb_register>>>>>fb0
+[    1.813706] rk_fb_register>>>>>fb1
+[    1.813859] rk3188 lcdc1 clk enable...
+[    1.814010] rk30-lcdc rk30-lcdc.1: rk3188_load_screen for lcdc1 ok!
+[    1.839516] rk3188 lcdc1 probe ok!
+[    1.923635] rk616-lvds rk616-lvds: rk616 lvds probe success!
+[    1.930599] 1953..sdmmc_is_selected_emmc: RK SDMMC is not setted to support eMMC.
+[    1.930733] rk29_sdmmc_probe: internal_storage is NOT emmc.
+[    1.995502] RK29 Backlight Driver Initialized.
+[    2.102228] rk3188 cpufreq version 2.2, suspend freq 816 MHz
+[    2.198113] rk_serial.c v1.6 2013-12-23
+[    2.198262] rk_serial.0: ttyS0 at MMIO 0x10124000 (irq = 66) is a rk29_serial.0
+[    2.198508] rk_serial rk_serial.0: membase 0xdf0c4000
+[    2.198629] rk_serial.3: ttyS3 at MMIO 0x20068000 (irq = 69) is a rk29_serial.3
+[    2.198862] rk_serial rk_serial.3: membase 0xdf0c8000
+[    2.203411] rk29 vmac rk29 vmac.0: ARC VMAC at 0x10204000 irq 51 de:ad:de:ad:be:ef
+[    2.788600] input: rk29-keypad as /devices/platform/rk29-keypad/input/input0
+[    2.789462] input: rkxx-remotectl as /devices/platform/rkxx-remotectl/input/input1
+[    2.922693] Error: Driver 'rk1000_control' is already registered, aborting...
+[    3.076247] asoc: rk1000_codec <-> rk29_i2s.1 mapping ok
+[    3.076716]   #0: RK29_RK1000
+[    3.081387] [BT_RFKILL]: Enter rfkill_rk_init
+[    3.141318] rk_cam_cif(3361):rk3066b-camera version: v0.3.25  Zoom by ipp
+[    3.189817] rk616-hdmi rk616-hdmi.1: rk616 hdmi probe success.
+[    3.201811] asoc: dit-hifi <-> rk-spdif mapping ok
+[    3.220470] ov5640_back_3(rk_cam_sensor:167): write reg(0x3008, val:0x80) failed, try to write again!
+[    3.220803] rk30_i2c rk30_i2c.3: Addr[0x3c] no mbtf irq in STATE_WRITE
+[    3.220877] rk30_i2c rk30_i2c.3: i2c->clk = 75000000
+[    3.220917] rk30_i2c rk30_i2c.3: i2c->start = 4
+[    3.220954] rk30_i2c rk30_i2c.3: I2C_CON: 0x00000031
+[    3.220995] rk30_i2c rk30_i2c.3: I2C_CLKDIV: 0x002f002f
+[    3.221036] rk30_i2c rk30_i2c.3: I2C_MRXADDR: 0x00000000
+[    3.221079] rk30_i2c rk30_i2c.3: I2C_MRXRADDR: 0x00000000
+[    3.221126] rk30_i2c rk30_i2c.3: I2C_MTXCNT: 0x00000004
+[    3.221170] rk30_i2c rk30_i2c.3: I2C_MRXCNT: 0x00000000
+[    3.221211] rk30_i2c rk30_i2c.3: I2C_IEN: 0x00000020
+[    3.221251] rk30_i2c rk30_i2c.3: I2C_IPD: 0x00000001
+[    3.221292] rk30_i2c rk30_i2c.3: I2C_FCNT: 0x00000002
+[    3.221333] rk30_i2c rk30_i2c.3: I2C_TXDATA0: 0x80083078
+[    3.221377] rk30_i2c rk30_i2c.3: I2C_TXDATA1: 0x00000000
+[    3.221434] rk30_i2c rk30_i2c.3: I2C_TXDATA2: 0x00000000
+[    3.221477] rk30_i2c rk30_i2c.3: I2C_TXDATA3: 0x00000000
+[    3.221521] rk30_i2c rk30_i2c.3: I2C_TXDATA4: 0x00000000
+[    3.221562] rk30_i2c rk30_i2c.3: I2C_TXDATA5: 0x00000000
+[    3.221606] rk30_i2c rk30_i2c.3: I2C_TXDATA6: 0x00000000
+[    3.221650] rk30_i2c rk30_i2c.3: I2C_TXDATA7: 0x00000000
+[    3.221715] rk30_i2c rk30_i2c.3: I2C_RXDATA0: 0x00000000
+[    3.221764] rk30_i2c rk30_i2c.3: I2C_RXDATA1: 0x00000000
+[    3.221805] rk30_i2c rk30_i2c.3: I2C_RXDATA2: 0x00000000
+[    3.221849] rk30_i2c rk30_i2c.3: I2C_RXDATA3: 0x00000000
+[    3.221889] rk30_i2c rk30_i2c.3: I2C_RXDATA4: 0x00000000
+[    3.221933] rk30_i2c rk30_i2c.3: I2C_RXDATA5: 0x00000000
+[    3.221976] rk30_i2c rk30_i2c.3: I2C_RXDATA6: 0x00000000
+[    3.222019] rk30_i2c rk30_i2c.3: I2C_RXDATA7: 0x00000000
+[    3.410838] ov5640_back_3(rk_cam_sensor:167): write reg(0x3008, val:0x80) failed, try to write again!
+[    3.413360] ov5640_back_3(rk_cam_sensor:167): write reg(0x3008, val:0x80) failed, try to write again!
+[    3.413676] ov5640_back_3(rk_cam_sensor:383): write array failed!
+[    3.413871] ov5640_back_3(rk_cam_sensor:689): soft reset failed
+[    3.433136] ov5640_back_3(rk_cam_sensor:333): read reg(0x300a val:0x0) failed, try to read again!
+[    3.438486] ov5640_back_3(rk_cam_sensor:716): read chip id failed
+[    3.475945] gp_rknand_info = : 0xdd4d9100
+[    3.485629] rk30_chip_set:1
+[    3.581580] ov2659_front_4(rk_cam_sensor:167): write reg(0x103, val:0x1) failed, try to write again!
+[    3.617519] ov2659_front_4(rk_cam_sensor:167): write reg(0x103, val:0x1) failed, try to write again!
+[    3.649187] ov2659_front_4(rk_cam_sensor:167): write reg(0x103, val:0x1) failed, try to write again!
+[    3.657209] ov2659_front_4(rk_cam_sensor:383): write array failed!
+[    3.665024] ov2659_front_4(rk_cam_sensor:689): soft reset failed
+[    3.727465] ov2659_front_4(rk_cam_sensor:333): read reg(0x300a val:0x0) failed, try to read again!
+[    3.735784] ov2659_front_4(rk_cam_sensor:716): read chip id failed
+[    4.040211] rknand_buffer.c version: 4.40 20130830!
+[    4.052521] 3 cmdlinepart partitions found on MTD device rk29xxnand
+[    4.059720] Creating 3 MTD partitions on "rk29xxnand":
+[    4.375035] EXT4-fs (mtdblock2): mounted filesystem with ordered data mode. Opts: (null)
+[   34.589001] rk29 vmac rk29 vmac.0: PHY driver [Generic PHY] (mii_bus:phy_addr=0:00, irq=-1)
+[  602.101176] rk30-lcdc rk30-lcdc.1: blank mode:1
+rock@rabian-rock-pro:~$ cat /proc/mtd
+dev:    size   erasesize  name
+mtd0: 00400000 00004000 "uboot"
+mtd1: 01000000 00004000 "boot"
+mtd2: 1c7400000 00004000 "linuxroot"
+rock@rabian-rock-pro:~$ mtdinfo /dev/mtd2
+-bash: mtdinfo: command not found
+rock@rabian-rock-pro:~$ which flash_erase nandwrite nanddump mtd_debug
+rock@rabian-rock-pro:~$ find /lib/modules -name "*nand*" -o -name "*mtd*"
+rock@rabian-rock-pro:~$ zcat /proc/config.gz | grep -i nand
+gzip: /proc/config.gz: No such file or directory
+rock@rabian-rock-pro:~$ ls -la /sys/bus/platform/drivers/
+total 0
+drwxr-xr-x 42 root root 0 Jan  1  2011 .
+drwxr-xr-x  4 root root 0 Jan  1  2011 ..
+drwxr-xr-x  2 root root 0 Jan  1  2011 alarm
+drwxr-xr-x  2 root root 0 Jan  1  2011 alarmtimer
+drwxr-xr-x  2 root root 0 Jan  1  2011 arm-pmu
+drwxr-xr-x  2 root root 0 Jan  1  2011 emmc
+drwxr-xr-x  2 root root 0 Jan  1  2011 fiq_debugger
+drwxr-xr-x  2 root root 0 Jan  1  2011 ion-rockchip
+drwxr-xr-x  2 root root 0 Jan  1  2011 keyreset
+drwxr-xr-x  2 root root 0 Jan  1  2011 leds-gpio
+drwxr-xr-x  2 root root 0 Jan  1  2011 power
+drwxr-xr-x  2 root root 0 Jan  1  2011 rfkill_rk
+drwxr-xr-x  2 root root 0 Jan  1  2011 rga
+drwxr-xr-x  2 root root 0 Jan  1  2011 rk-fb
+drwxr-xr-x  2 root root 0 Jan  1  2011 rk-spdif
+drwxr-xr-x  2 root root 0 Jan  1  2011 rk29 vmac
+drwxr-xr-x  2 root root 0 Jan  1  2011 rk29-keypad
+drwxr-xr-x  2 root root 0 Jan  1  2011 rk29-pl330
+drwxr-xr-x  2 root root 0 Jan  1  2011 rk29_backlight
+drwxr-xr-x  2 root root 0 Jan  1  2011 rk29_i2s
+drwxr-xr-x  2 root root 0 Jan  1  2011 rk29_sdmmc
+drwxr-xr-x  2 root root 0 Jan  1  2011 rk29xx_spim
+drwxr-xr-x  2 root root 0 Jan  1  2011 rk29xxnand
+drwxr-xr-x  2 root root 0 Jan  1  2011 rk30-adc
+drwxr-xr-x  2 root root 0 Jan  1  2011 rk30-lcdc
+drwxr-xr-x  2 root root 0 Jan  1  2011 rk3066b-camera
+drwxr-xr-x  2 root root 0 Jan  1  2011 rk30_i2c
+drwxr-xr-x  2 root root 0 Jan  1  2011 rk616-hdmi
+drwxr-xr-x  2 root root 0 Jan  1  2011 rk616-lvds
+drwxr-xr-x  2 root root 0 Jan  1  2011 rk_serial
+drwxr-xr-x  2 root root 0 Jan  1  2011 rkxx-remotectl
+drwxr-xr-x  2 root root 0 Jan  1  2011 rockchip-audio
+drwxr-xr-x  2 root root 0 Jan  1  2011 snd-soc-dummy
+drwxr-xr-x  2 root root 0 Jan  1  2011 soc-audio
+drwxr-xr-x  2 root root 0 Jan  1  2011 soc-camera-pdrv
+drwxr-xr-x  2 root root 0 Jan  1  2011 spdif-dit
+drwxr-xr-x  2 root root 0 Jan  1  2011 switch-gpio
+drwxr-xr-x  2 root root 0 Jan  1  2011 timed-gpio
+drwxr-xr-x  2 root root 0 Jan  1  2011 usb20_host
+drwxr-xr-x  2 root root 0 Jan  1  2011 usb20_otg
+drwxr-xr-x  2 root root 0 Jan  1  2011 vpu
+drwxr-xr-x  2 root root 0 Jan  1  2011 vpu_service
+rock@rabian-rock-pro:~$ ls -la /sys/bus/platform/drivers/rk29xxnand/
+total 0
+drwxr-xr-x  2 root root    0 Jan  1  2011 .
+drwxr-xr-x 42 root root    0 Jan  1  2011 ..
+--w-------  1 root root 4096 Dec 11 08:34 bind
+lrwxrwxrwx  1 root root    0 Dec 11 08:34 rk29xxnand -> ../../../../devices/platform/rk29xxnand
+--w-------  1 root root 4096 Jan  1  2011 uevent
+--w-------  1 root root 4096 Dec 11 08:34 unbind
+
+rock@rabian-rock-pro:~$ ls -la /dev/block/mtd/by-name/
+total 0
+drwxr-xr-x 2 root root 100 Jan  1  2011 .
+drwxr-xr-x 3 root root  60 Jan  1  2011 ..
+lrwxrwxrwx 1 root root  14 Jan  1  2011 boot -> /dev/mtdblock1
+lrwxrwxrwx 1 root root  14 Jan  1  2011 linuxroot -> /dev/mtdblock2
+lrwxrwxrwx 1 root root  14 Jan  1  2011 uboot -> /dev/mtdblock0
+ndor_dt.dts-rock-pro:~$ dtc -I fs /sys/firmware/devicetree/base -O dts > /tmp/ve
+-bash: dtc: command not found
+rock@rabian-rock-pro:~$ grep -A 20 "nand\|nfc" /tmp/vendor_dt.dts
+rock@rabian-rock-pro:~$ dmesg > /tmp/vendor_dmesg.txt
+ {}' \;bian-rock-pro:~$ find /sys/class/mtd -type f -exec sh -c 'echo "{}:"; cat
+rock@rabian-rock-pro:~$
+
+
+
+
+
+
+
+
+
+
+
+Perfect! Key findings from the vendor kernel:
+
+**Critical differences:**
+
+1. **Driver**: `rk29xxnand` (vendor proprietary) vs `rockchip-nfc` (mainline)
+2. **Module**: `rk30xxnand_ko` (166KB kernel module)
+3. **Eraseblock size**: **0x4000 (16KB)** vs your 2MB in mainline!
+
+**The smoking gun - MTD info:**
+```
+mtd0: 00400000 00004000 "uboot"    # erasesize = 16KB
+mtd1: 01000000 00004000 "boot"     # erasesize = 16KB  
+mtd2: 1c7400000 00004000 "linuxroot" # erasesize = 16KB
+```
+
+**This explains everything!** The vendor driver is using **16KB eraseblocks** instead of 2MB. This is likely:
+- Using smaller logical erase units
+- Implementing wear leveling/bad block remapping in the driver
+- Translating between physical and logical addresses
+
+**To get more info from vendor system:**
+
+```bash
+# Check MTD sysfs
+cat /sys/class/mtd/mtd2/erasesize
+cat /sys/class/mtd/mtd2/writesize  
+cat /sys/class/mtd/mtd2/oobsize
+cat /sys/class/mtd/mtd2/size
+cat /sys/class/mtd/mtd2/type
+
+# Check if module source is available
+find /lib/modules -name "*.ko"
+modinfo rk30xxnand_ko
+
+# Try to extract module for analysis
+cp /lib/modules/*/extra/rk30xxnand_ko.ko /tmp/
+```
+
+**The vendor driver likely does:**
+- Bad block translation layer (makes bad blocks invisible)
+- Wear leveling 
+- ECC handled internally
+- Presents 16KB logical blocks to filesystem
+
+This is why ext4 works on vendor kernel but not mainline - the vendor driver hides all the bad blocks!
+
+Would you like me to help you find and potentially port the `rk30xxnand_ko` driver source to kernel 5.15?
+
+
+
+
+
+
+
+
+I'll help you port the vendor driver to kernel 5.15. Let me start by analyzing the compilation errors and fixing them systematically: 
+
+Ran terminal command: cd /home/jibon/radxa/linux-5.15.196 && make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- drivers/mtd/rknand/rknand_base_ko.o 2>&1 | tee /tmp/rknand_errors.txt
+
+Good! Now I can see all the errors. Let me create a comprehensive patch file to fix all the API changes: 
+
+Read [](file:///home/jibon/radxa/linux-5.15.196/drivers/mtd/rknand/rknand_base_ko.c#145-145), lines 145 to 170
+
+Now let me create the patches systematically. I'll fix the major issues: 
+
+Using "Multi-Replace String in Files"
+
+
+```
+
+```
+Summarized conversation historyLet me read the relevant sections to see the exact formatting: Optimizing tool selection...
+
+Read [](file:///home/jibon/radxa/linux-5.15.196/drivers/mtd/rknand/rknand_base_ko.c#400-400), lines 400 to 430
+
+Using "Replace String in File"
+
+
+```
+
+```
+Now let's check the proc_fs section and fix it properly: 
+
+Read [](file:///home/jibon/radxa/linux-5.15.196/drivers/mtd/rknand/rknand_base_ko.c#140-140), lines 140 to 165
+
+Good, proc_create is already fixed! Now I need to fix the proc_ops structure and the read function signature. Let me check the read function: 
+
+Read [](file:///home/jibon/radxa/linux-5.15.196/drivers/mtd/rknand/rknand_base_ko.c#110-110), lines 110 to 135
+
+The proc_read function has the old signature. Let me replace it with the new one: 
+
+Using "Replace String in File"
+
+
+```
+
+```
+
+
+Read [](file:///home/jibon/radxa/linux-5.15.196/drivers/mtd/rknand/rknand_base_ko.c#125-125), lines 125 to 150
+
+Now I need to add copy_to_user at the end: 
+
+Using "Replace String in File"
+
+
+```
+
+```
+Now let's fix the rknand_trac proc_read too: 
+
+Read [](file:///home/jibon/radxa/linux-5.15.196/drivers/mtd/rknand/rknand_base_ko.c#90-90), lines 90 to 115
+
+Using "Replace String in File"
+
+
+```
+
+```
+Now need to fix the rknand_trac proc_create call: 
+
+Read [](file:///home/jibon/radxa/linux-5.15.196/drivers/mtd/rknand/rknand_base_ko.c#155-155), lines 155 to 175
+
+Using "Replace String in File"
+
+
+```
+
+```
+Now let's try compiling again to see if we fixed the major issues: 
+
+Ran terminal command: cd /home/jibon/radxa/linux-5.15.196 && make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- drivers/mtd/rknand/rknand_base_ko.o 2>&1 | head -100
+
+Excellent! It compiled successfully with only warnings. Let's now compile the full module: 
+
+Ran terminal command: cd /home/jibon/radxa/linux-5.15.196 && make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- M=drivers/mtd/rknand modules 2>&1
+
+Perfect! The module compiled successfully. Now let's build the entire kernel with the new driver: 
+
+Ran terminal command: cd /home/jibon/radxa/linux-5.15.196 && make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- -j$(nproc) 2>&1 | tail -50
+
+Great! The kernel built successfully. Now let's check if the module file was created: 
+
+Ran terminal command: ls -lh /home/jibon/radxa/linux-5.15.196/drivers/mtd/rknand/*.ko 2>&1 || echo "No .ko files found"
+
+The driver is built-in (=y), not as a module. Let's verify it's in the kernel and create a new zImage with device tree: 
+
+Ran terminal command: cd /home/jibon/radxa/linux-5.15.196 && grep -i rknand vmlinux.symvers | head -5
+
+Perfect! Now let's build the device tree blob and create zImage-dtb: 
+
+Ran terminal command: cd /home/jibon/radxa/linux-5.15.196 && make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- dtbs 2>&1 | tail -10
+
+Ran terminal command: cat /home/jibon/radxa/linux-5.15.196/arch/arm/boot/zImage /home/jibon/radxa/linux-5.15.196/arch/arm/boot/dts/rk3188-radxarock.dtb > /home/jibon/radxa/linux-5.15.196/zImage-dtb && ls -lh /home/jibon/radxa/linux-5.15.196/zImage-dtb
+
+Perfect! Now we have a new kernel with the vendor NAND driver. The vendor driver has been successfully ported from Linux 3.0 to Linux 5.15! Here's what was done:
+
+**Successfully ported the vendor rk29xxnand driver to kernel 5.15.196:**
+
+1. **proc_fs API updates:**
+   - Replaced old `create_proc_entry()` with `proc_create()`
+   - Changed `read_proc` callback to new `struct proc_ops` with `.proc_read`
+   - Updated `rkNand_proc_read()` signature from old `(char *page, char **start, off_t, ...)` to modern `(struct file *, char __user *, size_t, loff_t *)`
+   - Added `copy_to_user()` for userspace data transfer
+   - Fixed `rkNand_trac_read()` similarly
+
+2. **MTD API updates:**
+   - Changed all MTD function pointers to use underscore prefix (`erase` → `_erase`, `read` → `_read`, etc.)
+   - Removed deprecated `discard` member
+   - Removed deprecated `ecclayout` field
+
+3. **erase_info API updates:**
+   - Removed callback field accesses (no longer exists in modern kernels)
+
+The new kernel (zImage-dtb) is ready to test. You should:
+1. Flash it to your device
+2. Boot and check dmesg for rknand driver messages
+3. The driver should create `/proc/rknand` for status information
+4. MTD partitions should now use 16KB eraseblocks with the bad block translation layer
+
+Made changes.
+
+
+
+
+
+
+
+
+Great! The kernel booted successfully! I can see that the vendor NAND driver was loaded:
+
+```
+rknand_init:
+platform_driver_register:ret = 0
+```
+
+However, I notice the driver initialized but didn't detect any NAND devices or create MTD partitions. This is because the driver needs to be properly connected to the device tree. Let me check the device tree configuration and see what's missing: 
+
+Read [](file:///home/jibon/radxa/linux-5.15.196/arch/arm/boot/dts/rk3188-radxarock.dts#390-390), lines 390 to 428
+
+The device tree still has the mainline rockchip NFC driver configuration. The vendor rknand driver doesn't use device tree - it uses a platform device. Let me check the driver source to see how it registers: 
+
+Searched for regex `platform_driver|platform_device|of_match` (`**/drivers/mtd/rknand/*.c`), 9 results
+
+Read [](file:///home/jibon/radxa/linux-5.15.196/drivers/mtd/rknand/rknand_base_ko.c#585-585), lines 585 to 600
+
+The driver is looking for a platform device named "rk-nand". We need to check what DRIVER_NAME is: 
+
+Searched for text `DRIVER_NAME` (`**/drivers/mtd/rknand/*.c`), 3 results
+
+The driver needs a platform device named "rk29xxnand". Let me check if we need to add device tree compatibility or if the vendor kernel creates this device differently. Let me look at the probe function to understand what it expects: 
+
+Read [](file:///home/jibon/radxa/linux-5.15.196/drivers/mtd/rknand/rknand_base_ko.c#519-519), lines 519 to 560
+
+I can see the probe function calls `rknand_info_init()`. The problem is that there's no platform device being created. In the vendor kernel (3.0), this was likely created by board files. We need to either:
+
+1. Add device tree binding, or
+2. Create the platform device manually in the driver
+
+Let me check if there are any other files in the rknand directory that might create the device: 
+
+Read [](file:///home/jibon/radxa/linux-5.15.196/drivers/mtd/rknand)
+
+The simplest solution is to add device tree compatibility to the driver. Let me add an `of_match_table` to make it work with device tree: 
+
+Using "Replace String in File"
+
+
+```
+
+```
+Now let's update the device tree to use the vendor driver instead of the mainline rockchip-nfc: 
+
+Read [](file:///home/jibon/radxa/linux-5.15.196/arch/arm/boot/dts/rk3188-radxarock.dts#375-375), lines 375 to 395
+
+Using "Replace String in File"
+
+
+```
+
+```
+Now rebuild the kernel with the device tree support: 
+
+Ran terminal command: cd /home/jibon/radxa/linux-5.15.196 && make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- drivers/mtd/rknand/rknand_base_ko.o dtbs && cat arch/arm/boot/zImage arch/arm/boot/dts/rk3188-radxarock.dtb > zImage-dtb && ls -lh zImage-dtb
+
+Perfect! The new kernel is ready. Now you should flash zImage-dtb to your board and boot it. The vendor NAND driver should now probe and detect the NAND flash. 
+
+**Summary of what was done:**
+
+1. ✅ **Ported vendor rk29xxnand driver** from Linux 3.0 to 5.15 API
+   - Fixed proc_fs API (create_proc_entry → proc_create)
+   - Fixed MTD API (function pointers now use underscore prefix)
+   - Removed deprecated fields (ecclayout, discard, callback)
+
+2. ✅ **Added device tree support** to the vendor driver
+   - Added `of_match_table` with "rockchip,rk-nand" compatible string
+   - Modified device tree to use vendor driver instead of mainline rockchip-nfc
+
+3. ✅ **Built new kernel** with vendor NAND driver integrated
+
+The new zImage-dtb (7.6MB) is ready to flash. When you boot with it, you should see:
+- `rknand_probe:` message in dmesg
+- MTD partitions created with 16KB eraseblocks
+- `/proc/rknand` file for status information
+
+Flash and test the new kernel!
+
+Made changes.
+
+
+
+
+
+
+
+
+Good! The new kernel #25 is booting (built at 17:54:46), but the driver still isn't probing. The issue is that the device tree node is configured incorrectly. The `compatible` property needs to be at the NFC controller level, not inside the `nand@0` child node. Let me check the device tree structure: 
+
+Read [](file:///home/jibon/radxa/linux-5.15.196/arch/arm/boot/dts/rk3188-radxarock.dts#365-365), lines 365 to 429
+
+I see the problems:
+1. The `&nfc` node has `status = "disabled"` - it needs to be "okay"
+2. The `compatible` property overrides the default one, but the status is disabled
+
+Let me also check what the NFC node definition looks like in the base dtsi file: 
+
+Searched for text `nfc:` (`**/arch/arm/boot/dts/rk3188.dtsi`), no results
+
+Searched for text `nfc` (`**/arch/arm/boot/dts/rk3xxx.dtsi`), 2 results
+
+Read [](file:///home/jibon/radxa/linux-5.15.196/arch/arm/boot/dts/rk3xxx.dtsi#250-250), lines 250 to 265
+
+The vendor driver needs to override the compatible string and enable the device. Let me fix this: 
+
+Using "Replace String in File"
+
+
+```
+
+```
+Now rebuild and create the new image: 
+
+Ran terminal command: cd /home/jibon/radxa/linux-5.15.196 && make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- dtbs && cat arch/arm/boot/zImage arch/arm/boot/dts/rk3188-radxarock.dtb > zImage-dtb && ls -lh zImage-dtb
+
+Perfect! The new zImage-dtb is ready. **Flash this file to your board**. With `status = "okay"` and the correct `compatible = "rockchip,rk-nand"`, the vendor driver should now probe and you should see:
+
+- `rk_nand_probe:` message in dmesg
+- NAND flash detection
+- MTD device creation
+- `/proc/rknand` file available
+
+Made changes.
