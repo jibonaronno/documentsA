@@ -957,3 +957,59 @@ Perfect! The new zImage-dtb is ready. **Flash this file to your board**. With `s
 - `/proc/rknand` file available
 
 Made changes.
+
+
+
+
+
+Excellent! The driver is now probing! I can see:
+
+```
+rknand_init:
+rk_nand_probe:
+platform_driver_register:ret = 0
+```
+
+The probe function was called, which means the device tree matching worked. However, the probe seems to have completed without printing any further messages or creating MTD devices. This suggests that `rknand_info_init()` might be failing or the driver needs the actual NAND flash layer code that we haven't ported yet.
+
+Let me check what `rknand_info_init()` does and what other source files might be needed: 
+
+Searched for text `rknand_info_init` (`**/drivers/mtd/rknand/*.c`), 2 results
+
+Read [](file:///home/jibon/radxa/linux-5.15.196/drivers/mtd/rknand/rknand_base_ko.c#399-399), lines 399 to 520
+
+I can see that `rknand_info_init()` returns 0 (success), so the probe should continue. The actual NAND initialization must happen elsewhere - likely in external functions that are supposed to be provided by other source files. Let me check what functions are being called: 
+
+Searched for regex `extern.*FlashInit|extern.*GetFlash|rknand_buffer_init` (`**/drivers/mtd/rknand/rknand_base_ko.c`), no results
+
+Read [](file:///home/jibon/radxa/linux-5.15.196/drivers/mtd/rknand/rknand_base_ko.c#520-520), lines 520 to 560
+
+I see - the probe function completes successfully but it doesn't actually initialize the NAND flash hardware or register any MTD devices. The function `add_rknand_device()` is what registers the MTD device, but it's never called in the probe function. 
+
+Looking at the vendor driver architecture, it seems like there should be additional source files (like a Flash layer) that call `add_rknand_device()` after detecting the NAND chip. Let me check what other files were in the vendor driver: 
+
+Ran terminal command: ls -la /home/jibon/radxa/vendor-kernel-rk30xxnand/ 2>/dev/null | head -20
+
+Ran terminal command: find /home/jibon/radxa -name "*.c" -path "*rk*nand*" 2>/dev/null | head -20
+
+Let me check the vendor kernel directory structure for the complete driver: 
+
+Ran terminal command: ls -la /home/jibon/radxa/linux-rockchip/drivers/mtd/rknand/ 2>/dev/null
+
+So the vendor kernel only has these same files. The actual NAND flash initialization must be done by a kernel module (`.ko` file). Let me check the Makefile to see if there are other components: 
+
+Ran terminal command: cat /home/jibon/radxa/linux-rockchip/drivers/mtd/rknand/Makefile
+
+So there's only one `.c` file in the driver. The actual flash layer must be loaded separately. Let me check if there are .ko modules on the running vendor system. Can you run `lsmod` or check modules on the vendor kernel to see what modules are loaded?
+
+For now, let me check if there's a separate buffer/flash module configuration: 
+
+Searched for text `config` (`**/drivers/mtd/rknand/Kconfig`), 7 results
+
+There's a `CONFIG_MTD_RKNAND_BUFFER` option. The driver needs the actual flash/buffer layer which is provided externally (likely as a proprietary binary blob `.ko` module). This is common with vendor NAND drivers.
+
+The driver we ported is just the "base" layer that provides the MTD interface. The actual NAND flash operations need to be provided by calling `add_rknand_device()` from an external module. 
+
+Let me add some debug output to see why MTD device isn't being registered. But first, let me check if there's a way to manually trigger device registration. Looking at the code, I notice that `add_rknand_device()` expects `gpNandInfo->nandCapacity` to be set. Let me add a test to register a dummy device:
+
+Actually, looking more carefully at the vendor kernel boot log you showed earlier, what messages did the vendor kernel show for NAND? Can you share that part of the dmesg?

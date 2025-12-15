@@ -7,7 +7,11 @@
     <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <!-- BEGIN syntax highlighter -->
     <script type="text/javascript" src="sh/shCore.js"></script>
-    <script type="text/javascript" src="sh/shBrushJScript.js"></script>
+    
+    <!-- script type="text/javascript" src="sh/shBrushJScript.js"></script -->
+    <script type="text/javascript" src="syntaxhighlighter.js"></script>
+
+    <link type="text/css" rel="stylesheet" href="syntaxhighlighter.css"/>
     <link type="text/css" rel="stylesheet" href="sh/shCore.css"/>
     <link type="text/css" rel="stylesheet" href="sh/shThemeDefault.css"/>
     <link href="https://fonts.googleapis.com/css?family=Gruppo" rel="stylesheet">
@@ -45,7 +49,7 @@ div[id=div-001] {
 
     <pp>Parameter From Original radxa_rock_pro For Vendor Provided Linux 3.0.18</pp> <br>
     <a href="https://github.com/frep/radxa/blob/fefb7bbb5eedc8e20aae77934e4126c429f283e7/rock_pro/kernel/rabian/150815/parameter#L11-L11">Parameter Source Github Link</a> <br>
-    <pre>
+    <pre class="brush: bash;">
         FIRMWARE_VER:4.2.2
         MACHINE_MODEL:radxa_rock_pro
         MACHINE_ID:007
@@ -61,12 +65,12 @@ div[id=div-001] {
     <br>
     <pp>Compile Device Tree Blob for Radxa Rock using Linux Kernel 5.15.196</pp>
     <br>
-    <pre>
+    <pre class="brush: bash;">
         jibon@ubuntu22:~/radxa/linux-5.15.196$ make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- -j4 zImage
         jibon@ubuntu22:~/radxa/linux-5.15.196$ make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- rk3188-radxarock.dtb
     </pre>
     <br>
-    <pre>
+    <pre class="brush: bash;">
         jibon@ubuntu22:~/radxa/linux-5.15.196$ sudo cat arch/arm/boot/zImage arch/arm/boot/dts/rk3188-radxarock.dtb > zImage-dtb
         jibon@ubuntu22:~/radxa/linux-5.15.196$ sudo mkbootimg --kernel zImage-dtb --ramdisk /dev/null -o xboot.img
         jibon@ubuntu22:~/radxa/linux-5.15.196$ sudo cp xboot.img /mnt/shared/
@@ -76,7 +80,7 @@ div[id=div-001] {
     </pre>
 
     <pp> Download and compile mtd-utils for ARM using arm-linux-gnueabihf toolchain </pp> <br>
-    <pre>
+    <pre class="brush: bash;">
         jibon@ubuntu22:~/radxa/linux-5.15.196$ sudo apt-get install autoconf automake pkg-config m4
         jibon@ubuntu22:~/radxa/linux-5.15.196$ sudo apt install automake libtool libtool-bin pkg-config build-essential git
         jibon@ubuntu22:~/radxa/linux-5.15.196$ cd /tmp && git clone --depth 1 --branch v2.1.5 git://git.infradead.org/mtd-utils.git mtd-utils-build 2>&1
@@ -100,16 +104,16 @@ div[id=div-001] {
     <br>
     Compiling static version of mtd-utils nandwrite mtdinfo and other binaries <br>
     <pp>Find the location of libc.so.6 and ld-linux-armhf.so.3 for arm-linux-gnueabihf toolchain</pp> <br>
-    <pre class="bash-highlight">
-        <span class="prompt">jibon@ubuntu22:/tmp/mtd-utils-build$</span> find /usr/arm-linux-gnueabihf -name "libc.so.6" -o -name "ld-linux-armhf.so.3" <span class="comment"># -o means OR</span>
+    <pre class="brush: bash;">
+        jibon@ubuntu22:/tmp/mtd-utils-build$ find /usr/arm-linux-gnueabihf -name "libc.so.6" -o -name "ld-linux-armhf.so.3" # -o means OR
         /usr/arm-linux-gnueabihf/lib/libc.so.6
         /usr/arm-linux-gnueabihf/lib/ld-linux-armhf.so.3
-        <span class="prompt">jibon@ubuntu22:~/radxa/linux-5.15.196$</span> find /usr -name "ld-linux-armhf.so.3"
+        jibon@ubuntu22:~/radxa/linux-5.15.196$ find /usr -name "ld-linux-armhf.so.3"
         /usr/arm-linux-gnueabihf/lib/ld-linux-armhf.so.3
     </pre>
     
     <br>
-    <pre>
+    <pre class="brush: bash;">
         jibon@ubuntu22:/tmp/mtd-utils-build$ make clean
         jibon@ubuntu22:/tmp/mtd-utils-build$ CFLAGS="-static" LDFLAGS="-static" make -j$(nproc) 2>&1
         jibon@ubuntu22:/tmp/mtd-utils-build$ file flash_erase nandwrite nanddump mtdinfo
@@ -143,12 +147,16 @@ div[id=div-001] {
 
         <p5>https://apt.radxa.com/ </p5> <br>
         <p5>https://github.com/radxa/apt </p5> <br>
+        <p5>https://dl.radxa.com/rock_pro/tools/linux/ </p5> <br>
+
+        <img src="img/img022.jpg" width="30%" alt="IMAGE"> <br>
       
+        <p5>https://github.com/radxa/linux-rockchip/tree/mirror/rk3188-stable-3.0</p5> <br>
         <code>sudo git clone https://github.com/radxa/linux-rockchip.git</code> <br>
         <code>git config --global --add safe.directory /home/jibon/radxa/linux-rockchip</code> <br>
         <code>sudo git checkout remotes/origin/mirror/rk3188-stable-3.0</code> <br>
 
-        <pre>
+        <pre class="brush: bash;">
             jibon@ubuntu22:~/radxa/linux-rockchip$ ls drivers/mtd/
             afs.c      cmdlinepart.c  inftlcore.c   lpddr     mtd_blkdevs.c  mtdchar.c    mtdcore.h  mtdsuper.c  nftlcore.c   onenand    rknand    ssfdc.c
             ar7part.c  devices        inftlmount.c  Makefile  mtdblock.c     mtdconcat.c  mtdoops.c  mtdswap.c   nftlmount.c  redboot.c  sm_ftl.c  tests
@@ -157,6 +165,103 @@ div[id=div-001] {
             api_flash.h  Kconfig  Makefile  rknand_base.h  rknand_base_ko.c
             jibon@ubuntu22:~/radxa/linux-rockchip$
         </pre>
+
+        <pre class="brush: bash;">
+            jibon@ubuntu22:~/radxa/linux-5.15.196$ find /home/jibon/radxa/linux-rockchip -name "*.c" -o -name "*.h" | xargs grep -l "rknand_buffer\|FlashInit\|add_rknand_device"
+            /home/jibon/radxa/linux-rockchip/drivers/mtd/rknand/rknand_base.h
+            /home/jibon/radxa/linux-rockchip/drivers/mtd/rknand/rknand_base_ko.c
+
+            jibon@ubuntu22:~/radxa/linux-5.15.196$ ind /home/jibon/radxa/linux-rockchip -name "*buffer*.c"
+            Command 'ind' not found, but there are 18 similar ones.
+            jibon@ubuntu22:~/radxa/linux-5.15.196$ find /home/jibon/radxa/linux-rockchip -name "*buffer*.c"
+            /home/jibon/radxa/linux-rockchip/net/batman-adv/ring_buffer.c
+            /home/jibon/radxa/linux-rockchip/net/ceph/buffer.c
+            /home/jibon/radxa/linux-rockchip/sound/firewire/packets-buffer.c
+            /home/jibon/radxa/linux-rockchip/fs/hpfs/buffer.c
+            /home/jibon/radxa/linux-rockchip/fs/ocfs2/buffer_head_io.c
+            /home/jibon/radxa/linux-rockchip/fs/buffer.c
+            /home/jibon/radxa/linux-rockchip/kernel/trace/ring_buffer.c
+            /home/jibon/radxa/linux-rockchip/kernel/trace/ring_buffer_benchmark.c
+            /home/jibon/radxa/linux-rockchip/drivers/usb/core/buffer.c
+            /home/jibon/radxa/linux-rockchip/drivers/char/xilinx_hwicap/buffer_icap.c
+            /home/jibon/radxa/linux-rockchip/drivers/tty/tty_buffer.c
+            /home/jibon/radxa/linux-rockchip/drivers/media/dvb/dvb-core/dvb_ringbuffer.c
+            /home/jibon/radxa/linux-rockchip/drivers/media/video/saa7164/saa7164-buffer.c
+            /home/jibon/radxa/linux-rockchip/drivers/gpu/drm/i915/i915_gem_execbuffer.c
+            /home/jibon/radxa/linux-rockchip/drivers/gpu/drm/i915/intel_ringbuffer.c
+            /home/jibon/radxa/linux-rockchip/drivers/gpu/drm/drm_buffer.c
+            /home/jibon/radxa/linux-rockchip/drivers/gpu/drm/vmwgfx/vmwgfx_buffer.c
+            /home/jibon/radxa/linux-rockchip/drivers/staging/hv/ring_buffer.c
+            /home/jibon/radxa/linux-rockchip/drivers/staging/speakup/buffers.c
+            /home/jibon/radxa/linux-rockchip/drivers/staging/iio/Documentation/generic_buffer.c
+            /home/jibon/radxa/linux-rockchip/drivers/oprofile/cpu_buffer.c
+            /home/jibon/radxa/linux-rockchip/drivers/oprofile/event_buffer.c
+            /home/jibon/radxa/linux-rockchip/drivers/oprofile/buffer_sync.c
+            /home/jibon/radxa/linux-rockchip/drivers/cmmb/cmmb_ringbuffer.c
+            jibon@ubuntu22:~/radxa/linux-5.15.196$ ls -R /home/jibon/radxa/linux-rockchip/drivers/mtd/rknand/
+            /home/jibon/radxa/linux-rockchip/drivers/mtd/rknand/:
+            api_flash.h  Kconfig  Makefile  rknand_base.h  rknand_base_ko.c
+            jibon@ubuntu22:~/radxa/linux-5.15.196$ ls -R /home/jibon/radxa/linux-rockchip/drivers/mtd/
+            /home/jibon/radxa/linux-rockchip/drivers/mtd/:
+            afs.c          ftl.c         Makefile       mtdchar.c    mtdpart.c   nftlmount.c  rknand    ubi
+            ar7part.c      inftlcore.c   maps           mtdconcat.c  mtdsuper.c  ofpart.c     sm_ftl.c
+            chips          inftlmount.c  mtd_blkdevs.c  mtdcore.c    mtdswap.c   onenand      sm_ftl.h
+            cmdlinepart.c  Kconfig       mtdblock.c     mtdcore.h    nand        redboot.c    ssfdc.c
+            devices        lpddr         mtdblock_ro.c  mtdoops.c    nftlcore.c  rfd_ftl.c    tests
+
+            /home/jibon/radxa/linux-rockchip/drivers/mtd/chips:
+            cfi_cmdset_0001.c  cfi_cmdset_0020.c  cfi_util.c  fwh_lock.h   jedec_probe.c  Makefile      map_ram.c
+            cfi_cmdset_0002.c  cfi_probe.c        chipreg.c   gen_probe.c  Kconfig        map_absent.c  map_rom.c
+
+            /home/jibon/radxa/linux-rockchip/drivers/mtd/devices:
+            block2mtd.c  doc2001.c      docecc.c    Kconfig  m25p80.c  ms02-nv.c  mtd_dataflash.c  phram.c   slram.c
+            doc2000.c    doc2001plus.c  docprobe.c  lart.c   Makefile  ms02-nv.h  mtdram.c         pmc551.c  sst25l.c
+
+            /home/jibon/radxa/linux-rockchip/drivers/mtd/lpddr:
+            Kconfig  lpddr_cmds.c  Makefile  qinfo_probe.c
+
+            /home/jibon/radxa/linux-rockchip/drivers/mtd/maps:
+            amd76xrom.c         edb7312.c          lantiq-flash.c      pismo.c            sun_uflash.c
+            autcpu12-nvram.c    esb2rom.c          latch-addr-flash.c  plat-ram.c         tqm8xxl.c
+            bcm963xx-flash.c    fortunet.c         Makefile            pmcmsp-flash.c     ts5500_flash.c
+            bfin-async-flash.c  gpio-addr-flash.c  map_funcs.c         pxa2xx-flash.c     tsunami_flash.c
+            cdb89712.c          h720x-flash.c      mbx860.c            rbtx4939-flash.c   uclinux.c
+            ceiva.c             ichxrom.c          netsc520.c          rpxlite.c          vmax301.c
+            cfi_flagadm.c       impa7.c            nettel.c            sa1100-flash.c     vmu-flash.c
+            ck804xrom.c         intel_vr_nor.c     octagon-5066.c      sbc_gxx.c          wr_sbc82xx_flash.c
+            dbox2-flash.c       ixp2000.c          pci.c               sc520cdp.c
+            dc21285.c           ixp4xx.c           pcmciamtd.c         scb2_flash.c
+            dilnetpc.c          Kconfig            physmap.c           scx200_docflash.c
+            dmv182.c            l440gx.c           physmap_of.c        solutionengine.c
+
+            /home/jibon/radxa/linux-rockchip/drivers/mtd/nand:
+            alauda.c          cmx270_nand.c    gpio.c         nand_bcm_umi.c  pasemi_nand.c     sh_flctl.c
+            ams-delta.c       cs553x_nand.c    h1910.c        nand_bcm_umi.h  plat_nand.c       sm_common.c
+            atmel_nand.c      davinci_nand.c   jz4740_nand.c  nand_ecc.c      ppchameleonevb.c  sm_common.h
+            atmel_nand_ecc.h  denali.c         Kconfig        nand_ids.c      pxa3xx_nand.c     socrates_nand.c
+            au1550nd.c        denali.h         Makefile       nandsim.c       r852.c            spia.c
+            autcpu12.c        diskonchip.c     mpc5121_nfc.c  ndfc.c          r852.h            tmio_nand.c
+            bcm_umi_bch.c     edb7312.c        mxc_nand.c     nomadik_nand.c  rk29_nand.c       txx9ndfmc.c
+            bcm_umi_nand.c    fsl_elbc_nand.c  nand_base.c    nuc900_nand.c   rtc_from4.c
+            bf5xx_nand.c      fsl_upm.c        nand_bbt.c     omap2.c         s3c2410.c
+            cafe_nand.c       fsmc_nand.c      nand_bch.c     orion_nand.c    sharpsl.c
+
+            /home/jibon/radxa/linux-rockchip/drivers/mtd/onenand:
+            generic.c  Kconfig  Makefile  omap2.c  onenand_base.c  onenand_bbt.c  onenand_sim.c  samsung.c
+
+            /home/jibon/radxa/linux-rockchip/drivers/mtd/rknand:
+            api_flash.h  Kconfig  Makefile  rknand_base.h  rknand_base_ko.c
+
+            /home/jibon/radxa/linux-rockchip/drivers/mtd/tests:
+            Makefile           mtd_oobtest.c   mtd_readtest.c   mtd_stresstest.c   mtd_torturetest.c
+            mtd_nandecctest.c  mtd_pagetest.c  mtd_speedtest.c  mtd_subpagetest.c
+
+            /home/jibon/radxa/linux-rockchip/drivers/mtd/ubi:
+            build.c  debug.c  eba.c     io.c    Kconfig   misc.c  scan.h  ubi-media.h  vmt.c   wl.c
+            cdev.c   debug.h  gluebi.c  kapi.c  Makefile  scan.c  ubi.h   upd.c        vtbl.c
+        </pre>
+        <br>
+
       
     </div>
 

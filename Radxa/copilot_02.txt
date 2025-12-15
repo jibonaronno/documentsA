@@ -1,0 +1,916 @@
+Excellent! This is very helpful. I can see that **`rknand_buffer.c` is NOT in the vendor kernel source tree**. This confirms my earlier analysis - the buffer/flash layer is **missing from the source code**.
+
+## Analysis of the Situation
+
+### What We Have ✅
+- `rknand_base_ko.c` - The MTD interface layer (successfully ported)
+- Driver compiles and probes correctly in kernel 5.15
+- Device tree binding works
+
+### What's Missing ❌
+The **`rknand_buffer.c`** file that you saw in the vendor dmesg:
+```
+[    4.040211] rknand_buffer.c version: 4.40 20130830!
+```
+
+This file is **not in the source tree**, which means it's likely:
+1. **Proprietary closed-source** - Provided only as a binary `.ko` module
+2. **In a different source package** - Separate SDK from Rockchip
+3. **Compiled into the kernel** - But source not included in this tree
+
+## Next Steps - Finding the Missing Piece
+
+### Option 1: Check for Binary Modules on Vendor System
+
+Run these commands on your **vendor Linux 3.0.18** system:
+
+```bash
+# Find all NAND-related kernel modules
+find /lib/modules/$(uname -r) -name "*.ko" | grep -i nand
+
+# Check what's loaded
+lsmod | grep nand
+
+# Get module information
+modinfo rk30xxnand_ko
+
+# Find the module file
+find /lib/modules -name "rk30xxnand_ko.ko" -o -name "rknand*.ko"
+
+# Copy it for analysis
+cp /lib/modules/*/extra/rk30xxnand_ko.ko /tmp/
+ls -lh /tmp/rk30xxnand_ko.ko
+```
+
+### Option 2: Check Rockchip SDK
+
+The buffer layer might be in a separate Rockchip SDK package:
+
+```bash
+# Search for any Rockchip SDK directories
+find /home/jibon/radxa -type d -name "*sdk*" -o -name "*rockchip*" 2>/dev/null | grep -v ".git"
+
+# Look for any other kernel source trees
+find /home/jibon/radxa -name "rknand_buffer*" 2>/dev/null
+
+# Check for pre-built modules
+find /home/jibon/radxa -name "*.ko" | grep -i nand
+```
+
+### Option 3: Create a Minimal Test Stub
+
+Since the base driver is working, I can create a minimal stub to test if the MTD registration works. Add this to `rknand_base_ko.c`:
+
+```c
+// Add after rknand_info_init() function
+
+#ifdef CONFIG_MTD_RKNAND_TEST_STUB
+static int rknand_test_init_flash(void)
+{
+    printk(KERN_INFO "rknand: TEST STUB - Initializing dummy NAND\n");
+    
+    // Allocate gpNandInfo if not already done
+    if (!gpNandInfo) {
+        gpNandInfo = kzalloc(sizeof(struct nandInfo), GFP_KERNEL);
+        if (!gpNandInfo) {
+            printk(KERN_ERR "rknand: Failed to allocate nandInfo\n");
+            return -ENOMEM;
+        }
+    }
+    
+    // Set dummy parameters matching vendor's 16KB erase blocks
+    // These values are from vendor mtd2: 1c7400000 00004000 "linuxroot"
+    gpNandInfo->nandCapacity = 7616 * 1024; // ~7.6GB in KB
+    gpNandInfo->BytesPerSec = 2048;         // 2KB sectors
+    gpNandInfo->SectorsPerPage = 4;          // 4 sectors per page = 8KB
+    gpNandInfo->PagesPerBlock = 2;           // 2 pages per block = 16KB eraseblock
+    gpNandInfo->BlocksPerPlane = 7616 * 1024 / 16; // Total 16KB blocks
+    
+    printk(KERN_INFO "rknand: Capacity=%lluKB, Eraseblock=16KB\n", 
+           gpNandInfo->nandCapacity);
+    
+    // Try to register the MTD device
+    return add_rknand_device();
+}
+#endif
+
+// Modify rk_nand_probe to call the stub:
+static int rk_nand_probe(struct platform_device *pdev)
+{
+    int ret;
+    printk(KERN_INFO "rk_nand_probe: starting\n");
+    
+    ret = rknand_info_init();
+    if (ret) {
+        printk(KERN_ERR "rk_nand_probe: init failed: %d\n", ret);
+        return ret;
+    }
+    
+#ifdef CONFIG_MTD_RKNAND_TEST_STUB
+    ret = rknand_test_init_flash();
+    if (ret) {
+        printk(KERN_ERR "rknand: test stub failed: %d\n", ret);
+        return ret;
+    }
+    printk(KERN_INFO "rknand: test stub registered MTD device\n");
+#else
+    printk(KERN_INFO "rk_nand_probe: waiting for flash layer to call add_rknand_device()\n");
+#endif
+    
+    return 0;
+}
+```
+
+## Recommendation
+
+**I strongly recommend pursuing Option 1 first** - find the binary `.ko` module from your vendor system. If we can get the `rk30xxnand_ko.ko` file, we can:
+
+1. **Analyze its symbols** to understand the missing functions
+2. **Check if source is available** elsewhere
+3. **Potentially reverse-engineer** the initialization sequence
+4. **Create a compatibility shim** to load it with kernel 5.15
+
+**Please run the commands from Option 1 on your vendor system and share the output.** This will tell us if the buffer layer is:
+- A separate loadable module (we might be able to port it)
+- Compiled into the base module (we need different approach)
+- Missing entirely (we need to use mainline driver with proper bad block handling)
+
+Which option would you like to pursue?
+
+
+
+
+
+
+
+
+
+
+
+Perfect! This is the **critical discovery**! The vendor kernel has a **separate module** loaded:
+
+```
+rk30xxnand_ko         166524  0
+```
+
+This 166KB module is the **missing flash/buffer layer** that we've been looking for! This module:
+- Contains `rknand_buffer.c` (the code that printed "version: 4.40 20130830!")
+- Implements the actual NAND flash operations
+- Calls `add_rknand_device()` to register MTD devices
+- Handles bad block translation and wear leveling
+
+## Next Steps: Extract the Module
+
+Run these commands on your **vendor system**:
+
+```bash
+# Find the module file
+find /lib/modules -name "rk30xxnand_ko.ko"
+
+# Get full path
+modprobe -l | grep rk30xxnand
+
+# Or search manually
+find /lib/modules/$(uname -r) -name "*.ko" | grep nand
+
+# Once found, copy it for analysis
+find / -name "rk30xxnand_ko.ko" 2>/dev/null
+```
+
+The module is loaded but `modinfo` can't find it because it might be:
+1. Built into the kernel
+2. Located in a non-standard path
+3. Loaded from initramfs
+
+Try these alternative searches:
+
+```bash
+# Check all loaded modules paths
+cat /proc/modules
+
+# Check module parameters
+cat /sys/module/rk30xxnand_ko/parameters/* 2>/dev/null || echo "No parameters"
+
+# Find the actual .ko file
+find /lib -name "*.ko" 2>/dev/null | grep -i nand
+find /system -name "*.ko" 2>/dev/null | grep -i nand
+
+# Check if it's in extra directory
+ls -la /lib/modules/3.0.*/extra/
+
+# Check kernel modules directory structure
+ls -R /lib/modules/$(uname -r)/
+```
+
+Once you find the `.ko` file, we can:
+1. Copy it to analyze the symbols it exports
+2. Check if vendor provides source code for it
+3. Potentially port it to kernel 5.15 or reverse-engineer its behavior
+
+**The key insight**: Your `rknand_base_ko.c` is successfully ported and working! It's just waiting for the flash layer module to call `add_rknand_device()`. We need to find and port that module next.
+
+Please run the find commands above and share the output!
+
+
+
+
+
+
+
+
+
+
+
+## Critical Discovery! 🎯
+
+**The `rk30xxnand_ko` module is BUILT INTO the vendor kernel, not a loadable module!**
+
+Looking at your output:
+
+```bash
+cat /proc/modules
+rk30xxnand_ko 166524 0 - Live 0xbf01a000
+```
+
+The module shows as loaded, but:
+- `find` doesn't find any `.ko` file
+- `modprobe` can't find it
+- No `/lib/modules/*/extra/` directory exists
+
+This means **`rk30xxnand_ko` was compiled directly into the vendor kernel** (or loaded from initramfs), not as a separate loadable module.
+
+## Next Steps: Extract the Module from Memory
+
+Since the module is already loaded in RAM, we can extract it:
+
+### Option 1: Extract Module from Memory (Recommended)
+
+```bash
+# On vendor system, extract the loaded module
+sudo cat /proc/modules | grep rk30xxnand_ko
+# Shows: rk30xxnand_ko 166524 0 - Live 0xbf01a000
+
+# Extract from /sys (if available)
+sudo find /sys/module/rk30xxnand_ko -type f -exec cat {} \; 2>/dev/null
+
+# Or dump from memory (requires root)
+sudo dd if=/dev/mem bs=1 skip=$((0xbf01a000)) count=166524 of=/tmp/rk30xxnand_extracted.bin 2>/dev/null
+
+# Copy to your development machine for analysis
+scp rock@rabian-rock-pro:/tmp/rk30xxnand_extracted.bin ~/radxa/
+```
+
+### Option 2: Find in Vendor Kernel Source
+
+The module must be defined somewhere in the vendor kernel. Let's search more thoroughly:
+
+```bash
+# On your dev machine, search vendor kernel comprehensively
+cd ~/radxa/linux-rockchip
+
+# Find all C files in rknand directory
+find drivers/mtd/rknand -name "*.c" -o -name "*.h"
+
+# Search for the module init/registration
+grep -r "module_init\|platform_driver_register" drivers/mtd/rknand/
+
+# Check if there are any assembly or binary files
+find drivers/mtd/rknand -type f
+
+# Look for any Makefile that builds rk30xxnand_ko
+find . -name Makefile -exec grep -l "rk30xxnand_ko" {} \;
+
+# Check for any related config options
+grep -r "MTD_RKNAND" .config
+```
+
+### Option 3: Check Vendor Firmware/Bootloader
+
+The module might be embedded in the boot image:
+
+```bash
+# On vendor system
+ls -la /boot/
+cat /proc/cmdline  # Check for initrd parameter
+
+# If there's an initrd/initramfs
+mkdir /tmp/initrd
+cd /tmp/initrd
+# Extract based on what you find in /boot or from cmdline
+```
+
+## My Analysis of the Situation
+
+Based on everything we've discovered:
+
+1. **Your ported `rknand_base_ko.c` is working correctly** ✅
+   - It compiles for kernel 5.15
+   - It probes successfully
+   - Device tree binding works
+
+2. **The missing piece is the FLASH LAYER** ❌
+   - This is what the 166KB `rk30xxnand_ko` module provides
+   - It contains `rknand_buffer.c` (version 4.40 20130830)
+   - It implements actual NAND read/write/erase operations
+   - It calls `add_rknand_device()` to register MTD devices
+
+3. **The vendor keeps this proprietary** 🔒
+   - Not included in open-source kernel tree
+   - Likely contains bad block translation algorithms
+   - Implements the 16KB logical eraseblock abstraction
+
+## Recommended Path Forward
+
+**Run these commands on the vendor system and share the output:**
+
+```bash
+# 1. Get module information from /sys
+ls -la /sys/module/rk30xxnand_ko/
+cat /sys/module/rk30xxnand_ko/refcnt
+ls -la /sys/module/rk30xxnand_ko/sections/
+
+# 2. Check if module exports any symbols
+cat /proc/kallsyms | grep rk30xxnand_ko | head -20
+
+# 3. Find any related files in boot
+ls -la /boot/
+cat /proc/cmdline
+
+# 4. Check for firmware/initrd
+ls -la /lib/firmware/ | grep -i nand
+file /boot/initrd* 2>/dev/null
+```
+
+Once you provide this information, I can help you either:
+1. **Extract and analyze** the binary module
+2. **Reverse-engineer** the key functions needed
+3. **Create a compatibility shim** to interface with the vendor blob in kernel 5.15
+
+**The good news:** Your base driver port is complete and working! We just need to get or recreate the flash layer that actually talks to the NAND hardware.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Excellent Progress! Critical Discovery 🎯
+
+You've found the **missing flash layer** - the `rk30xxnand_ko` module contains the actual NAND hardware operations! Looking at the symbols:
+
+```bash
+cat /proc/kallsyms | grep rk30xxnand_ko | head -20
+```
+
+Key symbols found:
+- `_SD_DecodeCID` / `_SD_DecodeCSD` - SD/MMC card functions
+- `_ReadRemainData` - Data reading function
+- `rknand_read_buffer` - Buffer management
+- `rkemmc_info_proc_read` - eMMC info (interesting - it handles both NAND and eMMC!)
+
+## The Architecture is Now Clear
+
+The vendor driver has **two layers**:
+
+1. **`rknand_base_ko.c`** (✅ successfully ported) - MTD interface
+2. **`rk30xxnand_ko.ko`** (❌ still needed) - Flash/buffer layer with actual hardware operations
+
+## Next Steps: Extract the Binary Module
+
+Since the module is loaded in memory, let's extract it for analysis:
+
+```bash
+# On vendor system:
+
+# 1. Get module memory addresses
+cat /proc/kallsyms | grep "rk30xxnand_ko" | head -1
+# Shows: bf01a000 t $a [rk30xxnand_ko]
+# Base address: 0xbf01a000
+
+# 2. Get module size (166524 bytes from lsmod)
+lsmod | grep rk30xxnand_ko
+# Shows size: 166524 bytes (0x28A7C in hex)
+
+# 3. Find the actual .ko file location
+find /lib/modules/$(uname -r) -name "*.ko" | head -20
+find /system -name "*.ko" 2>/dev/null
+find / -name "rk30xxnand_ko.ko" 2>/dev/null | head -5
+
+# 4. If not found as file, it might be in initrd
+# Check if there's an initrd parameter
+cat /proc/cmdline | grep initrd
+# I see: initrd=0x62000000,0x00500000
+
+# 5. Try to extract from /dev/mem (requires root)
+sudo dd if=/dev/mem bs=1 skip=$((0xbf01a000)) count=166524 of=/tmp/rk30xxnand_ko_extracted.bin 2>/dev/null
+
+# 6. Or check if it's embedded in kernel
+cat /proc/modules | grep -i nand
+```
+
+## Alternative: Check for Source Files
+
+```bash
+# On your dev machine, search vendor kernel more thoroughly
+cd ~/radxa/linux-rockchip/drivers/mtd/rknand
+
+# Check if there are any other source files we missed
+ls -la
+cat Makefile
+
+# Search for buffer-related source
+find ~/radxa/linux-rockchip -name "*buffer*.c" -o -name "*flash*.c" | grep -v ".git"
+
+# Look for any RK NAND implementation files
+find ~/radxa/linux-rockchip/drivers/mtd -name "*.c" | xargs grep -l "rk29xxnand\|rknand_buffer"
+```
+
+## Key Observations from cmdline
+
+Your boot command shows:
+```
+initrd=0x62000000,0x00500000
+mtdparts=rk29xxnand:0x00002000@0x00002000(uboot),0x00008000@0x00004000(boot),-@0x000c0000(linuxroot)
+```
+
+This confirms:
+- There IS an initrd loaded at address 0x62000000 (size 0x500000 = 5MB)
+- The module might be inside this initrd
+- Partition layout uses 16KB blocks (0x00004000 = 16384 bytes)
+
+## What to Do Next
+
+**Option 1: Extract from initrd (Most Likely)**
+
+The module is probably in the initrd. On vendor system:
+
+```bash
+# Check if initrd is still in memory or available as file
+ls -la /boot/
+file /boot/initrd* 2>/dev/null || echo "No initrd file found"
+
+# If initrd file exists, extract it
+mkdir /tmp/initrd
+cd /tmp/initrd
+# For gzipped initrd:
+zcat /boot/initrd* | cpio -idmv
+# OR for uncompressed:
+cpio -idmv < /boot/initrd*
+
+# Search for the module
+find /tmp/initrd -name "*.ko"
+```
+
+**Option 2: Get from Running System**
+
+```bash
+# Try different search paths
+find /lib/modules -type f -name "*.ko"
+find /vendor -name "*.ko" 2>/dev/null
+find /system -name "*.ko" 2>/dev/null
+
+# Check loaded modules location
+cat /proc/modules
+# This should show the file path if it's a regular module
+```
+
+**Option 3: Memory Extraction (Last Resort)**
+
+If the module is only in memory:
+
+```bash
+# Extract from kernel memory (requires root)
+sudo dd if=/dev/mem bs=1 skip=$((0xbf01a000)) count=166524 of=/tmp/rk30xxnand.bin 2>/dev/null
+ls -lh /tmp/rk30xxnand.bin
+```
+
+## After Extraction
+
+Once you get the `.ko` file, copy it to your dev machine:
+
+```bash
+scp rock@rabian-rock-pro:/tmp/rk30xxnand_ko.ko ~/radxa/
+
+# Then analyze it
+file ~/radxa/rk30xxnand_ko.ko
+nm ~/radxa/rk30xxnand_ko.ko | head -50
+strings ~/radxa/rk30xxnand_ko.ko | grep -i "version\|copyright\|buffer"
+```
+
+**Please run these commands and share the output.** Once we have the module file, we can either:
+1. Port it to kernel 5.15 (if we can extract enough information)
+2. Create a compatibility shim to load it
+3. Reverse-engineer the key functions
+
+Which approach would you like to try first?
+
+
+
+
+
+
+
+
+
+
+The memory extraction didn't work (0 bytes file). This is because mem access is likely restricted or the address has changed. Let me try alternative methods to find and extract the module.
+
+## Alternative Approaches to Find the Module
+
+### Method 1: Search for the Module File More Thoroughly
+
+```bash
+# On vendor system, search EVERYWHERE for .ko files
+sudo find / -name "*.ko" 2>/dev/null | grep -v proc
+
+# Check if it's in a compressed file
+sudo find /lib/modules -type f 2>/dev/null
+sudo find /boot -type f 2>/dev/null
+
+# Check vendor-specific locations
+ls -la /vendor/ 2>/dev/null
+ls -la /system/lib/modules/ 2>/dev/null
+ls -la /data/ 2>/dev/null
+
+# Check if it's in firmware
+ls -la /lib/firmware/
+```
+
+### Method 2: Check if Module is Built-in (Not Loadable)
+
+```bash
+# The module might be built into the kernel, not as .ko
+# Check kernel symbols
+cat /proc/kallsyms | grep rk30xxnand_ko | grep " t " | head -50
+
+# Get all exported symbols
+cat /proc/kallsyms | grep rk30xxnand_ko | wc -l
+
+# Check module parameters (if any)
+cat /sys/module/rk30xxnand_ko/parameters/* 2>/dev/null
+
+# Check module version info
+cat /sys/module/rk30xxnand_ko/version 2>/dev/null
+cat /sys/module/rk30xxnand_ko/srcversion 2>/dev/null
+```
+
+### Method 3: Extract Module Information from Kernel
+
+```bash
+# Get more symbol information
+cat /proc/kallsyms | grep rk30xxnand_ko > /tmp/rk30xxnand_symbols.txt
+
+# Count functions
+cat /tmp/rk30xxnand_symbols.txt | grep " t " | wc -l
+
+# Look for interesting functions
+cat /tmp/rk30xxnand_symbols.txt | grep -i "init\|probe\|flash\|buffer\|read\|write"
+
+# Save all kallsyms for analysis
+sudo cat /proc/kallsyms > /tmp/all_kallsyms.txt
+```
+
+## Key Discovery from Your Earlier Output
+
+Looking back at your `kallsyms` output, I saw some very interesting symbols:
+
+```bash
+bf01a1f8 t rknand_read_buffer   [rk30xxnand_ko]
+bf031
+
+6dc t _ReadRemainData      [rk30xxnand_ko]
+bf01a018 t _SD_DecodeCID        [rk30xxnand_ko]
+bf01a0a4 t _SD_DecodeCSD        [rk30xxnand_ko]
+```
+
+This tells us the module contains **SD/MMC functions**, not just NAND! This is important.
+
+## What to Do Next
+
+**Run these commands on vendor system:**
+
+```bash
+# 1. Get complete symbol list
+cat /proc/kallsyms | grep rk30xxnand_ko > /tmp/symbols.txt
+cat /tmp/symbols.txt | wc -l  # How many symbols?
+
+# 2. Check if there's a compressed module archive
+find /boot -name "*.cpio*" -o -name "*.gz" -o -name "*.img"
+
+# 3. Look for initramfs in memory (from cmdline we saw initrd=0x62000000,0x00500000)
+# Try to dump that memory region
+sudo dd if=/dev/mem bs=1M skip=$((0x62)) count=5 of=/tmp/initrd.img 2>/dev/null
+file /tmp/initrd.img
+```
+
+## Understanding the Module Architecture
+
+Based on the symbols and the earlier dmesg showing:
+```
+[    4.040211] rknand_buffer.c version: 4.40 20130830!
+```
+
+The **166KB `rk30xxnand_ko` module** contains:
+1. **rknand_buffer.c** - The flash/buffer layer (what we need!)
+2. SD/MMC card detection functions
+3. NAND read/write operations
+4. Bad block translation
+
+**This is a combined NAND+SD/MMC+eMMC driver module!**
+
+## Recommended Next Step
+
+Since we can't extract the binary easily, let me help you **create a stub implementation** based on what we know the module should do:
+
+**Would you like me to:**
+1. Create a test stub that registers a dummy NAND device to verify the base driver works?
+2. Try to find the vendor SDK that might contain the source?
+3. Analyze the symbols more to understand the module's behavior?
+
+Please run the symbol extraction command and share `/tmp/symbols.txt`:
+
+```bash
+cat /proc/kallsyms | grep rk30xxnand_ko > /tmp/symbols.txt
+cat /tmp/symbols.txt | head -100
+```
+
+This will help me understand what functions the module provides and guide the porting effort!
+
+
+
+
+
+
+
+
+
+
+## Excellent! 🎯 Critical Symbol Analysis
+
+This symbol dump reveals **exactly what the missing `rk30xxnand_ko` module does**. I can now map out the complete architecture and guide you on the next steps.
+
+## Analysis of Key Symbols
+
+### 1. **Module Entry/Exit Points**
+```bash
+bf031518 t init_module          # Module initialization (rk29nand_probe)
+bf031bb4 t cleanup_module        # Module cleanup (rk29nand_exit)
+bf031518 t rk29nand_probe        # Platform device probe
+```
+
+### 2. **Flash Layer Functions** (The Missing Piece!)
+```bash
+bf021c48 t FlashInit            # Flash hardware initialization!
+bf01be84 t FlashReadID          # Read NAND chip ID
+bf01bd30 t FlashEraseBlock      # Erase operations
+bf020e5c t FlashProgPage        # Program/write page
+bf021a9c t FlashReadPage        # Read page
+bf022b8c t FlashReadPages       # Multi-page read
+bf024aec t FlashProgPages       # Multi-page write
+bf01c6f0 t FlashDeInit          # Flash de-initialization
+```
+
+### 3. **FTL (Flash Translation Layer)** - Bad Block Management!
+```bash
+bf028568 t FTLInit              # FTL initialization
+bf028760 t FtlDeInit            # FTL de-initialization
+bf029efc t FtlRead              # FTL-level read (with bad block handling)
+bf02f9f8 t FtlWrite             # FTL-level write
+bf0290ac t FtlGarbageCollect    # Garbage collection
+bf029c5c t rk_ftl_gc            # FTL GC thread
+bf0287a4 t FtlMakeBbt           # Make bad block table
+bf024750 t FtlLoadBbt           # Load bad block table
+bf01cee0 t FtlBbmIsBadBlock     # Check if block is bad
+bf01ce70 t FtlBbmMapBadBlock    # Map bad blocks
+```
+
+### 4. **NAND Controller (NANDC) Functions**
+```bash
+bf01f67c t NandcInit            # NAND controller init
+bf0307b4 t NandInit             # High-level NAND init
+bf01a6a0 t rk_nandc_interrupt   # NAND controller IRQ handler
+bf020904 t NandcXferData        # Transfer data via NANDC
+```
+
+### 5. **Buffer Management** (The "rknand_buffer" Layer!)
+```bash
+bf02a6a0 t rknand_buffer_init          # Buffer layer initialization!
+bf02a694 t rknand_buffer_deinit        # Buffer de-init
+bf02a350 t rknand_buffer_data_init     # Buffer data structures
+bf02f340 t rknand_buffer_thread        # Buffer management thread
+bf01a7c8 t rknand_buffer_wake_up       # Wake up buffer thread
+bf0227fc t rknand_buffer_suspend       # Suspend support
+bf02e6e4 t rknand_buffer_resume        # Resume support
+bf01a870 t rknand_buffer_reinit        # Re-initialization
+bf01a010 t rknand_buffer_sync          # Sync operation
+```
+
+### 6. **Queue/Request Management**
+```bash
+bf02f2e4 t do_rknand_queue_request     # Main request handler!
+bf02ebf0 t rknand_queue_read           # Read request
+bf02f00c t rknand_queue_write          # Write request
+bf02e740 t rknand_queue_discard        # Discard/TRIM
+bf02a580 t rknand_queue_write_sync     # Synchronous write
+```
+
+### 7. **SD/MMC/eMMC Support** (Unified Driver!)
+```bash
+bf02e1b4 t SDC_Init                    # SD controller init
+bf02e30c t SDM_Init                    # SD manager init
+bf0301ac t SdmmcInit                   # SDMMC initialization
+bf02dc10 t SDC_ControlClock            # Clock control
+bf02dc90 t _IdentifyCard               # Card identification
+bf02d6c4 t MMC_Init                    # MMC init
+bf02b260 t SdmmcIntHandle              # SDMMC interrupt handler
+```
+
+## The Key Insight 💡
+
+**This is a UNIFIED NAND+SD+MMC+eMMC driver module!** It handles:
+1. **Raw NAND flash** via NANDC (NAND controller)
+2. **eMMC** via SDMMC controller
+3. **SD cards** via SDMMC controller
+4. **Bad block translation** through FTL layer
+5. **16KB logical eraseblock virtualization**
+
+## What the Module Does
+
+```
+User Space
+    ↓
+[rknand_base_ko.c] ← (Your ported driver - MTD interface)
+    ↓
+[rk30xxnand_ko] ← (MISSING! - This symbol dump)
+    ├─ Buffer Layer (rknand_buffer_*)
+    ├─ Queue Management (do_rknand_queue_request)
+    ├─ FTL Layer (FtlRead/Write, bad block handling)
+    ├─ Flash Layer (FlashInit, FlashReadPage, etc.)
+    ├─ NANDC Driver (NandcInit, rk_nandc_interrupt)
+    └─ SDMMC Driver (SdmmcInit, for eMMC fallback)
+```
+
+## Critical Discovery
+
+Looking at the symbols, the missing module provides:
+
+1. **`FlashInit()` function** - This is what initializes the NAND hardware
+2. **`FTLInit()` function** - Initializes the bad block translation layer
+3. **`rknand_buffer_init()` function** - Sets up the buffer management
+4. **`do_rknand_queue_request()` function** - Handles block I/O requests
+
+## The Call Chain (What Should Happen)
+
+```c
+// When your rknand_base_ko.c loads:
+rk_nand_probe()
+    ↓
+// SHOULD call into rk30xxnand_ko:
+FlashInit()              // Detect NAND chip
+    ↓
+FTLInit()                // Set up bad block translation
+    ↓
+rknand_buffer_init()     // Initialize buffer layer
+    ↓
+add_rknand_device()      // Register MTD device (in rknand_base_ko.c)
+```
+
+## Your Options Now
+
+### **Option 1: Port the Module (Difficult but Complete)**
+
+The vendor source is NOT in your kernel tree. You need to:
+
+1. **Find the vendor SDK** with full source code
+2. Check Rockchip's official SDK releases
+3. Look for `rk3188-sdk` or `rk30-sdk` packages
+
+Search locations:
+```bash
+# Try to find vendor's development SDK
+find /home/jibon/radxa -name "*sdk*" -type d 2>/dev/null
+find /home/jibon/radxa -name "*.tar.gz" | grep -i sdk
+
+# Check for git repositories
+find /home/jibon/radxa -name ".git" -type d
+
+# Look for additional source packages
+ls -la /home/jibon/radxa/
+```
+
+### **Option 2: Create Stub Shims (Test/Workaround)**
+
+Since you know the function signatures from symbols, create stub implementations:
+
+```c
+// Add to rknand_base_ko.c - STUB IMPLEMENTATION
+
+// Stub for FlashInit
+static int FlashInit(void)
+{
+    printk("rknand: STUB FlashInit called\n");
+    // Return mock success
+    return 0;
+}
+
+// Stub for FTLInit  
+static int FTLInit(void)
+{
+    printk("rknand: STUB FTLInit called\n");
+    
+    // Set dummy capacity - from vendor: 7616 * 1024 KB = ~7.6GB
+    if (gpNandInfo) {
+        gpNandInfo->nandCapacity = 7616 * 1024;
+        gpNandInfo->BytesPerSec = 2048;
+        gpNandInfo->SectorsPerPage = 4;
+        gpNandInfo->PagesPerBlock = 2;  // 16KB blocks!
+    }
+    return 0;
+}
+
+// Stub for rknand_buffer_init
+static int rknand_buffer_init(void)
+{
+    printk("rknand: STUB rknand_buffer_init called\n");
+    return 0;
+}
+
+// Modified probe to call stubs
+static int rk_nand_probe(struct platform_device *pdev)
+{
+    int ret;
+    
+    printk("rk_nand_probe: Initializing with STUB flash layer\n");
+    
+    ret = rknand_info_init();
+    if (ret)
+        return ret;
+    
+    // Call stub flash init
+    ret = FlashInit();
+    if (ret) {
+        printk("rk_nand_probe: FlashInit failed\n");
+        return ret;
+    }
+    
+    // Call stub FTL init
+    ret = FTLInit();
+    if (ret) {
+        printk("rk_nand_probe: FTLInit failed\n");
+        return ret;
+    }
+    
+    // Call stub buffer init
+    ret = rknand_buffer_init();
+    if (ret) {
+        printk("rk_nand_probe: rknand_buffer_init failed\n");
+        return ret;
+    }
+    
+    // NOW try to register MTD device
+    ret = add_rknand_device();
+    printk("rk_nand_probe: add_rknand_device returned %d\n", ret);
+    
+    return ret;
+}
+```
+
+This will at least let you test if the **MTD registration logic works** in your base driver.
+
+### **Option 3: Use Mainline Driver with UBI** (Recommended Long-term)
+
+Accept that the vendor's 16KB virtualization is proprietary, and use:
+- Mainline `CONFIG_MTD_NAND_ROCKCHIP` driver (sees real 2MB blocks + bad blocks)
+- UBI/UBIFS for bad block handling at filesystem level
+
+## Immediate Next Steps
+
+**1. Search for vendor SDK sources:**
+```bash
+find /home/jibon/radxa -name "*.tar.gz" -o -name "*.zip" | xargs ls -lh
+ls -la /home/jibon/radxa/
+```
+
+**2. Check if vendor provides separate source package:**
+- Look on Radxa forums/wiki
+- Check Rockchip's official developer site
+- Search for "rk3188 nand driver source"
+
+**3. If no source found, try the stub approach** (Option 2 above) to at least verify your base driver's MTD registration works.
+
+**Which path do you want to take?** I recommend trying to find the full vendor source first, then fall back to stubs for testing if needed.
+
+
+
+
+
+
+
+
