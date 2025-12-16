@@ -126,6 +126,14 @@ div[id=div-001] {
     <br>
     <p3>rockchip-nand-controller.c</p3> <br>
     <p4>..../linux-5.15..../drivers/mtd/nand/raw/rockchip-nand-controller.c</p4> <br>
+
+    <pre class="brush: bash;">
+        cat /proc/kallsyms | grep rk30xxnand_ko > /tmp/symbols.txt
+
+        
+
+        cat /tmp/symbols.txt | head -100
+    </pre> <br>
 </div>
 <!-- SHOW HIDE END 001  -->
 
@@ -262,6 +270,22 @@ div[id=div-001] {
         </pre>
         <br>
 
+        <pp>kernel module information </pp>
+        <pre class="brush: bash;">
+            $cat /proc/modules
+            8723au 853088 0 - Live 0xbf05e000
+            rtk_btusb 13540 0 - Live 0xbf053000
+            rk30xxnand_ko 166524 0 - Live 0xbf01a000
+            fbcon 35136 70 - Live 0xbf00d000
+            bitblit 3992 1 fbcon, Live 0xbf009000
+            softcursor 924 1 bitblit, Live 0xbf005000
+            font 7050 1 fbcon, Live 0xbf000000
+        </pre>
+        <br>
+
+    <p3>rockchip-nand-controller.c</p3> <br>
+    <p4>..../linux-5.15..../drivers/mtd/nand/raw/rockchip-nand-controller.c</p4> <br>
+
       
     </div>
 
@@ -277,11 +301,32 @@ div[id=div-001] {
         }
     </style>
     
-    <h2><label for="toggle-007">Random Links Commands</label></h2>
+    <h2><label for="toggle-007">Issue rknand nand mtd Kernel Logs</label></h2>
     <input type="checkbox" id="toggle-007" style="display: none;">
     
     <div id="div-007">
-     
+        <pre class="brush: bash;">
+        brd: module loaded
+        nand: device found, Manufacturer ID: 0x2c, Chip ID: 0x64
+        nand: Micron MT29F64G08CBABAWP
+        nand: 8192 MiB, MLC, erase size: 2048 KiB, page size: 8192, OOB size: 744
+        rockchip-nfc 10500000.nand-controller: read page: fff00 ecc error!
+        rockchip-nfc 10500000.nand-controller: read page: ffe00 ecc error!
+        rockchip-nfc 10500000.nand-controller: read page: ffd00 ecc error!
+        rockchip-nfc 10500000.nand-controller: read page: ffc00 ecc error!
+        Bad block table not found for chip 0
+        rockchip-nfc 10500000.nand-controller: read page: fff00 ecc error!
+        rockchip-nfc 10500000.nand-controller: read page: ffe00 ecc error!
+        rockchip-nfc 10500000.nand-controller: read page: ffd00 ecc error!
+        rockchip-nfc 10500000.nand-controller: read page: ffc00 ecc error!
+        Bad block table not found for chip 0
+        Scanning device for bad blocks
+        rockchip-nfc 10500000.nand-controller: read page: 0 ecc error!
+        Bad eraseblock 0 at 0x000000000000
+        rockchip-nfc 10500000.nand-controller: read page: 100 ecc error!
+        Bad eraseblock 1 at 0x000000200000
+        rockchip-nfc 10500000.nand-controller: read page: 200 ecc error!
+        </pre>
 
     </div>
   <!-- SHOW HIDE END 007  -->
@@ -296,10 +341,21 @@ div[id=div-001] {
       }
   </style>
   
-  <h2><label for="toggle-008">Blank</p3> </label></h2>
+  <h2><label for="toggle-008">Edit /etc/apt/sources.list for apt install </label></h2>
   <input type="checkbox" id="toggle-008" style="display: none;">
   
   <div id="div-008">
+    <pre class="brush: bash;">
+    # Edit and add nano /etc/apt/sources.list 
+    deb [trusted=yes] http://archive.debian.org/debian wheezy main contrib non-free 
+    deb-src http://archive.debian.org/debian wheezy main contrib non-free 
+    # To bypass GPG KEY Auth 
+    echo 'Acquire::Check-Valid-Until "0";' > /etc/apt/apt.conf.d/99ignore-valid-until 
+    # Remove or Replace Dead PPAs 
+    # Delete files under /etc/apt/sources.list.d/. 
+    sudo apt-get update 
+    apt install curl
+    </pre> 
   </div>
 <!-- SHOW HIDE END 008  -->
 
@@ -313,12 +369,60 @@ div[id=div-001] {
       }
   </style>
   
-  <h2><label for="toggle-009">Blank </label></h2>
+  <h2><label for="toggle-009">Installing mtd-utils </label></h2>
   <input type="checkbox" id="toggle-009" style="display: none;">
   
   <div id="div-009">
-      
+    <pp>sudo apt install mtd-utils</pp> <br>
+      <pre class="brush: bash;">
+        sudo apt install mtd-utils
 
+        rock@rabian-rock-pro:/etc/apt$ sudo apt install mtd-utils
+
+        Reading package lists... Done
+        Building dependency tree       
+        Reading state information... Done
+        The following extra packages will be installed:
+        liblzo2-2
+        The following NEW packages will be installed:
+        liblzo2-2 mtd-utils
+        0 upgraded, 2 newly installed, 0 to remove and 1 not upgraded.
+        Need to get 326 kB of archives.
+        After this operation, 729 kB of additional disk space will be used.
+        Do you want to continue? [Y/n] y
+        Get:1 http://archive.debian.org/debian/ wheezy/main liblzo2-2 armhf 2.06-1+deb7u1 [54.8 kB]
+        Get:2 http://archive.debian.org/debian/ wheezy/main mtd-utils armhf 1:1.5.0-1 [271 kB]
+        Fetched 326 kB in 1s (271 kB/s)
+        perl: warning: Setting locale failed.
+        perl: warning: Please check that your locale settings:
+            LANGUAGE = (unset),
+            LC_ALL = (unset),
+            LC_TIME = "ko_KR.UTF-8",
+            LC_MONETARY = "ko_KR.UTF-8",
+            LC_ADDRESS = "ko_KR.UTF-8",
+            LC_TELEPHONE = "ko_KR.UTF-8",
+            LC_NAME = "ko_KR.UTF-8",
+            LC_MEASUREMENT = "ko_KR.UTF-8",
+            LC_IDENTIFICATION = "ko_KR.UTF-8",
+            LC_NUMERIC = "ko_KR.UTF-8",
+            LC_PAPER = "ko_KR.UTF-8",
+            LANG = "C.UTF-8"
+            are supported and installed on your system.
+            perl: warning: Falling back to a fallback locale ("C.UTF-8").
+            locale: Cannot set LC_ALL to default locale: No such file or directory
+            debconf: delaying package configuration, since apt-utils is not installed
+            Selecting previously unselected package liblzo2-2:armhf.
+            (Reading database ... 29897 files and directories currently installed.)
+            Preparing to unpack .../liblzo2-2_2.06-1+deb7u1_armhf.deb ...
+            Unpacking liblzo2-2:armhf (2.06-1+deb7u1) ...
+            Selecting previously unselected package mtd-utils.
+            Preparing to unpack .../mtd-utils_1%3a1.5.0-1_armhf.deb ...
+            Unpacking mtd-utils (1:1.5.0-1) ...
+            Setting up liblzo2-2:armhf (2.06-1+deb7u1) ...
+            Setting up mtd-utils (1:1.5.0-1) ...
+            Processing triggers for libc-bin (2.19-18) ...
+            rock@rabian-rock-pro:/etc/apt$ 
+      </pre>
   </div>
 <!-- SHOW HIDE END 009  -->
 
@@ -332,11 +436,49 @@ div[id=div-001] {
       }
   </style>
   
-  <h2><label for="toggle-010"> Blank </label></h2>
+  <h2><label for="toggle-010"> Copilot mtd-utils test </label></h2>
   <input type="checkbox" id="toggle-010" style="display: none;">
   
   <div id="div-010">
-    
+    <pre brush="bash;">
+        Excellent! The installation succeeded! Now let's verify that the old mtd-utils from Debian 7 (Wheezy) repository work with your kernel 3.0.36: 
+
+        Ran terminal command: ssh -oHostKeyAlgorithms=+ssh-rsa,ssh-dss rock@192.168.10.62 "mkfs.ubifs --version && echo '---' && mkfs.jffs2 --version && echo '---' && ubinize --version"
+
+        Ran terminal command: ssh -oHostKeyAlgorithms=+ssh-rsa,ssh-dss rock@192.168.10.62 "dpkg -L mtd-utils | grep bin"
+
+        Great! They're in sbin. Let's test them: 
+
+        Ran terminal command: ssh -oHostKeyAlgorithms=+ssh-rsa,ssh-dss rock@192.168.10.62 "/usr/sbin/mkfs.ubifs --version && echo '---' && /usr/sbin/mkfs.jffs2 --version && echo '---' && /usr/sbin/ubinize --version"
+
+        Perfect! The old mtd-utils from Debian 7 Wheezy work! Let's verify they actually function with your kernel: 
+
+        Ran terminal command: ssh -oHostKeyAlgorithms=+ssh-rsa,ssh-dss rock@192.168.10.62 "/usr/sbin/mkfs.ubifs --help 2>&1 | head -15"
+
+        Excellent! Now let's test mtdinfo to make sure it can interact with MTD devices: 
+
+        Ran terminal command: ssh -oHostKeyAlgorithms=+ssh-rsa,ssh-dss rock@192.168.10.62 "/usr/sbin/mtdinfo -a 2>&1 | head -20"
+
+        **Perfect!** ✅ The old mtd-utils (version 1.5.0 from Debian 7 Wheezy) work perfectly with your Linux kernel 3.0.36!
+
+        ## Summary
+
+        **Problem solved!** Your Radxa Rock Pro with kernel 3.0.36 now has working mtd-utils:
+
+        - **Installed version**: mtd-utils 1.5.0-1 from Debian 7 (Wheezy)
+        - **Location**: sbin
+        - **Key tools available**:
+        - `/usr/sbin/mkfs.ubifs` - Create UBIFS filesystems
+        - `/usr/sbin/mkfs.jffs2` - Create JFFS2 filesystems  
+        - `/usr/sbin/ubinize` - Create UBI images
+        - `/usr/sbin/mtdinfo` - Display MTD device information
+        - `/usr/sbin/nandwrite`, `/usr/sbin/nanddump` - NAND operations
+        - And many more...
+
+        The key was using an old repository (Debian 7 from 2013-2015) that was built for systems with similar kernel versions. This avoided all the GLIBC version compatibility issues we encountered with modern builds.
+
+        Your MTD devices are detected correctly (mtd0, mtd1, mtd2) and ready to use!
+    </pre>
   </div>
 <!-- SHOW HIDE START 010  -->
 
