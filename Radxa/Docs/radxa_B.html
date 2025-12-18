@@ -47,6 +47,11 @@ div[id=div-001] {
 <div id="div-001">
     <img src="img/img00.jpg" width="45%" alt="IMAGE"> <br>
 
+    <pp>make menuconfig </pp> <br>
+    <pre class="brush: bash;">
+        make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- menuconfig
+    </pre>
+
     <pp>Parameter From Original radxa_rock_pro For Vendor Provided Linux 3.0.18</pp> <br>
     <a href="https://github.com/frep/radxa/blob/fefb7bbb5eedc8e20aae77934e4126c429f283e7/rock_pro/kernel/rabian/150815/parameter#L11-L11">Parameter Source Github Link</a> <br>
     <pre class="brush: bash;">
@@ -130,12 +135,37 @@ div[id=div-001] {
     <pre class="brush: bash;">
         cat /proc/kallsyms | grep rk30xxnand_ko > /tmp/symbols.txt
 
-        
+
 
         cat /tmp/symbols.txt | head -100
     </pre> <br>
 </div>
 <!-- SHOW HIDE END 001  -->
+
+<!-- SHOW HIDE START 001A  -->
+ <style type="text/css">
+div[id=div-001A] {
+  display: none;
+}
+  input[id=toggle-001A]:checked ~ div[id=div-001A] {
+    display: block;
+    }
+</style>
+
+<h2><label for="toggle-001A">Menuconfig Practice On mtd blocks</label></h2>
+<input type="checkbox" id="toggle-001A" style="display: none;">
+<img src="img/img024.jpg" alt="img" width="30%"> <br>
+<pp>make menuconfig </pp> <br>
+<pre class="brush: bash;">
+    make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- menuconfig
+</pre>
+<code> Device Drivers -> Memory Technology Device (MTD) Support -> Partit Parsers -> OpenFirmware (Device Tree) Partition Parsers </code>
+<p5>Observation : </p5> <br>
+This enables the kernel to read mtdparts from device tree blob <br> 
+
+<div id="div-001A">
+</div>
+<!-- SHOW HIDE END 001A  -->
 
 
   <!-- SHOW HIDE START 006  -->
@@ -327,6 +357,37 @@ div[id=div-001] {
         Bad eraseblock 1 at 0x000000200000
         rockchip-nfc 10500000.nand-controller: read page: 200 ecc error!
         </pre>
+        <br>
+
+        <pp>mtd-utils versions</pp> <br>
+        <pre class="brush: bash;">
+            rock@rabian-rock-pro:~$ /usr/sbin/mtdinfo --version
+                mtdinfo 1.5.0
+                rock@rabian-rock-pro:~$ /usr/sbin/flash_erase --version
+                flash_erase version 1.5.0
+
+                Copyright (C) 2000 Arcom Control Systems Ltd
+
+                flash_erase comes with NO WARRANTY
+                to the extent permitted by law.
+
+                You may redistribute copies of flash_erase
+                under the terms of the GNU General Public Licence.
+                See the file `COPYING' for more information.
+
+            rock@rabian-rock-pro:~$ /usr/sbin/jffs2dump --version
+                jffs2dump 1.5.0
+
+                Copyright (C) 2003 Thomas Gleixner
+
+                jffs2dump comes with NO WARRANTY
+                to the extent permitted by law.
+
+                You may redistribute copies of jffs2dump
+                under the terms of the GNU General Public Licence.
+                See the file `COPYING' for more information.
+        </pre>
+        <br>
 
     </div>
   <!-- SHOW HIDE END 007  -->
@@ -425,6 +486,27 @@ div[id=div-001] {
       </pre>
   </div>
 <!-- SHOW HIDE END 009  -->
+
+<!-- SHOW HIDE START 010A  -->
+<style type="text/css">
+  div[id=div-010A] {
+    display: none;
+  }
+    input[id=toggle-010A]:checked ~ div[id=div-010A] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-010A"> Git linux-rockchip source Insight A </label></h2>
+  <input type="checkbox" id="toggle-010A" style="display: none;">
+  
+  <div id="div-010A">
+    <a href="https://github.com/radxa/linux-rockchip/blob/rock2-stable-3.10/arch/arm/boot/dts/rk3188-tb.dts">rk3188-tb.dts rock2</a> 
+    This dts file is different from our previous rk3188-radxarock.dts <br>
+    Branch rock2-stable-3.10 <br>
+    <img src="img/img023.jpg" width="10%" alt="IMG">
+  </div>
+<!-- SHOW HIDE START 010A  -->
 
 <!-- SHOW HIDE START 010  -->
 <style type="text/css">

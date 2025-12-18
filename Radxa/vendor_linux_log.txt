@@ -1,0 +1,1129 @@
+
+ 2440874 Starting kernel...@0x60408000
+
+[    0.000000] Initializing cgroup subsys cpu
+[    0.000000] Linux version 3.0.36+ (root@radxa-x2) (gcc version 4.6.x-google 20120106 (prerelease) (GCC) ) #48 SMP PREEMPT Fri Jul 24 20:31:47 CST 2015
+[    0.000000] CPU: ARMv7 Processor [413fc090] revision 0 (ARMv7), cr=10c5387d
+[    0.000000] CPU: VIPT nonaliasing data cache, VIPT aliasing instruction cache
+[    0.000000] Machine: RK30board
+[    0.000000] ddr size = 2048 M, set ion_reserve_size size to 125829120
+[    0.000000] memory reserve: Memory(base:0x98800000 size:120M) reserved for <ion>
+[    0.000000] memory reserve: Memory(base:0x97000000 size:24M) reserved for <fb0 buf>
+[    0.000000] memory reserve: Memory(base:0x96800000 size:8M) reserved for <camera_ipp_mem>
+[    0.000000] memory reserve: Total reserved 152M
+[    0.000000] Memory policy: ECC disabled, Data cache writeback
+[    0.000000] bootconsole [earlycon0] enabled
+[    0.000000] CPU SRAM: copied sram code from c0c2b000 to fef00100 - fef02088
+[    0.000000] CPU SRAM: copied sram data from c0c2cf88 to fef02088 - fef02800
+[    0.000000] sram_log:   @      0q   @       P    1      /  !    aB@ 2   `" 2q    : 4q
+[    0.000000] CLKDATA_MSG: pll_flag = 0x00
+[    0.000000] L310 cache controller enabled
+[    0.000000] l2x0: 16 ways, CACHE_ID 0x4100c0c8, AUX_CTRL 0x76050001, Cache size: 524288 B
+[    0.000000] DDR DEBUG: version 1.00 20131106
+[    0.000000] DDR DEBUG: DDR3 Device
+[    0.000000] DDR DEBUG: Bus Width=32 Col=10 Bank=8 Row=15 CS=2 Total Capability=2048MB
+[    0.000000] DDR DEBUG: init success!!! freq=300MHz
+[    0.000000] DDR DEBUG: DTONE=0x1, DTERR=0x0, DTIERR=0x0, DTPASS=0x23, DGSL=1 extra clock, DGPS=360
+[    0.000000] DDR DEBUG: DTONE=0x1, DTERR=0x0, DTIERR=0x0, DTPASS=0x24, DGSL=1 extra clock, DGPS=270
+[    0.000000] DDR DEBUG: DTONE=0x1, DTERR=0x0, DTIERR=0x0, DTPASS=0x1b, DGSL=1 extra clock, DGPS=360
+[    0.000000] DDR DEBUG: DTONE=0x1, DTERR=0x0, DTIERR=0x0, DTPASS=0x24, DGSL=1 extra clock, DGPS=270
+[    0.000000] DDR DEBUG: ZERR=0, ZDONE=0, ZPD=0x0, ZPU=0x0, OPD=0x0, OPU=0x0
+[    0.000000] DDR DEBUG: DRV Pull-Up=0xb, DRV Pull-Dwn=0xb
+[    0.000000] DDR DEBUG: ODT Pull-Up=0x2, ODT Pull-Dwn=0x2
+[    0.000000] PERCPU: Embedded 7 pages/cpu @c350d000 s7040 r8192 d13440 u32768
+[    0.000000] Built 1 zonelists in Zone order, mobility grouping on.  Total pages: 481280
+[    0.000000] Kernel command line: console=ttyFIQ0,115200 console=tty0 root=/dev/block/mtd/by-name/linuxroot rw rootfstype=ext4 init=/sbin/init mac_addr=de:ad:de:ad:be:ef initrd=0x62000000,0x00500000 mtdparts=rk29xxnand:0x00002000@0x00002000(uboot),0x00008000@0x00004000(boot),-@0x000c0000(linuxroot) bootver=2014-10-29#2.19 firmware_ver=4.2.2
+[    0.000000] PID hash table entries: 2048 (order: 1, 8192 bytes)
+[    0.000000] Dentry cache hash table entries: 65536 (order: 6, 262144 bytes)
+[    0.000000] Inode-cache hash table entries: 32768 (order: 5, 131072 bytes)
+[    0.000000] allocated 8388608 bytes of page_cgroup
+[    0.000000] please try 'cgroup_disable=memory' option if you don't want memory cgroups
+[    0.000000] Memory: 872MB 1024MB = 1896MB total
+[    0.000000] Memory: 1891868k/1891868k available, 205284k reserved, 1441792K highmem
+[    0.000000] Virtual kernel memory layout:
+[    0.000000]     vector  : 0xffff0000 - 0xffff1000   (   4 kB)
+[    0.000000]     fixmap  : 0xfff00000 - 0xfffe0000   ( 896 kB)
+[    0.000000]     DMA     : 0xff600000 - 0xffe00000   (   8 MB)
+[    0.000000]     vmalloc : 0xdf000000 - 0xfe800000   ( 504 MB)
+[    0.000000]     lowmem  : 0xc0000000 - 0xde800000   ( 488 MB)
+[    0.000000]     pkmap   : 0xbfe00000 - 0xc0000000   (   2 MB)
+[    0.000000]     modules : 0xbf000000 - 0xbfe00000   (  14 MB)
+[    0.000000]       .init : 0xc0408000 - 0xc043c000   ( 208 kB)
+[    0.000000]       .text : 0xc043c000 - 0xc0ba2bf4   (7579 kB)
+[    0.000000]       .data : 0xc0ba4000 - 0xc0c2a108   ( 537 kB)
+[    0.000000]        .bss : 0xc0c2e024 - 0xc16e75e8   (10982 kB)
+[    0.000000] SLUB: Genslabs=13, HWalign=32, Order=0-3, MinObjects=0, CPUs=4, Nodes=1
+[    0.000000] Preemptible hierarchical RCU implementation.
+[    0.000000] NR_IRQS:352
+[    0.000000] rk30_gpio_init: 128 gpio irqs in 4 banks
+[    0.000000] sched_clock: 32 bits at 24MHz, resolution 41ns, wraps every 178956ms
+[    0.000000] rk_timer: version 1.3
+[    0.000000] Console: colour dummy device 80x30
+[    0.000000] console [tty0] enabled, bootconsole disabled
+<hit enter to activate fiq debugger>
+[    0.000000] Initializing cgroup subsys cpu
+[    0.000000] Linux version 3.0.36+ (root@radxa-x2) (gcc version 4.6.x-google 20120106 (prerelease) (GCC) ) #48 SMP PREEMPT Fri Jul 24 20:31:47 CST 2015
+[    0.000000] CPU: ARMv7 Processor [413fc090] revision 0 (ARMv7), cr=10c5387d
+[    0.000000] CPU: VIPT nonaliasing data cache, VIPT aliasing instruction cache
+[    0.000000] Machine: RK30board
+[    0.000000] ddr size = 2048 M, set ion_reserve_size size to 125829120
+[    0.000000] memory reserve: Memory(base:0x98800000 size:120M) reserved for <ion>
+[    0.000000] memory reserve: Memory(base:0x97000000 size:24M) reserved for <fb0 buf>
+[    0.000000] memory reserve: Memory(base:0x96800000 size:8M) reserved for <camera_ipp_mem>
+[    0.000000] memory reserve: Total reserved 152M
+[    0.000000] Memory policy: ECC disabled, Data cache writeback
+[    0.000000] bootconsole [earlycon0] enabled
+[    0.000000] CPU SRAM: copied sram code from c0c2b000 to fef00100 - fef02088
+[    0.000000] CPU SRAM: copied sram data from c0c2cf88 to fef02088 - fef02800
+[    0.000000] sram_log:   @      0q   @       P    1      /  !    aB@ 2   `" 2q    : 4q
+[    0.000000] CLKDATA_MSG: pll_flag = 0x00
+[    0.000000] L310 cache controller enabled
+[    0.000000] l2x0: 16 ways, CACHE_ID 0x4100c0c8, AUX_CTRL 0x76050001, Cache size: 524288 B
+[    0.000000] DDR DEBUG: version 1.00 20131106
+[    0.000000] DDR DEBUG: DDR3 Device
+[    0.000000] DDR DEBUG: Bus Width=32 Col=10 Bank=8 Row=15 CS=2 Total Capability=2048MB
+[    0.000000] DDR DEBUG: init success!!! freq=300MHz
+[    0.000000] DDR DEBUG: DTONE=0x1, DTERR=0x0, DTIERR=0x0, DTPASS=0x23, DGSL=1 extra clock, DGPS=360
+[    0.000000] DDR DEBUG: DTONE=0x1, DTERR=0x0, DTIERR=0x0, DTPASS=0x24, DGSL=1 extra clock, DGPS=270
+[    0.000000] DDR DEBUG: DTONE=0x1, DTERR=0x0, DTIERR=0x0, DTPASS=0x1b, DGSL=1 extra clock, DGPS=360
+[    0.000000] DDR DEBUG: DTONE=0x1, DTERR=0x0, DTIERR=0x0, DTPASS=0x24, DGSL=1 extra clock, DGPS=270
+[    0.000000] DDR DEBUG: ZERR=0, ZDONE=0, ZPD=0x0, ZPU=0x0, OPD=0x0, OPU=0x0
+[    0.000000] DDR DEBUG: DRV Pull-Up=0xb, DRV Pull-Dwn=0xb
+[    0.000000] DDR DEBUG: ODT Pull-Up=0x2, ODT Pull-Dwn=0x2
+[    0.000000] PERCPU: Embedded 7 pages/cpu @c350d000 s7040 r8192 d13440 u32768
+[    0.000000] Built 1 zonelists in Zone order, mobility grouping on.  Total pages: 481280
+[    0.000000] Kernel command line: console=ttyFIQ0,115200 console=tty0 root=/dev/block/mtd/by-name/linuxroot rw rootfstype=ext4 init=/sbin/init mac_addr=de:ad:de:ad:be:ef initrd=0x62000000,0x00500000 mtdparts=rk29xxnand:0x00002000@0x00002000(uboot),0x00008000@0x00004000(boot),-@0x000c0000(linuxroot) bootver=2014-10-29#2.19 firmware_ver=4.2.2
+[    0.000000] PID hash table entries: 2048 (order: 1, 8192 bytes)
+[    0.000000] Dentry cache hash table entries: 65536 (order: 6, 262144 bytes)
+[    0.000000] Inode-cache hash table entries: 32768 (order: 5, 131072 bytes)
+[    0.000000] allocated 8388608 bytes of page_cgroup
+[    0.000000] please try 'cgroup_disable=memory' option if you don't want memory cgroups
+[    0.000000] Memory: 872MB 1024MB = 1896MB total
+[    0.000000] Memory: 1891868k/1891868k available, 205284k reserved, 1441792K highmem
+[    0.000000] Virtual kernel memory layout:
+[    0.000000]     vector  : 0xffff0000 - 0xffff1000   (   4 kB)
+[    0.000000]     fixmap  : 0xfff00000 - 0xfffe0000   ( 896 kB)
+[    0.000000]     DMA     : 0xff600000 - 0xffe00000   (   8 MB)
+[    0.000000]     vmalloc : 0xdf000000 - 0xfe800000   ( 504 MB)
+[    0.000000]     lowmem  : 0xc0000000 - 0xde800000   ( 488 MB)
+[    0.000000]     pkmap   : 0xbfe00000 - 0xc0000000   (   2 MB)
+[    0.000000]     modules : 0xbf000000 - 0xbfe00000   (  14 MB)
+[    0.000000]       .init : 0xc0408000 - 0xc043c000   ( 208 kB)
+[    0.000000]       .text : 0xc043c000 - 0xc0ba2bf4   (7579 kB)
+[    0.000000]       .data : 0xc0ba4000 - 0xc0c2a108   ( 537 kB)
+[    0.000000]        .bss : 0xc0c2e024 - 0xc16e75e8   (10982 kB)
+[    0.000000] SLUB: Genslabs=13, HWalign=32, Order=0-3, MinObjects=0, CPUs=4, Nodes=1
+[    0.000000] Preemptible hierarchical RCU implementation.
+[    0.000000] NR_IRQS:352
+[    0.000000] rk30_gpio_init: 128 gpio irqs in 4 banks
+[    0.000000] sched_clock: 32 bits at 24MHz, resolution 41ns, wraps every 178956ms
+[    0.000000] rk_timer: version 1.3
+[    0.000000] Console: colour dummy device 80x30
+[    0.000000] console [tty0] enabled, bootconsole disabled
+[    0.014841] Calibrating delay loop (skipped) preset value.. 1631.46 BogoMIPS (lpj=8157341)
+[    0.014870] pid_max: default: 32768 minimum: 301
+[    0.015008] Security Framework initialized
+[    0.015030] SELinux:  Initializing.
+[    0.015135] Mount-cache hash table entries: 512
+[    0.015676] Initializing cgroup subsys debug
+[    0.015699] Initializing cgroup subsys cpuacct
+[    0.015739] Initializing cgroup subsys memory
+[    0.015773] Initializing cgroup subsys freezer
+[    0.015814] CPU: Testing write buffer coherency: ok
+[    0.096620] CPU1: Booted secondary processor
+[    0.136596] CPU2: Booted secondary processor
+[    0.176598] CPU3: Booted secondary processor
+[    0.176647] Brought up 4 CPUs
+[    0.176685] SMP: Total of 4 processors activated (6525.87 BogoMIPS).
+[    0.177047] devtmpfs: initialized
+[    0.182922] NET: Registered protocol family 16
+[    0.183030] last_log: 0xde100000 map to 0xdf004000 and copy to 0xc0c321e0 (version 2.1)
+[    0.198197] lcdc0 is used as primary display device contoller!
+[    0.198251] lcdc1 is used as primary display device controller!
+[    0.198416] rk29sdk_wifi_bt_gpio_control_init: request wifi power gpio failed
+[    0.202499] console [ttyFIQ0] enabled
+[    0.202675] Registered FIQ tty driver de03ecc0
+[    0.203531] Loaded driver for PL330 DMAC-1 rk29-pl330
+[    0.203595]  DBUFF-32x8bytes Num_Chans-6 Num_Peri-12 Num_Events-12
+[    0.204048] Loaded driver for PL330 DMAC-2 rk29-pl330
+[    0.204108]  DBUFF-64x8bytes Num_Chans-7 Num_Peri-20 Num_Events-14
+[    0.723702] rk29xx_spim: driver initialized, fifo_len=32,bus_num=0
+[    0.730035] rk29xx_spim: driver initialized, fifo_len=32,bus_num=1
+[    0.743083] bio: create slab <bio-0> at 0
+[    0.747515] SCSI subsystem initialized
+[    0.747753] usbcore: registered new interface driver usbfs
+[    0.747895] usbcore: registered new interface driver hub
+[    0.762118] usbcore: registered new device driver usb
+[    0.762396] rk30_i2c rk30_i2c.0: i2c-0: RK30 I2C adapter
+[    0.762681] rk30_i2c rk30_i2c.1: i2c-1: RK30 I2C adapter
+[    0.762897] rk30_i2c rk30_i2c.2: i2c-2: RK30 I2C adapter
+[    0.763059] rk30_i2c rk30_i2c.3: i2c-3: RK30 I2C adapter
+[    0.763340] rk30_i2c rk30_i2c.4: i2c-4: RK30 I2C adapter
+[    0.793759] rk30-adc rk30-adc: rk30 adc: driver initialized
+[    0.794025] timed-gpio: probe of timed-gpio failed with error -22
+[    0.794189] Advanced Linux Sound Architecture Driver Version 1.0.24.
+[    0.794667] Bluetooth: Core ver 2.16
+[    0.794766] NET: Registered protocol family 31
+[    0.794822] Bluetooth: HCI device and connection manager initialized
+[    0.794899] Bluetooth: HCI socket layer initialized
+[    0.794959] Bluetooth: L2CAP socket layer initialized
+[    0.795036] Bluetooth: SCO socket layer initialized
+[    0.796176] rk fb probe ok!
+[    0.802722] act8846_set_init,line=17
+[    0.802778] act8846_set_init:g_pmic_type=3
+[    0.805408] act8846_set_init  act_dcdc1 =1200000mV end
+[    0.808142] act8846_set_init  vdd_core =1000000mV end
+[    0.810869] act8846_set_init  vdd_cpu =1000000mV end
+[    0.813596] act8846_set_init  act_dcdc4 =3000000mV end
+[    0.815385] act8846_set_init  act_ldo1 =1000000mV end
+[    0.818014] act8846_set_init  act_ldo2 =1200000mV end
+[    0.820639] act8846_set_init  act_ldo3 =1800000mV end
+[    0.823260] act8846_set_init  act_ldo4 =3300000mV end
+[    0.825884] act8846_set_init  act_ldo5 =3300000mV end
+[    0.828511] act8846_set_init  act_ldo6 =3300000mV end
+[    0.830199] act8846_set_init  act_ldo7 =1800000mV end
+[    0.832825] act8846_set_init  act_ldo8 =2800000mV end
+[    0.832904] act8846_set_init,line=78 END
+[    0.832988] i2c-core: driver [act8846] using legacy suspend method
+[    0.833060] i2c-core: driver [act8846] using legacy resume method
+[    0.833159] rk1000_control_probe
+[    0.858192] rk1000_control_probe ok
+[    0.934465] cfg80211: Calling CRDA to update world regulatory domain
+[    1.680544] rk616 2-0050: rk616 core probe success!
+[    1.680665] Switching to clocksource rk_timer
+[    1.686059] Switched to NOHz mode on CPU #0
+[    1.686647] Switched to NOHz mode on CPU #3
+[    1.686665] Switched to NOHz mode on CPU #2
+[    1.686681] Switched to NOHz mode on CPU #1
+[    1.689244] use lcdc1 and jetta implemention dual display!
+[    1.689366] lcdc1:reg_phy_base = 0x1010e000,reg_vir_base:0xdf0b4000
+[    1.689495] fb0:win0
+[    1.689501] fb1:win1
+[    1.689507] fb2:win2
+[    1.689651] rk3188 lcdc1 clk enable...
+[    1.756074] rk3188 lcdc1 clk disable...
+[    1.804593] fb0:phy:97000000>>vir:e0000000>>len:0x1800000
+[    1.804912] rk_fb_register>>>>>fb0
+[    1.813718] rk_fb_register>>>>>fb1
+[    1.813877] rk3188 lcdc1 clk enable...
+[    1.813981] lcdc1: dclk:148500000>>fps:60
+[    1.814032] rk30-lcdc rk30-lcdc.1: rk3188_load_screen for lcdc1 ok!
+[    1.839291] lcdc1 wakeup from standby!
+[    1.839344] lcdc1 win0 open,atv layer:1
+[    1.839545] rk3188 lcdc1 probe ok!
+[    1.923641] rk616-lvds rk616-lvds: rk616 lvds probe success!
+[    1.930553] 1953..sdmmc_is_selected_emmc: RK SDMMC is not setted to support eMMC.
+[    1.930711] rk29_sdmmc_probe: internal_storage is NOT emmc.
+[    1.930963] NET: Registered protocol family 2
+[    1.931130] IP route cache hash table entries: 16384 (order: 4, 65536 bytes)
+[    1.931528] TCP established hash table entries: 65536 (order: 7, 524288 bytes)
+[    1.932679] TCP bind hash table entries: 65536 (order: 7, 786432 bytes)
+[    1.934061] TCP: Hash tables configured (established 65536 bind 65536)
+[    1.934139] TCP reno registered
+[    1.934186] UDP hash table entries: 256 (order: 1, 8192 bytes)
+[    1.934272] UDP-Lite hash table entries: 256 (order: 1, 8192 bytes)
+[    1.934616] NET: Registered protocol family 1
+[    1.994985] RPC: Registered named UNIX socket transport module.
+[    1.995068] RPC: Registered udp transport module.
+[    1.995158] RPC: Registered tcp transport module.
+[    1.995216] RPC: Registered tcp NFSv4.1 backchannel transport module.
+[    1.995471] RK29 Backlight Driver Initialized.
+[    1.995776] Unpacking initramfs...
+[    2.054992] Initramfs unpacking failed: junk in compressed archive
+[    2.055831] Freeing initrd memory: 5120K
+[    2.055980] PMU: registered new PMU device of type 0
+[    2.056146] efuse_version_val: efuse version = 51
+[    2.056210] DVFS MSG: core: dvfs_adjust_table_lmtvolt get leakage_level = 13000
+[    2.056299]          adjust table freq=1608000 KHz, index=1350000 mV to index=1300000 mV
+[    2.056391] efuse_version_val: efuse version = 51
+[    2.056450] DVFS MSG: aclk_gpu: dvfs_adjust_table_lmtvolt get leakage_level = 13000
+[    2.102064] rk3188 cpufreq version 2.2, suspend freq 816 MHz
+[    2.102616] VPU_SERVICE: failed on clk_get pd_video
+[    2.102700] VPU_SERVICE: failed on clk_get aclk_ddr_vepu
+[    2.102749] VPU_SERVICE: failed on clk_get hclk_cpu_vcodec
+[    2.102827] vpu: power on
+[    2.102908] VPU_SERVICE: checking hw id 4831
+[    2.130748] vpu: power off...done
+[    2.130860] VPU_SERVICE: init success
+[    2.131197] audit: initializing netlink socket (disabled)
+[    2.131297] type=2000 audit(2.110:1): initialized
+[    2.147988] highmem bounce pool size: 64 pages
+[    2.148229] ashmem: initialized
+[    2.161728] Installing knfsd (copyright (C) 1996 okir@monad.swb.de).
+[    2.162335] fuse init (API version 7.16)
+[    2.162751] msgmni has been set to 889
+[    2.177238] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 252)
+[    2.177347] io scheduler noop registered
+[    2.177428] io scheduler deadline registered
+[    2.177541] io scheduler cfq registered (default)
+[    2.197818] rga: Driver loaded succesfully
+[    2.198166] rk_serial.c v1.6 2013-12-23
+[    2.198316] rk_serial.0: ttyS0 at MMIO 0x10124000 (irq = 66) is a rk29_serial.0
+[    2.198590] rk_serial rk_serial.0: membase 0xdf0c4000
+[    2.198720] rk_serial.3: ttyS3 at MMIO 0x20068000 (irq = 69) is a rk29_serial.3
+[    2.198958] rk_serial rk_serial.3: membase 0xdf0c8000
+[    2.199285] Rockchip ion module(version: 1.0) is successfully loaded
+[    2.202210] loop: module loaded
+[    2.202289] Android kernel panic handler initialized (bind=kpanic)
+[    2.203032] Read the Ethernet MAC address from IDB:00:00:00:00:00:00
+[    2.203126] random_ether_addr***********:C2:F1:1A:41:F7:1D
+[    2.203184] eth mac from kernel cmdline: DE:AD:DE:AD:BE:EF
+[    2.203510] rk29 vmac rk29 vmac.0: ARC VMAC at 0x10204000 irq 51 de:ad:de:ad:be:ef
+[    2.204646] PPP generic driver version 2.4.2
+[    2.204842] PPP Deflate Compression module registered
+[    2.204896] PPP BSD Compression module registered
+[    2.291843] PPP MPPE Compression module registered
+[    2.291918] NET: Registered protocol family 24
+[    2.291980] tun: Universal TUN/TAP device driver, 1.6
+[    2.292039] tun: (C) 1999-2004 Max Krasnyansky <maxk@qualcomm.com>
+[    2.292287] Rockchip WiFi SYS interface (V1.00) ...
+[    2.292382] Initializing USB Mass Storage driver...
+[    2.292481] usbcore: registered new interface driver usb-storage
+[    2.292539] USB Mass Storage support registered.
+[    2.504971] DWC_OTG: ^^^^^^^^^^^^^^^^^Device Mode
+[    2.505038] usb20_otg usb20_otg: DWC OTG Controller
+[    2.505213] usb20_otg usb20_otg: new USB bus registered, assigned bus number 1
+[    2.505305] usb20_otg usb20_otg: irq 48, io mem 0x00000000
+[    2.505360] DWC_OTG: dwc_otg_hcd_start controller in device mode,everest
+[    2.505462] usb usb1: New USB device found, idVendor=1d6b, idProduct=0002
+[    2.505526] usb usb1: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    2.505593] usb usb1: Product: DWC OTG Controller
+[    2.505637] usb usb1: Manufacturer: Linux 3.0.36+ dwc_otg_hcd
+[    2.505687] usb usb1: SerialNumber: usb20_otg
+[    2.506009] hub 1-0:1.0: USB hub found
+[    2.506056] hub 1-0:1.0: 1 port detected
+[    2.509574] DWC_OTG: host20_driver_probe host2.0 reg addr: 0x101c0000 remap:0xdf180000
+[    2.720518] DWC_OTG: ^^^^^^^^^^^^^^^^^^Host Mode
+[    2.720580] usb20_host usb20_host: DWC OTG Controller
+[    2.720723] usb20_host usb20_host: new USB bus registered, assigned bus number 2
+[    2.720827] usb20_host usb20_host: irq 49, io mem 0x00000000
+[    2.720990] DWC_OTG: Init: Port Power? op_state=1
+[    2.721034] DWC_OTG: Init: Power Port (0)
+[    2.721128] usb usb2: New USB device found, idVendor=1d6b, idProduct=0002
+[    2.721206] usb usb2: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    2.721272] usb usb2: Product: DWC OTG Controller
+[    2.721315] usb usb2: Manufacturer: Linux 3.0.36+ host20_hcd
+[    2.721367] usb usb2: SerialNumber: usb20_host
+[    2.721702] hub 2-0:1.0: USB hub found
+[    2.721748] hub 2-0:1.0: 1 port detected
+[    2.788294] g_mass_storage gadget: Mass Storage Function, version: 2009/09/11
+[    2.788365] g_mass_storage gadget: Number of LUNs=1
+[    2.788444]  lun0: LUN: removable file: (no medium)
+[    2.788496] g_mass_storage gadget: Mass Storage Gadget, version: 2009/09/11
+[    2.788563] g_mass_storage gadget: userspace failed to provide iSerialNumber
+[    2.788627] g_mass_storage gadget: g_mass_storage ready
+[    2.788828] input: rk29-keypad as /devices/platform/rk29-keypad/input/input0
+[    2.789202] ===================================================
+[    2.789257] Rockchip IR remote controller driver. Version 1.0.0
+[    2.789308] ===================================================
+[    2.789358] ++++++++remotectl_init
+[    2.789427] remotectl probe j=0x0
+[    2.789460] remotectl probe j=0x1
+[    2.789490] remotectl probe j=0x2
+[    2.789522] remotectl probe j=0x3
+[    2.789551] remotectl probe j=0x4
+[    2.789581] remotectl probe j=0x5
+[    2.789703] input: rkxx-remotectl as /devices/platform/rkxx-remotectl/input/input1
+[    2.792973] rtc_hym8563 1-0051: clock/calendar information is no longer guaranteed
+[    2.889856] using rtc device, rtc_hym8563, for alarms
+[    2.889929] rtc_hym8563 1-0051: rtc core: registered rtc_hym8563 as rtc0
+[    2.890044] i2c /dev entries driver
+[    2.890535] lirc_dev: IR Remote Control driver registered, major 251
+[    2.890595] IR NEC protocol handler initialized
+[    2.890636] IR RC5(x) protocol handler initialized
+[    2.890678] IR RC6 protocol handler initialized
+[    2.890716] IR JVC protocol handler initialized
+[    2.890754] IR Sony protocol handler initialized
+[    2.890834] IR RC5 (streamzap) protocol handler initialized
+[    2.890883] IR LIRC bridge handler initialized
+[    2.890921] Linux video capture interface: v2.00
+[    2.891108] def_ref_volt: 1800mV, curr_ref_volt: 1800mV
+[    2.891669] device-mapper: uevent: version 1.0.3
+[    2.891906] device-mapper: ioctl: 4.20.0-ioctl (2011-02-02) initialised: dm-devel@redhat.com
+[    2.892208] cpuidle: using governor ladder
+[    2.892250] cpuidle: using governor menu
+[    2.938051]
+[    2.938055] drivers/mmc/core/core.c...2019..  ===== mmc_rescan Begin....[mmc0]
+[    2.938143]
+[    2.938147] =================
+[    2.938152] sdmmc_rescan..2026..  ====find no SDMMC host. [mmc0]
+[    2.938263] .Line4018..The End of SDMMC-probe Ver.6.07 The last modify date is 2013-12-20.  [sd_mmc]
+[    2.938408] Skipping unavailable LED gpio -1 (button-backlight)
+[    2.939876] usbcore: registered new interface driver usbhid
+[    2.939934] usbhid: USB HID core driver
+[    2.940320] logger: created 256K log 'log_main'
+[    2.940436] logger: created 256K log 'log_events'
+[    2.940539] logger: created 256K log 'log_radio'
+[    2.940633] logger: created 256K log 'log_system'
+[    2.941014] zram: Created 1 device(s) ...
+[    2.941447] usbcore: registered new interface driver snd-usb-audio
+[    2.941545] usbcore: registered new interface driver snd-ua101
+[    2.941639] usbcore: registered new interface driver snd-usb-caiaq
+[    2.941712] usbcore: registered new interface driver snd-usb-6fire
+[    2.942004] Error: Driver 'rk1000_control' is already registered, aborting...
+[    3.095759] asoc: rk1000_codec <-> rk29_i2s.1 mapping ok
+[    3.096163] audio_card_init end....
+[    3.096204] ALSA device list:
+[    3.096235]   #0: RK29_RK1000
+[    3.096365] GACT probability NOT on
+[    3.096406] Mirror/redirect action on
+[    3.096442] u32 classifier
+[    3.096470]     Actions configured
+[    3.096504] Netfilter messages via NETLINK v0.30.
+[    3.096592] nf_conntrack version 0.5.0 (16384 buckets, 65536 max)
+[    3.096974] ctnetlink v0.93: registering with nfnetlink.
+[    3.097053] NF_TPROXY: Transparent proxy support initialized, version 4.1.0
+[    3.097117] NF_TPROXY: Copyright (c) 2006-2007 BalaBit IT Ltd.
+[    3.097481] xt_time: kernel timezone is -0000
+[    3.097648] ip_tables: (C) 2000-2006 Netfilter Core Team
+[    3.097811] arp_tables: (C) 2002 David S. Miller
+[    3.097887] TCP cubic registered
+[    3.097918] Initializing XFRM netlink socket
+[    3.098335] NET: Registered protocol family 10
+[    3.099100] Mobile IPv6
+[    3.099152] ip6_tables: (C) 2000-2006 Netfilter Core Team
+[    3.099312] IPv6 over IPv4 tunneling driver
+[    3.099926] NET: Registered protocol family 17
+[    3.099992] NET: Registered protocol family 15
+[    3.110915] Bluetooth: RFCOMM TTY layer initialized
+[    3.111008] Bluetooth: RFCOMM socket layer initialized
+[    3.111057] Bluetooth: RFCOMM ver 1.11
+[    3.111093] Bluetooth: BNEP (Ethernet Emulation) ver 1.3
+[    3.111142] Bluetooth: HIDP (Human Interface Emulation) ver 1.2
+[    3.111330] NET: Registered protocol family 35
+[    3.111448] [BT_RFKILL]: Enter rfkill_rk_init
+[    3.111574] [BT_RFKILL]: Request irq for bt wakeup host
+[    3.111645] [BT_RFKILL]: ** disable irq
+[    3.120816] usb 2-1: new high speed USB device number 2 using usb20_host
+[    3.140800] [BT_RFKILL]: bt shut off power
+[    3.170785] [BT_RFKILL]: bt_default device registered.
+[    3.170890] Registering the dns_resolver key type
+[    3.210851] VFP support v0.3: implementor 41 architecture 3 part 30 variant 9 rev 4
+[    3.210948] Registering SWP/SWPB emulation handler
+[    3.211452] ddrfreq: verion 3.2 20131126
+[    3.211556] ddrfreq: fix cpu pause bug
+[    3.211632] ddrfreq: normal 396MHz video 300MHz video_low 0MHz dualview 0MHz idle 0MHz suspend 198MHz reboot 300MHz
+[    3.212124] rk_cam_cif(3361):rk3066b-camera version: v0.3.25  Zoom by ipp
+[    3.231231] ddrfreq: change freq to 396 MHz when normal
+[    3.259776] rk616-hdmi rk616-hdmi.1: rk616 hdmi probe success.
+[    3.261385] rtc_hym8563 1-0051: setting system clock to 2011-01-01 12:00:01 UTC (1293883201)
+[    3.271629] ret: 0
+[    3.271734] asoc: dit-hifi <-> rk-spdif mapping ok
+[    3.272150] Freeing init memory: 208K
+[    3.300858] ret: 0
+[    3.332630] usb 2-1: New USB device found, idVendor=05e3, idProduct=0608
+[    3.332717] usb 2-1: New USB device strings: Mfr=0, Product=1, SerialNumber=0
+[    3.332818] usb 2-1: Product: USB2.0 Hub
+[    3.333388] hub 2-1:1.0: USB hub found
+[    3.333770] hub 2-1:1.0: 4 ports detected
+[    3.359068] min_w = 800,min_h = 600 ,max_real_w = 2592,max_real_h = 1944,max_w = 2592,max_h =1944
+[    3.359633] i2c i2c-3: No ack, Maybe slave(addr: 0x3c) not exist or abnormal power-on, retry 2...
+[    3.360121] i2c i2c-3: No ack, Maybe slave(addr: 0x3c) not exist or abnormal power-on, retry 1...
+[    3.360602] i2c i2c-3: No ack, Maybe slave(addr: 0x3c) not exist or abnormal power-on, retry 0...
+[    3.360671] ov5640_back_3(rk_cam_sensor:167): write reg(0x3008, val:0x80) failed, try to write again!
+[    3.361211] i2c i2c-3: No ack, Maybe slave(addr: 0x3c) not exist or abnormal power-on, retry 2...
+[    3.361694] i2c i2c-3: No ack, Maybe slave(addr: 0x3c) not exist or abnormal power-on, retry 1...
+[    3.362174] i2c i2c-3: No ack, Maybe slave(addr: 0x3c) not exist or abnormal power-on, retry 0...
+[    3.362242] ov5640_back_3(rk_cam_sensor:167): write reg(0x3008, val:0x80) failed, try to write again!
+[    3.362734] i2c i2c-3: No ack, Maybe slave(addr: 0x3c) not exist or abnormal power-on, retry 2...
+[    3.363212] i2c i2c-3: No ack, Maybe slave(addr: 0x3c) not exist or abnormal power-on, retry 1...
+[    3.363688] i2c i2c-3: No ack, Maybe slave(addr: 0x3c) not exist or abnormal power-on, retry 0...
+[    3.363757] ov5640_back_3(rk_cam_sensor:167): write reg(0x3008, val:0x80) failed, try to write again!
+[    3.363837] ov5640_back_3(rk_cam_sensor:383): write array failed!
+[    3.363884] ov5640_back_3(rk_cam_sensor:689): soft reset failed
+[    3.363891]
+[    3.366434] fb_mode_is_equal mode1->xres = 1920,mode2->xres = 1920
+[    3.366444] fb_mode_is_equal mode1->yres = 1080,mode2->yres = 1080
+[    3.366454] fb_mode_is_equal mode1->hsync_len = 44,mode2->hsync_len = 44
+[    3.366464] fb_mode_is_equal mode1->vsync_len = 5,mode2->vsync_len = 5
+[    3.366473] fb_mode_is_equal mode1->left_margin = 148,mode2->left_margin = 148
+[    3.366486] fb_mode_is_equal mode1->right_margin = 88,mode2->right_margin = 88
+[    3.366496] fb_mode_is_equal mode1->upper_margin = 36,mode2->upper_margin = 36
+[    3.366506] fb_mode_is_equal mode1->lower_margin = 4,mode2->lower_margin = 4
+[    3.366516] fb_mode_is_equal mode1->sync = 0,mode2->sync = 0
+[    3.366524] fb_mode_is_equal mode1->vmode = 0,mode2->vmode = 0
+[    3.366540] Console: switching to colour frame buffer device 240x67
+[    3.366566] fb_mode_is_equal mode1->xres = 1920,mode2->xres = 1920
+[    3.366575] fb_mode_is_equal mode1->yres = 1080,mode2->yres = 1080
+[    3.366585] fb_mode_is_equal mode1->hsync_len = 44,mode2->hsync_len = 44
+[    3.366595] fb_mode_is_equal mode1->vsync_len = 5,mode2->vsync_len = 5
+[    3.366605] fb_mode_is_equal mode1->left_margin = 148,mode2->left_margin = 148
+[    3.366616] fb_mode_is_equal mode1->right_margin = 88,mode2->right_margin = 88
+[    3.366626] fb_mode_is_equal mode1->upper_margin = 36,mode2->upper_margin = 36
+[    3.366636] fb_mode_is_equal mode1->lower_margin = 4,mode2->lower_margin = 4
+[    3.366646] fb_mode_is_equal mode1->sync = 0,mode2->sync = 0
+[    3.366654] fb_mode_is_equal mode1->vmode = 0,mode2->vmode = 0
+[    3.381456] i2c i2c-3: No ack, Maybe slave(addr: 0x3c) not exist or abnormal power-on, retry 2...
+[    3.382013] i2c i2c-3: No ack, Maybe slave(addr: 0x3c) not exist or abnormal power-on, retry 1...
+[    3.382557] i2c i2c-3: No ack, Maybe slave(addr: 0x3c) not exist or abnormal power-on, retry 0...
+[    3.382584] ov5640_back_3(rk_cam_sensor:333): read reg(0x300a val:0x0) failed, try to read again!
+[    3.382617] ov5640_back_3(rk_cam_sensor:716): read chip id failed
+[    3.382837] ret: 0
+[    3.411083] camera 33-0-ov5640_back_3: Probe ov5640_back_3 failed
+[    3.411440] ret: 0
+[    3.441209] ret: 0
+[    3.499235] min_w = 800,min_h = 600 ,max_real_w = 1600,max_real_h = 1200,max_w = 1600,max_h =1200
+[    3.499977] i2c i2c-3: No ack, Maybe slave(addr: 0x30) not exist or abnormal power-on, retry 2...
+[    3.500686] i2c i2c-3: No ack, Maybe slave(addr: 0x30) not exist or abnormal power-on, retry 1...
+[    3.501460] i2c i2c-3: No ack, Maybe slave(addr: 0x30) not exist or abnormal power-on, retry 0...
+[    3.501513] ov2659_front_4(rk_cam_sensor:167): write reg(0x103, val:0x1) failed, try to write again!
+[    3.502236] i2c i2c-3: No ack, Maybe slave(addr: 0x30) not exist or abnormal power-on, retry 2...
+[    3.502930] i2c i2c-3: No ack, Maybe slave(addr: 0x30) not exist or abnormal power-on, retry 1...
+[    3.503632] i2c i2c-3: No ack, Maybe slave(addr: 0x30) not exist or abnormal power-on, retry 0...
+[    3.503920] ov2659_front_4(rk_cam_sensor:167): write reg(0x103, val:0x1) failed, try to write again!
+[    3.504397] i2c i2c-3: No ack, Maybe slave(addr: 0x30) not exist or abnormal power-on, retry 2...
+[    3.512953] i2c i2c-3: No ack, Maybe slave(addr: 0x30) not exist or abnormal power-on, retry 1...
+[    3.521820] i2c i2c-3: No ack, Maybe slave(addr: 0x30) not exist or abnormal power-on, retry 0...
+[    3.530220] ov2659_front_4(rk_cam_sensor:167): write reg(0x103, val:0x1) failed, try to write again!
+[    3.538299] ov2659_front_4(rk_cam_sensor:383): write array failed!
+[    3.538340] ov2659_front_4(rk_cam_sensor:689): soft reset failed
+[    3.538350]
+[    3.571347] rk30_i2c rk30_i2c.3: Addr[0x30] no mbrf irq in STATE_READ, ipd = 0x11
+[    3.579040] rk30_i2c rk30_i2c.3: i2c->clk = 75000000
+[    3.586265] rk30_i2c rk30_i2c.3: i2c->start = 4
+[    3.593596] rk30_i2c rk30_i2c.3: I2C_CON: 0x00000033
+[    3.600550] rk30_i2c rk30_i2c.3: I2C_CLKDIV: 0x002f002f
+[    3.607689] rk30_i2c rk30_i2c.3: I2C_MRXADDR: 0x01000060
+[    3.614487] rk30_i2c rk30_i2c.3: I2C_MRXRADDR: 0x03000a30
+[    3.621387] rk30_i2c rk30_i2c.3: I2C_MTXCNT: 0x00000004
+[    3.628192] rk30_i2c rk30_i2c.3: I2C_MRXCNT: 0x00000001
+[    3.634652] rk30_i2c rk30_i2c.3: I2C_IEN: 0x00000020
+[    3.641186] rk30_i2c rk30_i2c.3: I2C_IPD: 0x00000011
+[    3.647492] rk30_i2c rk30_i2c.3: I2C_FCNT: 0x00000000
+[    3.653632] rk30_i2c rk30_i2c.3: I2C_TXDATA0: 0x01030160
+[    3.659820] rk30_i2c rk30_i2c.3: I2C_TXDATA1: 0x00000000
+[    3.665657] rk30_i2c rk30_i2c.3: I2C_TXDATA2: 0x00000000
+[    3.671600] rk30_i2c rk30_i2c.3: I2C_TXDATA3: 0x00000000
+[    3.677396] rk30_i2c rk30_i2c.3: I2C_TXDATA4: 0x00000000
+[    3.682817] rk30_i2c rk30_i2c.3: I2C_TXDATA5: 0x00000000
+[    3.688325] rk30_i2c rk30_i2c.3: I2C_TXDATA6: 0x00000000
+[    3.693722] rk30_i2c rk30_i2c.3: I2C_TXDATA7: 0x00000000
+[    3.698703] rk30_i2c rk30_i2c.3: I2C_RXDATA0: 0x000000ff
+[    3.703952] rk30_i2c rk30_i2c.3: I2C_RXDATA1: 0x00000000
+[    3.709084] rk30_i2c rk30_i2c.3: I2C_RXDATA2: 0x00000000
+[    3.714070] rk30_i2c rk30_i2c.3: I2C_RXDATA3: 0x00000000
+[    3.718878] rk30_i2c rk30_i2c.3: I2C_RXDATA4: 0x00000000
+[    3.723869] rk30_i2c rk30_i2c.3: I2C_RXDATA5: 0x00000000
+[    3.728761] rk30_i2c rk30_i2c.3: I2C_RXDATA6: 0x00000000
+[    3.733367] rk30_i2c rk30_i2c.3: I2C_RXDATA7: 0x00000000
+[    3.770828] ov2659_front_4(rk_cam_sensor:333): read reg(0x300a val:0x0) failed, try to read again!
+[    3.775900] ov2659_front_4(rk_cam_sensor:716): read chip id failed
+[    3.781017] ret: 0
+[    3.791184] usb 2-1.1: new high speed USB device number 3 using usb20_host
+[    3.811459] camera 33-1-ov2659_front_4: Probe ov2659_front_4 failed
+[    3.892290] usb 2-1.1: New USB device found, idVendor=0bda, idProduct=0724
+[    3.897754] usb 2-1.1: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[    3.903195] usb 2-1.1: Product: 802.11n WLAN Adapter
+[    3.908435] usb 2-1.1: Manufacturer: Realtek
+[    3.913694] usb 2-1.1: SerialNumber: 00e04c000001
+[    4.020308] gp_rknand_info = : 0xdd4fa100
+[    4.025510] rk30_chip_set:1
+[    4.030695] FtlInit!
+[    4.035603] No.1 FLASH ID:2c 64 44 4b a9 0
+[    4.044535] FTL version: 5.0.18 20141015
+[    4.164659] gBootMedia = 1 gSdmmcFwPartOffset =0!
+[    4.169572] rknand_buffer.c version: 4.40 20130830!
+[    4.174947] 3 cmdlinepart partitions found on MTD device rk29xxnand
+[    4.180215] Creating 3 MTD partitions on "rk29xxnand":
+[    4.185247] 0x000000400000-0x000000800000 : "uboot"
+[    4.190951] 0x000000800000-0x000001800000 : "boot"
+[    4.196553] 0x000018000000-0x0001df400000 : "linuxroot"
+[    4.223624] udevd[114]: starting version 175
+[    4.487193] EXT4-fs (mtdblock2): recovery complete
+[    4.493647] EXT4-fs (mtdblock2): mounted filesystem with ordered data mode. Opts: (null)
+[    5.731391] systemd[1]: systemd 215 running in system mode. (+PAM +AUDIT +SELINUX +IMA +SYSVINIT +LIBCRYPTSETUP +GCRYPT +ACL +XZ -SECCOMP -APPARMOR)
+[    5.745295] systemd[1]: Detected architecture 'arm'.
+[    5.812562] systemd[1]: Failed to insert module 'autofs4'
+[    5.821811] systemd[1]: Set hostname to <rabian-rock-pro>.
+[    6.070261] systemd-sysv-generator[234]: Ignoring creation of an alias rock.service for itself
+[    6.188763] systemd[1]: Cannot add dependency job for unit display-manager.service, ignoring: Unit display-manager.service failed to load: No such file or directory.
+[    6.198720] systemd[1]: Starting Forward Password Requests to Wall Directory Watch.
+[    6.206654] systemd[1]: Started Forward Password Requests to Wall Directory Watch.
+[    6.213404] systemd[1]: Expecting device dev-ttyFIQ0.device...
+[    6.220221] systemd[1]: Starting Remote File Systems (Pre).
+[    6.233720] systemd[1]: Reached target Remote File Systems (Pre).
+[    6.240474] systemd[1]: Starting Dispatch Password Requests to Console Directory Watch.
+[    6.247548] systemd[1]: Started Dispatch Password Requests to Console Directory Watch.
+[    6.254574] systemd[1]: Starting Paths.
+[    6.268695] systemd[1]: Reached target Paths.
+[    6.275790] systemd[1]: Starting Encrypted Volumes.
+[    6.290183] systemd[1]: Reached target Encrypted Volumes.
+[    6.297489] systemd[1]: Set up automount Arbitrary Executable File Formats File System Automount Point.
+[    6.305028] systemd[1]: Starting Swap.
+[    6.320313] systemd[1]: Reached target Swap.
+[    6.327898] systemd[1]: Starting Root Slice.
+[    6.343415] systemd[1]: Created slice Root Slice.
+[    6.350880] systemd[1]: Starting User and Session Slice.
+[    6.366953] systemd[1]: Created slice User and Session Slice.
+[    6.374974] systemd[1]: Starting /dev/initctl Compatibility Named Pipe.
+[    6.391865] systemd[1]: Listening on /dev/initctl Compatibility Named Pipe.
+[    6.399840] systemd[1]: Starting Delayed Shutdown Socket.
+[    6.416491] systemd[1]: Listening on Delayed Shutdown Socket.
+[    6.424563] systemd[1]: Starting Journal Socket (/dev/log).
+[    6.441108] systemd[1]: Listening on Journal Socket (/dev/log).
+[    6.448979] systemd[1]: Starting udev Control Socket.
+[    6.465551] systemd[1]: Listening on udev Control Socket.
+[    6.473695] systemd[1]: Starting udev Kernel Socket.
+[    6.490351] systemd[1]: Listening on udev Kernel Socket.
+[    6.498451] systemd[1]: Starting Journal Socket.
+[    6.515379] systemd[1]: Listening on Journal Socket.
+[    6.523763] systemd[1]: Starting System Slice.
+[    6.540620] systemd[1]: Created slice System Slice.
+[    6.548641] systemd[1]: Starting system-getty.slice.
+[    6.565686] systemd[1]: Created slice system-getty.slice.
+[    6.574045] systemd[1]: Starting system-serial\x2dgetty.slice.
+[    6.591309] systemd[1]: Created slice system-serial\x2dgetty.slice.
+[    6.599686] systemd[1]: Started live-config contains the components that configure a live system during the boot process (late userspace)..
+[    6.612966] systemd[1]: Started Set Up Additional Binary Formats.
+[    6.626231] systemd[1]: Starting Load Kernel Modules...
+[    6.731731] systemd[1]: Mounting Debug File System...
+[    7.141779] systemd[1]: Mounted POSIX Message Queue File System.
+[    7.163379] systemd[1]: Starting Create list of required static device nodes for the current kernel...
+[    7.732179] systemd[1]: Starting udev Coldplug all Devices...
+[    8.472355] systemd[1]: Mounted Huge Pages File System.
+[    8.493343] systemd[1]: Starting Journal Service...
+[    8.902634] systemd[1]: Started Journal Service.
+[    9.770373] systemd-journald[241]: Failed to register hostname fd in event loop: Operation not permitted. Ignoring.
+[   13.832364] systemd-udevd[248]: starting version 215
+[   14.256262] rtk_btusb: Realtek Bluetooth USB driver ver 0.8
+[   14.271094] rtk_btusb: btusb_probe 1==========can_wakeup=1    flag2=0
+[   14.280828] rtk_btusb: wakeup_disable==========can_wakeup=1   flag2=0
+[   14.290004] rtk_btusb: patch_add
+[   14.309439] rtk_btusb: btusb_open start pm_usage_cnt(0x0)
+[   14.319363] usbcore: registered new interface driver rtk_btusb
+[   14.329629] rtk_btusb: btusb_open hdev->promisc ==0
+[   14.329680] rtk_btusb: download_patch start
+[   14.342205] rtk_btusb: check_fw_version : read_ver_rsp->lmp_subver = 0x1200
+[   14.353288] rtk_btusb: load_firmware
+[   14.373270] rtk_btusb: get_firmware failed!
+[   14.381112] rtk_btusb: Rtk patch end -1
+[   14.381158] rtk_btusb: btusb_open failed  pm_usage_cnt(0x0)
+[   14.564571] usbcore: registered new interface driver rtl8723au
+[   18.540824] DWC_OTG: ********vbus detect*********************************************
+[   23.829835] systemd-journald[241]: Received request to flush runtime journal from PID 1
+[   29.050867] [BT_RFKILL]: bt turn on power
+[   31.841590] fb_mode_is_equal mode1->xres = 1920,mode2->xres = 1920
+[   31.841612] fb_mode_is_equal mode1->yres = 1080,mode2->yres = 1080
+[   31.841635] fb_mode_is_equal mode1->hsync_len = 44,mode2->hsync_len = 44
+[   31.841658] fb_mode_is_equal mode1->vsync_len = 5,mode2->vsync_len = 5
+[   31.841688] fb_mode_is_equal mode1->left_margin = 148,mode2->left_margin = 148
+[   31.841717] fb_mode_is_equal mode1->right_margin = 88,mode2->right_margin = 88
+[   31.841740] fb_mode_is_equal mode1->upper_margin = 36,mode2->upper_margin = 36
+[   31.841759] fb_mode_is_equal mode1->lower_margin = 4,mode2->lower_margin = 4
+[   31.841782] fb_mode_is_equal mode1->sync = 0,mode2->sync = 0
+[   31.841811] fb_mode_is_equal mode1->vmode = 0,mode2->vmode = 0
+[   31.920969] fb_mode_is_equal mode1->xres = 1920,mode2->xres = 1920
+[   31.920984] fb_mode_is_equal mode1->yres = 1080,mode2->yres = 1080
+[   31.920998] fb_mode_is_equal mode1->hsync_len = 44,mode2->hsync_len = 44
+[   31.921012] fb_mode_is_equal mode1->vsync_len = 5,mode2->vsync_len = 5
+[   31.921033] fb_mode_is_equal mode1->left_margin = 148,mode2->left_margin = 148
+[   31.921066] fb_mode_is_equal mode1->right_margin = 88,mode2->right_margin = 88
+[   31.921091] fb_mode_is_equal mode1->upper_margin = 36,mode2->upper_margin = 36
+[   31.921119] fb_mode_is_equal mode1->lower_margin = 4,mode2->lower_margin = 4
+[   31.921135] fb_mode_is_equal mode1->sync = 0,mode2->sync = 0
+[   31.921148] fb_mode_is_equal mode1->vmode = 0,mode2->vmode = 0
+[   31.988598] fb_mode_is_equal mode1->xres = 1920,mode2->xres = 1920
+[   31.988610] fb_mode_is_equal mode1->yres = 1080,mode2->yres = 1080
+[   31.988620] fb_mode_is_equal mode1->hsync_len = 44,mode2->hsync_len = 44
+[   31.988632] fb_mode_is_equal mode1->vsync_len = 5,mode2->vsync_len = 5
+[   31.988643] fb_mode_is_equal mode1->left_margin = 148,mode2->left_margin = 148
+[   31.988654] fb_mode_is_equal mode1->right_margin = 88,mode2->right_margin = 88
+[   31.988673] fb_mode_is_equal mode1->upper_margin = 36,mode2->upper_margin = 36
+[   31.988684] fb_mode_is_equal mode1->lower_margin = 4,mode2->lower_margin = 4
+[   31.988695] fb_mode_is_equal mode1->sync = 0,mode2->sync = 0
+[   31.988706] fb_mode_is_equal mode1->vmode = 0,mode2->vmode = 0
+[   32.053121] fb_mode_is_equal mode1->xres = 1920,mode2->xres = 1920
+[   32.053142] fb_mode_is_equal mode1->yres = 1080,mode2->yres = 1080
+[   32.053160] fb_mode_is_equal mode1->hsync_len = 44,mode2->hsync_len = 44
+[   32.053190] fb_mode_is_equal mode1->vsync_len = 5,mode2->vsync_len = 5
+[   32.053209] fb_mode_is_equal mode1->left_margin = 148,mode2->left_margin = 148
+[   32.053229] fb_mode_is_equal mode1->right_margin = 88,mode2->right_margin = 88
+[   32.053249] fb_mode_is_equal mode1->upper_margin = 36,mode2->upper_margin = 36
+[   32.053262] fb_mode_is_equal mode1->lower_margin = 4,mode2->lower_margin = 4
+[   32.053274] fb_mode_is_equal mode1->sync = 0,mode2->sync = 0
+[   32.053296] fb_mode_is_equal mode1->vmode = 0,mode2->vmode = 0
+[   32.116964] fb_mode_is_equal mode1->xres = 1920,mode2->xres = 1920
+[   32.116976] fb_mode_is_equal mode1->yres = 1080,mode2->yres = 1080
+[   32.116988] fb_mode_is_equal mode1->hsync_len = 44,mode2->hsync_len = 44
+[   32.116998] fb_mode_is_equal mode1->vsync_len = 5,mode2->vsync_len = 5
+[   32.117009] fb_mode_is_equal mode1->left_margin = 148,mode2->left_margin = 148
+[   32.117021] fb_mode_is_equal mode1->right_margin = 88,mode2->right_margin = 88
+[   32.117033] fb_mode_is_equal mode1->upper_margin = 36,mode2->upper_margin = 36
+[   32.117052] fb_mode_is_equal mode1->lower_margin = 4,mode2->lower_margin = 4
+[   32.117064] fb_mode_is_equal mode1->sync = 0,mode2->sync = 0
+[   32.117075] fb_mode_is_equal mode1->vmode = 0,mode2->vmode = 0
+[   33.282845] enter func vmac_open...
+[   33.911002] power on phy
+[   34.432118] fb_mode_is_equal mode1->xres = 1920,mode2->xres = 1920
+[   34.432151] fb_mode_is_equal mode1->yres = 1080,mode2->yres = 1080
+[   34.432181] fb_mode_is_equal mode1->hsync_len = 44,mode2->hsync_len = 44
+[   34.432211] fb_mode_is_equal mode1->vsync_len = 5,mode2->vsync_len = 5
+[   34.432241] fb_mode_is_equal mode1->left_margin = 148,mode2->left_margin = 148
+[   34.432272] fb_mode_is_equal mode1->right_margin = 88,mode2->right_margin = 88
+[   34.432304] fb_mode_is_equal mode1->upper_margin = 36,mode2->upper_margin = 36
+[   34.432335] fb_mode_is_equal mode1->lower_margin = 4,mode2->lower_margin = 4
+[   34.432365] fb_mode_is_equal mode1->sync = 0,mode2->sync = 0
+[   34.432392] fb_mode_is_equal mode1->vmode = 0,mode2->vmode = 0
+[   35.484857] vmac_mii_bus: probed
+
+Debian GNU/Linux 8 rabian-rock-pro ttyFIQ0
+
+rabian-rock-pro login: [   35.485145] rk29 vmac rk29 vmac.0: PHY driver [Generic PHY] (mii_bus:phy_addr=0:00, irq=-1)
+[   35.486027] ADDRCONF(NETDEV_UP): eth0: link is not ready
+[   36.097875] ADDRCONF(NETDEV_UP): wlan0: link is not ready
+[   36.116103] RTL8723AU: ERROR indicate disassoc
+[   36.122870] ADDRCONF(NETDEV_UP): wlan0: link is not ready
+[   36.681097] RTL8723AU: ERROR set bssid:00:00:00:00:00:00
+[   36.687069] RTL8723AU: ERROR set ssid [g�isQ�J�)ͺ����F|�T����vZ.c3�ɚ] fw_state=0x00000008
+[   37.481645] PHY: 0:00 - Link is Down
+[   38.483852] PHY: 0:00 - Link is Up - 100/Full
+[   38.485858] ADDRCONF(NETDEV_CHANGE): eth0: link becomes ready
+[   40.149340] RTL8723AU: ERROR nolinked power save enter
+
+Debian GNU/Linux 8 rabian-rock-pro ttyFIQ0
+
+rabian-rock-pro login:
+Debian GNU/Linux 8 rabian-rock-pro ttyFIQ0
+
+rabian-rock-pro login:
+Debian GNU/Linux 8 rabian-rock-pro ttyFIQ0
+
+rabian-rock-pro login: rock
+Password:
+Last login: Wed Dec 17 02:29:51 UTC 2025 from ubuntu22 on pts/0
+Linux rabian-rock-pro 3.0.36+ #48 SMP PREEMPT Fri Jul 24 20:31:47 CST 2015 armv7l
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+
+rock@rabian-rock-pro:~$
+rock@rabian-rock-pro:~$
+rock@rabian-rock-pro:~$
+rock@rabian-rock-pro:~$ cat [   61.534123] RTL8723AU: ERROR nolinked power save leave
+/proc/r[   65.531637] RTL8723AU: ERROR nolinked power save enter
+knand
+rknand_base.c version: 4.40 20130420
+FTL version: 5.0.18 20141015
+FLASH INFO:
+FLASH ID: 4b44642c
+Device Capacity: 8192 MB
+FMWAIT: 1061 300 80801 10420000
+FTL INFO:
+g_MaxLpn = 0xefa00
+g_VaildLpn = 0x77217
+read_page_count = 0x31aa12
+discard_page_count = 0x1ea9
+write_page_count = 0x88a9ad
+cache_write_count = 0x13151
+l2p_write_count = 0x14c74
+gc_page_count = 0x1d57
+totle_write = 7268 MB
+totle_read = 22840 MB
+GSV = 0x21f6
+GDV = 0x408288
+bad blk num = 20 22
+free_superblocks = 0x31d
+mlc_EC = 0x4082
+slc_EC = 0xdb0
+avg_EC = 0x2a
+sys_EC = 0x34e
+max_EC = 0x31
+min_EC = 0x0
+PLT = 0x147
+POT = 0x15f
+MaxSector = 0xefa000
+init_sys_blks_pp = 0x20
+sys_blks_pp = 0x20
+free sysblock = 0x1d
+data_blks_pp = 0x7e0
+data_op_blks_pp = 0x59
+max_data_blks = 0xfc0
+Sys.id = 0xfc6
+Bbt.id = 0xffd
+ACT.page = 0xfb
+ACT.plane = 0x1
+ACT.id = 0x479
+ACT.mode = 0x0
+ACT.a_pages = 0x9
+ACT VPC = 0x1cc
+BUF.page = 0x100
+BUF.plane = 0x0
+BUF.id = 0x53c
+BUF.mode = 0x1
+BUF.a_pages = 0x0
+BUF VPC = 0x36
+TMP.page = 0x0
+TMP.plane = 0x0
+TMP.id = 0xffff
+TMP.mode = 0x0
+TMP.a_pages = 0x200
+GC.page = 0x0
+GC.plane = 0x0
+GC.id = 0xffff
+GC.mode = 0x0
+GC.a_pages = 0x0
+WR_CHK = 0x0 0 0 0
+Read Err Cnt = 0x19
+Prog Err Cnt = 0x0
+gc_free_blk_th= 0x12
+gc_merge_free_blk_th= 0x50
+gc_skip_write_count= 0x387
+gc_blk_index= 0x0
+free min EC= 0x2c
+free max EC= 0x2e
+0. [0xee]=0x1 0x40  0x23
+1. [0x1d]=0x1 0x40  0x28
+2. [0x410]=0x1 0x40  0x2a
+3. [0x40d]=0x1 0x40  0x2a
+4. [0x234]=0x2 0x40  0x2b
+5. [0x3fe]=0x2 0x40  0x2e
+6. [0x417]=0x2 0x40  0x2f
+7. [0x218]=0x2 0x40  0x2f
+8. [0x1f2]=0x2 0x40  0x2f
+9. [0x338]=0x3 0x40  0x2f
+10. [0xf2]=0x5 0x40  0x1f
+11. [0x54c]=0x5 0x40  0x31
+12. [0x18f]=0x6 0x40  0x28
+13. [0x142]=0x6 0x40  0x28
+14. [0x43f]=0x6 0x40  0x2e
+15. [0x26a]=0x6 0x40  0x30
+free 0. [0x358] 0x40  0x2c
+free 1. [0x357] 0x40  0x2c
+free 2. [0x356] 0x40  0x2c
+free 3. [0x352] 0x40  0x2c
+rknand_buffer.c version: 4.40 20130830
+Totle Read 31601 KB
+Totle Write 515 KB
+TotleWriteCount 500
+TotleReadCount 1371
+CondReschedCount 3
+FreeSize  = 0x800000
+AlignSize  = 0x77f400
+buf data size  = 0x0
+Write count  = 0x0
+Read count  = 0x0
+Free count  = 0x400
+pdmaBuf  = 0xc1587000
+RK29_GRF_REG_BASE  = 0xdf178000
+RK29_NANDC_REG_BASE  = 0xdf1c8000
+RK29_CRU_REG_BASE  = 0xdf1d0000
+rock@rabian-rock-pro:~$ cat /proc/rknand
+rknand_base.c version: 4.40 20130420
+FTL version: 5.0.18 20141015
+FLASH INFO:
+FLASH ID: 4b44642c
+Device Capacity: 8192 MB
+FMWAIT: 1061 300 80801 10420000
+FTL INFO:
+g_MaxLpn = 0xefa00
+g_VaildLpn = 0x77217
+read_page_count = 0x31aa12
+discard_page_count = 0x1ea9
+write_page_count = 0x88a9ad
+cache_write_count = 0x13151
+l2p_write_count = 0x14c74
+gc_page_count = 0x1d57
+totle_write = 7268 MB
+totle_read = 22840 MB
+GSV = 0x21f6
+GDV = 0x408288
+bad blk num = 20 22
+free_superblocks = 0x31d
+mlc_EC = 0x4082
+slc_EC = 0xdb0
+avg_EC = 0x2a
+sys_EC = 0x34e
+max_EC = 0x31
+min_EC = 0x0
+PLT = 0x147
+POT = 0x15f
+MaxSector = 0xefa000
+init_sys_blks_pp = 0x20
+sys_blks_pp = 0x20
+free sysblock = 0x1d
+data_blks_pp = 0x7e0
+data_op_blks_pp = 0x59
+max_data_blks = 0xfc0
+Sys.id = 0xfc6
+Bbt.id = 0xffd
+ACT.page = 0xfb
+ACT.plane = 0x1
+ACT.id = 0x479
+ACT.mode = 0x0
+ACT.a_pages = 0x9
+ACT VPC = 0x1cc
+BUF.page = 0x100
+BUF.plane = 0x0
+BUF.id = 0x53c
+BUF.mode = 0x1
+BUF.a_pages = 0x0
+BUF VPC = 0x36
+TMP.page = 0x0
+TMP.plane = 0x0
+TMP.id = 0xffff
+TMP.mode = 0x0
+TMP.a_pages = 0x200
+GC.page = 0x0
+GC.plane = 0x0
+GC.id = 0xffff
+GC.mode = 0x0
+GC.a_pages = 0x0
+WR_CHK = 0x0 0 0 0
+Read Err Cnt = 0x19
+Prog Err Cnt = 0x0
+gc_free_blk_th= 0x12
+gc_merge_free_blk_th= 0x50
+gc_skip_write_count= 0x204
+gc_blk_index= 0x0
+free min EC= 0x2c
+free max EC= 0x2e
+0. [0xee]=0x1 0x40  0x23
+1. [0x1d]=0x1 0x40  0x28
+2. [0x410]=0x1 0x40  0x2a
+3. [0x40d]=0x1 0x40  0x2a
+4. [0x234]=0x2 0x40  0x2b
+5. [0x3fe]=0x2 0x40  0x2e
+6. [0x417]=0x2 0x40  0x2f
+7. [0x218]=0x2 0x40  0x2f
+8. [0x1f2]=0x2 0x40  0x2f
+9. [0x338]=0x3 0x40  0x2f
+10. [0xf2]=0x5 0x40  0x1f
+11. [0x54c]=0x5 0x40  0x31
+12. [0x18f]=0x6 0x40  0x28
+13. [0x142]=0x6 0x40  0x28
+14. [0x43f]=0x6 0x40  0x2e
+15. [0x26a]=0x6 0x40  0x30
+free 0. [0x358] 0x40  0x2c
+free 1. [0x357] 0x40  0x2c
+free 2. [0x356] 0x40  0x2c
+free 3. [0x352] 0x40  0x2c
+rknand_buffer.c version: 4.40 20130830
+Totle Read 31601 KB
+Totle Write 515 KB
+TotleWriteCount 500
+TotleReadCount 1371
+CondReschedCount 3
+FreeSize  = 0x800000
+AlignSize  = 0x77f400
+buf data size  = 0x0
+Write count  = 0x0
+Read count  = 0x0
+Free count  = 0x400
+pdmaBuf  = 0xc1587000
+RK29_GRF_REG_BASE  = 0xdf178000
+RK29_NANDC_REG_BASE  = 0xdf1c8000
+RK29_CRU_REG_BASE  = 0xdf1d0000
+rock@rabian-rock-pro:~$ [   94.518838] RTL8723AU: ERROR nolinked power save leave
+[   98.512348] RTL8723AU: ERROR nolinked power save enter
+[  137.530356] RTL8723AU: ERROR nolinked power save leave
+[  141.523273] RTL8723AU: ERROR nolinked power save enter
+[  190.686883] RTL8723AU: ERROR nolinked power save leave
+[  194.684238] RTL8723AU: ERROR nolinked power save enter
+[  253.566368] RTL8723AU: ERROR nolinked power save leave
+[  257.565529] RTL8723AU: ERROR nolinked power save enter
+[  316.685584] RTL8723AU: ERROR nolinked power save leave
+[  602.112666] rk30-lcdc rk30-lcdc.1: blank mode:1
+
+rock@rabian-rock-pro:~$ cat /proc/mtd
+dev:    size   erasesize  name
+mtd0: 00400000 00004000 "uboot"
+mtd1: 01000000 00004000 "boot"
+mtd2: 1c7400000 00004000 "linuxroot"
+rock@rabian-rock-pro:~$ cat /proc/mtd2
+cat: /proc/mtd2: No such file or directory
+rock@rabian-rock-pro:~$ ls /dev
+alarm            loop2               stdin      tty34  tty7
+ashmem           loop3               stdout     tty35  tty8
+binder           loop4               sw_sync    tty36  tty9
+block            loop5               sys_state  tty37  ttyFIQ0
+btrfs-control    loop6               tty        tty38  ttyS0
+bus              loop7               tty0       tty39  ttyS3
+char             mapper              tty1       tty4   uhid
+console          mem                 tty10      tty40  uinput
+cpu_dma_latency  mtd0                tty11      tty41  urandom
+fb0              mtd0ro              tty12      tty42  usbdev1.1
+fb1              mtd1                tty13      tty43  usbdev2.1
+fd               mtd1ro              tty14      tty44  usbdev2.2
+full             mtd2                tty15      tty45  usbdev2.3
+fuse             mtd2ro              tty16      tty46  vcs
+i2c-0            mtdblock0           tty17      tty47  vcs1
+i2c-1            mtdblock1           tty18      tty48  vcs2
+i2c-2            mtdblock2           tty19      tty49  vcs3
+i2c-3            net                 tty2       tty5   vcs4
+i2c-4            network_latency     tty20      tty50  vcs5
+i2c_detect       network_throughput  tty21      tty51  vcs6
+initctl          null                tty22      tty52  vcsa
+input            ppp                 tty23      tty53  vcsa1
+ion              ptmx                tty24      tty54  vcsa2
+keychord         pts                 tty25      tty55  vcsa3
+kmem             random              tty26      tty56  vcsa4
+kmsg             rfkill              tty27      tty57  vcsa5
+log              rga                 tty28      tty58  vcsa6
+log_events       rknand_sys_storage  tty29      tty59  vflash
+log_main         rtc                 tty3       tty6   video_state
+log_radio        rtc0                tty30      tty60  vpu_service
+log_system       shm                 tty31      tty61  xt_qtaguid
+loop0            snd                 tty32      tty62  zero
+loop1            stderr              tty33      tty63  zram0
+rock@rabian-rock-pro:~$
+
+
+
+
+
+rock@rabian-rock-pro:~$ cat /proc/rknand
+rknand_base.c version: 4.40 20130420
+FTL version: 5.0.18 20141015
+FLASH INFO:
+FLASH ID: 4b44642c
+Device Capacity: 8192 MB
+FMWAIT: 1061 300 80801 10420000
+FTL INFO:
+g_MaxLpn = 0xefa00
+g_VaildLpn = 0x77217
+read_page_count = 0x31aa12
+discard_page_count = 0x1ea9
+write_page_count = 0x88a9ad
+cache_write_count = 0x13151
+l2p_write_count = 0x14c74
+gc_page_count = 0x1d57
+totle_write = 7268 MB
+totle_read = 22840 MB
+GSV = 0x21f6
+GDV = 0x408288
+bad blk num = 20 22
+free_superblocks = 0x31d
+mlc_EC = 0x4082
+slc_EC = 0xdb0
+avg_EC = 0x2a
+sys_EC = 0x34e
+max_EC = 0x31
+min_EC = 0x0
+PLT = 0x147
+POT = 0x15f
+MaxSector = 0xefa000
+init_sys_blks_pp = 0x20
+sys_blks_pp = 0x20
+free sysblock = 0x1d
+data_blks_pp = 0x7e0
+data_op_blks_pp = 0x59
+max_data_blks = 0xfc0
+Sys.id = 0xfc6
+Bbt.id = 0xffd
+ACT.page = 0xfb
+ACT.plane = 0x1
+ACT.id = 0x479
+ACT.mode = 0x0
+ACT.a_pages = 0x9
+ACT VPC = 0x1cc
+BUF.page = 0x100
+BUF.plane = 0x0
+BUF.id = 0x53c
+BUF.mode = 0x1
+BUF.a_pages = 0x0
+BUF VPC = 0x36
+TMP.page = 0x0
+TMP.plane = 0x0
+TMP.id = 0xffff
+TMP.mode = 0x0
+TMP.a_pages = 0x200
+GC.page = 0x0
+GC.plane = 0x0
+GC.id = 0xffff
+GC.mode = 0x0
+GC.a_pages = 0x0
+WR_CHK = 0x0 0 0 0
+Read Err Cnt = 0x19
+Prog Err Cnt = 0x0
+gc_free_blk_th= 0x12
+gc_merge_free_blk_th= 0x50
+gc_skip_write_count= 0x204
+gc_blk_index= 0x0
+free min EC= 0x2c
+free max EC= 0x2e
+0. [0xee]=0x1 0x40  0x23
+1. [0x1d]=0x1 0x40  0x28
+2. [0x410]=0x1 0x40  0x2a
+3. [0x40d]=0x1 0x40  0x2a
+4. [0x234]=0x2 0x40  0x2b
+5. [0x3fe]=0x2 0x40  0x2e
+6. [0x417]=0x2 0x40  0x2f
+7. [0x218]=0x2 0x40  0x2f
+8. [0x1f2]=0x2 0x40  0x2f
+9. [0x338]=0x3 0x40  0x2f
+10. [0xf2]=0x5 0x40  0x1f
+11. [0x54c]=0x5 0x40  0x31
+12. [0x18f]=0x6 0x40  0x28
+13. [0x142]=0x6 0x40  0x28
+14. [0x43f]=0x6 0x40  0x2e
+15. [0x26a]=0x6 0x40  0x30
+free 0. [0x358] 0x40  0x2c
+free 1. [0x357] 0x40  0x2c
+free 2. [0x356] 0x40  0x2c
+free 3. [0x352] 0x40  0x2c
+rknand_buffer.c version: 4.40 20130830
+Totle Read 31601 KB
+Totle Write 515 KB
+TotleWriteCount 500
+TotleReadCount 1371
+CondReschedCount 3
+FreeSize  = 0x800000
+AlignSize  = 0x77f400
+buf data size  = 0x0
+Write count  = 0x0
+Read count  = 0x0
+Free count  = 0x400
+pdmaBuf  = 0xc1587000
+RK29_GRF_REG_BASE  = 0xdf178000
+RK29_NANDC_REG_BASE  = 0xdf1c8000
+RK29_CRU_REG_BASE  = 0xdf1d0000
+
+
+rock@rabian-rock-pro:~$ cat /proc/mtd
+dev:    size   erasesize  name
+mtd0: 00400000 00004000 "uboot"
+mtd1: 01000000 00004000 "boot"
+mtd2: 1c7400000 00004000 "linuxroot"
+
+
+
+rock@rabian-rock-pro:~$ ls /dev
+alarm            loop2               stdin      tty34  tty7
+ashmem           loop3               stdout     tty35  tty8
+binder           loop4               sw_sync    tty36  tty9
+block            loop5               sys_state  tty37  ttyFIQ0
+btrfs-control    loop6               tty        tty38  ttyS0
+bus              loop7               tty0       tty39  ttyS3
+char             mapper              tty1       tty4   uhid
+console          mem                 tty10      tty40  uinput
+cpu_dma_latency  mtd0                tty11      tty41  urandom
+fb0              mtd0ro              tty12      tty42  usbdev1.1
+fb1              mtd1                tty13      tty43  usbdev2.1
+fd               mtd1ro              tty14      tty44  usbdev2.2
+full             mtd2                tty15      tty45  usbdev2.3
+fuse             mtd2ro              tty16      tty46  vcs
+i2c-0            mtdblock0           tty17      tty47  vcs1
+i2c-1            mtdblock1           tty18      tty48  vcs2
+i2c-2            mtdblock2           tty19      tty49  vcs3
+i2c-3            net                 tty2       tty5   vcs4
+i2c-4            network_latency     tty20      tty50  vcs5
+i2c_detect       network_throughput  tty21      tty51  vcs6
+initctl          null                tty22      tty52  vcsa
+input            ppp                 tty23      tty53  vcsa1
+ion              ptmx                tty24      tty54  vcsa2
+keychord         pts                 tty25      tty55  vcsa3
+kmem             random              tty26      tty56  vcsa4
+kmsg             rfkill              tty27      tty57  vcsa5
+log              rga                 tty28      tty58  vcsa6
+log_events       rknand_sys_storage  tty29      tty59  vflash
+log_main         rtc                 tty3       tty6   video_state
+log_radio        rtc0                tty30      tty60  vpu_service
+log_system       shm                 tty31      tty61  xt_qtaguid
+loop0            snd                 tty32      tty62  zero
+loop1            stderr              tty33      tty63  zram0
+
+

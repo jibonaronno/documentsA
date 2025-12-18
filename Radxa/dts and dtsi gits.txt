@@ -1,0 +1,20 @@
+
+
+cd ~/radxa && wget -q --show-progress https://musl.cc/arm-linux-musleabihf-cross.tgz && tar xf arm-linux-musleabihf-cross.tgz
+
+
+https://github.com/neo-technologies/kernel_rockchip/blob/master/arch/arm/boot/dts/rk3188.dtsi
+
+https://github.com/radxa/linux-rockchip/blob/rock2-stable-3.10/arch/arm/boot/dts/rk3128-box-rk88.dts
+
+
+https://github.com/radxa/rockchip-bootloader
+
+https://github.com/radxa/rock-bsp/tree/master
+
+https://github.com/apxii/rkboottools
+
+https://git.fh-aachen.de/tb3838s/linux/-/blob/v6.17-rc5/arch/arm/boot/dts/rockchip/rk3xxx.dtsi?ref_type=tags
+
+https://rockchip.fr/
+
