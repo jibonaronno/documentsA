@@ -100,6 +100,12 @@ div[id=div-001] {
         jibon@ubuntu22:/tmp/mtd-utils-build$ 
         jibon@ubuntu22:/tmp/mtd-utils-build$ 
     </pre>
+
+    Note that tiny-rootfx is configurd in .config file as below <br>
+    <pre class="brush: bash;">
+        CONFIG_BUSYBOX_CONFIG="/home/jibon/radxa/tiny-rootfx/busybox-config"
+        CONFIG_EXTRA_BINARIES="/home/jibon/radxa/tiny-rootfx/bin/flash_erase /home/jibon/radxa/tiny-rootfx/bin/nandwrite /home/jibon/radxa/tiny-rootfx/bin/nanddump /home/jibon/radxa/tiny-rootfx/bin/mtdinfo"
+    </pre>
     <br>
     
     mtd utils binaries uses dynamic linking by default which requires libraries to be present in the target system <br>
