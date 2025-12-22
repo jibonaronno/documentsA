@@ -173,6 +173,187 @@ This enables the kernel to read mtdparts from device tree blob <br>
 </div>
 <!-- SHOW HIDE END 001A  -->
 
+<!-- SHOW HIDE START 001B  -->
+ <style type="text/css">
+div[id=div-001B] {
+  display: none;
+}
+  input[id=toggle-001B]:checked ~ div[id=div-001B] {
+    display: block;
+    }
+</style>
+
+<h2><label for="toggle-001B">mtd-utils command nandflash nandwrite nandread nanddump</label></h2>
+<input type="checkbox" id="toggle-001B" style="display: none;">
+
+<div id="div-001B">
+    Previously mtd-utils installed under /usr/sbin while installed by apt install commend <br>
+    So it may be require to add /usr/sbin before calling the mtd-utils commands <br>
+    <pre class="brush: bash;">
+        # Old command (flash_eraseall):
+        /usr/sbin/flash_eraseall -j /dev/mtd0
+
+        # New equivalent (flash_erase):
+        /usr/sbin/flash_erase -j /dev/mtd0 0 0
+    </pre>
+
+    <pre class="brush: bash;">
+        rock@rabian-rock-pro:~$ /usr/sbin/mtdinfo /dev/mtd2
+        mtd2
+        Name:                           linuxroot
+        Type:                           nand
+        Eraseblock size:                16384 bytes, 16.0 KiB
+        Amount of eraseblocks:          466176 (7637827584 bytes, 7.1 GiB)
+        Minimum input/output unit size: 4096 bytes
+        Sub-page size:                  4096 bytes
+        Character device major/minor:   90:4
+        Bad blocks are allowed:         true
+        Device is writable:             true
+
+        rock@rabian-rock-pro:~$ /usr/sbin/mtdinfo /dev/mtd0
+        mtd0
+        Name:                           uboot
+        Type:                           nand
+        Eraseblock size:                16384 bytes, 16.0 KiB
+        Amount of eraseblocks:          256 (4194304 bytes, 4.0 MiB)
+        Minimum input/output unit size: 4096 bytes
+        Sub-page size:                  4096 bytes
+        Character device major/minor:   90:0
+        Bad blocks are allowed:         true
+        Device is writable:             true
+
+        rock@rabian-rock-pro:~$ df -h
+        Filesystem                        Size  Used Avail Use% Mounted on
+        /dev/block/mtd/by-name/linuxroot  7.0G  478M  6.6G   7% /
+        udev                              924M     0  924M   0% /dev
+        tmpfs                             371M  9.9M  361M   3% /run
+        tmpfs                             927M     0  927M   0% /dev/shm
+        tmpfs                             5.0M  4.0K  5.0M   1% /run/lock
+        tmpfs                             927M     0  927M   0% /sys/fs/cgroup
+        none                              927M     0  927M   0% /tmp
+        tmpfs                             205M     0  205M   0% /run/user/1000
+        rock@rabian-rock-pro:~$ ls /dev/block/mtd/by-name/
+        boot  linuxroot  uboot
+        rock@rabian-rock-pro:~$ ls -la /dev/block/mtd/by-name/
+        total 0
+        drwxr-xr-x 2 root root 100 Jan  1  2011 .
+        drwxr-xr-x 3 root root  60 Jan  1  2011 ..
+        lrwxrwxrwx 1 root root  14 Jan  1  2011 boot -> /dev/mtdblock1
+        lrwxrwxrwx 1 root root  14 Jan  1  2011 linuxroot -> /dev/mtdblock2
+        lrwxrwxrwx 1 root root  14 Jan  1  2011 uboot -> /dev/mtdblock0
+        rock@rabian-rock-pro:~$
+    </pre>
+
+    <pre>
+        rock@rabian-rock-pro:~$ cat /proc/rknand
+        rknand_base.c version: 4.40 20130420
+        FTL version: 5.0.18 20141015
+        FLASH INFO:
+        FLASH ID: 4b44642c
+        Device Capacity: 8192 MB
+        FMWAIT: 1061 300 80801 10420000
+        FTL INFO:
+        g_MaxLpn = 0xefa00
+        g_VaildLpn = 0x77217
+        read_page_count = 0x31aa12
+        discard_page_count = 0x1ea9
+        write_page_count = 0x88a9ad
+        cache_write_count = 0x13151
+        l2p_write_count = 0x14c74
+        gc_page_count = 0x1d57
+        totle_write = 7268 MB
+        totle_read = 22840 MB
+        GSV = 0x21f6
+        GDV = 0x408288
+        bad blk num = 20 22
+        free_superblocks = 0x31d
+        mlc_EC = 0x4082
+        slc_EC = 0xdb0
+        avg_EC = 0x2a
+        sys_EC = 0x34e
+        max_EC = 0x31
+        min_EC = 0x0
+        PLT = 0x147
+        POT = 0x15f
+        MaxSector = 0xefa000
+        init_sys_blks_pp = 0x20
+        sys_blks_pp = 0x20
+        free sysblock = 0x1d
+        data_blks_pp = 0x7e0
+        data_op_blks_pp = 0x59
+        max_data_blks = 0xfc0
+        Sys.id = 0xfc6
+        Bbt.id = 0xffd
+        ACT.page = 0xfb
+        ACT.plane = 0x1
+        ACT.id = 0x479
+        ACT.mode = 0x0
+        ACT.a_pages = 0x9
+        ACT VPC = 0x1cc
+        BUF.page = 0x100
+        BUF.plane = 0x0
+        BUF.id = 0x53c
+        BUF.mode = 0x1
+        BUF.a_pages = 0x0
+        BUF VPC = 0x36
+        TMP.page = 0x0
+        TMP.plane = 0x0
+        TMP.id = 0xffff
+        TMP.mode = 0x0
+        TMP.a_pages = 0x200
+        GC.page = 0x0
+        GC.plane = 0x0
+        GC.id = 0xffff
+        GC.mode = 0x0
+        GC.a_pages = 0x0
+        WR_CHK = 0x0 0 0 0
+        Read Err Cnt = 0x19
+        Prog Err Cnt = 0x0
+        gc_free_blk_th= 0x12
+        gc_merge_free_blk_th= 0x50
+        gc_skip_write_count= 0x204
+        gc_blk_index= 0x0
+        free min EC= 0x2c
+        free max EC= 0x2e
+        0. [0xee]=0x1 0x40  0x23
+        1. [0x1d]=0x1 0x40  0x28
+        2. [0x410]=0x1 0x40  0x2a
+        3. [0x40d]=0x1 0x40  0x2a
+        4. [0x234]=0x2 0x40  0x2b
+        5. [0x3fe]=0x2 0x40  0x2e
+        6. [0x417]=0x2 0x40  0x2f
+        7. [0x218]=0x2 0x40  0x2f
+        8. [0x1f2]=0x2 0x40  0x2f
+        9. [0x338]=0x3 0x40  0x2f
+        10. [0xf2]=0x5 0x40  0x1f
+        11. [0x54c]=0x5 0x40  0x31
+        12. [0x18f]=0x6 0x40  0x28
+        13. [0x142]=0x6 0x40  0x28
+        14. [0x43f]=0x6 0x40  0x2e
+        15. [0x26a]=0x6 0x40  0x30
+        free 0. [0x358] 0x40  0x2c
+        free 1. [0x357] 0x40  0x2c
+        free 2. [0x356] 0x40  0x2c
+        free 3. [0x352] 0x40  0x2c
+        rknand_buffer.c version: 4.40 20130830
+        Totle Read 31601 KB
+        Totle Write 515 KB
+        TotleWriteCount 500
+        TotleReadCount 1371
+        CondReschedCount 3
+        FreeSize  = 0x800000
+        AlignSize  = 0x77f400
+        buf data size  = 0x0
+        Write count  = 0x0
+        Read count  = 0x0
+        Free count  = 0x400
+        pdmaBuf  = 0xc1587000
+        RK29_GRF_REG_BASE  = 0xdf178000
+        RK29_NANDC_REG_BASE  = 0xdf1c8000
+        RK29_CRU_REG_BASE  = 0xdf1d0000
+    </pre>
+</div>
+<!-- SHOW HIDE END 001B  -->
 
   <!-- SHOW HIDE START 006  -->
   <style type="text/css">

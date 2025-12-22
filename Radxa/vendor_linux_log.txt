@@ -1083,6 +1083,31 @@ RK29_NANDC_REG_BASE  = 0xdf1c8000
 RK29_CRU_REG_BASE  = 0xdf1d0000
 
 
+rock@rabian-rock-pro:~$ /usr/sbin/mtdinfo /dev/mtd2
+mtd2
+Name:                           linuxroot
+Type:                           nand
+Eraseblock size:                16384 bytes, 16.0 KiB
+Amount of eraseblocks:          466176 (7637827584 bytes, 7.1 GiB)
+Minimum input/output unit size: 4096 bytes
+Sub-page size:                  4096 bytes
+Character device major/minor:   90:4
+Bad blocks are allowed:         true
+Device is writable:             true
+
+rock@rabian-rock-pro:~$ /usr/sbin/mtdinfo /dev/mtd0
+mtd0
+Name:                           uboot
+Type:                           nand
+Eraseblock size:                16384 bytes, 16.0 KiB
+Amount of eraseblocks:          256 (4194304 bytes, 4.0 MiB)
+Minimum input/output unit size: 4096 bytes
+Sub-page size:                  4096 bytes
+Character device major/minor:   90:0
+Bad blocks are allowed:         true
+Device is writable:             true
+
+
 rock@rabian-rock-pro:~$ cat /proc/mtd
 dev:    size   erasesize  name
 mtd0: 00400000 00004000 "uboot"
