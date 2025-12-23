@@ -1,0 +1,3 @@
+Atam4s has a SUPC module that monitors VCC. During opperation it is configured to interrupts if the voltaje goes under 2.56V 
+and enters into BACKUP mode. Configuring the wake-up when the pin 'SUPC_WUIR_WKUPT12_HIGH' (enter key) 
+transitions from low to high (batteries inserted). This allows to resume ecording after replacing the batteries.

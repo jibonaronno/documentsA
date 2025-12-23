@@ -197,6 +197,8 @@ div[id=div-001B] {
         /usr/sbin/flash_erase -j /dev/mtd0 0 0
     </pre>
 
+    <div class="title_b"> mtdinfo command output from vendor linux </div>
+    
     <pre class="brush: bash;">
         rock@rabian-rock-pro:~$ /usr/sbin/mtdinfo /dev/mtd2
         mtd2
@@ -243,6 +245,9 @@ div[id=div-001B] {
         lrwxrwxrwx 1 root root  14 Jan  1  2011 uboot -> /dev/mtdblock0
         rock@rabian-rock-pro:~$
     </pre>
+
+    But mainline kernel shows different output <br>
+    
 
     <pre>
         rock@rabian-rock-pro:~$ cat /proc/rknand
