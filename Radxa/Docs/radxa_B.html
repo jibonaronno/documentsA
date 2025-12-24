@@ -165,7 +165,7 @@ div[id=div-001A] {
 <pre class="brush: bash;">
     make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- menuconfig
 </pre>
-<code> Device Drivers -> Memory Technology Device (MTD) Support -> Partit Parsers -> OpenFirmware (Device Tree) Partition Parsers </code>
+<code> Device Drivers -> Memory Technology Device (MTD) Support -> Partit Parsers -> OpenFirmware (Device Tree) Partition Parsers </code> <br>
 <p5>Observation : </p5> <br>
 This enables the kernel to read mtdparts from device tree blob <br> 
 
@@ -247,7 +247,25 @@ div[id=div-001B] {
     </pre>
 
     But mainline kernel shows different output <br>
-    
+
+    <pre class="brush: bash;">
+      radxa# mtdinfo /dev/mtd3
+      mtd3
+      Name:                           ext
+      Type:                           mlc-nand
+      Eraseblock size:                2097152 bytes, 2.0 MiB
+      Amount of eraseblocks:          512 (1073741824 bytes, 1024.0 MiB)
+      Minimum input/output unit size: 8192 bytes
+      Sub-page size:                  8192 bytes
+      OOB size:                       744 bytes
+      Character device major/minor:   90:6
+      Bad blocks are allowed:         true
+      Device is writable:             true
+    </pre>
+
+    <p>
+      In the mainline kernel shows that Eraseblock size is 2MB where as in vendor provided linux it is 16KB <br>
+    </p>
 
     <pre>
         rock@rabian-rock-pro:~$ cat /proc/rknand
@@ -357,6 +375,46 @@ div[id=div-001B] {
         RK29_NANDC_REG_BASE  = 0xdf1c8000
         RK29_CRU_REG_BASE  = 0xdf1d0000
     </pre>
+
+    <div class="title_b"> nanddump output in mainline kernel </div>
+    <pre>
+      radxa# nanddump -o -l 8192 /dev/mtd3
+      ECC failed: 0
+      ECC corrected: 0
+      Number of bad blocks: 510
+      Number of bbt blocks: 0
+      Not printing binary garbage to tty. Use '-a'
+      or '--forcebinary' to override.
+      radxa# nanddump -p -l 8192 /dev/mtd3
+      ECC failed: 0
+      ECC corrected: 0
+      Number of bad blocks: 510
+      Number of bbt blocks: 0
+      Block size 2097152, page size 8192, OOB size 744
+      Dumping data starting at 0x00000000 and ending at 0x00002000...
+      0x03200000: c3 be c6 23 c3 f5 f3 7e ba fd 9a 3d 5b ec 6b 2b
+      0x03200010: 2c 17 8b 49 ec 92 82 43 8e 47 f7 ef 4e 86 e4 d1
+      0x03200020: 94 f3 49 8a 93 a8 35 55 26 aa 04 37 b3 c6 ad 49
+      0x03200030: 9e fc ab 81 52 0e fe fe d3 b8 02 f2 c4 1e 0b 62
+      0x03200040: 0c 9a 34 07 ca 14 b2 e0 02 f1 66 f9 63 b2 c5 83
+      0x03200050: ba 61 dd c1 81 67 55 fd c9 51 e3 c1 94 ef 10 9f
+      0x03200060: 04 78 c9 03 e0 dc 71 f9 65 6f 85 5e e2 08 34 0d
+      0x03200070: da ee 6c 77 28 6a 4a a4 75 ca 4b e6 0a 8c 7e 44
+      0x03200080: b6 db d1 51 f8 53 9e 73 98 c0 79 53 e0 8f aa f0
+      0x03200090: 66 ff a2 dc 5f 45 37 65 d1 7d 95 3a f3 8c 23 9e
+      0x032000a0: 99 00 57 62 17 f9 7c 61 8a 04 34 bf df dc a6 f4
+      0x032000b0: 0b cc 79 3c 22 9e 4a da b5 8e a1 af 05 54 10 35
+      0x032000c0: d1 02 14 de e7 83 97 85 0c d6 10 2b c1 48 4f 92
+      0x032000d0: 5f ff b1 84 1c 44 ee ec 4d f3 24 0c 94 dd 66 ec
+      0x032000e0: 2c 3a e2 8b b7 30 f9 76 76 4e 69 86 e3 a8 9d dd
+      0x032000f0: df 2e f1 ed 06 cb 37 cf 09 fd 5d 5d 37 a6 9f 21
+      0x03200100: fa 61 dd 95 e0 a7 f1 9a 9b ab 3f 4c 20 a2 3b 54
+      0x03200110: 28 61 3f 44 2c ef d5 6a ba 38 fc db 2d 55 ba 18
+      0x03200120: 84 f5 b6 4b a1 13 38 df d5 39 b6 22 66 3e 0c cb
+      0x03200130: 6a a5 56 35 77 57 5c b8 94 ff 56 c0 a7 90 b2 d6
+      0x03200140: 04 da 8e 8c d7 6e 58 18 c4 e3 e2 03 dc 1e 2d ca
+    </pre>
+
 </div>
 <!-- SHOW HIDE END 001B  -->
 

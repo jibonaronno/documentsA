@@ -155,11 +155,11 @@ a.button {
   font-size: 32px;
   font-weight: 700;
   color: #24292e;
-  background-color: transparent;
-  padding: 0;
+  background-color: #d4e9ff;
+  padding: 12px 20px;
   margin: 24px 0;
-  border-bottom: 2px solid #eaecef;
-  padding-bottom: 10px;
+  border: 1px solid #000000;
+  border-radius: 8px;
 }
 
 .title_b a
