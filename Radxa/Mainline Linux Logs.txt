@@ -1,0 +1,2318 @@
+Bad eraseblock 4093 at 0x0001ffa00000
+Bad eraseblock 4094 at 0x0001ffc00000
+Bad eraseblock 4095 at 0x0001ffe00000
+No space left to write bad block table
+nand_bbt: error while writing bad block table -28
+rockchip-nfc 10500000.nand-controller: failed to init NAND chips
+rockchip-nfc: probe of 10500000.nand-controller failed with error -28
+hso: drivers/net/usb/hso.c: Option Wireless
+usbcore: registered new interface driver hso
+usbcore: registered new interface driver asix
+usbcore: registered new interface driver ax88179_178a
+usbcore: registered new interface driver cdc_ether
+usbcore: registered new interface driver dm9601
+usbcore: registered new interface driver smsc95xx
+usbcore: registered new interface driver net1080
+usbcore: registered new interface driver cdc_subset
+usbcore: registered new interface driver zaurus
+usbcore: registered new interface driver cdc_ncm
+usbcore: registered new interface driver r8153_ecm
+usbcore: registered new interface driver cdc_acm
+cdc_acm: USB Abstract Control Model driver for USB modems and ISDN adapters
+i2c_dev: i2c /dev entries driver
+rtc-hym8563 1-0051: no valid clock/calendar values available
+rtc-hym8563 1-0051: registered as rtc0
+rtc-hym8563 1-0051: no valid clock/calendar values available
+rtc-hym8563 1-0051: hctosys: unable to read the hardware clock
+VCC_DDR: supplied by vsys
+VDD_LOG: supplied by vsys
+VDD_ARM: supplied by vsys
+VCC_IO: Bringing 3000000uV into 3300000-3300000uV
+VCC_IO: supplied by vsys
+VDD_10: supplied by VCC_IO
+VDD_HDMI: Bringing 1200000uV into 2500000-2500000uV
+VDD_HDMI: supplied by VCC_IO
+VCC_18: supplied by VCC_IO
+VCCA_33: supplied by vsys
+VCC_RMII: supplied by vsys
+VCCIO_WL: supplied by vsys
+VCC18_IO: supplied by vsys
+VCC_28: supplied by vsys
+usbcore: registered new interface driver uvcvideo
+gspca_main: v2.14.0 registered
+usbcore: registered new interface driver em28xx
+em28xx: Registered (Em28xx v4l2 Extension) extension
+softdog: initialized. soft_noboot=0 soft_margin=60 sec soft_panic=0 (nowayout=0)
+softdog:              soft_reboot_cmd=<not set> soft_active_on_boot=0
+Bluetooth: HCI UART driver ver 2.3
+Bluetooth: HCI UART protocol H4 registered
+usbcore: registered new interface driver btusb
+Synopsys Designware Multimedia Card Interface Driver
+hid: raw HID events driver (C) Jiri Kosina
+usbcore: registered new interface driver usbhid
+usbhid: USB HID core driver
+NET: Registered PF_INET6 protocol family
+Segment Routing with IPv6
+In-situ OAM (IOAM) with IPv6
+sit: IPv6, IPv4 and MPLS over IPv4 tunneling driver
+NET: Registered PF_PACKET protocol family
+Bluetooth: RFCOMM TTY layer initialized
+Bluetooth: RFCOMM socket layer initialized
+Bluetooth: RFCOMM ver 1.11
+Bluetooth: BNEP (Ethernet Emulation) ver 1.3
+Bluetooth: BNEP filters: protocol multicast
+Bluetooth: BNEP socket layer initialized
+Bluetooth: HIDP (Human Interface Emulation) ver 1.2
+Bluetooth: HIDP socket layer initialized
+Key type dns_resolver registered
+Registering SWP/SWPB emulation handler
+Loading compiled-in X.509 certificates
+sdmmc-supply: supplied by VCC_IO
+rockchip_emac 10204000.ethernet: ARC EMAC detected with id: 0x7fd02
+rockchip_emac 10204000.ethernet: IRQ is 36
+rockchip_emac 10204000.ethernet: MAC address is now 16:7b:3a:4e:87:23
+rockchip_emac 10204000.ethernet: connected to SMSC LAN8710/LAN8720 phy with id 0x7c0f1
+input: gpio-keys as /devices/platform/gpio-keys/input/input0
+cfg80211: Loading compiled-in X.509 certificates for regulatory database
+dwmmc_rockchip 10214000.mmc: Using external DMA controller.
+dwmmc_rockchip 10214000.mmc: Version ID is 240a
+cfg80211: Loaded X.509 cert 'sforshee: 00b28ddf47aef9cea7'
+dwmmc_rockchip 10214000.mmc: DW MMC controller at irq 37,32 bit host data width,256 deep fifo
+cfg80211: Loaded X.509 cert 'wens: 61c038651aabdcf94bd0ac7ff06c7248db18c600'
+clk: Disabling unused clocks
+platform regulatory.0: Direct firmware load for regulatory.db failed with error -2
+cfg80211: failed to load regulatory.db
+mmc_host mmc0: Bus speed (slot 0) = 31821429Hz (slot req 400000Hz, actual 397767HZ div = 40)
+Freeing unused kernel image (initmem) memory: 2048K
+Run /init as init process
+/bin/sh: can't access tty; job control turned off
+radxa# DDR Version 1.04 20140217
+In
+DDR3
+300MHz
+Bus Width=32 Col=10 Bank=8 Row=15 CS=2 Die Bus-Width=16 Size=2048MB
+Memory OK
+OUT
+BUILD==2.18 2
+No.1 FLASH ID:2c 64 44 4b a9 0
+No.2 FLASH ID:4 ff ff ff ff ff
+No.3 FLASH ID:14 ff ff ff ff ff
+OK! 260822
+unsigned!
+SecureBootEn = 0 0
+Boot ver: 2014-10-29#2.19
+RECOVERY key is pressed
+UsbBoot 268684
+UsbHook ...922250
+powerOn 922275
+ 1078056 UsbConnected
+ 2083300 UsbConnected
+ 2170961 UsbConnected
+ 2492100 UsbConnected
+ 2579967 UsbConnected
+ 2883280 UsbConnected
+ 8503204 UsbConnected
+ 8562224 UsbConnected
+DDR Version 1.04 20140217
+In
+SRX
+DDR3
+300MHz
+Bus Width=32 Col=10 Bank=8 Row=15 CS=2 Die Bus-Width=16 Size=2048MB
+OUT
+BUILD==2.18 2
+No.1 FLASH ID:2c 64 44 4b a9 0
+No.2 FLASH ID:4 ff ff ff ff ff
+No.3 FLASH ID:14 ff ff ff ff ff
+OK! 254323
+unsigned!
+SecureBootEn = 0 0
+Boot ver: 2014-10-29#2.19
+start_linux=====262584
+ 1747008 Starting kernel...@0x60408000
+
+Booting Linux on physical CPU 0x0
+Linux version 5.15.196 (jibon@ubuntu22) (arm-linux-gnueabihf-gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0, GNU ld (GNU Binutils for Ubuntu) 2.38) #17 SMP Tue Dec 9 17:19:14 KST 2025
+CPU: ARMv7 Processor [413fc090] revision 0 (ARMv7), cr=10c5387d
+CPU: PIPT / VIPT nonaliasing data cache, VIPT aliasing instruction cache
+OF: fdt: Machine model: Radxa Rock
+Memory policy: Data cache writealloc
+Zone ranges:
+  Normal   [mem 0x0000000060000000-0x000000008fffffff]
+  HighMem  [mem 0x0000000090000000-0x00000000dfffffff]
+Movable zone start for each node
+Early memory node ranges
+  node   0: [mem 0x0000000060000000-0x00000000dfffffff]
+Initmem setup node 0 [mem 0x0000000060000000-0x00000000dfffffff]
+percpu: Embedded 11 pages/cpu s14092 r8192 d22772 u45056
+Built 1 zonelists, mobility grouping on.  Total pages: 522752
+Kernel command line: console=ttyS2,115200 console=tty0 earlyprintk root=/dev/ram0 rdinit=/init mtdparts=rk-nand:-(data)
+Unknown kernel command line parameters "mtdparts=rk-nand:-(data)", will be passed to user space.
+Dentry cache hash table entries: 131072 (order: 7, 524288 bytes, linear)
+Inode-cache hash table entries: 65536 (order: 6, 262144 bytes, linear)
+mem auto-init: stack:off, heap alloc:off, heap free:off
+Memory: 2067488K/2097152K available (6622K kernel code, 669K rwdata, 1888K rodata, 2048K init, 248K bss, 29664K reserved, 0K cma-reserved, 1310720K highmem)
+rcu: Hierarchical RCU implementation.
+rcu: RCU calculated value of scheduler-enlistment delay is 10 jiffies.
+NR_IRQS: 16, nr_irqs: 16, preallocated irqs: 16
+L2C-310 enabling early BRESP for Cortex-A9
+L2C-310: enabling full line of zeros but not enabled in Cortex-A9
+L2C-310 ID prefetch enabled, offset 15 lines
+L2C-310 dynamic clock gating enabled, standby mode enabled
+L2C-310 cache controller enabled, 16 ways, 512 kB
+L2C-310: CACHE_ID 0x4100c0c8, AUX_CTRL 0x76050001
+clocksource: rk_timer: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 79635851949 ns
+sched_clock: 32 bits at 24MHz, resolution 41ns, wraps every 89478484971ns
+Console: colour dummy device 80x30
+printk: console [tty0] enabled
+Calibrating delay loop... 1196.85 BogoMIPS (lpj=5984256)
+CPU: Testing write buffer coherency: ok
+CPU0: Spectre v2: using BPIALL workaround
+pid_max: default: 32768 minimum: 301
+Mount-cache hash table entries: 2048 (order: 1, 8192 bytes, linear)
+Mountpoint-cache hash table entries: 2048 (order: 1, 8192 bytes, linear)
+CPU0: thread -1, cpu 0, socket 0, mpidr 80000000
+rockchip_smp_prepare_cpus: ncores 4
+Setting up static identity map for 0x60100000 - 0x60100060
+rcu: Hierarchical SRCU implementation.
+smp: Bringing up secondary CPUs ...
+CPU1: thread -1, cpu 1, socket 0, mpidr 80000001
+CPU1: Spectre v2: using BPIALL workaround
+CPU2: thread -1, cpu 2, socket 0, mpidr 80000002
+CPU2: Spectre v2: using BPIALL workaround
+CPU3: thread -1, cpu 3, socket 0, mpidr 80000003
+CPU3: Spectre v2: using BPIALL workaround
+smp: Brought up 1 node, 4 CPUs
+SMP: Total of 4 processors activated (4787.40 BogoMIPS).
+CPU: All CPU(s) started in SVC mode.
+devtmpfs: initialized
+VFP support v0.3: implementor 41 architecture 3 part 30 variant 9 rev 4
+clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19112604462750000 ns
+futex hash table entries: 1024 (order: 4, 65536 bytes, linear)
+pinctrl core: initialized pinctrl subsystem
+NET: Registered PF_NETLINK/PF_ROUTE protocol family
+DMA: preallocated 256 KiB pool for atomic coherent allocations
+thermal_sys: Registered thermal governor 'step_wise'
+cpuidle: using governor ladder
+Failed to find PMU node
+No ATAGs?
+hw-breakpoint: found 5 (+1 reserved) breakpoint and 1 watchpoint registers.
+hw-breakpoint: maximum watchpoint size is 4 bytes.
+rockchip-gpio 2000a000.gpio0: probed /pinctrl/gpio0@2000a000
+rockchip-gpio 2003c000.gpio1: probed /pinctrl/gpio1@2003c000
+rockchip-gpio 2003e000.gpio2: probed /pinctrl/gpio2@2003e000
+rockchip-gpio 20080000.gpio3: probed /pinctrl/gpio3@20080000
+SCSI subsystem initialized
+usbcore: registered new interface driver usbfs
+usbcore: registered new interface driver hub
+usbcore: registered new device driver usb
+mc: Linux media interface: v0.10
+videodev: Linux video capture interface: v2.00
+pps_core: LinuxPPS API ver. 1 registered
+pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+PTP clock support registered
+Bluetooth: Core ver 2.22
+NET: Registered PF_BLUETOOTH protocol family
+Bluetooth: HCI device and connection manager initialized
+Bluetooth: HCI socket layer initialized
+Bluetooth: L2CAP socket layer initialized
+Bluetooth: SCO socket layer initialized
+clocksource: Switched to clocksource rk_timer
+NET: Registered PF_INET protocol family
+IP idents hash table entries: 16384 (order: 5, 131072 bytes, linear)
+tcp_listen_portaddr_hash hash table entries: 512 (order: 0, 4096 bytes, linear)
+Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+TCP established hash table entries: 8192 (order: 3, 32768 bytes, linear)
+TCP bind hash table entries: 8192 (order: 4, 65536 bytes, linear)
+TCP: Hash tables configured (established 8192 bind 8192)
+UDP hash table entries: 512 (order: 2, 16384 bytes, linear)
+UDP-Lite hash table entries: 512 (order: 2, 16384 bytes, linear)
+NET: Registered PF_UNIX/PF_LOCAL protocol family
+RPC: Registered named UNIX socket transport module.
+RPC: Registered udp transport module.
+RPC: Registered tcp transport module.
+RPC: Registered tcp NFSv4.1 backchannel transport module.
+Initialise system trusted keyrings
+workingset: timestamp_bits=30 max_order=19 bucket_order=0
+NFS: Registering the id_resolver key type
+Key type id_resolver registered
+Key type id_legacy registered
+fuse: init (API version 7.34)
+Key type asymmetric registered
+Asymmetric key parser 'x509' registered
+bounce: pool size: 64 pages
+Block layer SCSI generic (bsg) driver version 0.4 loaded (major 247)
+io scheduler mq-deadline registered
+io scheduler kyber registered
+dma-pl330 20018000.dma-controller: Loaded driver for PL330 DMAC-241330
+dma-pl330 20018000.dma-controller:      DBUFF-32x8bytes Num_Chans-6 Num_Peri-12 Num_Events-12
+dma-pl330 20078000.dma-controller: Loaded driver for PL330 DMAC-241330
+dma-pl330 20078000.dma-controller:      DBUFF-64x8bytes Num_Chans-7 Num_Peri-20 Num_Events-14
+Serial: 8250/16550 driver, 4 ports, IRQ sharing disabled
+10124000.serial: ttyS0 at MMIO 0x10124000 (irq = 32, base_baud = 1500000) is a 16550A
+10126000.serial: ttyS1 at MMIO 0x10126000 (irq = 33, base_baud = 1500000) is a 16550A
+20064000.serial: ttyS2 at MMIO 0x20064000 (irq = 43, base_baud = 1500000) is a 16550A
+printk: console [ttyS2] enabled
+20068000.serial: ttyS3 at MMIO 0x20068000 (irq = 44, base_baud = 1500000) is a 16550A
+brd: module loaded
+nand: device found, Manufacturer ID: 0x2c, Chip ID: 0x64
+nand: Micron MT29F64G08CBABAWP
+nand: 8192 MiB, MLC, erase size: 2048 KiB, page size: 8192, OOB size: 744
+nand: NAND_ECC_ENGINE_TYPE_NONE selected by board driver. This is not recommended!
+nand: WARNING: rk-nand: the ECC used on your system (0b/8192B) is too weak compared to the one required by the NAND chip (40b/1024B)
+Bad block table not found for chip 0
+Bad block table not found for chip 0
+Scanning device for bad blocks
+
+Bad eraseblock 4094 at 0x0001ffc00000
+Bad eraseblock 4095 at 0x0001ffe00000
+No space left to write bad block table
+nand_bbt: error while writing bad block table -28
+rockchip-nfc 10500000.nand-controller: failed to init NAND chips
+rockchip-nfc: probe of 10500000.nand-controller failed with error -28
+hso: drivers/net/usb/hso.c: Option Wireless
+usbcore: registered new interface driver hso
+usbcore: registered new interface driver asix
+usbcore: registered new interface driver ax88179_178a
+usbcore: registered new interface driver cdc_ether
+usbcore: registered new interface driver dm9601
+usbcore: registered new interface driver smsc95xx
+usbcore: registered new interface driver net1080
+usbcore: registered new interface driver cdc_subset
+usbcore: registered new interface driver zaurus
+usbcore: registered new interface driver cdc_ncm
+usbcore: registered new interface driver r8153_ecm
+usbcore: registered new interface driver cdc_acm
+cdc_acm: USB Abstract Control Model driver for USB modems and ISDN adapters
+i2c_dev: i2c /dev entries driver
+rtc-hym8563 1-0051: no valid clock/calendar values available
+rtc-hym8563 1-0051: registered as rtc0
+rtc-hym8563 1-0051: no valid clock/calendar values available
+rtc-hym8563 1-0051: hctosys: unable to read the hardware clock
+VCC_DDR: supplied by vsys
+VDD_LOG: supplied by vsys
+VDD_ARM: supplied by vsys
+VCC_IO: Bringing 3000000uV into 3300000-3300000uV
+VCC_IO: supplied by vsys
+VDD_10: supplied by VCC_IO
+VDD_HDMI: Bringing 1200000uV into 2500000-2500000uV
+VDD_HDMI: supplied by VCC_IO
+VCC_18: supplied by VCC_IO
+VCCA_33: supplied by vsys
+VCC_RMII: supplied by vsys
+VCCIO_WL: supplied by vsys
+VCC18_IO: supplied by vsys
+VCC_28: supplied by vsys
+usbcore: registered new interface driver uvcvideo
+gspca_main: v2.14.0 registered
+usbcore: registered new interface driver em28xx
+em28xx: Registered (Em28xx v4l2 Extension) extension
+softdog: initialized. soft_noboot=0 soft_margin=60 sec soft_panic=0 (nowayout=0)
+softdog:              soft_reboot_cmd=<not set> soft_active_on_boot=0
+Bluetooth: HCI UART driver ver 2.3
+Bluetooth: HCI UART protocol H4 registered
+usbcore: registered new interface driver btusb
+Synopsys Designware Multimedia Card Interface Driver
+hid: raw HID events driver (C) Jiri Kosina
+usbcore: registered new interface driver usbhid
+usbhid: USB HID core driver
+NET: Registered PF_INET6 protocol family
+Segment Routing with IPv6
+In-situ OAM (IOAM) with IPv6
+sit: IPv6, IPv4 and MPLS over IPv4 tunneling driver
+NET: Registered PF_PACKET protocol family
+Bluetooth: RFCOMM TTY layer initialized
+Bluetooth: RFCOMM socket layer initialized
+Bluetooth: RFCOMM ver 1.11
+Bluetooth: BNEP (Ethernet Emulation) ver 1.3
+Bluetooth: BNEP filters: protocol multicast
+Bluetooth: BNEP socket layer initialized
+Bluetooth: HIDP (Human Interface Emulation) ver 1.2
+Bluetooth: HIDP socket layer initialized
+Key type dns_resolver registered
+Registering SWP/SWPB emulation handler
+Loading compiled-in X.509 certificates
+sdmmc-supply: supplied by VCC_IO
+rockchip_emac 10204000.ethernet: ARC EMAC detected with id: 0x7fd02
+rockchip_emac 10204000.ethernet: IRQ is 36
+rockchip_emac 10204000.ethernet: MAC address is now 1e:7a:e7:94:d4:34
+rockchip_emac 10204000.ethernet: connected to SMSC LAN8710/LAN8720 phy with id 0x7c0f1
+input: gpio-keys as /devices/platform/gpio-keys/input/input0
+cfg80211: Loading compiled-in X.509 certificates for regulatory database
+dwmmc_rockchip 10214000.mmc: Using external DMA controller.
+dwmmc_rockchip 10214000.mmc: Version ID is 240a
+cfg80211: Loaded X.509 cert 'sforshee: 00b28ddf47aef9cea7'
+dwmmc_rockchip 10214000.mmc: DW MMC controller at irq 37,32 bit host data width,256 deep fifo
+cfg80211: Loaded X.509 cert 'wens: 61c038651aabdcf94bd0ac7ff06c7248db18c600'
+clk: Disabling unused clocks
+platform regulatory.0: Direct firmware load for regulatory.db failed with error -2
+cfg80211: failed to load regulatory.db
+mmc_host mmc0: Bus speed (slot 0) = 31821429Hz (slot req 400000Hz, actual 397767HZ div = 40)
+Freeing unused kernel image (initmem) memory: 2048K
+Run /init as init process
+/bin/sh: can't access tty; job control turned off
+radxa# ls bin
+[             du            insmod        nslookup      tee
+[[            echo          ip            passwd        telnet
+ash           egrep         kill          ping          test
+awk           env           killall       ping6         top
+basename      expr          less          poweroff      touch
+bunzip2       false         ln            printf        tr
+busybox       fdisk         login         ps            true
+bzcat         fgrep         ls            pwd           uname
+cat           find          lsmod         readlink      uniq
+chgrp         flash_erase   lspci         reboot        unzip
+chmod         free          mkdir         rm            uptime
+chown         grep          mknod         rmdir         vi
+clear         gunzip        mktemp        sed           watch
+cp            gzip          more          sh            wc
+cpio          halt          mount         sleep         wget
+cut           head          mtdinfo       sort          which
+date          hostname      mv            stat          whoami
+dd            id            nanddump      su            xargs
+df            ifconfig      nandwrite     sync          yes
+dirname       init          nc            tail          zcat
+dmesg         init_nand.sh  netstat       tar
+radxa# cat proc/mtd
+dev:    size   erasesize  name
+radxa# DDR Version 1.04 20140217
+In
+DDR3
+300MHz
+Bus Width=32 Col=10 Bank=8 Row=15 CS=2 Die Bus-Width=16 Size=2048MB
+Memory OK
+OUT
+BUILD==2.18 2
+No.1 FLASH ID:2c 64 44 4b a9 0
+No.2 FLASH ID:4 ff ff ff ff ff
+No.3 FLASH ID:14 ff ff ff ff ff
+OK! 254781
+unsigned!
+SecureBootEn = 0 0
+Boot ver: 2014-10-29#2.19
+RECOVERY key is pressed
+UsbBoot 262639
+UsbHook ...916205
+powerOn 916230
+ 1071606 UsbConnected
+ 2071943 UsbConnected
+ 2159481 UsbConnected
+ 2494954 UsbConnected
+ 2582749 UsbConnected
+ 2892775 UsbConnected
+ 5287642 UsbConnected
+ 5350119 UsbConnected
+DDR Version 1.04 20140217
+In
+SRX
+DDR3
+300MHz
+Bus Width=32 Col=10 Bank=8 Row=15 CS=2 Die Bus-Width=16 Size=2048MB
+OUT
+BUILD==2.18 2
+No.1 FLASH ID:2c 64 44 4b a9 0
+No.2 FLASH ID:4 ff ff ff ff ff
+No.3 FLASH ID:14 ff ff ff ff ff
+OK! 271957
+unsigned!
+SecureBootEn = 0 0
+Boot ver: 2014-10-29#2.19
+start_linux=====280234
+ 1764324 Starting kernel...@0x60408000
+
+Booting Linux on physical CPU 0x0
+Linux version 5.15.196 (jibon@ubuntu22) (arm-linux-gnueabihf-gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0, GNU ld (GNU Binutils for Ubuntu) 2.38) #18 SMP Tue Dec 9 18:00:27 KST 2025
+CPU: ARMv7 Processor [413fc090] revision 0 (ARMv7), cr=10c5387d
+CPU: PIPT / VIPT nonaliasing data cache, VIPT aliasing instruction cache
+OF: fdt: Machine model: Radxa Rock
+Memory policy: Data cache writealloc
+Zone ranges:
+  Normal   [mem 0x0000000060000000-0x000000008fffffff]
+  HighMem  [mem 0x0000000090000000-0x00000000dfffffff]
+Movable zone start for each node
+Early memory node ranges
+  node   0: [mem 0x0000000060000000-0x00000000dfffffff]
+Initmem setup node 0 [mem 0x0000000060000000-0x00000000dfffffff]
+percpu: Embedded 11 pages/cpu s14092 r8192 d22772 u45056
+Built 1 zonelists, mobility grouping on.  Total pages: 522752
+Kernel command line: console=ttyS2,115200 console=tty0 earlyprintk root=/dev/ram0 rdinit=/init mtdparts=rk-nand:-(data)
+Unknown kernel command line parameters "mtdparts=rk-nand:-(data)", will be passed to user space.
+Dentry cache hash table entries: 131072 (order: 7, 524288 bytes, linear)
+Inode-cache hash table entries: 65536 (order: 6, 262144 bytes, linear)
+mem auto-init: stack:off, heap alloc:off, heap free:off
+Memory: 2067488K/2097152K available (6622K kernel code, 669K rwdata, 1888K rodata, 2048K init, 248K bss, 29664K reserved, 0K cma-reserved, 1310720K highmem)
+rcu: Hierarchical RCU implementation.
+rcu: RCU calculated value of scheduler-enlistment delay is 10 jiffies.
+NR_IRQS: 16, nr_irqs: 16, preallocated irqs: 16
+L2C-310 enabling early BRESP for Cortex-A9
+L2C-310: enabling full line of zeros but not enabled in Cortex-A9
+L2C-310 ID prefetch enabled, offset 15 lines
+L2C-310 dynamic clock gating enabled, standby mode enabled
+L2C-310 cache controller enabled, 16 ways, 512 kB
+L2C-310: CACHE_ID 0x4100c0c8, AUX_CTRL 0x76050001
+clocksource: rk_timer: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 79635851949 ns
+sched_clock: 32 bits at 24MHz, resolution 41ns, wraps every 89478484971ns
+Console: colour dummy device 80x30
+printk: console [tty0] enabled
+Calibrating delay loop... 1196.85 BogoMIPS (lpj=5984256)
+CPU: Testing write buffer coherency: ok
+CPU0: Spectre v2: using BPIALL workaround
+pid_max: default: 32768 minimum: 301
+Mount-cache hash table entries: 2048 (order: 1, 8192 bytes, linear)
+Mountpoint-cache hash table entries: 2048 (order: 1, 8192 bytes, linear)
+CPU0: thread -1, cpu 0, socket 0, mpidr 80000000
+rockchip_smp_prepare_cpus: ncores 4
+Setting up static identity map for 0x60100000 - 0x60100060
+rcu: Hierarchical SRCU implementation.
+smp: Bringing up secondary CPUs ...
+CPU1: thread -1, cpu 1, socket 0, mpidr 80000001
+CPU1: Spectre v2: using BPIALL workaround
+CPU2: thread -1, cpu 2, socket 0, mpidr 80000002
+CPU2: Spectre v2: using BPIALL workaround
+CPU3: thread -1, cpu 3, socket 0, mpidr 80000003
+CPU3: Spectre v2: using BPIALL workaround
+smp: Brought up 1 node, 4 CPUs
+SMP: Total of 4 processors activated (4787.40 BogoMIPS).
+CPU: All CPU(s) started in SVC mode.
+devtmpfs: initialized
+VFP support v0.3: implementor 41 architecture 3 part 30 variant 9 rev 4
+clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19112604462750000 ns
+futex hash table entries: 1024 (order: 4, 65536 bytes, linear)
+pinctrl core: initialized pinctrl subsystem
+NET: Registered PF_NETLINK/PF_ROUTE protocol family
+DMA: preallocated 256 KiB pool for atomic coherent allocations
+thermal_sys: Registered thermal governor 'step_wise'
+cpuidle: using governor ladder
+Failed to find PMU node
+No ATAGs?
+hw-breakpoint: found 5 (+1 reserved) breakpoint and 1 watchpoint registers.
+hw-breakpoint: maximum watchpoint size is 4 bytes.
+rockchip-gpio 2000a000.gpio0: probed /pinctrl/gpio0@2000a000
+rockchip-gpio 2003c000.gpio1: probed /pinctrl/gpio1@2003c000
+rockchip-gpio 2003e000.gpio2: probed /pinctrl/gpio2@2003e000
+rockchip-gpio 20080000.gpio3: probed /pinctrl/gpio3@20080000
+SCSI subsystem initialized
+usbcore: registered new interface driver usbfs
+usbcore: registered new interface driver hub
+usbcore: registered new device driver usb
+mc: Linux media interface: v0.10
+videodev: Linux video capture interface: v2.00
+pps_core: LinuxPPS API ver. 1 registered
+pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+PTP clock support registered
+Bluetooth: Core ver 2.22
+NET: Registered PF_BLUETOOTH protocol family
+Bluetooth: HCI device and connection manager initialized
+Bluetooth: HCI socket layer initialized
+Bluetooth: L2CAP socket layer initialized
+Bluetooth: SCO socket layer initialized
+clocksource: Switched to clocksource rk_timer
+NET: Registered PF_INET protocol family
+IP idents hash table entries: 16384 (order: 5, 131072 bytes, linear)
+tcp_listen_portaddr_hash hash table entries: 512 (order: 0, 4096 bytes, linear)
+Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+TCP established hash table entries: 8192 (order: 3, 32768 bytes, linear)
+TCP bind hash table entries: 8192 (order: 4, 65536 bytes, linear)
+TCP: Hash tables configured (established 8192 bind 8192)
+UDP hash table entries: 512 (order: 2, 16384 bytes, linear)
+UDP-Lite hash table entries: 512 (order: 2, 16384 bytes, linear)
+NET: Registered PF_UNIX/PF_LOCAL protocol family
+RPC: Registered named UNIX socket transport module.
+RPC: Registered udp transport module.
+RPC: Registered tcp transport module.
+RPC: Registered tcp NFSv4.1 backchannel transport module.
+Initialise system trusted keyrings
+workingset: timestamp_bits=30 max_order=19 bucket_order=0
+NFS: Registering the id_resolver key type
+Key type id_resolver registered
+Key type id_legacy registered
+fuse: init (API version 7.34)
+Key type asymmetric registered
+Asymmetric key parser 'x509' registered
+bounce: pool size: 64 pages
+Block layer SCSI generic (bsg) driver version 0.4 loaded (major 247)
+io scheduler mq-deadline registered
+io scheduler kyber registered
+dma-pl330 20018000.dma-controller: Loaded driver for PL330 DMAC-241330
+dma-pl330 20018000.dma-controller:      DBUFF-32x8bytes Num_Chans-6 Num_Peri-12 Num_Events-12
+dma-pl330 20078000.dma-controller: Loaded driver for PL330 DMAC-241330
+dma-pl330 20078000.dma-controller:      DBUFF-64x8bytes Num_Chans-7 Num_Peri-20 Num_Events-14
+Serial: 8250/16550 driver, 4 ports, IRQ sharing disabled
+10124000.serial: ttyS0 at MMIO 0x10124000 (irq = 32, base_baud = 1500000) is a 16550A
+10126000.serial: ttyS1 at MMIO 0x10126000 (irq = 33, base_baud = 1500000) is a 16550A
+20064000.serial: ttyS2 at MMIO 0x20064000 (irq = 43, base_baud = 1500000) is a 16550A
+printk: console [ttyS2] enabled
+20068000.serial: ttyS3 at MMIO 0x20068000 (irq = 44, base_baud = 1500000) is a 16550A
+brd: module loaded
+nand: device found, Manufacturer ID: 0x2c, Chip ID: 0x64
+nand: Micron MT29F64G08CBABAWP
+nand: 8192 MiB, MLC, erase size: 2048 KiB, page size: 8192, OOB size: 744
+nand: NAND_ECC_ENGINE_TYPE_NONE selected by board driver. This is not recommended!
+nand: WARNING: rk-nand: the ECC used on your system (0b/8192B) is too weak compared to the one required by the NAND chip (40b/1024B)
+3 fixed-partitions partitions found on MTD device rk-nand
+Creating 3 MTD partitions on "rk-nand":
+0x000004000000-0x000008000000 : "uboot"
+0x000008000000-0x000018000000 : "boot"
+0x000018000000-0x000100000000 : "linuxroot"
+hso: drivers/net/usb/hso.c: Option Wireless
+usbcore: registered new interface driver hso
+usbcore: registered new interface driver asix
+usbcore: registered new interface driver ax88179_178a
+usbcore: registered new interface driver cdc_ether
+usbcore: registered new interface driver dm9601
+usbcore: registered new interface driver smsc95xx
+usbcore: registered new interface driver net1080
+usbcore: registered new interface driver cdc_subset
+usbcore: registered new interface driver zaurus
+usbcore: registered new interface driver cdc_ncm
+usbcore: registered new interface driver r8153_ecm
+usbcore: registered new interface driver cdc_acm
+cdc_acm: USB Abstract Control Model driver for USB modems and ISDN adapters
+i2c_dev: i2c /dev entries driver
+rtc-hym8563 1-0051: no valid clock/calendar values available
+rtc-hym8563 1-0051: registered as rtc0
+rtc-hym8563 1-0051: no valid clock/calendar values available
+rtc-hym8563 1-0051: hctosys: unable to read the hardware clock
+VCC_DDR: supplied by vsys
+VDD_LOG: supplied by vsys
+VDD_ARM: supplied by vsys
+VCC_IO: Bringing 3000000uV into 3300000-3300000uV
+VCC_IO: supplied by vsys
+VDD_10: supplied by VCC_IO
+VDD_HDMI: Bringing 1200000uV into 2500000-2500000uV
+VDD_HDMI: supplied by VCC_IO
+VCC_18: supplied by VCC_IO
+VCCA_33: supplied by vsys
+VCC_RMII: supplied by vsys
+VCCIO_WL: supplied by vsys
+VCC18_IO: supplied by vsys
+VCC_28: supplied by vsys
+usbcore: registered new interface driver uvcvideo
+gspca_main: v2.14.0 registered
+usbcore: registered new interface driver em28xx
+em28xx: Registered (Em28xx v4l2 Extension) extension
+softdog: initialized. soft_noboot=0 soft_margin=60 sec soft_panic=0 (nowayout=0)
+softdog:              soft_reboot_cmd=<not set> soft_active_on_boot=0
+Bluetooth: HCI UART driver ver 2.3
+Bluetooth: HCI UART protocol H4 registered
+usbcore: registered new interface driver btusb
+Synopsys Designware Multimedia Card Interface Driver
+hid: raw HID events driver (C) Jiri Kosina
+usbcore: registered new interface driver usbhid
+usbhid: USB HID core driver
+NET: Registered PF_INET6 protocol family
+Segment Routing with IPv6
+In-situ OAM (IOAM) with IPv6
+sit: IPv6, IPv4 and MPLS over IPv4 tunneling driver
+NET: Registered PF_PACKET protocol family
+Bluetooth: RFCOMM TTY layer initialized
+Bluetooth: RFCOMM socket layer initialized
+Bluetooth: RFCOMM ver 1.11
+Bluetooth: BNEP (Ethernet Emulation) ver 1.3
+Bluetooth: BNEP filters: protocol multicast
+Bluetooth: BNEP socket layer initialized
+Bluetooth: HIDP (Human Interface Emulation) ver 1.2
+Bluetooth: HIDP socket layer initialized
+Key type dns_resolver registered
+Registering SWP/SWPB emulation handler
+Loading compiled-in X.509 certificates
+sdmmc-supply: supplied by VCC_IO
+rockchip_emac 10204000.ethernet: ARC EMAC detected with id: 0x7fd02
+rockchip_emac 10204000.ethernet: IRQ is 36
+rockchip_emac 10204000.ethernet: MAC address is now f6:1c:5c:7d:69:d7
+rockchip_emac 10204000.ethernet: connected to SMSC LAN8710/LAN8720 phy with id 0x7c0f1
+input: gpio-keys as /devices/platform/gpio-keys/input/input0
+cfg80211: Loading compiled-in X.509 certificates for regulatory database
+dwmmc_rockchip 10214000.mmc: Using external DMA controller.
+dwmmc_rockchip 10214000.mmc: Version ID is 240a
+cfg80211: Loaded X.509 cert 'sforshee: 00b28ddf47aef9cea7'
+dwmmc_rockchip 10214000.mmc: DW MMC controller at irq 37,32 bit host data width,256 deep fifo
+cfg80211: Loaded X.509 cert 'wens: 61c038651aabdcf94bd0ac7ff06c7248db18c600'
+clk: Disabling unused clocks
+platform regulatory.0: Direct firmware load for regulatory.db failed with error -2
+cfg80211: failed to load regulatory.db
+mmc_host mmc0: Bus speed (slot 0) = 31821429Hz (slot req 400000Hz, actual 397767HZ div = 40)
+Freeing unused kernel image (initmem) memory: 2048K
+Run /init as init process
+/bin/sh: can't access tty; job control turned off
+radxa# cat proc/mtd
+dev:    size   erasesize  name
+mtd0: 04000000 00200000 "uboot"
+mtd1: 10000000 00200000 "boot"
+mtd2: e8000000 00200000 "linuxroot"
+radxa# lsblk
+/bin/sh: lsblk: not found
+radxa# DDR Version 1.04 20140217
+In
+DDR3
+300MHz
+Bus Width=32 Col=10 Bank=8 Row=15 CS=2 Die Bus-Width=16 Size=2048MB
+Memory OK
+OUT
+BUILD==2.18 2
+No.1 FLASH ID:2c 64 44 4b a9 0
+No.2 FLASH ID:4 ff ff ff ff ff
+No.3 FLASH ID:14 ff ff ff ff ff
+OK! 272289
+unsigned!
+SecureBootEn = 0 0
+Boot ver: 2014-10-29#2.19
+start_linux=====280581
+ 1773247 Starting kernel...@0x60408000
+
+Booting Linux on physical CPU 0x0
+Linux version 5.15.196 (jibon@ubuntu22) (arm-linux-gnueabihf-gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0, GNU ld (GNU Binutils for Ubuntu) 2.38) #18 SMP Tue Dec 9 18:00:27 KST 2025
+CPU: ARMv7 Processor [413fc090] revision 0 (ARMv7), cr=10c5387d
+CPU: PIPT / VIPT nonaliasing data cache, VIPT aliasing instruction cache
+OF: fdt: Machine model: Radxa Rock
+Memory policy: Data cache writealloc
+Zone ranges:
+  Normal   [mem 0x0000000060000000-0x000000008fffffff]
+  HighMem  [mem 0x0000000090000000-0x00000000dfffffff]
+Movable zone start for each node
+Early memory node ranges
+  node   0: [mem 0x0000000060000000-0x00000000dfffffff]
+Initmem setup node 0 [mem 0x0000000060000000-0x00000000dfffffff]
+percpu: Embedded 11 pages/cpu s14092 r8192 d22772 u45056
+Built 1 zonelists, mobility grouping on.  Total pages: 522752
+Kernel command line: console=ttyS2,115200 console=tty0 earlyprintk root=/dev/ram0 rdinit=/init mtdparts=rk-nand:-(data)
+Unknown kernel command line parameters "mtdparts=rk-nand:-(data)", will be passed to user space.
+Dentry cache hash table entries: 131072 (order: 7, 524288 bytes, linear)
+Inode-cache hash table entries: 65536 (order: 6, 262144 bytes, linear)
+mem auto-init: stack:off, heap alloc:off, heap free:off
+Memory: 2067488K/2097152K available (6622K kernel code, 669K rwdata, 1888K rodata, 2048K init, 248K bss, 29664K reserved, 0K cma-reserved, 1310720K highmem)
+rcu: Hierarchical RCU implementation.
+rcu: RCU calculated value of scheduler-enlistment delay is 10 jiffies.
+NR_IRQS: 16, nr_irqs: 16, preallocated irqs: 16
+L2C-310 enabling early BRESP for Cortex-A9
+L2C-310: enabling full line of zeros but not enabled in Cortex-A9
+L2C-310 ID prefetch enabled, offset 15 lines
+L2C-310 dynamic clock gating enabled, standby mode enabled
+L2C-310 cache controller enabled, 16 ways, 512 kB
+L2C-310: CACHE_ID 0x4100c0c8, AUX_CTRL 0x76050001
+clocksource: rk_timer: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 79635851949 ns
+sched_clock: 32 bits at 24MHz, resolution 41ns, wraps every 89478484971ns
+Console: colour dummy device 80x30
+printk: console [tty0] enabled
+Calibrating delay loop... 1196.85 BogoMIPS (lpj=5984256)
+CPU: Testing write buffer coherency: ok
+CPU0: Spectre v2: using BPIALL workaround
+pid_max: default: 32768 minimum: 301
+Mount-cache hash table entries: 2048 (order: 1, 8192 bytes, linear)
+Mountpoint-cache hash table entries: 2048 (order: 1, 8192 bytes, linear)
+CPU0: thread -1, cpu 0, socket 0, mpidr 80000000
+rockchip_smp_prepare_cpus: ncores 4
+Setting up static identity map for 0x60100000 - 0x60100060
+rcu: Hierarchical SRCU implementation.
+smp: Bringing up secondary CPUs ...
+CPU1: thread -1, cpu 1, socket 0, mpidr 80000001
+CPU1: Spectre v2: using BPIALL workaround
+CPU2: thread -1, cpu 2, socket 0, mpidr 80000002
+CPU2: Spectre v2: using BPIALL workaround
+CPU3: thread -1, cpu 3, socket 0, mpidr 80000003
+CPU3: Spectre v2: using BPIALL workaround
+smp: Brought up 1 node, 4 CPUs
+SMP: Total of 4 processors activated (4787.40 BogoMIPS).
+CPU: All CPU(s) started in SVC mode.
+devtmpfs: initialized
+VFP support v0.3: implementor 41 architecture 3 part 30 variant 9 rev 4
+clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19112604462750000 ns
+futex hash table entries: 1024 (order: 4, 65536 bytes, linear)
+pinctrl core: initialized pinctrl subsystem
+NET: Registered PF_NETLINK/PF_ROUTE protocol family
+DMA: preallocated 256 KiB pool for atomic coherent allocations
+thermal_sys: Registered thermal governor 'step_wise'
+cpuidle: using governor ladder
+Failed to find PMU node
+No ATAGs?
+hw-breakpoint: found 5 (+1 reserved) breakpoint and 1 watchpoint registers.
+hw-breakpoint: maximum watchpoint size is 4 bytes.
+rockchip-gpio 2000a000.gpio0: probed /pinctrl/gpio0@2000a000
+rockchip-gpio 2003c000.gpio1: probed /pinctrl/gpio1@2003c000
+rockchip-gpio 2003e000.gpio2: probed /pinctrl/gpio2@2003e000
+rockchip-gpio 20080000.gpio3: probed /pinctrl/gpio3@20080000
+SCSI subsystem initialized
+usbcore: registered new interface driver usbfs
+usbcore: registered new interface driver hub
+usbcore: registered new device driver usb
+mc: Linux media interface: v0.10
+videodev: Linux video capture interface: v2.00
+pps_core: LinuxPPS API ver. 1 registered
+pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+PTP clock support registered
+Bluetooth: Core ver 2.22
+NET: Registered PF_BLUETOOTH protocol family
+Bluetooth: HCI device and connection manager initialized
+Bluetooth: HCI socket layer initialized
+Bluetooth: L2CAP socket layer initialized
+Bluetooth: SCO socket layer initialized
+clocksource: Switched to clocksource rk_timer
+NET: Registered PF_INET protocol family
+IP idents hash table entries: 16384 (order: 5, 131072 bytes, linear)
+tcp_listen_portaddr_hash hash table entries: 512 (order: 0, 4096 bytes, linear)
+Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+TCP established hash table entries: 8192 (order: 3, 32768 bytes, linear)
+TCP bind hash table entries: 8192 (order: 4, 65536 bytes, linear)
+TCP: Hash tables configured (established 8192 bind 8192)
+UDP hash table entries: 512 (order: 2, 16384 bytes, linear)
+UDP-Lite hash table entries: 512 (order: 2, 16384 bytes, linear)
+NET: Registered PF_UNIX/PF_LOCAL protocol family
+RPC: Registered named UNIX socket transport module.
+RPC: Registered udp transport module.
+RPC: Registered tcp transport module.
+RPC: Registered tcp NFSv4.1 backchannel transport module.
+Initialise system trusted keyrings
+workingset: timestamp_bits=30 max_order=19 bucket_order=0
+NFS: Registering the id_resolver key type
+Key type id_resolver registered
+Key type id_legacy registered
+fuse: init (API version 7.34)
+Key type asymmetric registered
+Asymmetric key parser 'x509' registered
+bounce: pool size: 64 pages
+Block layer SCSI generic (bsg) driver version 0.4 loaded (major 247)
+io scheduler mq-deadline registered
+io scheduler kyber registered
+dma-pl330 20018000.dma-controller: Loaded driver for PL330 DMAC-241330
+dma-pl330 20018000.dma-controller:      DBUFF-32x8bytes Num_Chans-6 Num_Peri-12 Num_Events-12
+dma-pl330 20078000.dma-controller: Loaded driver for PL330 DMAC-241330
+dma-pl330 20078000.dma-controller:      DBUFF-64x8bytes Num_Chans-7 Num_Peri-20 Num_Events-14
+Serial: 8250/16550 driver, 4 ports, IRQ sharing disabled
+10124000.serial: ttyS0 at MMIO 0x10124000 (irq = 32, base_baud = 1500000) is a 16550A
+10126000.serial: ttyS1 at MMIO 0x10126000 (irq = 33, base_baud = 1500000) is a 16550A
+20064000.serial: ttyS2 at MMIO 0x20064000 (irq = 43, base_baud = 1500000) is a 16550A
+printk: console [ttyS2] enabled
+20068000.serial: ttyS3 at MMIO 0x20068000 (irq = 44, base_baud = 1500000) is a 16550A
+brd: module loaded
+nand: device found, Manufacturer ID: 0x2c, Chip ID: 0x64
+nand: Micron MT29F64G08CBABAWP
+nand: 8192 MiB, MLC, erase size: 2048 KiB, page size: 8192, OOB size: 744
+nand: NAND_ECC_ENGINE_TYPE_NONE selected by board driver. This is not recommended!
+nand: WARNING: rk-nand: the ECC used on your system (0b/8192B) is too weak compared to the one required by the NAND chip (40b/1024B)
+3 fixed-partitions partitions found on MTD device rk-nand
+Creating 3 MTD partitions on "rk-nand":
+0x000004000000-0x000008000000 : "uboot"
+0x000008000000-0x000018000000 : "boot"
+0x000018000000-0x000100000000 : "linuxroot"
+hso: drivers/net/usb/hso.c: Option Wireless
+usbcore: registered new interface driver hso
+usbcore: registered new interface driver asix
+usbcore: registered new interface driver ax88179_178a
+usbcore: registered new interface driver cdc_ether
+usbcore: registered new interface driver dm9601
+usbcore: registered new interface driver smsc95xx
+usbcore: registered new interface driver net1080
+usbcore: registered new interface driver cdc_subset
+usbcore: registered new interface driver zaurus
+usbcore: registered new interface driver cdc_ncm
+usbcore: registered new interface driver r8153_ecm
+usbcore: registered new interface driver cdc_acm
+cdc_acm: USB Abstract Control Model driver for USB modems and ISDN adapters
+i2c_dev: i2c /dev entries driver
+rtc-hym8563 1-0051: no valid clock/calendar values available
+rtc-hym8563 1-0051: registered as rtc0
+rtc-hym8563 1-0051: no valid clock/calendar values available
+rtc-hym8563 1-0051: hctosys: unable to read the hardware clock
+VCC_DDR: supplied by vsys
+VDD_LOG: supplied by vsys
+VDD_ARM: supplied by vsys
+VCC_IO: Bringing 3000000uV into 3300000-3300000uV
+VCC_IO: supplied by vsys
+VDD_10: supplied by VCC_IO
+VDD_HDMI: Bringing 1200000uV into 2500000-2500000uV
+VDD_HDMI: supplied by VCC_IO
+VCC_18: supplied by VCC_IO
+VCCA_33: supplied by vsys
+VCC_RMII: supplied by vsys
+VCCIO_WL: supplied by vsys
+VCC18_IO: supplied by vsys
+VCC_28: supplied by vsys
+usbcore: registered new interface driver uvcvideo
+gspca_main: v2.14.0 registered
+usbcore: registered new interface driver em28xx
+em28xx: Registered (Em28xx v4l2 Extension) extension
+softdog: initialized. soft_noboot=0 soft_margin=60 sec soft_panic=0 (nowayout=0)
+softdog:              soft_reboot_cmd=<not set> soft_active_on_boot=0
+Bluetooth: HCI UART driver ver 2.3
+Bluetooth: HCI UART protocol H4 registered
+usbcore: registered new interface driver btusb
+Synopsys Designware Multimedia Card Interface Driver
+hid: raw HID events driver (C) Jiri Kosina
+usbcore: registered new interface driver usbhid
+usbhid: USB HID core driver
+NET: Registered PF_INET6 protocol family
+Segment Routing with IPv6
+In-situ OAM (IOAM) with IPv6
+sit: IPv6, IPv4 and MPLS over IPv4 tunneling driver
+NET: Registered PF_PACKET protocol family
+Bluetooth: RFCOMM TTY layer initialized
+Bluetooth: RFCOMM socket layer initialized
+Bluetooth: RFCOMM ver 1.11
+Bluetooth: BNEP (Ethernet Emulation) ver 1.3
+Bluetooth: BNEP filters: protocol multicast
+Bluetooth: BNEP socket layer initialized
+Bluetooth: HIDP (Human Interface Emulation) ver 1.2
+Bluetooth: HIDP socket layer initialized
+Key type dns_resolver registered
+Registering SWP/SWPB emulation handler
+Loading compiled-in X.509 certificates
+sdmmc-supply: supplied by VCC_IO
+rockchip_emac 10204000.ethernet: ARC EMAC detected with id: 0x7fd02
+rockchip_emac 10204000.ethernet: IRQ is 36
+rockchip_emac 10204000.ethernet: MAC address is now 1a:57:fa:4a:38:0f
+rockchip_emac 10204000.ethernet: connected to SMSC LAN8710/LAN8720 phy with id 0x7c0f1
+input: gpio-keys as /devices/platform/gpio-keys/input/input0
+cfg80211: Loading compiled-in X.509 certificates for regulatory database
+dwmmc_rockchip 10214000.mmc: Using external DMA controller.
+dwmmc_rockchip 10214000.mmc: Version ID is 240a
+cfg80211: Loaded X.509 cert 'sforshee: 00b28ddf47aef9cea7'
+dwmmc_rockchip 10214000.mmc: DW MMC controller at irq 37,32 bit host data width,256 deep fifo
+cfg80211: Loaded X.509 cert 'wens: 61c038651aabdcf94bd0ac7ff06c7248db18c600'
+clk: Disabling unused clocks
+platform regulatory.0: Direct firmware load for regulatory.db failed with error -2
+cfg80211: failed to load regulatory.db
+mmc_host mmc0: Bus speed (slot 0) = 31821429Hz (slot req 400000Hz, actual 397767HZ div = 40)
+Freeing unused kernel image (initmem) memory: 2048K
+Run /init as init process
+/bin/sh: can't access tty; job control turned off
+radxa# cat proc/mtd
+dev:    size   erasesize  name
+mtd0: 04000000 00200000 "uboot"
+mtd1: 10000000 00200000 "boot"
+mtd2: e8000000 00200000 "linuxroot"
+radxa# ls
+bin   dev   etc   init  mnt   proc  sbin  sys   tmp   usr   var
+radxa# ls bin/
+[             du            insmod        nslookup      tee
+[[            echo          ip            passwd        telnet
+ash           egrep         kill          ping          test
+awk           env           killall       ping6         top
+basename      expr          less          poweroff      touch
+bunzip2       false         ln            printf        tr
+busybox       fdisk         login         ps            true
+bzcat         fgrep         ls            pwd           uname
+cat           find          lsmod         readlink      uniq
+chgrp         flash_erase   lspci         reboot        unzip
+chmod         free          mkdir         rm            uptime
+chown         grep          mknod         rmdir         vi
+clear         gunzip        mktemp        sed           watch
+cp            gzip          more          sh            wc
+cpio          halt          mount         sleep         wget
+cut           head          mtdinfo       sort          which
+date          hostname      mv            stat          whoami
+dd            id            nanddump      su            xargs
+df            ifconfig      nandwrite     sync          yes
+dirname       init          nc            tail          zcat
+dmesg         init_nand.sh  netstat       tar
+radxa# mtdinfo
+/bin/sh: mtdinfo: not found
+radxa# bin/mtdinfo
+/bin/sh: bin/mtdinfo: not found
+radxa# cd bin
+radxa# pwd
+/bin
+radxa# ./mtdinfo
+/bin/sh: ./mtdinfo: not found
+radxa# /bin/mtdinfo /dev/mtd0
+/bin/sh: /bin/mtdinfo: not found
+radxa# ls dev/ | grep mtd
+ls: dev/: No such file or directory
+radxa# ls /dev/ | grep mtd
+mtd0
+mtd0ro
+mtd1
+mtd1ro
+mtd2
+mtd2ro
+mtdblock0
+mtdblock1
+mtdblock2
+radxa# cat /proc/mtd
+dev:    size   erasesize  name
+mtd0: 04000000 00200000 "uboot"
+mtd1: 10000000 00200000 "boot"
+mtd2: e8000000 00200000 "linuxroot"
+radxa# ls /bin/ | grep mtd
+mtdinfo
+radxa# /bin/mtdinfo
+/bin/sh: /bin/mtdinfo: not found
+radxa# DDR Version 1.04 20140217
+In
+DDR3
+300MHz
+Bus Width=32 Col=10 Bank=8 Row=15 CS=2 Die Bus-Width=16 Size=2048MB
+Memory OK
+OUT
+BUILD==2.18 2
+No.1 FLASH ID:2c 64 44 4b a9 0
+No.2 FLASH ID:14 ff ff ff ff ff
+No.3 FLASH ID:14 ff ff ff ff ff
+OK! 272639
+unsigned!
+SecureBootEn = 0 0
+Boot ver: 2014-10-29#2.19
+RECOVERY key is pressed
+UsbBoot 280485
+UsbHook ...934051
+powerOn 934076
+ 1089634 UsbConnected
+ 2237553 UsbConnected
+ 2325058 UsbConnected
+ 2660539 UsbConnected
+ 2748474 UsbConnected
+ 3074107 UsbConnected
+ 9949424 UsbConnected
+ 10047190 UsbConnected
+DDR Version 1.04 20140217
+In
+SRX
+DDR3
+300MHz
+Bus Width=32 Col=10 Bank=8 Row=15 CS=2 Die Bus-Width=16 Size=2048MB
+OUT
+BUILD==2.18 2
+No.1 FLASH ID:2c 64 44 4b a9 0
+No.2 FLASH ID:4 ff ff ff ff ff
+No.3 FLASH ID:14 ff ff ff ff ff
+OK! 273998
+unsigned!
+SecureBootEn = 0 0
+Boot ver: 2014-10-29#2.19
+start_linux=====282276
+ 1942325 Starting kernel...@0x60408000
+
+Booting Linux on physical CPU 0x0
+Linux version 5.15.196 (jibon@ubuntu22) (arm-linux-gnueabihf-gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0, GNU ld (GNU Binutils for Ubuntu) 2.38) #19 SMP Wed Dec 10 15:55:42 KST 2025
+CPU: ARMv7 Processor [413fc090] revision 0 (ARMv7), cr=10c5387d
+CPU: PIPT / VIPT nonaliasing data cache, VIPT aliasing instruction cache
+OF: fdt: Machine model: Radxa Rock
+Memory policy: Data cache writealloc
+Zone ranges:
+  Normal   [mem 0x0000000060000000-0x000000008fffffff]
+  HighMem  [mem 0x0000000090000000-0x00000000dfffffff]
+Movable zone start for each node
+Early memory node ranges
+  node   0: [mem 0x0000000060000000-0x00000000dfffffff]
+Initmem setup node 0 [mem 0x0000000060000000-0x00000000dfffffff]
+percpu: Embedded 11 pages/cpu s14092 r8192 d22772 u45056
+Built 1 zonelists, mobility grouping on.  Total pages: 522752
+Kernel command line: console=ttyS2,115200 console=tty0 earlyprintk root=/dev/ram0 rdinit=/init mtdparts=rk-nand:-(data)
+Unknown kernel command line parameters "mtdparts=rk-nand:-(data)", will be passed to user space.
+Dentry cache hash table entries: 131072 (order: 7, 524288 bytes, linear)
+Inode-cache hash table entries: 65536 (order: 6, 262144 bytes, linear)
+mem auto-init: stack:off, heap alloc:off, heap free:off
+Memory: 2066464K/2097152K available (6622K kernel code, 669K rwdata, 1888K rodata, 3072K init, 248K bss, 30688K reserved, 0K cma-reserved, 1310720K highmem)
+rcu: Hierarchical RCU implementation.
+rcu: RCU calculated value of scheduler-enlistment delay is 10 jiffies.
+NR_IRQS: 16, nr_irqs: 16, preallocated irqs: 16
+L2C-310 enabling early BRESP for Cortex-A9
+L2C-310: enabling full line of zeros but not enabled in Cortex-A9
+L2C-310 ID prefetch enabled, offset 15 lines
+L2C-310 dynamic clock gating enabled, standby mode enabled
+L2C-310 cache controller enabled, 16 ways, 512 kB
+L2C-310: CACHE_ID 0x4100c0c8, AUX_CTRL 0x76050001
+clocksource: rk_timer: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 79635851949 ns
+sched_clock: 32 bits at 24MHz, resolution 41ns, wraps every 89478484971ns
+Console: colour dummy device 80x30
+printk: console [tty0] enabled
+Calibrating delay loop... 1196.85 BogoMIPS (lpj=5984256)
+CPU: Testing write buffer coherency: ok
+CPU0: Spectre v2: using BPIALL workaround
+pid_max: default: 32768 minimum: 301
+Mount-cache hash table entries: 2048 (order: 1, 8192 bytes, linear)
+Mountpoint-cache hash table entries: 2048 (order: 1, 8192 bytes, linear)
+CPU0: thread -1, cpu 0, socket 0, mpidr 80000000
+rockchip_smp_prepare_cpus: ncores 4
+Setting up static identity map for 0x60100000 - 0x60100060
+rcu: Hierarchical SRCU implementation.
+smp: Bringing up secondary CPUs ...
+CPU1: thread -1, cpu 1, socket 0, mpidr 80000001
+CPU1: Spectre v2: using BPIALL workaround
+CPU2: thread -1, cpu 2, socket 0, mpidr 80000002
+CPU2: Spectre v2: using BPIALL workaround
+CPU3: thread -1, cpu 3, socket 0, mpidr 80000003
+CPU3: Spectre v2: using BPIALL workaround
+smp: Brought up 1 node, 4 CPUs
+SMP: Total of 4 processors activated (4787.40 BogoMIPS).
+CPU: All CPU(s) started in SVC mode.
+devtmpfs: initialized
+VFP support v0.3: implementor 41 architecture 3 part 30 variant 9 rev 4
+clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19112604462750000 ns
+futex hash table entries: 1024 (order: 4, 65536 bytes, linear)
+pinctrl core: initialized pinctrl subsystem
+NET: Registered PF_NETLINK/PF_ROUTE protocol family
+DMA: preallocated 256 KiB pool for atomic coherent allocations
+thermal_sys: Registered thermal governor 'step_wise'
+cpuidle: using governor ladder
+Failed to find PMU node
+No ATAGs?
+hw-breakpoint: found 5 (+1 reserved) breakpoint and 1 watchpoint registers.
+hw-breakpoint: maximum watchpoint size is 4 bytes.
+rockchip-gpio 2000a000.gpio0: probed /pinctrl/gpio0@2000a000
+rockchip-gpio 2003c000.gpio1: probed /pinctrl/gpio1@2003c000
+rockchip-gpio 2003e000.gpio2: probed /pinctrl/gpio2@2003e000
+rockchip-gpio 20080000.gpio3: probed /pinctrl/gpio3@20080000
+SCSI subsystem initialized
+usbcore: registered new interface driver usbfs
+usbcore: registered new interface driver hub
+usbcore: registered new device driver usb
+mc: Linux media interface: v0.10
+videodev: Linux video capture interface: v2.00
+pps_core: LinuxPPS API ver. 1 registered
+pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+PTP clock support registered
+Bluetooth: Core ver 2.22
+NET: Registered PF_BLUETOOTH protocol family
+Bluetooth: HCI device and connection manager initialized
+Bluetooth: HCI socket layer initialized
+Bluetooth: L2CAP socket layer initialized
+Bluetooth: SCO socket layer initialized
+clocksource: Switched to clocksource rk_timer
+NET: Registered PF_INET protocol family
+IP idents hash table entries: 16384 (order: 5, 131072 bytes, linear)
+tcp_listen_portaddr_hash hash table entries: 512 (order: 0, 4096 bytes, linear)
+Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+TCP established hash table entries: 8192 (order: 3, 32768 bytes, linear)
+TCP bind hash table entries: 8192 (order: 4, 65536 bytes, linear)
+TCP: Hash tables configured (established 8192 bind 8192)
+UDP hash table entries: 512 (order: 2, 16384 bytes, linear)
+UDP-Lite hash table entries: 512 (order: 2, 16384 bytes, linear)
+NET: Registered PF_UNIX/PF_LOCAL protocol family
+RPC: Registered named UNIX socket transport module.
+RPC: Registered udp transport module.
+RPC: Registered tcp transport module.
+RPC: Registered tcp NFSv4.1 backchannel transport module.
+Initialise system trusted keyrings
+workingset: timestamp_bits=30 max_order=19 bucket_order=0
+NFS: Registering the id_resolver key type
+Key type id_resolver registered
+Key type id_legacy registered
+fuse: init (API version 7.34)
+Key type asymmetric registered
+Asymmetric key parser 'x509' registered
+bounce: pool size: 64 pages
+Block layer SCSI generic (bsg) driver version 0.4 loaded (major 247)
+io scheduler mq-deadline registered
+io scheduler kyber registered
+dma-pl330 20018000.dma-controller: Loaded driver for PL330 DMAC-241330
+dma-pl330 20018000.dma-controller:      DBUFF-32x8bytes Num_Chans-6 Num_Peri-12 Num_Events-12
+dma-pl330 20078000.dma-controller: Loaded driver for PL330 DMAC-241330
+dma-pl330 20078000.dma-controller:      DBUFF-64x8bytes Num_Chans-7 Num_Peri-20 Num_Events-14
+Serial: 8250/16550 driver, 4 ports, IRQ sharing disabled
+10124000.serial: ttyS0 at MMIO 0x10124000 (irq = 32, base_baud = 1500000) is a 16550A
+10126000.serial: ttyS1 at MMIO 0x10126000 (irq = 33, base_baud = 1500000) is a 16550A
+20064000.serial: ttyS2 at MMIO 0x20064000 (irq = 43, base_baud = 1500000) is a 16550A
+printk: console [ttyS2] enabled
+20068000.serial: ttyS3 at MMIO 0x20068000 (irq = 44, base_baud = 1500000) is a 16550A
+brd: module loaded
+nand: device found, Manufacturer ID: 0x2c, Chip ID: 0x64
+nand: Micron MT29F64G08CBABAWP
+nand: 8192 MiB, MLC, erase size: 2048 KiB, page size: 8192, OOB size: 744
+nand: NAND_ECC_ENGINE_TYPE_NONE selected by board driver. This is not recommended!
+nand: WARNING: rk-nand: the ECC used on your system (0b/8192B) is too weak compared to the one required by the NAND chip (40b/1024B)
+3 fixed-partitions partitions found on MTD device rk-nand
+Creating 3 MTD partitions on "rk-nand":
+0x000004000000-0x000008000000 : "uboot"
+0x000008000000-0x000018000000 : "boot"
+0x000018000000-0x000100000000 : "linuxroot"
+hso: drivers/net/usb/hso.c: Option Wireless
+usbcore: registered new interface driver hso
+usbcore: registered new interface driver asix
+usbcore: registered new interface driver ax88179_178a
+usbcore: registered new interface driver cdc_ether
+usbcore: registered new interface driver dm9601
+usbcore: registered new interface driver smsc95xx
+usbcore: registered new interface driver net1080
+usbcore: registered new interface driver cdc_subset
+usbcore: registered new interface driver zaurus
+usbcore: registered new interface driver cdc_ncm
+usbcore: registered new interface driver r8153_ecm
+usbcore: registered new interface driver cdc_acm
+cdc_acm: USB Abstract Control Model driver for USB modems and ISDN adapters
+i2c_dev: i2c /dev entries driver
+rtc-hym8563 1-0051: no valid clock/calendar values available
+rtc-hym8563 1-0051: registered as rtc0
+rtc-hym8563 1-0051: no valid clock/calendar values available
+rtc-hym8563 1-0051: hctosys: unable to read the hardware clock
+VCC_DDR: supplied by vsys
+VDD_LOG: supplied by vsys
+VDD_ARM: supplied by vsys
+VCC_IO: Bringing 3000000uV into 3300000-3300000uV
+VCC_IO: supplied by vsys
+VDD_10: supplied by VCC_IO
+VDD_HDMI: Bringing 1200000uV into 2500000-2500000uV
+VDD_HDMI: supplied by VCC_IO
+VCC_18: supplied by VCC_IO
+VCCA_33: supplied by vsys
+VCC_RMII: supplied by vsys
+VCCIO_WL: supplied by vsys
+VCC18_IO: supplied by vsys
+VCC_28: supplied by vsys
+usbcore: registered new interface driver uvcvideo
+gspca_main: v2.14.0 registered
+usbcore: registered new interface driver em28xx
+em28xx: Registered (Em28xx v4l2 Extension) extension
+softdog: initialized. soft_noboot=0 soft_margin=60 sec soft_panic=0 (nowayout=0)
+softdog:              soft_reboot_cmd=<not set> soft_active_on_boot=0
+Bluetooth: HCI UART driver ver 2.3
+Bluetooth: HCI UART protocol H4 registered
+usbcore: registered new interface driver btusb
+Synopsys Designware Multimedia Card Interface Driver
+hid: raw HID events driver (C) Jiri Kosina
+usbcore: registered new interface driver usbhid
+usbhid: USB HID core driver
+NET: Registered PF_INET6 protocol family
+Segment Routing with IPv6
+In-situ OAM (IOAM) with IPv6
+sit: IPv6, IPv4 and MPLS over IPv4 tunneling driver
+NET: Registered PF_PACKET protocol family
+Bluetooth: RFCOMM TTY layer initialized
+Bluetooth: RFCOMM socket layer initialized
+Bluetooth: RFCOMM ver 1.11
+Bluetooth: BNEP (Ethernet Emulation) ver 1.3
+Bluetooth: BNEP filters: protocol multicast
+Bluetooth: BNEP socket layer initialized
+Bluetooth: HIDP (Human Interface Emulation) ver 1.2
+Bluetooth: HIDP socket layer initialized
+Key type dns_resolver registered
+Registering SWP/SWPB emulation handler
+Loading compiled-in X.509 certificates
+sdmmc-supply: supplied by VCC_IO
+rockchip_emac 10204000.ethernet: ARC EMAC detected with id: 0x7fd02
+rockchip_emac 10204000.ethernet: IRQ is 36
+rockchip_emac 10204000.ethernet: MAC address is now f2:66:3a:f0:6a:10
+rockchip_emac 10204000.ethernet: connected to SMSC LAN8710/LAN8720 phy with id 0x7c0f1
+input: gpio-keys as /devices/platform/gpio-keys/input/input0
+cfg80211: Loading compiled-in X.509 certificates for regulatory database
+dwmmc_rockchip 10214000.mmc: Using external DMA controller.
+dwmmc_rockchip 10214000.mmc: Version ID is 240a
+cfg80211: Loaded X.509 cert 'sforshee: 00b28ddf47aef9cea7'
+dwmmc_rockchip 10214000.mmc: DW MMC controller at irq 37,32 bit host data width,256 deep fifo
+cfg80211: Loaded X.509 cert 'wens: 61c038651aabdcf94bd0ac7ff06c7248db18c600'
+clk: Disabling unused clocks
+platform regulatory.0: Direct firmware load for regulatory.db failed with error -2
+cfg80211: failed to load regulatory.db
+mmc_host mmc0: Bus speed (slot 0) = 31821429Hz (slot req 400000Hz, actual 397767HZ div = 40)
+Freeing unused kernel image (initmem) memory: 3072K
+Run /init as init process
+/bin/sh: can't access tty; job control turned off
+radxa# mtdinfo
+Count of MTD devices:           3
+Present MTD devices:            mtd0, mtd1, mtd2
+Sysfs interface supported:      yes
+radxa# ls
+bin   dev   etc   init  lib   mnt   proc  sbin  sys   tmp   usr   var
+radxa# ls lib
+ld-linux-armhf.so.3  libc.so.6
+radxa# ls dev | grep mtd
+mtd0
+mtd0ro
+mtd1
+mtd1ro
+mtd2
+mtd2ro
+mtdblock0
+mtdblock1
+mtdblock2
+radxa# mtdinfo mtd0
+libmtd: error!: cannot get information about "mtd0"
+        error 2 (No such file or directory)
+mtdinfo: error!: cannot get information about MTD device "mtd0"
+         error 2 (No such file or directory)
+radxa# mtdinfo mtdblock0
+libmtd: error!: cannot get information about "mtdblock0"
+        error 2 (No such file or directory)
+mtdinfo: error!: cannot get information about MTD device "mtdblock0"
+         error 2 (No such file or directory)
+radxa# mtdinfo /dev/mtdblock0
+libmtd: error!: "/dev/mtdblock0" is not a character device
+mtdinfo: error!: cannot get information about MTD device "/dev/mtdblock0"
+         error 22 (Invalid argument)
+radxa# mtdinfo /dev/mtd0
+mtd0
+Name:                           uboot
+Type:                           mlc-nand
+Eraseblock size:                2097152 bytes, 2.0 MiB
+Amount of eraseblocks:          32 (67108864 bytes, 64.0 MiB)
+Minimum input/output unit size: 8192 bytes
+Sub-page size:                  8192 bytes
+OOB size:                       744 bytes
+Character device major/minor:   90:0
+Bad blocks are allowed:         true
+Device is writable:             true
+
+radxa# mtdinfo /dev/mtd1
+mtd1
+Name:                           boot
+Type:                           mlc-nand
+Eraseblock size:                2097152 bytes, 2.0 MiB
+Amount of eraseblocks:          128 (268435456 bytes, 256.0 MiB)
+Minimum input/output unit size: 8192 bytes
+Sub-page size:                  8192 bytes
+OOB size:                       744 bytes
+Character device major/minor:   90:2
+Bad blocks are allowed:         true
+Device is writable:             true
+
+radxa# mtdinfo /dev/mtd2
+mtd2
+Name:                           linuxroot
+Type:                           mlc-nand
+Eraseblock size:                2097152 bytes, 2.0 MiB
+Amount of eraseblocks:          1856 (3892314112 bytes, 3.6 GiB)
+Minimum input/output unit size: 8192 bytes
+Sub-page size:                  8192 bytes
+OOB size:                       744 bytes
+Character device major/minor:   90:4
+Bad blocks are allowed:         true
+Device is writable:             true
+
+radxa# ls dev | grep mtd
+mtd0
+mtd0ro
+mtd1
+mtd1ro
+mtd2
+mtd2ro
+mtdblock0
+mtdblock1
+mtdblock2
+radxa# mtdinfo /dev/mtd0ro
+mtdinfo: error!: "/dev/mtd0ro" does not correspond to any existing MTD device
+radxa# ls dev | grep mtd
+mtd0
+mtd0ro
+mtd1
+mtd1ro
+mtd2
+mtd2ro
+mtdblock0
+mtdblock1
+mtdblock2
+radxa# mtdinfo /dev/mtd2
+mtd2
+Name:                           linuxroot
+Type:                           mlc-nand
+Eraseblock size:                2097152 bytes, 2.0 MiB
+Amount of eraseblocks:          1856 (3892314112 bytes, 3.6 GiB)
+Minimum input/output unit size: 8192 bytes
+Sub-page size:                  8192 bytes
+OOB size:                       744 bytes
+Character device major/minor:   90:4
+Bad blocks are allowed:         true
+Device is writable:             true
+
+radxa# mkdir -p /mnt/nand
+radxa# mount -t jffs2 /dev/mtdblock2 /mnt/nand
+mount: mounting /dev/mtdblock2 on /mnt/nand failed: No such device
+radxa# pwd
+/
+radxa# ls /de
+ls: /de: No such file or directory
+radxa# ls /dev/
+autofs           rtc0             tty31            tty56
+console          tty              tty32            tty57
+cpu_dma_latency  tty0             tty33            tty58
+full             tty1             tty34            tty59
+fuse             tty10            tty35            tty6
+gpiochip0        tty11            tty36            tty60
+gpiochip1        tty12            tty37            tty61
+gpiochip2        tty13            tty38            tty62
+gpiochip3        tty14            tty39            tty63
+i2c-1            tty15            tty4             tty7
+input            tty16            tty40            tty8
+kmsg             tty17            tty41            tty9
+mem              tty18            tty42            ttyS0
+mtd0             tty19            tty43            ttyS1
+mtd0ro           tty2             tty44            ttyS2
+mtd1             tty20            tty45            ttyS3
+mtd1ro           tty21            tty46            uhid
+mtd2             tty22            tty47            urandom
+mtd2ro           tty23            tty48            vcs
+mtdblock0        tty24            tty49            vcs1
+mtdblock1        tty25            tty5             vcsa
+mtdblock2        tty26            tty50            vcsa1
+null             tty27            tty51            vcsu
+ptmx             tty28            tty52            vcsu1
+ram0             tty29            tty53            watchdog
+random           tty3             tty54            watchdog0
+rfkill           tty30            tty55            zero
+radxa# ls mnt
+nand
+radxa# mount -t jffs2 /dev/mtdblock2 /mnt/nand
+mount: mounting /dev/mtdblock2 on /mnt/nand failed: No such device
+radxa# mount -t jffs2 /dev/mtd2 /mnt/nand
+mount: mounting /dev/mtd2 on /mnt/nand failed: No such device
+radxa# mount -t ext2 /dev/mtdblock2 /mnt/nand
+mtdblock: MTD device 'linuxroot' is NAND, please consider using UBI block devices instead.
+mount: mounting /dev/mtdblock2 on /mnt/nand failed: Invalid argument
+radxa# mount --version
+none on / type rootfs (rw)
+none on /proc type proc (rw,relatime)
+none on /sys type sysfs (rw,relatime)
+devtmpfs on /dev type devtmpfs (rw,relatime,size=1033232k,nr_inodes=188936,mode=755)
+radxa# ls dev | grep mtd
+mtd0
+mtd0ro
+mtd1
+mtd1ro
+mtd2
+mtd2ro
+mtdblock0
+mtdblock1
+mtdblock2
+radxa# mount -t jffs2 /dev/mtdblock2 /mnt/nand
+mount: mounting /dev/mtdblock2 on /mnt/nand failed: No such device
+radxa# DDR Version 1.04 20140217
+In
+DDR3
+300MHz
+Bus Width=32 Col=10 Bank=8 Row=15 CS=2 Die Bus-Width=16 Size=2048MB
+Memory OK
+OUT
+BUILD==2.18 2
+No.1 FLASH ID:2c 64 44 4b a9 0
+No.2 FLASH ID:4 ff ff ff ff ff
+No.3 FLASH ID:14 ff ff ff ff ff
+OK! 274463
+unsigned!
+SecureBootEn = 0 0
+Boot ver: 2014-10-29#2.19
+RECOVERY key is pressed
+UsbBoot 282321
+UsbHook ...935888
+powerOn 935913
+ 1091766 UsbConnected
+ 2124045 UsbConnected
+ 2211841 UsbConnected
+ 2539393 UsbConnected
+ 2626971 UsbConnected
+ 2928747 UsbConnected
+ 8045704 UsbConnected
+ 8108569 UsbConnected
+DDR Version 1.04 20140217
+In
+SRX
+DDR3
+300MHz
+Bus Width=32 Col=10 Bank=8 Row=15 CS=2 Die Bus-Width=16 Size=2048MB
+OUT
+BUILD==2.18 2
+No.1 FLASH ID:2c 64 44 4b a9 0
+No.2 FLASH ID:4 ff ff ff ff ff
+No.3 FLASH ID:14 ff ff ff ff ff
+OK! 275720
+unsigned!
+SecureBootEn = 0 0
+Boot ver: 2014-10-29#2.19
+start_linux=====284017
+ 1991238 Starting kernel...@0x60408000
+
+Booting Linux on physical CPU 0x0
+Linux version 5.15.196 (jibon@ubuntu22) (arm-linux-gnueabihf-gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0, GNU ld (GNU Binutils for Ubuntu) 2.38) #20 SMP Wed Dec 10 17:49:06 KST 2025
+CPU: ARMv7 Processor [413fc090] revision 0 (ARMv7), cr=10c5387d
+CPU: PIPT / VIPT nonaliasing data cache, VIPT aliasing instruction cache
+OF: fdt: Machine model: Radxa Rock
+Memory policy: Data cache writealloc
+Zone ranges:
+  Normal   [mem 0x0000000060000000-0x000000008fffffff]
+  HighMem  [mem 0x0000000090000000-0x00000000dfffffff]
+Movable zone start for each node
+Early memory node ranges
+  node   0: [mem 0x0000000060000000-0x00000000dfffffff]
+Initmem setup node 0 [mem 0x0000000060000000-0x00000000dfffffff]
+percpu: Embedded 11 pages/cpu s14092 r8192 d22772 u45056
+Built 1 zonelists, mobility grouping on.  Total pages: 522752
+Kernel command line: console=ttyS2,115200 console=tty0 earlyprintk root=/dev/ram0 rdinit=/init mtdparts=rk-nand:-(data)
+Unknown kernel command line parameters "mtdparts=rk-nand:-(data)", will be passed to user space.
+Dentry cache hash table entries: 131072 (order: 7, 524288 bytes, linear)
+Inode-cache hash table entries: 65536 (order: 6, 262144 bytes, linear)
+mem auto-init: stack:off, heap alloc:off, heap free:off
+Memory: 2066464K/2097152K available (6719K kernel code, 670K rwdata, 1912K rodata, 3072K init, 249K bss, 30688K reserved, 0K cma-reserved, 1310720K highmem)
+rcu: Hierarchical RCU implementation.
+rcu: RCU calculated value of scheduler-enlistment delay is 10 jiffies.
+NR_IRQS: 16, nr_irqs: 16, preallocated irqs: 16
+L2C-310 enabling early BRESP for Cortex-A9
+L2C-310: enabling full line of zeros but not enabled in Cortex-A9
+L2C-310 ID prefetch enabled, offset 15 lines
+L2C-310 dynamic clock gating enabled, standby mode enabled
+L2C-310 cache controller enabled, 16 ways, 512 kB
+L2C-310: CACHE_ID 0x4100c0c8, AUX_CTRL 0x76050001
+clocksource: rk_timer: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 79635851949 ns
+sched_clock: 32 bits at 24MHz, resolution 41ns, wraps every 89478484971ns
+Console: colour dummy device 80x30
+printk: console [tty0] enabled
+Calibrating delay loop... 1196.85 BogoMIPS (lpj=5984256)
+CPU: Testing write buffer coherency: ok
+CPU0: Spectre v2: using BPIALL workaround
+pid_max: default: 32768 minimum: 301
+Mount-cache hash table entries: 2048 (order: 1, 8192 bytes, linear)
+Mountpoint-cache hash table entries: 2048 (order: 1, 8192 bytes, linear)
+CPU0: thread -1, cpu 0, socket 0, mpidr 80000000
+rockchip_smp_prepare_cpus: ncores 4
+Setting up static identity map for 0x60100000 - 0x60100060
+rcu: Hierarchical SRCU implementation.
+smp: Bringing up secondary CPUs ...
+CPU1: thread -1, cpu 1, socket 0, mpidr 80000001
+CPU1: Spectre v2: using BPIALL workaround
+CPU2: thread -1, cpu 2, socket 0, mpidr 80000002
+CPU2: Spectre v2: using BPIALL workaround
+CPU3: thread -1, cpu 3, socket 0, mpidr 80000003
+CPU3: Spectre v2: using BPIALL workaround
+smp: Brought up 1 node, 4 CPUs
+SMP: Total of 4 processors activated (4787.40 BogoMIPS).
+CPU: All CPU(s) started in SVC mode.
+devtmpfs: initialized
+VFP support v0.3: implementor 41 architecture 3 part 30 variant 9 rev 4
+clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19112604462750000 ns
+futex hash table entries: 1024 (order: 4, 65536 bytes, linear)
+pinctrl core: initialized pinctrl subsystem
+NET: Registered PF_NETLINK/PF_ROUTE protocol family
+DMA: preallocated 256 KiB pool for atomic coherent allocations
+thermal_sys: Registered thermal governor 'step_wise'
+cpuidle: using governor ladder
+Failed to find PMU node
+No ATAGs?
+hw-breakpoint: found 5 (+1 reserved) breakpoint and 1 watchpoint registers.
+hw-breakpoint: maximum watchpoint size is 4 bytes.
+rockchip-gpio 2000a000.gpio0: probed /pinctrl/gpio0@2000a000
+rockchip-gpio 2003c000.gpio1: probed /pinctrl/gpio1@2003c000
+rockchip-gpio 2003e000.gpio2: probed /pinctrl/gpio2@2003e000
+rockchip-gpio 20080000.gpio3: probed /pinctrl/gpio3@20080000
+SCSI subsystem initialized
+usbcore: registered new interface driver usbfs
+usbcore: registered new interface driver hub
+usbcore: registered new device driver usb
+mc: Linux media interface: v0.10
+videodev: Linux video capture interface: v2.00
+pps_core: LinuxPPS API ver. 1 registered
+pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+PTP clock support registered
+Bluetooth: Core ver 2.22
+NET: Registered PF_BLUETOOTH protocol family
+Bluetooth: HCI device and connection manager initialized
+Bluetooth: HCI socket layer initialized
+Bluetooth: L2CAP socket layer initialized
+Bluetooth: SCO socket layer initialized
+clocksource: Switched to clocksource rk_timer
+NET: Registered PF_INET protocol family
+IP idents hash table entries: 16384 (order: 5, 131072 bytes, linear)
+tcp_listen_portaddr_hash hash table entries: 512 (order: 0, 4096 bytes, linear)
+Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+TCP established hash table entries: 8192 (order: 3, 32768 bytes, linear)
+TCP bind hash table entries: 8192 (order: 4, 65536 bytes, linear)
+TCP: Hash tables configured (established 8192 bind 8192)
+UDP hash table entries: 512 (order: 2, 16384 bytes, linear)
+UDP-Lite hash table entries: 512 (order: 2, 16384 bytes, linear)
+NET: Registered PF_UNIX/PF_LOCAL protocol family
+RPC: Registered named UNIX socket transport module.
+RPC: Registered udp transport module.
+RPC: Registered tcp transport module.
+RPC: Registered tcp NFSv4.1 backchannel transport module.
+Initialise system trusted keyrings
+workingset: timestamp_bits=30 max_order=19 bucket_order=0
+NFS: Registering the id_resolver key type
+Key type id_resolver registered
+Key type id_legacy registered
+jffs2: version 2.2. (NAND) (SUMMARY)  © 2001-2006 Red Hat, Inc.
+fuse: init (API version 7.34)
+Key type asymmetric registered
+Asymmetric key parser 'x509' registered
+bounce: pool size: 64 pages
+Block layer SCSI generic (bsg) driver version 0.4 loaded (major 247)
+io scheduler mq-deadline registered
+io scheduler kyber registered
+dma-pl330 20018000.dma-controller: Loaded driver for PL330 DMAC-241330
+dma-pl330 20018000.dma-controller:      DBUFF-32x8bytes Num_Chans-6 Num_Peri-12 Num_Events-12
+dma-pl330 20078000.dma-controller: Loaded driver for PL330 DMAC-241330
+dma-pl330 20078000.dma-controller:      DBUFF-64x8bytes Num_Chans-7 Num_Peri-20 Num_Events-14
+Serial: 8250/16550 driver, 4 ports, IRQ sharing disabled
+10124000.serial: ttyS0 at MMIO 0x10124000 (irq = 32, base_baud = 1500000) is a 16550A
+10126000.serial: ttyS1 at MMIO 0x10126000 (irq = 33, base_baud = 1500000) is a 16550A
+20064000.serial: ttyS2 at MMIO 0x20064000 (irq = 43, base_baud = 1500000) is a 16550A
+printk: console [ttyS2] enabled
+20068000.serial: ttyS3 at MMIO 0x20068000 (irq = 44, base_baud = 1500000) is a 16550A
+brd: module loaded
+nand: device found, Manufacturer ID: 0x2c, Chip ID: 0x64
+nand: Micron MT29F64G08CBABAWP
+nand: 8192 MiB, MLC, erase size: 2048 KiB, page size: 8192, OOB size: 744
+nand: NAND_ECC_ENGINE_TYPE_NONE selected by board driver. This is not recommended!
+nand: WARNING: rk-nand: the ECC used on your system (0b/8192B) is too weak compared to the one required by the NAND chip (40b/1024B)
+3 fixed-partitions partitions found on MTD device rk-nand
+Creating 3 MTD partitions on "rk-nand":
+0x000004000000-0x000008000000 : "uboot"
+0x000008000000-0x000018000000 : "boot"
+0x000018000000-0x000100000000 : "linuxroot"
+hso: drivers/net/usb/hso.c: Option Wireless
+usbcore: registered new interface driver hso
+usbcore: registered new interface driver asix
+usbcore: registered new interface driver ax88179_178a
+usbcore: registered new interface driver cdc_ether
+usbcore: registered new interface driver dm9601
+usbcore: registered new interface driver smsc95xx
+usbcore: registered new interface driver net1080
+usbcore: registered new interface driver cdc_subset
+usbcore: registered new interface driver zaurus
+usbcore: registered new interface driver cdc_ncm
+usbcore: registered new interface driver r8153_ecm
+usbcore: registered new interface driver cdc_acm
+cdc_acm: USB Abstract Control Model driver for USB modems and ISDN adapters
+i2c_dev: i2c /dev entries driver
+rtc-hym8563 1-0051: no valid clock/calendar values available
+rtc-hym8563 1-0051: registered as rtc0
+rtc-hym8563 1-0051: no valid clock/calendar values available
+rtc-hym8563 1-0051: hctosys: unable to read the hardware clock
+VCC_DDR: supplied by vsys
+VDD_LOG: supplied by vsys
+VDD_ARM: supplied by vsys
+VCC_IO: Bringing 3000000uV into 3300000-3300000uV
+VCC_IO: supplied by vsys
+VDD_10: supplied by VCC_IO
+VDD_HDMI: Bringing 1200000uV into 2500000-2500000uV
+VDD_HDMI: supplied by VCC_IO
+VCC_18: supplied by VCC_IO
+VCCA_33: supplied by vsys
+VCC_RMII: supplied by vsys
+VCCIO_WL: supplied by vsys
+VCC18_IO: supplied by vsys
+VCC_28: supplied by vsys
+usbcore: registered new interface driver uvcvideo
+gspca_main: v2.14.0 registered
+usbcore: registered new interface driver em28xx
+em28xx: Registered (Em28xx v4l2 Extension) extension
+softdog: initialized. soft_noboot=0 soft_margin=60 sec soft_panic=0 (nowayout=0)
+softdog:              soft_reboot_cmd=<not set> soft_active_on_boot=0
+Bluetooth: HCI UART driver ver 2.3
+Bluetooth: HCI UART protocol H4 registered
+usbcore: registered new interface driver btusb
+Synopsys Designware Multimedia Card Interface Driver
+hid: raw HID events driver (C) Jiri Kosina
+usbcore: registered new interface driver usbhid
+usbhid: USB HID core driver
+NET: Registered PF_INET6 protocol family
+Segment Routing with IPv6
+In-situ OAM (IOAM) with IPv6
+sit: IPv6, IPv4 and MPLS over IPv4 tunneling driver
+NET: Registered PF_PACKET protocol family
+Bluetooth: RFCOMM TTY layer initialized
+Bluetooth: RFCOMM socket layer initialized
+Bluetooth: RFCOMM ver 1.11
+Bluetooth: BNEP (Ethernet Emulation) ver 1.3
+Bluetooth: BNEP filters: protocol multicast
+Bluetooth: BNEP socket layer initialized
+Bluetooth: HIDP (Human Interface Emulation) ver 1.2
+Bluetooth: HIDP socket layer initialized
+Key type dns_resolver registered
+Registering SWP/SWPB emulation handler
+Loading compiled-in X.509 certificates
+sdmmc-supply: supplied by VCC_IO
+rockchip_emac 10204000.ethernet: ARC EMAC detected with id: 0x7fd02
+rockchip_emac 10204000.ethernet: IRQ is 36
+rockchip_emac 10204000.ethernet: MAC address is now 5e:10:88:55:cf:9c
+rockchip_emac 10204000.ethernet: connected to SMSC LAN8710/LAN8720 phy with id 0x7c0f1
+input: gpio-keys as /devices/platform/gpio-keys/input/input0
+cfg80211: Loading compiled-in X.509 certificates for regulatory database
+dwmmc_rockchip 10214000.mmc: Using external DMA controller.
+dwmmc_rockchip 10214000.mmc: Version ID is 240a
+cfg80211: Loaded X.509 cert 'sforshee: 00b28ddf47aef9cea7'
+dwmmc_rockchip 10214000.mmc: DW MMC controller at irq 37,32 bit host data width,256 deep fifo
+cfg80211: Loaded X.509 cert 'wens: 61c038651aabdcf94bd0ac7ff06c7248db18c600'
+clk: Disabling unused clocks
+platform regulatory.0: Direct firmware load for regulatory.db failed with error -2
+cfg80211: failed to load regulatory.db
+mmc_host mmc0: Bus speed (slot 0) = 31821429Hz (slot req 400000Hz, actual 397767HZ div = 40)
+Freeing unused kernel image (initmem) memory: 3072K
+Run /init as init process
+/bin/sh: can't access tty; job control turned off
+radxa# mkdir -p /mnt/nand
+radxa# mount -t jffs2 /dev/mtdblock2 /mnt/nand
+mount: mounting /dev/mtdblock2 on /mnt/nand failed: Invalid argument
+radxa# ls /dev/ | grep mtd
+mtd0
+mtd0ro
+mtd1
+mtd1ro
+mtd2
+mtd2ro
+mtdblock0
+mtdblock1
+mtdblock2
+radxa# mount -t ext2 /dev/mtdblock2 /mnt/nand
+mtdblock: MTD device 'linuxroot' is NAND, please consider using UBI block devices instead.
+mount: mounting /dev/mtdblock2 on /mnt/nand failed: Invalid argument
+radxa# DDR Version 1.04 20140217
+In
+DDR3
+300MHz
+Bus Width=32 Col=10 Bank=8 Row=15 CS=2 Die Bus-Width=16 Size=2048MB
+Memory OK
+OUT
+BUILD==2.18 2
+No.1 FLASH ID:2c 64 44 4b a9 0
+No.2 FLASH ID:4 ff ff ff ff ff
+No.3 FLASH ID:14 ff ff ff ff ff
+OK! 275742
+unsigned!
+SecureBootEn = 0 0
+Boot ver: 2014-10-29#2.19
+RECOVERY key is pressed
+UsbBoot 283599
+UsbHook ...937165
+powerOn 937190
+ 1092469 UsbConnected
+ 2180819 UsbConnected
+ 2268670 UsbConnected
+ 2588971 UsbConnected
+ 2676865 UsbConnected
+ 2978721 UsbConnected
+ 9140821 UsbConnected
+ 9200317 UsbConnected
+DDR Version 1.04 20140217
+In
+SRX
+DDR3
+300MHz
+Bus Width=32 Col=10 Bank=8 Row=15 CS=2 Die Bus-Width=16 Size=2048MB
+OUT
+BUILD==2.18 2
+No.1 FLASH ID:2c 64 44 4b a9 0
+No.2 FLASH ID:4 ff ff ff ff ff
+No.3 FLASH ID:14 ff ff ff ff ff
+OK! 284234
+unsigned!
+SecureBootEn = 0 0
+Boot ver: 2014-10-29#2.19
+start_linux=====292522
+ 2161146 Starting kernel...@0x60408000
+
+Booting Linux on physical CPU 0x0
+Linux version 5.15.196 (jibon@ubuntu22) (arm-linux-gnueabihf-gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0, GNU ld (GNU Binutils for Ubuntu) 2.38) #21 SMP Wed Dec 10 17:59:24 KST 2025
+CPU: ARMv7 Processor [413fc090] revision 0 (ARMv7), cr=10c5387d
+CPU: PIPT / VIPT nonaliasing data cache, VIPT aliasing instruction cache
+OF: fdt: Machine model: Radxa Rock
+Memory policy: Data cache writealloc
+Zone ranges:
+  Normal   [mem 0x0000000060000000-0x000000008fffffff]
+  HighMem  [mem 0x0000000090000000-0x00000000dfffffff]
+Movable zone start for each node
+Early memory node ranges
+  node   0: [mem 0x0000000060000000-0x00000000dfffffff]
+Initmem setup node 0 [mem 0x0000000060000000-0x00000000dfffffff]
+percpu: Embedded 11 pages/cpu s14092 r8192 d22772 u45056
+Built 1 zonelists, mobility grouping on.  Total pages: 522752
+Kernel command line: console=ttyS2,115200 console=tty0 earlyprintk root=/dev/ram0 rdinit=/init mtdparts=rk-nand:-(data)
+Unknown kernel command line parameters "mtdparts=rk-nand:-(data)", will be passed to user space.
+Dentry cache hash table entries: 131072 (order: 7, 524288 bytes, linear)
+Inode-cache hash table entries: 65536 (order: 6, 262144 bytes, linear)
+mem auto-init: stack:off, heap alloc:off, heap free:off
+Memory: 2065432K/2097152K available (7142K kernel code, 675K rwdata, 1984K rodata, 3072K init, 251K bss, 31720K reserved, 0K cma-reserved, 1310720K highmem)
+rcu: Hierarchical RCU implementation.
+rcu: RCU calculated value of scheduler-enlistment delay is 10 jiffies.
+NR_IRQS: 16, nr_irqs: 16, preallocated irqs: 16
+L2C-310 enabling early BRESP for Cortex-A9
+L2C-310: enabling full line of zeros but not enabled in Cortex-A9
+L2C-310 ID prefetch enabled, offset 15 lines
+L2C-310 dynamic clock gating enabled, standby mode enabled
+L2C-310 cache controller enabled, 16 ways, 512 kB
+L2C-310: CACHE_ID 0x4100c0c8, AUX_CTRL 0x76050001
+clocksource: rk_timer: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 79635851949 ns
+sched_clock: 32 bits at 24MHz, resolution 41ns, wraps every 89478484971ns
+Console: colour dummy device 80x30
+printk: console [tty0] enabled
+Calibrating delay loop... 1196.85 BogoMIPS (lpj=5984256)
+CPU: Testing write buffer coherency: ok
+CPU0: Spectre v2: using BPIALL workaround
+pid_max: default: 32768 minimum: 301
+Mount-cache hash table entries: 2048 (order: 1, 8192 bytes, linear)
+Mountpoint-cache hash table entries: 2048 (order: 1, 8192 bytes, linear)
+CPU0: thread -1, cpu 0, socket 0, mpidr 80000000
+rockchip_smp_prepare_cpus: ncores 4
+Setting up static identity map for 0x60100000 - 0x60100060
+rcu: Hierarchical SRCU implementation.
+smp: Bringing up secondary CPUs ...
+CPU1: thread -1, cpu 1, socket 0, mpidr 80000001
+CPU1: Spectre v2: using BPIALL workaround
+CPU2: thread -1, cpu 2, socket 0, mpidr 80000002
+CPU2: Spectre v2: using BPIALL workaround
+CPU3: thread -1, cpu 3, socket 0, mpidr 80000003
+CPU3: Spectre v2: using BPIALL workaround
+smp: Brought up 1 node, 4 CPUs
+SMP: Total of 4 processors activated (4787.40 BogoMIPS).
+CPU: All CPU(s) started in SVC mode.
+devtmpfs: initialized
+VFP support v0.3: implementor 41 architecture 3 part 30 variant 9 rev 4
+clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19112604462750000 ns
+futex hash table entries: 1024 (order: 4, 65536 bytes, linear)
+pinctrl core: initialized pinctrl subsystem
+NET: Registered PF_NETLINK/PF_ROUTE protocol family
+DMA: preallocated 256 KiB pool for atomic coherent allocations
+thermal_sys: Registered thermal governor 'step_wise'
+cpuidle: using governor ladder
+Failed to find PMU node
+No ATAGs?
+hw-breakpoint: found 5 (+1 reserved) breakpoint and 1 watchpoint registers.
+hw-breakpoint: maximum watchpoint size is 4 bytes.
+rockchip-gpio 2000a000.gpio0: probed /pinctrl/gpio0@2000a000
+rockchip-gpio 2003c000.gpio1: probed /pinctrl/gpio1@2003c000
+rockchip-gpio 2003e000.gpio2: probed /pinctrl/gpio2@2003e000
+rockchip-gpio 20080000.gpio3: probed /pinctrl/gpio3@20080000
+SCSI subsystem initialized
+usbcore: registered new interface driver usbfs
+usbcore: registered new interface driver hub
+usbcore: registered new device driver usb
+mc: Linux media interface: v0.10
+videodev: Linux video capture interface: v2.00
+pps_core: LinuxPPS API ver. 1 registered
+pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+PTP clock support registered
+Bluetooth: Core ver 2.22
+NET: Registered PF_BLUETOOTH protocol family
+Bluetooth: HCI device and connection manager initialized
+Bluetooth: HCI socket layer initialized
+Bluetooth: L2CAP socket layer initialized
+Bluetooth: SCO socket layer initialized
+clocksource: Switched to clocksource rk_timer
+NET: Registered PF_INET protocol family
+IP idents hash table entries: 16384 (order: 5, 131072 bytes, linear)
+tcp_listen_portaddr_hash hash table entries: 512 (order: 0, 4096 bytes, linear)
+Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+TCP established hash table entries: 8192 (order: 3, 32768 bytes, linear)
+TCP bind hash table entries: 8192 (order: 4, 65536 bytes, linear)
+TCP: Hash tables configured (established 8192 bind 8192)
+UDP hash table entries: 512 (order: 2, 16384 bytes, linear)
+UDP-Lite hash table entries: 512 (order: 2, 16384 bytes, linear)
+NET: Registered PF_UNIX/PF_LOCAL protocol family
+RPC: Registered named UNIX socket transport module.
+RPC: Registered udp transport module.
+RPC: Registered tcp transport module.
+RPC: Registered tcp NFSv4.1 backchannel transport module.
+Initialise system trusted keyrings
+workingset: timestamp_bits=30 max_order=19 bucket_order=0
+NFS: Registering the id_resolver key type
+Key type id_resolver registered
+Key type id_legacy registered
+jffs2: version 2.2. (NAND) (SUMMARY)  © 2001-2006 Red Hat, Inc.
+fuse: init (API version 7.34)
+Key type asymmetric registered
+Asymmetric key parser 'x509' registered
+bounce: pool size: 64 pages
+Block layer SCSI generic (bsg) driver version 0.4 loaded (major 247)
+io scheduler mq-deadline registered
+io scheduler kyber registered
+dma-pl330 20018000.dma-controller: Loaded driver for PL330 DMAC-241330
+dma-pl330 20018000.dma-controller:      DBUFF-32x8bytes Num_Chans-6 Num_Peri-12 Num_Events-12
+dma-pl330 20078000.dma-controller: Loaded driver for PL330 DMAC-241330
+dma-pl330 20078000.dma-controller:      DBUFF-64x8bytes Num_Chans-7 Num_Peri-20 Num_Events-14
+Serial: 8250/16550 driver, 4 ports, IRQ sharing disabled
+10124000.serial: ttyS0 at MMIO 0x10124000 (irq = 32, base_baud = 1500000) is a 16550A
+10126000.serial: ttyS1 at MMIO 0x10126000 (irq = 33, base_baud = 1500000) is a 16550A
+20064000.serial: ttyS2 at MMIO 0x20064000 (irq = 43, base_baud = 1500000) is a 16550A
+printk: console [ttyS2] enabled
+20068000.serial: ttyS3 at MMIO 0x20068000 (irq = 44, base_baud = 1500000) is a 16550A
+brd: module loaded
+nand: device found, Manufacturer ID: 0x2c, Chip ID: 0x64
+nand: Micron MT29F64G08CBABAWP
+nand: 8192 MiB, MLC, erase size: 2048 KiB, page size: 8192, OOB size: 744
+nand: NAND_ECC_ENGINE_TYPE_NONE selected by board driver. This is not recommended!
+nand: WARNING: rk-nand: the ECC used on your system (0b/8192B) is too weak compared to the one required by the NAND chip (40b/1024B)
+3 fixed-partitions partitions found on MTD device rk-nand
+Creating 3 MTD partitions on "rk-nand":
+0x000004000000-0x000008000000 : "uboot"
+0x000008000000-0x000018000000 : "boot"
+0x000018000000-0x000100000000 : "linuxroot"
+hso: drivers/net/usb/hso.c: Option Wireless
+usbcore: registered new interface driver hso
+usbcore: registered new interface driver asix
+usbcore: registered new interface driver ax88179_178a
+usbcore: registered new interface driver cdc_ether
+usbcore: registered new interface driver dm9601
+usbcore: registered new interface driver smsc95xx
+usbcore: registered new interface driver net1080
+usbcore: registered new interface driver cdc_subset
+usbcore: registered new interface driver zaurus
+usbcore: registered new interface driver cdc_ncm
+usbcore: registered new interface driver r8153_ecm
+usbcore: registered new interface driver cdc_acm
+cdc_acm: USB Abstract Control Model driver for USB modems and ISDN adapters
+i2c_dev: i2c /dev entries driver
+rtc-hym8563 1-0051: no valid clock/calendar values available
+rtc-hym8563 1-0051: registered as rtc0
+rtc-hym8563 1-0051: no valid clock/calendar values available
+rtc-hym8563 1-0051: hctosys: unable to read the hardware clock
+VCC_DDR: supplied by vsys
+VDD_LOG: supplied by vsys
+VDD_ARM: supplied by vsys
+VCC_IO: Bringing 3000000uV into 3300000-3300000uV
+VCC_IO: supplied by vsys
+VDD_10: supplied by VCC_IO
+VDD_HDMI: Bringing 1200000uV into 2500000-2500000uV
+VDD_HDMI: supplied by VCC_IO
+VCC_18: supplied by VCC_IO
+VCCA_33: supplied by vsys
+VCC_RMII: supplied by vsys
+VCCIO_WL: supplied by vsys
+VCC18_IO: supplied by vsys
+VCC_28: supplied by vsys
+usbcore: registered new interface driver uvcvideo
+gspca_main: v2.14.0 registered
+usbcore: registered new interface driver em28xx
+em28xx: Registered (Em28xx v4l2 Extension) extension
+softdog: initialized. soft_noboot=0 soft_margin=60 sec soft_panic=0 (nowayout=0)
+softdog:              soft_reboot_cmd=<not set> soft_active_on_boot=0
+Bluetooth: HCI UART driver ver 2.3
+Bluetooth: HCI UART protocol H4 registered
+usbcore: registered new interface driver btusb
+Synopsys Designware Multimedia Card Interface Driver
+hid: raw HID events driver (C) Jiri Kosina
+usbcore: registered new interface driver usbhid
+usbhid: USB HID core driver
+NET: Registered PF_INET6 protocol family
+Segment Routing with IPv6
+In-situ OAM (IOAM) with IPv6
+sit: IPv6, IPv4 and MPLS over IPv4 tunneling driver
+NET: Registered PF_PACKET protocol family
+Bluetooth: RFCOMM TTY layer initialized
+Bluetooth: RFCOMM socket layer initialized
+Bluetooth: RFCOMM ver 1.11
+Bluetooth: BNEP (Ethernet Emulation) ver 1.3
+Bluetooth: BNEP filters: protocol multicast
+Bluetooth: BNEP socket layer initialized
+Bluetooth: HIDP (Human Interface Emulation) ver 1.2
+Bluetooth: HIDP socket layer initialized
+Key type dns_resolver registered
+Registering SWP/SWPB emulation handler
+Loading compiled-in X.509 certificates
+sdmmc-supply: supplied by VCC_IO
+rockchip_emac 10204000.ethernet: ARC EMAC detected with id: 0x7fd02
+rockchip_emac 10204000.ethernet: IRQ is 36
+rockchip_emac 10204000.ethernet: MAC address is now 92:1e:7b:ac:84:16
+rockchip_emac 10204000.ethernet: connected to SMSC LAN8710/LAN8720 phy with id 0x7c0f1
+input: gpio-keys as /devices/platform/gpio-keys/input/input0
+cfg80211: Loading compiled-in X.509 certificates for regulatory database
+dwmmc_rockchip 10214000.mmc: Using external DMA controller.
+dwmmc_rockchip 10214000.mmc: Version ID is 240a
+cfg80211: Loaded X.509 cert 'sforshee: 00b28ddf47aef9cea7'
+dwmmc_rockchip 10214000.mmc: DW MMC controller at irq 37,32 bit host data width,256 deep fifo
+cfg80211: Loaded X.509 cert 'wens: 61c038651aabdcf94bd0ac7ff06c7248db18c600'
+clk: Disabling unused clocks
+platform regulatory.0: Direct firmware load for regulatory.db failed with error -2
+cfg80211: failed to load regulatory.db
+mmc_host mmc0: Bus speed (slot 0) = 31821429Hz (slot req 400000Hz, actual 397767HZ div = 40)
+Freeing unused kernel image (initmem) memory: 3072K
+Run /init as init process
+/bin/sh: can't access tty; job control turned off
+radxa# ubiattach -m 2 -d 0
+ubi: refuse attaching mtd2 - MLC NAND is not supported
+ubiattach: error!: cannot attach mtd2
+           error 22 (Invalid argument)
+radxa# mkdir -p /mnt/nand
+radxa# mount -t jffs2 /dev/mtdblock2 /mnt/nand
+mount: mounting /dev/mtdblock2 on /mnt/nand failed: Invalid argument
+radxa# ls dev | grep ubi
+ubi_ctrl
+radxa# ls dev | grep UBI
+radxa# ls dev | grep jffs
+radxa# ls dev | grep mtd
+mtd0
+mtd0ro
+mtd1
+mtd1ro
+mtd2
+mtd2ro
+mtdblock0
+mtdblock1
+mtdblock2
+radxa# ls dev
+autofs           tty              tty33            tty59
+console          tty0             tty34            tty6
+cpu_dma_latency  tty1             tty35            tty60
+full             tty10            tty36            tty61
+fuse             tty11            tty37            tty62
+gpiochip0        tty12            tty38            tty63
+gpiochip1        tty13            tty39            tty7
+gpiochip2        tty14            tty4             tty8
+gpiochip3        tty15            tty40            tty9
+i2c-1            tty16            tty41            ttyS0
+input            tty17            tty42            ttyS1
+kmsg             tty18            tty43            ttyS2
+mem              tty19            tty44            ttyS3
+mtd0             tty2             tty45            ubi_ctrl
+mtd0ro           tty20            tty46            uhid
+mtd1             tty21            tty47            urandom
+mtd1ro           tty22            tty48            vcs
+mtd2             tty23            tty49            vcs1
+mtd2ro           tty24            tty5             vcsa
+mtdblock0        tty25            tty50            vcsa1
+mtdblock1        tty26            tty51            vcsu
+mtdblock2        tty27            tty52            vcsu1
+null             tty28            tty53            watchdog
+ptmx             tty29            tty54            watchdog0
+ram0             tty3             tty55            zero
+random           tty30            tty56
+rfkill           tty31            tty57
+rtc0             tty32            tty58
+radxa# which ubiattach
+/bin/ubiattach
+radxa# ls bin | grep ubi
+ubiattach
+ubidetach
+ubiformat
+ubimkvol
+ubirmvol
+ubiupdatevol
+radxa#
+radxa#
+radxa#
+radxa#
+radxa#
+radxa# ls nand
+ls: nand: No such file or directory
+radxa# ls mnt
+radxa# mkdir -p mnt/nand
+radxa# mount -t jffs2 /dev/mtdblock2 /mnt/nand
+mount: mounting /dev/mtdblock2 on /mnt/nand failed: Invalid argument
+radxa# ls dev
+autofs           tty              tty33            tty59
+console          tty0             tty34            tty6
+cpu_dma_latency  tty1             tty35            tty60
+full             tty10            tty36            tty61
+fuse             tty11            tty37            tty62
+gpiochip0        tty12            tty38            tty63
+gpiochip1        tty13            tty39            tty7
+gpiochip2        tty14            tty4             tty8
+gpiochip3        tty15            tty40            tty9
+i2c-1            tty16            tty41            ttyS0
+input            tty17            tty42            ttyS1
+kmsg             tty18            tty43            ttyS2
+mem              tty19            tty44            ttyS3
+mtd0             tty2             tty45            ubi_ctrl
+mtd0ro           tty20            tty46            uhid
+mtd1             tty21            tty47            urandom
+mtd1ro           tty22            tty48            vcs
+mtd2             tty23            tty49            vcs1
+mtd2ro           tty24            tty5             vcsa
+mtdblock0        tty25            tty50            vcsa1
+mtdblock1        tty26            tty51            vcsu
+mtdblock2        tty27            tty52            vcsu1
+null             tty28            tty53            watchdog
+ptmx             tty29            tty54            watchdog0
+ram0             tty3             tty55            zero
+random           tty30            tty56
+rfkill           tty31            tty57
+rtc0             tty32            tty58
+radxa# mount -t jffs2 /dev/mtdblock2 /mnt/nand
+mount: mounting /dev/mtdblock2 on /mnt/nand failed: Invalid argument
+radxa# ubiattach -m 2 /dev/ubi_ctrl
+ubi: refuse attaching mtd2 - MLC NAND is not supported
+ubiattach: error!: cannot attach mtd2
+           error 22 (Invalid argument)
+radxa# dd if=/dev/mtdblock2 bs=4096 count=1 | hexdump -C
+/bin/sh: hexdump: not foumtdblock: MTD device 'linuxroot' is NAND, please consider using UBI block devices instead.
+nd
+radxa# dd if=/dev/mtdblock2 bs=4096 count=1 | hexdump -C
+/bin/sh: hexdump: not foumtdblock: MTD device 'linuxroot' is NAND, please consider using UBI block devices instead.
+nd
+radxa# mount -t ext4 -o ro /dev/mtdblock2 /mnt
+mtdblock: MTD device 'linuxroot' is NAND, please consider using UBI block devices instead.
+mount: mounting /dev/mtdblock2 on /mnt failed: Invalid argument
+radxa# DDR Version 1.04 20140217
+In
+DDR3
+300MHz
+Bus Width=32 Col=10 Bank=8 Row=15 CS=2 Die Bus-Width=16 Size=2048MB
+Memory OK
+OUT
+BUILD==2.18 2
+No.1 FLASH ID:2c 64 44 4b a9 0
+No.2 FLASH ID:4 ff ff ff ff ff
+No.3 FLASH ID:14 ff ff ff ff ff
+OK! 284225
+unsigned!
+SecureBootEn = 0 0
+Boot ver: 2014-10-29#2.19
+RECOVERY key is pressed
+UsbBoot 292112
+UsbHook ...945677
+powerOn 945702
+ 1101448 UsbConnected
+ 2214406 UsbConnected
+ 2302290 UsbConnected
+ 2636908 UsbConnected
+ 2724787 UsbConnected
+ 3043975 UsbConnected
+ 8895018 UsbConnected
+ 8989291 UsbConnected
+DDR Version 1.04 20140217
+In
+SRX
+DDR3
+300MHz
+Bus Width=32 Col=10 Bank=8 Row=15 CS=2 Die Bus-Width=16 Size=2048MB
+OUT
+BUILD==2.18 2
+No.1 FLASH ID:2c 64 44 4b a9 0
+No.2 FLASH ID:4 ff ff ff ff ff
+No.3 FLASH ID:14 ff ff ff ff ff
+OK! 284985
+unsigned!
+SecureBootEn = 0 0
+Boot ver: 2014-10-29#2.19
+start_linux=====293287
+ 2127253 Starting kernel...@0x60408000
+
+Booting Linux on physical CPU 0x0
+Linux version 5.15.196 (jibon@ubuntu22) (arm-linux-gnueabihf-gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0, GNU ld (GNU Binutils for Ubuntu) 2.38) #22 SMP Thu Dec 11 11:23:15 KST 2025
+CPU: ARMv7 Processor [413fc090] revision 0 (ARMv7), cr=10c5387d
+CPU: PIPT / VIPT nonaliasing data cache, VIPT aliasing instruction cache
+OF: fdt: Machine model: Radxa Rock
+Memory policy: Data cache writealloc
+Zone ranges:
+  Normal   [mem 0x0000000060000000-0x000000008fffffff]
+  HighMem  [mem 0x0000000090000000-0x00000000dfffffff]
+Movable zone start for each node
+Early memory node ranges
+  node   0: [mem 0x0000000060000000-0x00000000dfffffff]
+Initmem setup node 0 [mem 0x0000000060000000-0x00000000dfffffff]
+percpu: Embedded 11 pages/cpu s14092 r8192 d22772 u45056
+Built 1 zonelists, mobility grouping on.  Total pages: 522752
+Kernel command line: console=ttyS2,115200 console=tty0 earlyprintk root=/dev/ram0 rdinit=/init mtdparts=rk-nand:-(data)
+Unknown kernel command line parameters "mtdparts=rk-nand:-(data)", will be passed to user space.
+Dentry cache hash table entries: 131072 (order: 7, 524288 bytes, linear)
+Inode-cache hash table entries: 65536 (order: 6, 262144 bytes, linear)
+mem auto-init: stack:off, heap alloc:off, heap free:off
+Memory: 2065432K/2097152K available (7128K kernel code, 675K rwdata, 1980K rodata, 3072K init, 251K bss, 31720K reserved, 0K cma-reserved, 1310720K highmem)
+rcu: Hierarchical RCU implementation.
+rcu: RCU calculated value of scheduler-enlistment delay is 10 jiffies.
+NR_IRQS: 16, nr_irqs: 16, preallocated irqs: 16
+L2C-310 enabling early BRESP for Cortex-A9
+L2C-310: enabling full line of zeros but not enabled in Cortex-A9
+L2C-310 ID prefetch enabled, offset 15 lines
+L2C-310 dynamic clock gating enabled, standby mode enabled
+L2C-310 cache controller enabled, 16 ways, 512 kB
+L2C-310: CACHE_ID 0x4100c0c8, AUX_CTRL 0x76050001
+clocksource: rk_timer: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 79635851949 ns
+sched_clock: 32 bits at 24MHz, resolution 41ns, wraps every 89478484971ns
+Console: colour dummy device 80x30
+printk: console [tty0] enabled
+Calibrating delay loop... 1196.85 BogoMIPS (lpj=5984256)
+CPU: Testing write buffer coherency: ok
+CPU0: Spectre v2: using BPIALL workaround
+pid_max: default: 32768 minimum: 301
+Mount-cache hash table entries: 2048 (order: 1, 8192 bytes, linear)
+Mountpoint-cache hash table entries: 2048 (order: 1, 8192 bytes, linear)
+CPU0: thread -1, cpu 0, socket 0, mpidr 80000000
+rockchip_smp_prepare_cpus: ncores 4
+Setting up static identity map for 0x60100000 - 0x60100060
+rcu: Hierarchical SRCU implementation.
+smp: Bringing up secondary CPUs ...
+CPU1: thread -1, cpu 1, socket 0, mpidr 80000001
+CPU1: Spectre v2: using BPIALL workaround
+CPU2: thread -1, cpu 2, socket 0, mpidr 80000002
+CPU2: Spectre v2: using BPIALL workaround
+CPU3: thread -1, cpu 3, socket 0, mpidr 80000003
+CPU3: Spectre v2: using BPIALL workaround
+smp: Brought up 1 node, 4 CPUs
+SMP: Total of 4 processors activated (4787.40 BogoMIPS).
+CPU: All CPU(s) started in SVC mode.
+devtmpfs: initialized
+VFP support v0.3: implementor 41 architecture 3 part 30 variant 9 rev 4
+clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 19112604462750000 ns
+futex hash table entries: 1024 (order: 4, 65536 bytes, linear)
+pinctrl core: initialized pinctrl subsystem
+NET: Registered PF_NETLINK/PF_ROUTE protocol family
+DMA: preallocated 256 KiB pool for atomic coherent allocations
+thermal_sys: Registered thermal governor 'step_wise'
+cpuidle: using governor ladder
+Failed to find PMU node
+No ATAGs?
+hw-breakpoint: found 5 (+1 reserved) breakpoint and 1 watchpoint registers.
+hw-breakpoint: maximum watchpoint size is 4 bytes.
+rockchip-gpio 2000a000.gpio0: probed /pinctrl/gpio0@2000a000
+rockchip-gpio 2003c000.gpio1: probed /pinctrl/gpio1@2003c000
+rockchip-gpio 2003e000.gpio2: probed /pinctrl/gpio2@2003e000
+rockchip-gpio 20080000.gpio3: probed /pinctrl/gpio3@20080000
+SCSI subsystem initialized
+usbcore: registered new interface driver usbfs
+usbcore: registered new interface driver hub
+usbcore: registered new device driver usb
+mc: Linux media interface: v0.10
+videodev: Linux video capture interface: v2.00
+pps_core: LinuxPPS API ver. 1 registered
+pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+PTP clock support registered
+Bluetooth: Core ver 2.22
+NET: Registered PF_BLUETOOTH protocol family
+Bluetooth: HCI device and connection manager initialized
+Bluetooth: HCI socket layer initialized
+Bluetooth: L2CAP socket layer initialized
+Bluetooth: SCO socket layer initialized
+clocksource: Switched to clocksource rk_timer
+NET: Registered PF_INET protocol family
+IP idents hash table entries: 16384 (order: 5, 131072 bytes, linear)
+tcp_listen_portaddr_hash hash table entries: 512 (order: 0, 4096 bytes, linear)
+Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+TCP established hash table entries: 8192 (order: 3, 32768 bytes, linear)
+TCP bind hash table entries: 8192 (order: 4, 65536 bytes, linear)
+TCP: Hash tables configured (established 8192 bind 8192)
+UDP hash table entries: 512 (order: 2, 16384 bytes, linear)
+UDP-Lite hash table entries: 512 (order: 2, 16384 bytes, linear)
+NET: Registered PF_UNIX/PF_LOCAL protocol family
+RPC: Registered named UNIX socket transport module.
+RPC: Registered udp transport module.
+RPC: Registered tcp transport module.
+RPC: Registered tcp NFSv4.1 backchannel transport module.
+Initialise system trusted keyrings
+workingset: timestamp_bits=30 max_order=19 bucket_order=0
+NFS: Registering the id_resolver key type
+Key type id_resolver registered
+Key type id_legacy registered
+jffs2: version 2.2. (NAND) (SUMMARY)  © 2001-2006 Red Hat, Inc.
+fuse: init (API version 7.34)
+Key type asymmetric registered
+Asymmetric key parser 'x509' registered
+bounce: pool size: 64 pages
+Block layer SCSI generic (bsg) driver version 0.4 loaded (major 247)
+io scheduler mq-deadline registered
+io scheduler kyber registered
+dma-pl330 20018000.dma-controller: Loaded driver for PL330 DMAC-241330
+dma-pl330 20018000.dma-controller:      DBUFF-32x8bytes Num_Chans-6 Num_Peri-12 Num_Events-12
+dma-pl330 20078000.dma-controller: Loaded driver for PL330 DMAC-241330
+dma-pl330 20078000.dma-controller:      DBUFF-64x8bytes Num_Chans-7 Num_Peri-20 Num_Events-14
+Serial: 8250/16550 driver, 4 ports, IRQ sharing disabled
+10124000.serial: ttyS0 at MMIO 0x10124000 (irq = 32, base_baud = 1500000) is a 16550A
+10126000.serial: ttyS1 at MMIO 0x10126000 (irq = 33, base_baud = 1500000) is a 16550A
+20064000.serial: ttyS2 at MMIO 0x20064000 (irq = 43, base_baud = 1500000) is a 16550A
+printk: console [ttyS2] enabled
+20068000.serial: ttyS3 at MMIO 0x20068000 (irq = 44, base_baud = 1500000) is a 16550A
+brd: module loaded
+nand: device found, Manufacturer ID: 0x2c, Chip ID: 0x64
+nand: Micron MT29F64G08CBABAWP
+nand: 8192 MiB, MLC, erase size: 2048 KiB, page size: 8192, OOB size: 744
+nand: NAND_ECC_ENGINE_TYPE_NONE selected by board driver. This is not recommended!
+nand: WARNING: rk-nand: the ECC used on your system (0b/8192B) is too weak compared to the one required by the NAND chip (40b/1024B)
+3 fixed-partitions partitions found on MTD device rk-nand
+Creating 3 MTD partitions on "rk-nand":
+0x000004000000-0x000008000000 : "uboot"
+0x000008000000-0x000018000000 : "boot"
+0x000018000000-0x000100000000 : "linuxroot"
+hso: drivers/net/usb/hso.c: Option Wireless
+usbcore: registered new interface driver hso
+usbcore: registered new interface driver asix
+usbcore: registered new interface driver ax88179_178a
+usbcore: registered new interface driver cdc_ether
+usbcore: registered new interface driver dm9601
+usbcore: registered new interface driver smsc95xx
+usbcore: registered new interface driver net1080
+usbcore: registered new interface driver cdc_subset
+usbcore: registered new interface driver zaurus
+usbcore: registered new interface driver cdc_ncm
+usbcore: registered new interface driver r8153_ecm
+usbcore: registered new interface driver cdc_acm
+cdc_acm: USB Abstract Control Model driver for USB modems and ISDN adapters
+i2c_dev: i2c /dev entries driver
+rtc-hym8563 1-0051: no valid clock/calendar values available
+rtc-hym8563 1-0051: registered as rtc0
+rtc-hym8563 1-0051: no valid clock/calendar values available
+rtc-hym8563 1-0051: hctosys: unable to read the hardware clock
+VCC_DDR: supplied by vsys
+VDD_LOG: supplied by vsys
+VDD_ARM: supplied by vsys
+VCC_IO: Bringing 3000000uV into 3300000-3300000uV
+VCC_IO: supplied by vsys
+VDD_10: supplied by VCC_IO
+VDD_HDMI: Bringing 1200000uV into 2500000-2500000uV
+VDD_HDMI: supplied by VCC_IO
+VCC_18: supplied by VCC_IO
+VCCA_33: supplied by vsys
+VCC_RMII: supplied by vsys
+VCCIO_WL: supplied by vsys
+VCC18_IO: supplied by vsys
+VCC_28: supplied by vsys
+usbcore: registered new interface driver uvcvideo
+gspca_main: v2.14.0 registered
+usbcore: registered new interface driver em28xx
+em28xx: Registered (Em28xx v4l2 Extension) extension
+softdog: initialized. soft_noboot=0 soft_margin=60 sec soft_panic=0 (nowayout=0)
+softdog:              soft_reboot_cmd=<not set> soft_active_on_boot=0
+Bluetooth: HCI UART driver ver 2.3
+Bluetooth: HCI UART protocol H4 registered
+usbcore: registered new interface driver btusb
+Synopsys Designware Multimedia Card Interface Driver
+hid: raw HID events driver (C) Jiri Kosina
+usbcore: registered new interface driver usbhid
+usbhid: USB HID core driver
+NET: Registered PF_INET6 protocol family
+Segment Routing with IPv6
+In-situ OAM (IOAM) with IPv6
+sit: IPv6, IPv4 and MPLS over IPv4 tunneling driver
+NET: Registered PF_PACKET protocol family
+Bluetooth: RFCOMM TTY layer initialized
+Bluetooth: RFCOMM socket layer initialized
+Bluetooth: RFCOMM ver 1.11
+Bluetooth: BNEP (Ethernet Emulation) ver 1.3
+Bluetooth: BNEP filters: protocol multicast
+Bluetooth: BNEP socket layer initialized
+Bluetooth: HIDP (Human Interface Emulation) ver 1.2
+Bluetooth: HIDP socket layer initialized
+Key type dns_resolver registered
+Registering SWP/SWPB emulation handler
+Loading compiled-in X.509 certificates
+sdmmc-supply: supplied by VCC_IO
+rockchip_emac 10204000.ethernet: ARC EMAC detected with id: 0x7fd02
+rockchip_emac 10204000.ethernet: IRQ is 36
+rockchip_emac 10204000.ethernet: MAC address is now 5e:85:90:d2:fe:fa
+rockchip_emac 10204000.ethernet: connected to SMSC LAN8710/LAN8720 phy with id 0x7c0f1
+input: gpio-keys as /devices/platform/gpio-keys/input/input0
+cfg80211: Loading compiled-in X.509 certificates for regulatory database
+dwmmc_rockchip 10214000.mmc: Using external DMA controller.
+dwmmc_rockchip 10214000.mmc: Version ID is 240a
+cfg80211: Loaded X.509 cert 'sforshee: 00b28ddf47aef9cea7'
+dwmmc_rockchip 10214000.mmc: DW MMC controller at irq 37,32 bit host data width,256 deep fifo
+cfg80211: Loaded X.509 cert 'wens: 61c038651aabdcf94bd0ac7ff06c7248db18c600'
+clk: Disabling unused clocks
+platform regulatory.0: Direct firmware load for regulatory.db failed with error -2
+cfg80211: failed to load regulatory.db
+mmc_host mmc0: Bus speed (slot 0) = 31821429Hz (slot req 400000Hz, actual 397767HZ div = 40)
+Freeing unused kernel image (initmem) memory: 3072K
+Run /init as init process
+/bin/sh: can't access tty; job control turned off
+radxa# ls dev
+autofs           tty              tty33            tty59
+console          tty0             tty34            tty6
+cpu_dma_latency  tty1             tty35            tty60
+full             tty10            tty36            tty61
+fuse             tty11            tty37            tty62
+gpiochip0        tty12            tty38            tty63
+gpiochip1        tty13            tty39            tty7
+gpiochip2        tty14            tty4             tty8
+gpiochip3        tty15            tty40            tty9
+i2c-1            tty16            tty41            ttyS0
+input            tty17            tty42            ttyS1
+kmsg             tty18            tty43            ttyS2
+mem              tty19            tty44            ttyS3
+mtd0             tty2             tty45            ubi_ctrl
+mtd0ro           tty20            tty46            uhid
+mtd1             tty21            tty47            urandom
+mtd1ro           tty22            tty48            vcs
+mtd2             tty23            tty49            vcs1
+mtd2ro           tty24            tty5             vcsa
+mtdblock0        tty25            tty50            vcsa1
+mtdblock1        tty26            tty51            vcsu
+mtdblock2        tty27            tty52            vcsu1
+null             tty28            tty53            watchdog
+ptmx             tty29            tty54            watchdog0
+ram0             tty3             tty55            zero
+random           tty30            tty56
+rfkill           tty31            tty57
+rtc0             tty32            tty58
+radxa# ubiattach -m 2 /dev/ubi_ctrl
+ubi0: attaching mtd2
+ubi0: scanning is finished
+ubi0 error: ubi_read_volume_table: the layout volume was not found
+ubi0 error: ubi_attach_mtd_dev: failed to attach mtd2, error -22
+ubiattach: error!: cannot attach mtd2
+           error 22 (Invalid argument)
+radxa# mount -t ext4 -o ro /dev/mtdblock2 /mnt
+mtdblock: MTD device 'linuxroot' is NAND, please consider using UBI block devices instead.
+mount: mounting /dev/mtdblock2 on /mnt failed: Invalid argument
+radxa#
