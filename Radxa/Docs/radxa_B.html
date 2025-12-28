@@ -151,19 +151,19 @@ div[id=div-001A] {
     display: block;
     }
 </style>
-
 <h2><label for="toggle-001A">Menuconfig Practice On mtd blocks</label></h2>
 <input type="checkbox" id="toggle-001A" style="display: none;">
-<img src="img/img024.jpg" alt="img" width="30%"> <br>
+<div id="div-001A"> 
+<img src="img/img024.jpg" alt="img" width="40%"> <br>
 <pp>make menuconfig </pp> <br>
 <pre class="brush: bash;">
     make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- menuconfig
 </pre>
-<code> Device Drivers -> Memory Technology Device (MTD) Support -> Partit Parsers -> OpenFirmware (Device Tree) Partition Parsers </code>
+<code> Device Drivers -> Memory Technology Device (MTD) Support -> Partit Parsers -> OpenFirmware (Device Tree) Partition Parsers </code> <br>
 <p5>Observation : </p5> <br>
 This enables the kernel to read mtdparts from device tree blob <br> 
 
-<div id="div-001A">
+
 </div>
 <!-- SHOW HIDE END 001A  -->
 
