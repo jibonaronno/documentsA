@@ -74,6 +74,7 @@ div[id=div-001] {
         jibon@ubuntu22:~/radxa/linux-5.15.196$ make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- -j4 zImage
         jibon@ubuntu22:~/radxa/linux-5.15.196$ make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- rk3188-radxarock.dtb
     </pre>
+    <pa>But how to select this device tree file during menuconfig ?</pa>
     <br>
     <pre class="brush: bash;">
         jibon@ubuntu22:~/radxa/linux-5.15.196$ sudo cat arch/arm/boot/zImage arch/arm/boot/dts/rk3188-radxarock.dtb > zImage-dtb
@@ -945,7 +946,26 @@ div[id=div-001B] {
         Your MTD devices are detected correctly (mtd0, mtd1, mtd2) and ready to use!
     </pre>
   </div>
-<!-- SHOW HIDE START 010  -->
+<!-- SHOW HIDE END 010  -->
+
+<!-- SHOW HIDE START 011  -->
+<style type="text/css">
+  div[id=div-011] {
+    display: none;
+  }
+    input[id=toggle-011]:checked ~ div[id=div-011] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-011"> Radxa Rock UBoot U-Boot </label></h2>
+  <input type="checkbox" id="toggle-011" style="display: none;">
+  
+  <div id="div-011">
+    <pp>Radxa Rock UBoot U-Boot</pp> https://github.com/radxa/u-boot-rockchip <br>
+    
+
+  </div>
 
 <!--   -->
 
