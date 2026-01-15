@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Yocto Build Trial A</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend+Exa:wght@100..900&display=swap" rel="stylesheet">
+  <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+  <!-- BEGIN syntax highlighter -->
+  <script type="text/javascript" src="sh/shCore.js"></script>
+  <script type="text/javascript" src="sh/shBrushJScript.js"></script>
+  <script type="text/javascript" src="syntaxhighlighter.js"></script>
+
+  <link type="text/css" rel="stylesheet" href="syntaxhighlighter.css" />
+  <link type="text/css" rel="stylesheet" href="sh/shCore.css" />
+  <link type="text/css" rel="stylesheet" href="sh/shThemeDefault.css" />
+  <link href="https://fonts.googleapis.com/css?family=Gruppo" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <script type="text/javascript">
+    SyntaxHighlighter.all();
+  </script>
+  <!-- END syntax highlighter -->
+
+  <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="linuxsetup.css">
+</head>
+
+<body>
+
+  <div style="padding: 20px;font-size: 24px; line-height: 40px">
+    <div class="title_b">Yocto Command List</div>
+
+    <!-- SHOW HIDE START 001  -->
+
+    <style type="text/css">
+      div[id=div-001] {
+        display: none;
+      }
+
+      input[id=toggle-001]:checked~div[id=div-001] {
+        display: block;
+      }
+    </style>
+
+    <h2><label for="toggle-001">Yocto Layers Explore</label></h2>
+    <input type="checkbox" id="toggle-001" style="display: none;">
+
+    <div id="div-001">
+
+      Yocto generally refers to a folder called poky as the main repository that contains the core metadata and tools for building embedded Linux distributions.
+      In our case for ti AM62 or var-am62
+
+      Using bitbake-layers show-layers (Recommended)
+      This command, run from your build directory (e.g., build), will display a well-formatted list of all layers that Bitbake knows about, 
+      including their paths, priority, and potentially their Git revisions.
+
+      ```bash
+      bitbake-layers show-layers
+      ```
+
+      <pre class="brush:bash;">
+        cd &lt;your_build_directory&gt; # e.g., cd build
+        bitbake-layers show-layers
+      </pre>
+      <img src="img/img000.jpg" alt="None" width="600" /><br>
+
+      <pp>Inspecting conf/bblayers.conf</pp> <br>
+      <code>cat &lt;your_build_directory&gt;/conf/bblayers.conf</code> <br>
+      <pp>Example Excerpt from bblayers.conf:</pp> <br>
+      <pre class="brush:bash;">
+        # LAYER_CONF_VERSION is increased each time if the layer's config format is changed
+        LCONF_VERSION = "7"
+
+        BBPATH = "${TOPDIR}"
+        BBFILES ?= ""
+
+        BBLAYERS ?= " \
+          /home/jibon/am62/yocto/yocto-trismed/var-ti-yocto/sources/poky/meta \
+          /home/jibon/am62/yocto/yocto-trismed/var-ti-yocto/sources/poky/meta-poky \
+          /home/jibon/am62/yocto/yocto-trismed/var-ti-yocto/sources/poky/meta-yocto-bsp \
+          /home/jibon/am62/yocto/yocto-trismed/var-ti-yocto/sources/meta-virtualization \
+          /home/jibon/am62/yocto/yocto-trismed/var-ti-yocto/sources/meta-qt5 \
+          /home/jibon/am62/yocto/yocto-trismed/var-ti-yocto/sources/meta-arago/meta-arago-distro \
+          /home/jibon/am62/yocto/yocto-trismed/var-ti-yocto/sources/meta-arago/meta-arago-extra \
+          /home/jibon/am62/yocto/yocto-trismed/var-ti-yocto/sources/meta-ti \
+          /home/jibon/am62/yocto/yocto-trismed/var-ti-yocto/sources/meta-processor-sdk \
+          /home/jibon/am62/yocto/yocto-trismed/meta-trismed \
+          "
+      </pre>
+      <br>
+
+
+
+    </div>
+    <!-- SHOW HIDE END 001  -->
+
+
+    <!-- SHOW HIDE START 006  -->
+    <style type="text/css">
+      div[id=div-006] {
+        display: none;
+      }
+
+      input[id=toggle-006]:checked~div[id=div-006] {
+        display: block;
+      }
+    </style>
+
+    <h2><label for="toggle-006">Blank</label></h2>
+    <input type="checkbox" id="toggle-006" style="display: none;">
+
+    <div id="div-006">
+    </div>
+
+    <!-- SHOW HIDE END 006  -->
+
+    <!-- SHOW HIDE START 007  -->
+    <style type="text/css">
+      div[id=div-007] {
+        display: none;
+      }
+
+      input[id=toggle-007]:checked~div[id=div-007] {
+        display: block;
+      }
+    </style>
+
+    <h2><label for="toggle-007">Blank</label></h2>
+    <input type="checkbox" id="toggle-007" style="display: none;">
+
+    <div id="div-007" class="article">
+
+    </div>
+    <!-- SHOW HIDE END 007  -->
+
+    <!-- SHOW HIDE START 008  -->
+    <style type="text/css">
+      div[id=div-008] {
+        display: none;
+      }
+
+      input[id=toggle-008]:checked~div[id=div-008] {
+        display: block;
+      }
+    </style>
+
+    <h2><label for="toggle-008">None</p3> </label></h2>
+    <input type="checkbox" id="toggle-008" style="display: none;">
+
+    <div id="div-008">
+
+    </div>
+    <!-- SHOW HIDE END 008  -->
+
+    <!-- SHOW HIDE START 009  -->
+    <style type="text/css">
+      div[id=div-009] {
+        display: none;
+      }
+
+      input[id=toggle-009]:checked~div[id=div-009] {
+        display: block;
+      }
+    </style>
+
+    <h2><label for="toggle-009">None </label></h2>
+    <input type="checkbox" id="toggle-009" style="display: none;">
+
+    <div id="div-009">
+    </div>
+    <!-- SHOW HIDE END 009  -->
+
+    <!-- SHOW HIDE START 010  -->
+    <style type="text/css">
+      div[id=div-010] {
+        display: none;
+      }
+
+      input[id=toggle-010]:checked~div[id=div-010] {
+        display: block;
+      }
+    </style>
+
+    <h2><label for="toggle-010"> Blank </label></h2>
+    <input type="checkbox" id="toggle-010" style="display: none;">
+
+    <div id="div-010">
+
+    </div>
+    <!-- SHOW HIDE START 010  -->
+
+    <!--   -->
+
+  </div>
+
+  <!--
+<pre class="brush:js;">
+</pre><br /><br />
+-->
+</body>
+
+</html>
