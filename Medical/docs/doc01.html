@@ -57,10 +57,10 @@
     Main CPU Pin Assignment to power down ADS-1298 ADC. <br>
     <img src="img/img04.jpg" alt=""> <br>
 
-    <br><br>
-
     Apply the following code changes to the Holter Firmware. <br>
-    File Location: <p4>D:\Projects\Cardicode600H\Development\Firmware\Cardicode600H\src\trismed\drivers\SupplyController.c</p4> <br>
+    File Location: 
+    <p4>D:\Projects\Cardicode600H\Development\Firmware\Cardicode600H\src\trismed\drivers\<br>
+      SupplyController.c</p4> <br>
 
     <pre class="brush:cpp;">
       void enter_backup_mode(void) {
@@ -95,6 +95,7 @@
     A new function <code>void enter_backup_mode(void)</code> has been added to the SupplyController.c file. <br>
     The function puts the ADS1298 into power down mode by clearing the PWD pin. <br>
     Then it enables the Wakeup Input 12 (PB2) to wake up the CPU from backup mode. <br>
+    Note that Wakeup Input 12 (PB2) is connected to the SW2 Button on the Holter Device. <br>
     Finally, it calls the <code>pmc_enable_backupmode()</code> function to enter backup mode. <br>
     
     <!-- SHOW HIDE END 001  -->
