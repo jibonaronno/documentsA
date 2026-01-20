@@ -92,6 +92,17 @@
       </pre>
       <br>
 
+      <pp>Location and Command to Start Baking</pp> <br>
+      <code>~/am62/yocto/yocto-trismed/var-ti-yocto/build$ bash -c "source conf/setenv && bitbake cardipia-12ch-image"</code> <br>
+
+      <pp>Clean a layer and build a layer</pp> <br>
+      <pre>
+        ~/am62/yocto/yocto-trismed/var-ti-yocto/build$ bash -c "source conf/setenv && bitbake -c cleansstate virtual/kernel"
+        ~/am62/yocto/yocto-trismed/var-ti-yocto/build$ bash -c "source conf/setenv && bitbake -c cleansstate u-boot-variscite"
+      </pre>
+      There are other commands like clean, compile, deploy, etc. <br>
+      
+
 
 
     </div>
