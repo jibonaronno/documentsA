@@ -3,4 +3,5 @@
   (lib (name "xiao ESP32C3_PCB")(type "KiCad")(uri "${KIPRJMOD}/Seeeduino xiao ESP32C3 KiCAD Library/xiao ESP32C3_PCB.pretty")(options "")(descr ""))
   (lib (name "CPC1916Y")(type "KiCad")(uri "${KIPRJMOD}/CPC1916Y/CPC1916Y.pretty")(options "")(descr ""))
   (lib (name "INA219")(type "KiCad")(uri "${KIPRJMOD}/INA219")(options "")(descr ""))
+  (lib (name "DCJ200-10-A-XX-K_REVA")(type "KiCad")(uri "${KIPRJMOD}/DCJ200-10-A-XX-K_REVA")(options "")(descr ""))
 )
