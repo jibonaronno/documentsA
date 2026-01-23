@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Holter Update Description</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend+Exa:wght@100..900&display=swap" rel="stylesheet">
+  <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+  <!-- BEGIN syntax highlighter -->
+  <script type="text/javascript" src="sh/shCore.js"></script>
+  <script type="text/javascript" src="sh/shBrushJScript.js"></script>
+  <script type="text/javascript" src="syntaxhighlighter.js"></script>
+
+  <link type="text/css" rel="stylesheet" href="syntaxhighlighter.css" />
+  <link type="text/css" rel="stylesheet" href="sh/shCore.css" />
+  <link type="text/css" rel="stylesheet" href="sh/shThemeDefault.css" />
+  <link href="https://fonts.googleapis.com/css?family=Gruppo" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <script type="text/javascript">
+    SyntaxHighlighter.all();
+  </script>
+  <!-- END syntax highlighter -->
+
+  <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="linuxsetup.css">
+</head>
+
+<body>
+
+  <div style="padding: 20px;font-size: 24px; line-height: 40px">
+    <div class="title_b">Holter Updates</div>
+
+    <!-- SHOW HIDE START 001  -->
+
+    <style type="text/css">
+      div[id=div-001] {
+        display: none;
+      }
+
+      input[id=toggle-001]:checked~div[id=div-001] {
+        display: block;
+      }
+    </style>
+
+    <h2><label for="toggle-001">Deep Sleep Backup Mode On Power Off</label></h2>
+    <input type="checkbox" id="toggle-001" style="display: none;">
+
+    This code updates is under testing on the Holter Device without Bluetooth Module. <br>
+    The code puts the ADS1298 into power down mode when the Holter is powered off. <br>
+    This reduces the current consumption to about 6mA in power off mode. <br>
+
+
+    <img src="img/img03.jpg" alt=""> <br>
+    Main CPU Pin Assignment to power down ADS-1298 ADC. <br>
+    <img src="img/img04.jpg" alt=""> <br>
+
+    Apply the following code changes to the Holter Firmware. <br>
+    File Location: 
+    <p4>D:\Projects\Cardicode600H\Development\Firmware\Cardicode600H\src\trismed\drivers\<br>
+      SupplyController.c</p4> <br>
+
+    <pre class="brush:cpp;">
+      void enter_backup_mode(void) {
+        
+        CLR_ADS1298_PWD;
+        delay_ms(100);
+        
+        // 1. Enable Wakeup Input 12 (PB2)
+        // SUPC_WUIR_WKUPEN12_ENABLE: Enable wake up
+        // SUPC_WUIR_WKUPT12_LOW: Wake up on Low Level (can also be HIGH)
+        SUPC->SUPC_WUIR = SUPC_WUIR_WKUPEN12_ENABLE | SUPC_WUIR_WKUPT12_LOW;
+        // 2. Enter Backup Mode
+        // This turns off the main voltage regulator.
+        // The device will reset upon waking up!
+        pmc_enable_backupmode();
+      }
+
+      void ResetCpu(void) {
+        
+        enter_backup_mode(); // Enter Backup Mode
+        rstc_enable_user_reset(RSTC);
+        rstc_start_software_reset(RSTC);
+        
+        while (1) {
+          nop();
+          /* Wait indefinitely for a WDT reset */
+        }
+      }
+    </pre>
+
+    <br>
+    A new function <code>void enter_backup_mode(void)</code> has been added to the SupplyController.c file. <br>
+    The function puts the ADS1298 into power down mode by clearing the PWD pin. <br>
+    Then it enables the Wakeup Input 12 (PB2) to wake up the CPU from backup mode. <br>
+    Note that Wakeup Input 12 (PB2) is connected to the SW2 Button on the Holter Device. <br>
+    Finally, it calls the <code>pmc_enable_backupmode()</code> function to enter backup mode. <br>
+    
+    <!-- SHOW HIDE END 001  -->
+
+  <!--
+<pre class="brush:js;">
+</pre><br /><br />
+-->
+</body>
+
+</html>
