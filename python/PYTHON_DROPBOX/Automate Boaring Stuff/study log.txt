@@ -1,0 +1,50 @@
+try following code from automate boring stuff chapter 8 read write files.
+
+>>> import os
+>>> os.path.join('usr', 'bin', 'spam')
+'usr\\bin\\spam'
+
+
+
+>>> myFiles = ['accounts.txt', 'details.csv', 'invite.docx']
+>>> for filename in myFiles:
+        print(os.path.join('C:\\Users\\asweigart', filename))
+C:\Users\asweigart\accounts.txt
+C:\Users\asweigart\details.csv
+C:\Users\asweigart\invite.docx
+
+
+The Current Working Directory
+
+>>> import os
+>>> os.getcwd()
+'C:\\Python34'
+>>> os.chdir('C:\\Windows\\System32')
+>>> os.getcwd()
+'C:\\Windows\\System32'
+
+
+, Python will display an error if you try to change to a directory that does not exist.
+
+
+>>> os.chdir('C:\\ThisFolderDoesNotExist')
+Traceback (most recent call last):
+  File "<pyshell#18>", line 1, in <module>
+    os.chdir('C:\\ThisFolderDoesNotExist')
+FileNotFoundError: [WinError 2] The system cannot find the file specified:
+'C:\\ThisFolderDoesNotExist'
+
+
+Absolute vs. Relative Paths
+
+
+Creating New Folders with os.makedirs()
+
+Your programs can create new folders (directories) with the os.makedirs() function. Enter the following into the interactive shell:
+
+
+>>> import os
+>>> os.makedirs('C:\\delicious\\walnut\\waffles')
+
+
+

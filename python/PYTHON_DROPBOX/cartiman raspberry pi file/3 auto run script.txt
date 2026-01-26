@@ -1,0 +1,9 @@
+Copy the file servertoserial.py into /home/pi
+
+In LXTerminal:
+sudo crontab -e
+
+Scroll to the bottom and add:
+@reboot python /home/pi/servertoserial.py &
+
+Ctrl+X to exit, Y to save followed by enter twice

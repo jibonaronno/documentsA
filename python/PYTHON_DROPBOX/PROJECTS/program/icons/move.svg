@@ -1,0 +1,17 @@
+<svg width="36" height="27" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <clipPath id="clipPath3935">
+   <rect width="33.375" height="27.125" x="363.375" y="527.36218" id="rect3937" fill-opacity="0.524038" fill="#000000"/>
+  </clipPath>
+ </defs>
+ <metadata id="metadata7">image/svg+xml</metadata>
+ <g>
+  <title>Layer 1</title>
+  <rect id="rect5909" width="35.294506" height="26.084745" x="0.38755" y="0.633298" stroke-miterlimit="4" stroke-linejoin="round" stroke="#ffffff" fill="#ffffff"/>
+  <line id="svg_4" y2="13.129451" x2="9.415318" y1="13.129451" x1="7.797195" stroke-linecap="null" stroke-linejoin="round" stroke="#ffffff" fill="none"/>
+  <line id="svg_5" y2="14.310556" x2="26.945691" y1="14.310556" x1="6.988549" stroke-linecap="null" stroke-linejoin="round" stroke="#000000" fill="none"/>
+  <line id="svg_8" y2="7.334305" x2="20.91243" y1="14.138122" x1="27.716248" stroke-linecap="null" stroke-linejoin="round" stroke="#000000" fill="none"/>
+  <line id="svg_9" y2="20.747982" x2="21.322138" y1="14.531824" x1="27.538296" stroke-linecap="null" stroke-linejoin="round" stroke="#000000" fill="none"/>
+  <ellipse ry="0.253548" rx="0.253548" id="svg_10" cy="14.299519" cx="27.451663" stroke-linecap="null" stroke-linejoin="round" stroke="#000000" fill="#000000"/>
+ </g>
+</svg>

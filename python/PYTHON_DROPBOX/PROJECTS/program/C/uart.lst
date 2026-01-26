@@ -1,0 +1,2815 @@
+GAS LISTING /tmp/ccRaMRx5.s 			page 1
+
+
+   1               		.file	"uart.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__ = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  10               		.text
+  11               	.Ltext0:
+  12               		.cfi_sections	.debug_frame
+  13               	.global	__vector_25
+  14               		.type	__vector_25, @function
+  15               	__vector_25:
+  16               	.LFB2:
+  17               		.file 1 "uart.c"
+   1:uart.c        **** 
+   2:uart.c        **** 
+   3:uart.c        **** #include <stdio.h>
+   4:uart.c        **** #include <avr/interrupt.h>
+   5:uart.c        **** #include <avr/io.h>
+   6:uart.c        **** #include <avr/pgmspace.h>
+   7:uart.c        **** #include <avr/sfr_defs.h>
+   8:uart.c        **** #include <avr/sleep.h>
+   9:uart.c        **** 
+  10:uart.c        **** #include "uart.h"
+  11:uart.c        **** 
+  12:uart.c        **** /* some mcus have multiple uarts */
+  13:uart.c        **** #ifdef UDR0
+  14:uart.c        **** #define UBRRH UBRR0H
+  15:uart.c        **** #define UBRRL UBRR0L
+  16:uart.c        **** #define UDR UDR0
+  17:uart.c        **** 
+  18:uart.c        **** #define UCSRA UCSR0A
+  19:uart.c        **** #define UDRE UDRE0
+  20:uart.c        **** #define RXC RXC0
+  21:uart.c        **** 
+  22:uart.c        **** #define UCSRB UCSR0B
+  23:uart.c        **** #define RXEN RXEN0
+  24:uart.c        **** #define TXEN TXEN0
+  25:uart.c        **** #define RXCIE RXCIE0
+  26:uart.c        **** 
+  27:uart.c        **** #define UCSRC UCSR0C
+  28:uart.c        **** #define URSEL 
+  29:uart.c        **** #define UCSZ0 UCSZ00
+  30:uart.c        **** #define UCSZ1 UCSZ01
+  31:uart.c        **** #define UCSRC_SELECT 0
+  32:uart.c        **** #else
+  33:uart.c        **** #define UCSRC_SELECT (1 << URSEL)
+  34:uart.c        **** #endif
+  35:uart.c        **** 
+  36:uart.c        **** #ifndef USART_RXC_vect
+  37:uart.c        **** #if defined(UART0_RX_vect)
+  38:uart.c        **** #define USART_RXC_vect UART0_RX_vect
+  39:uart.c        **** #elif defined(UART_RX_vect)
+  40:uart.c        **** #define USART_RXC_vect UART_RX_vect
+GAS LISTING /tmp/ccRaMRx5.s 			page 2
+
+
+  41:uart.c        **** #elif defined(USART0_RX_vect)
+  42:uart.c        **** #define USART_RXC_vect USART0_RX_vect
+  43:uart.c        **** #elif defined(USART_RX_vect)
+  44:uart.c        **** #define USART_RXC_vect USART_RX_vect
+  45:uart.c        **** #elif defined(USART0_RXC_vect)
+  46:uart.c        **** #define USART_RXC_vect USART0_RXC_vect
+  47:uart.c        **** #elif defined(USART_RXC_vect)
+  48:uart.c        **** #define USART_RXC_vect USART_RXC_vect
+  49:uart.c        **** #else
+  50:uart.c        **** #error "Uart receive complete interrupt not defined!"
+  51:uart.c        **** #endif
+  52:uart.c        **** #endif
+  53:uart.c        **** 
+  54:uart.c        **** #define BAUD 9600UL
+  55:uart.c        **** //#define UBRRVAL (F_CPU/(BAUD*16)-1)
+  56:uart.c        **** #define UBRRVAL 412UL
+  57:uart.c        **** #define USE_SLEEP 1
+  58:uart.c        **** 
+  59:uart.c        **** 
+  60:uart.c        **** /* Recieve buffer size */
+  61:uart.c        **** #define RX_BUFFER_SIZE 60
+  62:uart.c        **** /* Increase ring buffer macro: */
+  63:uart.c        **** #define INC_RING(var, bsize) if (var == ((bsize)-1)) var=0; else var++
+  64:uart.c        **** 
+  65:uart.c        **** #ifndef TRUE
+  66:uart.c        **** #define TRUE 1
+  67:uart.c        **** #endif
+  68:uart.c        **** #ifndef FALSE
+  69:uart.c        **** #define FALSE 0
+  70:uart.c        **** #endif
+  71:uart.c        **** 
+  72:uart.c        **** unsigned char rx_buffer[RX_BUFFER_SIZE];
+  73:uart.c        **** volatile unsigned char rx_buffer_head;
+  74:uart.c        **** volatile unsigned char rx_buffer_tail;
+  75:uart.c        **** volatile char tx_complete;
+  76:uart.c        **** 
+  77:uart.c        **** // UART recieve interrupt handler.
+  78:uart.c        **** //   
+  79:uart.c        **** // If the buffer overflows, data will be overwritten without warning
+  80:uart.c        **** //
+  81:uart.c        **** 
+  82:uart.c        **** ISR(USART_RXC_vect) // before: SIGNAL(SIG_USART_RECV)
+  83:uart.c        **** {
+  18               		.loc 1 83 0
+  19               		.cfi_startproc
+  20 0000 1F92      		push r1
+  21               	.LCFI0:
+  22               		.cfi_def_cfa_offset 4
+  23               		.cfi_offset 1, -3
+  24 0002 0F92      		push r0
+  25               	.LCFI1:
+  26               		.cfi_def_cfa_offset 5
+  27               		.cfi_offset 0, -4
+  28 0004 0FB6      		in r0,__SREG__
+  29 0006 0F92      		push r0
+  30 0008 0BB6      		in r0,91-32
+  31 000a 0F92      		push r0
+GAS LISTING /tmp/ccRaMRx5.s 			page 3
+
+
+  32 000c 1124      		clr __zero_reg__
+  33 000e 8F93      		push r24
+  34               	.LCFI2:
+  35               		.cfi_def_cfa_offset 6
+  36               		.cfi_offset 24, -5
+  37 0010 EF93      		push r30
+  38               	.LCFI3:
+  39               		.cfi_def_cfa_offset 7
+  40               		.cfi_offset 30, -6
+  41 0012 FF93      		push r31
+  42               	.LCFI4:
+  43               		.cfi_def_cfa_offset 8
+  44               		.cfi_offset 31, -7
+  45               	/* prologue: Signal */
+  46               	/* frame size = 0 */
+  47               	/* stack size = 7 */
+  48               	.L__stack_usage = 7
+  84:uart.c        ****   char c = UDR;
+  49               		.loc 1 84 0
+  50 0014 8091 C600 		lds r24,198
+  51               	.LVL0:
+  85:uart.c        ****   rx_buffer[rx_buffer_head] = c;
+  52               		.loc 1 85 0
+  53 0018 E091 0000 		lds r30,rx_buffer_head
+  54 001c F0E0      		ldi r31,lo8(0)
+  55 001e E050      		subi r30,lo8(-(rx_buffer))
+  56 0020 F040      		sbci r31,hi8(-(rx_buffer))
+  57 0022 8083      		st Z,r24
+  86:uart.c        ****   INC_RING(rx_buffer_head, RX_BUFFER_SIZE);
+  58               		.loc 1 86 0
+  59 0024 8091 0000 		lds r24,rx_buffer_head
+  60               	.LVL1:
+  61 0028 8B33      		cpi r24,lo8(59)
+  62 002a 01F4      		brne .L2
+  63               		.loc 1 86 0 is_stmt 0 discriminator 1
+  64 002c 1092 0000 		sts rx_buffer_head,__zero_reg__
+  65 0030 00C0      		rjmp .L1
+  66               	.L2:
+  67               		.loc 1 86 0 discriminator 2
+  68 0032 8091 0000 		lds r24,rx_buffer_head
+  69 0036 8F5F      		subi r24,lo8(-(1))
+  70 0038 8093 0000 		sts rx_buffer_head,r24
+  71               	.L1:
+  72               	/* epilogue start */
+  87:uart.c        ****   // one might deal with head==tail here (buffer full)
+  88:uart.c        **** }
+  73               		.loc 1 88 0 is_stmt 1
+  74 003c FF91      		pop r31
+  75 003e EF91      		pop r30
+  76               	.LVL2:
+  77 0040 8F91      		pop r24
+  78 0042 0F90      		pop r0
+  79 0044 0BBE      		out 91-32,r0
+  80 0046 0F90      		pop r0
+  81 0048 0FBE      		out __SREG__,r0
+  82 004a 0F90      		pop r0
+  83 004c 1F90      		pop r1
+GAS LISTING /tmp/ccRaMRx5.s 			page 4
+
+
+  84 004e 1895      		reti
+  85               		.cfi_endproc
+  86               	.LFE2:
+  87               		.size	__vector_25, .-__vector_25
+  88               	.global	uart_init
+  89               		.type	uart_init, @function
+  90               	uart_init:
+  91               	.LFB3:
+  89:uart.c        **** 
+  90:uart.c        **** 
+  91:uart.c        **** void uart_init()
+  92:uart.c        **** {
+  92               		.loc 1 92 0
+  93               		.cfi_startproc
+  94               	/* prologue: function */
+  95               	/* frame size = 0 */
+  96               	/* stack size = 0 */
+  97               	.L__stack_usage = 0
+  93:uart.c        ****     /* set baud rate */
+  94:uart.c        ****     UBRRH = UBRRVAL >> 8;
+  98               		.loc 1 94 0
+  99 0050 81E0      		ldi r24,lo8(1)
+ 100 0052 8093 C500 		sts 197,r24
+  95:uart.c        ****     UBRRL = UBRRVAL & 0xff;
+ 101               		.loc 1 95 0
+ 102 0056 9CE9      		ldi r25,lo8(-100)
+ 103 0058 9093 C400 		sts 196,r25
+  96:uart.c        ****     /* set frame format: 8 bit, no parity, 1 bit */
+  97:uart.c        ****     UCSRC = UCSRC_SELECT | (1 << UCSZ1) | (1 << UCSZ0);
+ 104               		.loc 1 97 0
+ 105 005c 96E0      		ldi r25,lo8(6)
+ 106 005e 9093 C200 		sts 194,r25
+  98:uart.c        ****     /* enable serial receiver and transmitter */
+  99:uart.c        **** #if !USE_SLEEP
+ 100:uart.c        ****     UCSRB = (1 << RXEN) | (1 << TXEN);
+ 101:uart.c        **** #else
+ 102:uart.c        ****     UCSRB = (1 << RXEN) | (1 << TXEN) | (1 << RXCIE);
+ 107               		.loc 1 102 0
+ 108 0062 98E9      		ldi r25,lo8(-104)
+ 109 0064 9093 C100 		sts 193,r25
+ 103:uart.c        **** #endif
+ 104:uart.c        **** /* Reset buffers */
+ 105:uart.c        ****   rx_buffer_head = 0;
+ 110               		.loc 1 105 0
+ 111 0068 1092 0000 		sts rx_buffer_head,__zero_reg__
+ 106:uart.c        ****   rx_buffer_tail = 0;
+ 112               		.loc 1 106 0
+ 113 006c 1092 0000 		sts rx_buffer_tail,__zero_reg__
+ 107:uart.c        ****   tx_complete = TRUE;
+ 114               		.loc 1 107 0
+ 115 0070 8093 0000 		sts tx_complete,r24
+ 116               	/* epilogue start */
+ 108:uart.c        **** }
+ 117               		.loc 1 108 0
+ 118 0074 0895      		ret
+ 119               		.cfi_endproc
+ 120               	.LFE3:
+GAS LISTING /tmp/ccRaMRx5.s 			page 5
+
+
+ 121               		.size	uart_init, .-uart_init
+ 122               	.global	uart_putc
+ 123               		.type	uart_putc, @function
+ 124               	uart_putc:
+ 125               	.LFB4:
+ 109:uart.c        **** 
+ 110:uart.c        **** void uart_putc(uint8_t c)
+ 111:uart.c        **** {
+ 126               		.loc 1 111 0
+ 127               		.cfi_startproc
+ 128               	.LVL3:
+ 129 0076 CF93      		push r28
+ 130               	.LCFI5:
+ 131               		.cfi_def_cfa_offset 4
+ 132               		.cfi_offset 28, -3
+ 133               	/* prologue: function */
+ 134               	/* frame size = 0 */
+ 135               	/* stack size = 1 */
+ 136               	.L__stack_usage = 1
+ 137 0078 C82F      		mov r28,r24
+ 112:uart.c        ****     if(c == '\n')
+ 138               		.loc 1 112 0
+ 139 007a 8A30      		cpi r24,lo8(10)
+ 140 007c 01F4      		brne .L8
+ 113:uart.c        ****         uart_putc('\r');
+ 141               		.loc 1 113 0
+ 142 007e 8DE0      		ldi r24,lo8(13)
+ 143               	.LVL4:
+ 144 0080 0E94 0000 		call uart_putc
+ 145               	.L8:
+ 114:uart.c        **** 
+ 115:uart.c        ****     /* wait until transmit buffer is empty */
+ 116:uart.c        ****     while(!(UCSRA & (1 << UDRE)));
+ 146               		.loc 1 116 0 discriminator 1
+ 147 0084 8091 C000 		lds r24,192
+ 148 0088 85FF      		sbrs r24,5
+ 149 008a 00C0      		rjmp .L8
+ 117:uart.c        **** 
+ 118:uart.c        ****     /* send next byte */
+ 119:uart.c        ****     UDR = c;
+ 150               		.loc 1 119 0
+ 151 008c C093 C600 		sts 198,r28
+ 152               	/* epilogue start */
+ 120:uart.c        **** }
+ 153               		.loc 1 120 0
+ 154 0090 CF91      		pop r28
+ 155               	.LVL5:
+ 156 0092 0895      		ret
+ 157               		.cfi_endproc
+ 158               	.LFE4:
+ 159               		.size	uart_putc, .-uart_putc
+ 160               	.global	uart_putc_hex
+ 161               		.type	uart_putc_hex, @function
+ 162               	uart_putc_hex:
+ 163               	.LFB5:
+ 121:uart.c        **** 
+ 122:uart.c        **** void uart_putc_hex(uint8_t b)
+GAS LISTING /tmp/ccRaMRx5.s 			page 6
+
+
+ 123:uart.c        **** {
+ 164               		.loc 1 123 0
+ 165               		.cfi_startproc
+ 166               	.LVL6:
+ 167 0094 CF93      		push r28
+ 168               	.LCFI6:
+ 169               		.cfi_def_cfa_offset 4
+ 170               		.cfi_offset 28, -3
+ 171               	/* prologue: function */
+ 172               	/* frame size = 0 */
+ 173               	/* stack size = 1 */
+ 174               	.L__stack_usage = 1
+ 175 0096 C82F      		mov r28,r24
+ 124:uart.c        ****     /* upper nibble */
+ 125:uart.c        ****     if((b >> 4) < 0x0a)
+ 176               		.loc 1 125 0
+ 177 0098 8295      		swap r24
+ 178               	.LVL7:
+ 179 009a 8F70      		andi r24,lo8(15)
+ 180 009c 8A30      		cpi r24,lo8(10)
+ 181 009e 00F4      		brsh .L11
+ 126:uart.c        ****         uart_putc((b >> 4) + '0');
+ 182               		.loc 1 126 0
+ 183 00a0 805D      		subi r24,lo8(-(48))
+ 184 00a2 00C0      		rjmp .L15
+ 185               	.L11:
+ 127:uart.c        ****     else
+ 128:uart.c        ****         uart_putc((b >> 4) - 0x0a + 'a');
+ 186               		.loc 1 128 0
+ 187 00a4 895A      		subi r24,lo8(-(87))
+ 188               	.L15:
+ 189 00a6 0E94 0000 		call uart_putc
+ 129:uart.c        **** 
+ 130:uart.c        ****     /* lower nibble */
+ 131:uart.c        ****     if((b & 0x0f) < 0x0a)
+ 190               		.loc 1 131 0
+ 191 00aa 2C2F      		mov r18,r28
+ 192 00ac 30E0      		ldi r19,lo8(0)
+ 193 00ae 2F70      		andi r18,lo8(15)
+ 194 00b0 3070      		andi r19,hi8(15)
+ 195 00b2 8C2F      		mov r24,r28
+ 196 00b4 8F70      		andi r24,lo8(15)
+ 197 00b6 2A30      		cpi r18,10
+ 198 00b8 3105      		cpc r19,__zero_reg__
+ 199 00ba 04F4      		brge .L13
+ 200               	.LBB4:
+ 201               	.LBB5:
+ 132:uart.c        ****         uart_putc((b & 0x0f) + '0');
+ 202               		.loc 1 132 0
+ 203 00bc 805D      		subi r24,lo8(-(48))
+ 204 00be 00C0      		rjmp .L16
+ 205               	.L13:
+ 206               	.LBE5:
+ 207               	.LBE4:
+ 133:uart.c        ****     else
+ 134:uart.c        ****         uart_putc((b & 0x0f) - 0x0a + 'a');
+ 208               		.loc 1 134 0
+GAS LISTING /tmp/ccRaMRx5.s 			page 7
+
+
+ 209 00c0 895A      		subi r24,lo8(-(87))
+ 210               	.L16:
+ 211 00c2 0E94 0000 		call uart_putc
+ 212               	/* epilogue start */
+ 135:uart.c        **** }
+ 213               		.loc 1 135 0
+ 214 00c6 CF91      		pop r28
+ 215               	.LVL8:
+ 216 00c8 0895      		ret
+ 217               		.cfi_endproc
+ 218               	.LFE5:
+ 219               		.size	uart_putc_hex, .-uart_putc_hex
+ 220               	.global	uart_putw_hex
+ 221               		.type	uart_putw_hex, @function
+ 222               	uart_putw_hex:
+ 223               	.LFB6:
+ 136:uart.c        **** 
+ 137:uart.c        **** void uart_putw_hex(uint16_t w)
+ 138:uart.c        **** {
+ 224               		.loc 1 138 0
+ 225               		.cfi_startproc
+ 226               	.LVL9:
+ 227 00ca CF93      		push r28
+ 228               	.LCFI7:
+ 229               		.cfi_def_cfa_offset 4
+ 230               		.cfi_offset 28, -3
+ 231               	/* prologue: function */
+ 232               	/* frame size = 0 */
+ 233               	/* stack size = 1 */
+ 234               	.L__stack_usage = 1
+ 235 00cc C82F      		mov r28,r24
+ 139:uart.c        ****     uart_putc_hex((uint8_t) (w >> 8));
+ 236               		.loc 1 139 0
+ 237 00ce 892F      		mov r24,r25
+ 238               	.LVL10:
+ 239 00d0 0E94 0000 		call uart_putc_hex
+ 140:uart.c        ****     uart_putc_hex((uint8_t) (w & 0xff));
+ 240               		.loc 1 140 0
+ 241 00d4 8C2F      		mov r24,r28
+ 242 00d6 0E94 0000 		call uart_putc_hex
+ 243               	/* epilogue start */
+ 141:uart.c        **** }
+ 244               		.loc 1 141 0
+ 245 00da CF91      		pop r28
+ 246 00dc 0895      		ret
+ 247               		.cfi_endproc
+ 248               	.LFE6:
+ 249               		.size	uart_putw_hex, .-uart_putw_hex
+ 250               	.global	uart_putdw_hex
+ 251               		.type	uart_putdw_hex, @function
+ 252               	uart_putdw_hex:
+ 253               	.LFB7:
+ 142:uart.c        **** 
+ 143:uart.c        **** void uart_putdw_hex(uint32_t dw)
+ 144:uart.c        **** {
+ 254               		.loc 1 144 0
+ 255               		.cfi_startproc
+GAS LISTING /tmp/ccRaMRx5.s 			page 8
+
+
+ 256               	.LVL11:
+ 257 00de CF92      		push r12
+ 258               	.LCFI8:
+ 259               		.cfi_def_cfa_offset 4
+ 260               		.cfi_offset 12, -3
+ 261 00e0 DF92      		push r13
+ 262               	.LCFI9:
+ 263               		.cfi_def_cfa_offset 5
+ 264               		.cfi_offset 13, -4
+ 265 00e2 EF92      		push r14
+ 266               	.LCFI10:
+ 267               		.cfi_def_cfa_offset 6
+ 268               		.cfi_offset 14, -5
+ 269 00e4 FF92      		push r15
+ 270               	.LCFI11:
+ 271               		.cfi_def_cfa_offset 7
+ 272               		.cfi_offset 15, -6
+ 273               	/* prologue: function */
+ 274               	/* frame size = 0 */
+ 275               	/* stack size = 4 */
+ 276               	.L__stack_usage = 4
+ 277 00e6 6B01      		movw r12,r22
+ 278 00e8 7C01      		movw r14,r24
+ 145:uart.c        ****     uart_putw_hex((uint16_t) (dw >> 16));
+ 279               		.loc 1 145 0
+ 280 00ea C701      		movw r24,r14
+ 281 00ec 0E94 0000 		call uart_putw_hex
+ 282               	.LVL12:
+ 146:uart.c        ****     uart_putw_hex((uint16_t) (dw & 0xffff));
+ 283               		.loc 1 146 0
+ 284 00f0 C601      		movw r24,r12
+ 285 00f2 0E94 0000 		call uart_putw_hex
+ 286               	/* epilogue start */
+ 147:uart.c        **** }
+ 287               		.loc 1 147 0
+ 288 00f6 FF90      		pop r15
+ 289 00f8 EF90      		pop r14
+ 290 00fa DF90      		pop r13
+ 291 00fc CF90      		pop r12
+ 292               	.LVL13:
+ 293 00fe 0895      		ret
+ 294               		.cfi_endproc
+ 295               	.LFE7:
+ 296               		.size	uart_putdw_hex, .-uart_putdw_hex
+ 297               	.global	uart_putw_dec
+ 298               		.type	uart_putw_dec, @function
+ 299               	uart_putw_dec:
+ 300               	.LFB8:
+ 148:uart.c        **** 
+ 149:uart.c        **** void uart_putw_dec(uint16_t w)
+ 150:uart.c        **** {
+ 301               		.loc 1 150 0
+ 302               		.cfi_startproc
+ 303               	.LVL14:
+ 304 0100 BF92      		push r11
+ 305               	.LCFI12:
+ 306               		.cfi_def_cfa_offset 4
+GAS LISTING /tmp/ccRaMRx5.s 			page 9
+
+
+ 307               		.cfi_offset 11, -3
+ 308 0102 CF92      		push r12
+ 309               	.LCFI13:
+ 310               		.cfi_def_cfa_offset 5
+ 311               		.cfi_offset 12, -4
+ 312 0104 DF92      		push r13
+ 313               	.LCFI14:
+ 314               		.cfi_def_cfa_offset 6
+ 315               		.cfi_offset 13, -5
+ 316 0106 EF92      		push r14
+ 317               	.LCFI15:
+ 318               		.cfi_def_cfa_offset 7
+ 319               		.cfi_offset 14, -6
+ 320 0108 FF92      		push r15
+ 321               	.LCFI16:
+ 322               		.cfi_def_cfa_offset 8
+ 323               		.cfi_offset 15, -7
+ 324 010a 0F93      		push r16
+ 325               	.LCFI17:
+ 326               		.cfi_def_cfa_offset 9
+ 327               		.cfi_offset 16, -8
+ 328 010c 1F93      		push r17
+ 329               	.LCFI18:
+ 330               		.cfi_def_cfa_offset 10
+ 331               		.cfi_offset 17, -9
+ 332 010e CF93      		push r28
+ 333               	.LCFI19:
+ 334               		.cfi_def_cfa_offset 11
+ 335               		.cfi_offset 28, -10
+ 336 0110 DF93      		push r29
+ 337               	.LCFI20:
+ 338               		.cfi_def_cfa_offset 12
+ 339               		.cfi_offset 29, -11
+ 340               	/* prologue: function */
+ 341               	/* frame size = 0 */
+ 342               	/* stack size = 9 */
+ 343               	.L__stack_usage = 9
+ 344 0112 8C01      		movw r16,r24
+ 345               	.LVL15:
+ 346               		.loc 1 150 0
+ 347 0114 25E0      		ldi r18,lo8(5)
+ 348 0116 E22E      		mov r14,r18
+ 349 0118 F12C      		mov r15,__zero_reg__
+ 151:uart.c        ****     uint16_t num = 10000;
+ 152:uart.c        ****     uint8_t started = 0;
+ 350               		.loc 1 152 0
+ 351 011a 20E0      		ldi r18,lo8(0)
+ 151:uart.c        ****     uint16_t num = 10000;
+ 352               		.loc 1 151 0
+ 353 011c C0E1      		ldi r28,lo8(10000)
+ 354 011e D7E2      		ldi r29,hi8(10000)
+ 355               	.LBB6:
+ 153:uart.c        **** 
+ 154:uart.c        ****     while(num > 0)
+ 155:uart.c        ****     {
+ 156:uart.c        ****         uint8_t b = w / num;
+ 157:uart.c        ****         if(b > 0 || started || num == 1)
+GAS LISTING /tmp/ccRaMRx5.s 			page 10
+
+
+ 158:uart.c        ****         {
+ 159:uart.c        ****             uart_putc('0' + b);
+ 160:uart.c        ****             started = 1;
+ 161:uart.c        ****         }
+ 162:uart.c        ****         w -= b * num;
+ 163:uart.c        **** 
+ 164:uart.c        ****         num /= 10;
+ 356               		.loc 1 164 0
+ 357 0120 3AE0      		ldi r19,lo8(10)
+ 358 0122 C32E      		mov r12,r19
+ 359 0124 D12C      		mov r13,__zero_reg__
+ 360               	.LVL16:
+ 361               	.L22:
+ 156:uart.c        ****         uint8_t b = w / num;
+ 362               		.loc 1 156 0
+ 363 0126 C801      		movw r24,r16
+ 364 0128 BE01      		movw r22,r28
+ 365 012a 0E94 0000 		call __udivmodhi4
+ 366 012e B62E      		mov r11,r22
+ 367               	.LVL17:
+ 157:uart.c        ****         if(b > 0 || started || num == 1)
+ 368               		.loc 1 157 0
+ 369 0130 6623      		tst r22
+ 370 0132 01F4      		brne .L20
+ 157:uart.c        ****         if(b > 0 || started || num == 1)
+ 371               		.loc 1 157 0 is_stmt 0 discriminator 1
+ 372 0134 2223      		tst r18
+ 373 0136 01F4      		brne .L20
+ 374 0138 C130      		cpi r28,1
+ 375 013a D105      		cpc r29,__zero_reg__
+ 376 013c 01F4      		brne .L21
+ 377               	.L20:
+ 159:uart.c        ****             uart_putc('0' + b);
+ 378               		.loc 1 159 0 is_stmt 1
+ 379 013e 8B2D      		mov r24,r11
+ 380 0140 805D      		subi r24,lo8(-(48))
+ 381 0142 0E94 0000 		call uart_putc
+ 382               	.LVL18:
+ 160:uart.c        ****             started = 1;
+ 383               		.loc 1 160 0
+ 384 0146 21E0      		ldi r18,lo8(1)
+ 385               	.LVL19:
+ 386               	.L21:
+ 162:uart.c        ****         w -= b * num;
+ 387               		.loc 1 162 0
+ 388 0148 6B2D      		mov r22,r11
+ 389 014a 70E0      		ldi r23,lo8(0)
+ 390 014c 6C9F      		mul r22,r28
+ 391 014e C001      		movw r24,r0
+ 392 0150 6D9F      		mul r22,r29
+ 393 0152 900D      		add r25,r0
+ 394 0154 7C9F      		mul r23,r28
+ 395 0156 900D      		add r25,r0
+ 396 0158 1124      		clr r1
+ 397 015a 081B      		sub r16,r24
+ 398 015c 190B      		sbc r17,r25
+ 399               	.LVL20:
+GAS LISTING /tmp/ccRaMRx5.s 			page 11
+
+
+ 400               		.loc 1 164 0
+ 401 015e CE01      		movw r24,r28
+ 402 0160 B601      		movw r22,r12
+ 403 0162 0E94 0000 		call __udivmodhi4
+ 404 0166 EB01      		movw r28,r22
+ 405               	.LVL21:
+ 406 0168 0894      		sec
+ 407 016a E108      		sbc r14,__zero_reg__
+ 408 016c F108      		sbc r15,__zero_reg__
+ 409               	.LBE6:
+ 154:uart.c        ****     while(num > 0)
+ 410               		.loc 1 154 0
+ 411 016e E114      		cp r14,__zero_reg__
+ 412 0170 F104      		cpc r15,__zero_reg__
+ 413 0172 01F4      		brne .L22
+ 414               	/* epilogue start */
+ 165:uart.c        ****     }
+ 166:uart.c        **** }
+ 415               		.loc 1 166 0
+ 416 0174 DF91      		pop r29
+ 417 0176 CF91      		pop r28
+ 418 0178 1F91      		pop r17
+ 419 017a 0F91      		pop r16
+ 420               	.LVL22:
+ 421 017c FF90      		pop r15
+ 422 017e EF90      		pop r14
+ 423 0180 DF90      		pop r13
+ 424 0182 CF90      		pop r12
+ 425 0184 BF90      		pop r11
+ 426               	.LVL23:
+ 427 0186 0895      		ret
+ 428               		.cfi_endproc
+ 429               	.LFE8:
+ 430               		.size	uart_putw_dec, .-uart_putw_dec
+ 431               	.global	uart_putdw_dec
+ 432               		.type	uart_putdw_dec, @function
+ 433               	uart_putdw_dec:
+ 434               	.LFB9:
+ 167:uart.c        **** 
+ 168:uart.c        **** void uart_putdw_dec(uint32_t dw)
+ 169:uart.c        **** {
+ 435               		.loc 1 169 0
+ 436               		.cfi_startproc
+ 437               	.LVL24:
+ 438 0188 4F92      		push r4
+ 439               	.LCFI21:
+ 440               		.cfi_def_cfa_offset 4
+ 441               		.cfi_offset 4, -3
+ 442 018a 5F92      		push r5
+ 443               	.LCFI22:
+ 444               		.cfi_def_cfa_offset 5
+ 445               		.cfi_offset 5, -4
+ 446 018c 6F92      		push r6
+ 447               	.LCFI23:
+ 448               		.cfi_def_cfa_offset 6
+ 449               		.cfi_offset 6, -5
+ 450 018e 7F92      		push r7
+GAS LISTING /tmp/ccRaMRx5.s 			page 12
+
+
+ 451               	.LCFI24:
+ 452               		.cfi_def_cfa_offset 7
+ 453               		.cfi_offset 7, -6
+ 454 0190 8F92      		push r8
+ 455               	.LCFI25:
+ 456               		.cfi_def_cfa_offset 8
+ 457               		.cfi_offset 8, -7
+ 458 0192 9F92      		push r9
+ 459               	.LCFI26:
+ 460               		.cfi_def_cfa_offset 9
+ 461               		.cfi_offset 9, -8
+ 462 0194 AF92      		push r10
+ 463               	.LCFI27:
+ 464               		.cfi_def_cfa_offset 10
+ 465               		.cfi_offset 10, -9
+ 466 0196 BF92      		push r11
+ 467               	.LCFI28:
+ 468               		.cfi_def_cfa_offset 11
+ 469               		.cfi_offset 11, -10
+ 470 0198 CF92      		push r12
+ 471               	.LCFI29:
+ 472               		.cfi_def_cfa_offset 12
+ 473               		.cfi_offset 12, -11
+ 474 019a DF92      		push r13
+ 475               	.LCFI30:
+ 476               		.cfi_def_cfa_offset 13
+ 477               		.cfi_offset 13, -12
+ 478 019c EF92      		push r14
+ 479               	.LCFI31:
+ 480               		.cfi_def_cfa_offset 14
+ 481               		.cfi_offset 14, -13
+ 482 019e FF92      		push r15
+ 483               	.LCFI32:
+ 484               		.cfi_def_cfa_offset 15
+ 485               		.cfi_offset 15, -14
+ 486 01a0 0F93      		push r16
+ 487               	.LCFI33:
+ 488               		.cfi_def_cfa_offset 16
+ 489               		.cfi_offset 16, -15
+ 490 01a2 1F93      		push r17
+ 491               	.LCFI34:
+ 492               		.cfi_def_cfa_offset 17
+ 493               		.cfi_offset 17, -16
+ 494 01a4 CF93      		push r28
+ 495               	.LCFI35:
+ 496               		.cfi_def_cfa_offset 18
+ 497               		.cfi_offset 28, -17
+ 498 01a6 DF93      		push r29
+ 499               	.LCFI36:
+ 500               		.cfi_def_cfa_offset 19
+ 501               		.cfi_offset 29, -18
+ 502               	/* prologue: function */
+ 503               	/* frame size = 0 */
+ 504               	/* stack size = 16 */
+ 505               	.L__stack_usage = 16
+ 506 01a8 4B01      		movw r8,r22
+ 507 01aa 5C01      		movw r10,r24
+GAS LISTING /tmp/ccRaMRx5.s 			page 13
+
+
+ 508               	.LVL25:
+ 509               		.loc 1 169 0
+ 510 01ac 0AE0      		ldi r16,lo8(10)
+ 511 01ae 10E0      		ldi r17,hi8(10)
+ 170:uart.c        ****     uint32_t num = 1000000000;
+ 171:uart.c        ****     uint8_t started = 0;
+ 512               		.loc 1 171 0
+ 513 01b0 C0E0      		ldi r28,lo8(0)
+ 170:uart.c        ****     uint32_t num = 1000000000;
+ 514               		.loc 1 170 0
+ 515 01b2 C12C      		mov r12,__zero_reg__
+ 516 01b4 4AEC      		ldi r20,hi8(1000000000)
+ 517 01b6 D42E      		mov r13,r20
+ 518 01b8 4AE9      		ldi r20,hlo8(1000000000)
+ 519 01ba E42E      		mov r14,r20
+ 520 01bc 4BE3      		ldi r20,hhi8(1000000000)
+ 521 01be F42E      		mov r15,r20
+ 522               	.LBB7:
+ 172:uart.c        **** 
+ 173:uart.c        ****     while(num > 0)
+ 174:uart.c        ****     {
+ 175:uart.c        ****         uint8_t b = dw / num;
+ 176:uart.c        ****         if(b > 0 || started || num == 1)
+ 177:uart.c        ****         {
+ 178:uart.c        ****             uart_putc('0' + b);
+ 179:uart.c        ****             started = 1;
+ 180:uart.c        ****         }
+ 181:uart.c        ****         dw -= b * num;
+ 182:uart.c        **** 
+ 183:uart.c        ****         num /= 10;
+ 523               		.loc 1 183 0
+ 524 01c0 5AE0      		ldi r21,lo8(10)
+ 525 01c2 452E      		mov r4,r21
+ 526 01c4 512C      		mov r5,__zero_reg__
+ 527 01c6 612C      		mov r6,__zero_reg__
+ 528 01c8 712C      		mov r7,__zero_reg__
+ 529               	.LVL26:
+ 530               	.L27:
+ 175:uart.c        ****         uint8_t b = dw / num;
+ 531               		.loc 1 175 0
+ 532 01ca C501      		movw r24,r10
+ 533 01cc B401      		movw r22,r8
+ 534 01ce A701      		movw r20,r14
+ 535 01d0 9601      		movw r18,r12
+ 536 01d2 0E94 0000 		call __udivmodsi4
+ 537 01d6 D22F      		mov r29,r18
+ 538               	.LVL27:
+ 176:uart.c        ****         if(b > 0 || started || num == 1)
+ 539               		.loc 1 176 0
+ 540 01d8 2223      		tst r18
+ 541 01da 01F4      		brne .L25
+ 176:uart.c        ****         if(b > 0 || started || num == 1)
+ 542               		.loc 1 176 0 is_stmt 0 discriminator 1
+ 543 01dc CC23      		tst r28
+ 544 01de 01F4      		brne .L25
+ 545 01e0 81E0      		ldi r24,lo8(1)
+ 546 01e2 C816      		cp r12,r24
+GAS LISTING /tmp/ccRaMRx5.s 			page 14
+
+
+ 547 01e4 D104      		cpc r13,__zero_reg__
+ 548 01e6 E104      		cpc r14,__zero_reg__
+ 549 01e8 F104      		cpc r15,__zero_reg__
+ 550 01ea 01F4      		brne .L26
+ 551               	.L25:
+ 178:uart.c        ****             uart_putc('0' + b);
+ 552               		.loc 1 178 0 is_stmt 1
+ 553 01ec 8D2F      		mov r24,r29
+ 554 01ee 805D      		subi r24,lo8(-(48))
+ 555 01f0 0E94 0000 		call uart_putc
+ 556               	.LVL28:
+ 179:uart.c        ****             started = 1;
+ 557               		.loc 1 179 0
+ 558 01f4 C1E0      		ldi r28,lo8(1)
+ 559               	.LVL29:
+ 560               	.L26:
+ 181:uart.c        ****         dw -= b * num;
+ 561               		.loc 1 181 0
+ 562 01f6 6D2F      		mov r22,r29
+ 563 01f8 70E0      		ldi r23,lo8(0)
+ 564 01fa 80E0      		ldi r24,lo8(0)
+ 565 01fc 90E0      		ldi r25,hi8(0)
+ 566 01fe A701      		movw r20,r14
+ 567 0200 9601      		movw r18,r12
+ 568 0202 0E94 0000 		call __mulsi3
+ 569 0206 DC01      		movw r26,r24
+ 570 0208 CB01      		movw r24,r22
+ 571 020a 881A      		sub r8,r24
+ 572 020c 990A      		sbc r9,r25
+ 573 020e AA0A      		sbc r10,r26
+ 574 0210 BB0A      		sbc r11,r27
+ 575               	.LVL30:
+ 576               		.loc 1 183 0
+ 577 0212 C701      		movw r24,r14
+ 578 0214 B601      		movw r22,r12
+ 579 0216 A301      		movw r20,r6
+ 580 0218 9201      		movw r18,r4
+ 581 021a 0E94 0000 		call __udivmodsi4
+ 582 021e 6901      		movw r12,r18
+ 583 0220 7A01      		movw r14,r20
+ 584               	.LVL31:
+ 585 0222 0150      		subi r16,lo8(-(-1))
+ 586 0224 1040      		sbci r17,hi8(-(-1))
+ 587               	.LBE7:
+ 173:uart.c        ****     while(num > 0)
+ 588               		.loc 1 173 0
+ 589 0226 01F4      		brne .L27
+ 590               	/* epilogue start */
+ 184:uart.c        ****     }
+ 185:uart.c        **** }
+ 591               		.loc 1 185 0
+ 592 0228 DF91      		pop r29
+ 593               	.LVL32:
+ 594 022a CF91      		pop r28
+ 595               	.LVL33:
+ 596 022c 1F91      		pop r17
+ 597 022e 0F91      		pop r16
+GAS LISTING /tmp/ccRaMRx5.s 			page 15
+
+
+ 598 0230 FF90      		pop r15
+ 599 0232 EF90      		pop r14
+ 600 0234 DF90      		pop r13
+ 601 0236 CF90      		pop r12
+ 602 0238 BF90      		pop r11
+ 603 023a AF90      		pop r10
+ 604 023c 9F90      		pop r9
+ 605 023e 8F90      		pop r8
+ 606               	.LVL34:
+ 607 0240 7F90      		pop r7
+ 608 0242 6F90      		pop r6
+ 609 0244 5F90      		pop r5
+ 610 0246 4F90      		pop r4
+ 611 0248 0895      		ret
+ 612               		.cfi_endproc
+ 613               	.LFE9:
+ 614               		.size	uart_putdw_dec, .-uart_putdw_dec
+ 615               	.global	uart_puts
+ 616               		.type	uart_puts, @function
+ 617               	uart_puts:
+ 618               	.LFB10:
+ 186:uart.c        **** 
+ 187:uart.c        **** void uart_puts(const char* str)
+ 188:uart.c        **** {
+ 619               		.loc 1 188 0
+ 620               		.cfi_startproc
+ 621               	.LVL35:
+ 622 024a CF93      		push r28
+ 623               	.LCFI37:
+ 624               		.cfi_def_cfa_offset 4
+ 625               		.cfi_offset 28, -3
+ 626 024c DF93      		push r29
+ 627               	.LCFI38:
+ 628               		.cfi_def_cfa_offset 5
+ 629               		.cfi_offset 29, -4
+ 630               	/* prologue: function */
+ 631               	/* frame size = 0 */
+ 632               	/* stack size = 2 */
+ 633               	.L__stack_usage = 2
+ 634               		.loc 1 188 0
+ 635 024e EC01      		movw r28,r24
+ 189:uart.c        ****     while(*str)
+ 636               		.loc 1 189 0
+ 637 0250 00C0      		rjmp .L30
+ 638               	.LVL36:
+ 639               	.L31:
+ 190:uart.c        ****         uart_putc(*str++);
+ 640               		.loc 1 190 0
+ 641 0252 0E94 0000 		call uart_putc
+ 642               	.L30:
+ 189:uart.c        ****     while(*str)
+ 643               		.loc 1 189 0 discriminator 1
+ 644 0256 8991      		ld r24,Y+
+ 645 0258 8823      		tst r24
+ 646 025a 01F4      		brne .L31
+ 647               	/* epilogue start */
+ 191:uart.c        **** }
+GAS LISTING /tmp/ccRaMRx5.s 			page 16
+
+
+ 648               		.loc 1 191 0
+ 649 025c DF91      		pop r29
+ 650 025e CF91      		pop r28
+ 651 0260 0895      		ret
+ 652               		.cfi_endproc
+ 653               	.LFE10:
+ 654               		.size	uart_puts, .-uart_puts
+ 655               	.global	uart_puts_p
+ 656               		.type	uart_puts_p, @function
+ 657               	uart_puts_p:
+ 658               	.LFB11:
+ 192:uart.c        **** 
+ 193:uart.c        **** void uart_puts_p(PGM_P str)
+ 194:uart.c        **** {
+ 659               		.loc 1 194 0
+ 660               		.cfi_startproc
+ 661               	.LVL37:
+ 662 0262 CF93      		push r28
+ 663               	.LCFI39:
+ 664               		.cfi_def_cfa_offset 4
+ 665               		.cfi_offset 28, -3
+ 666 0264 DF93      		push r29
+ 667               	.LCFI40:
+ 668               		.cfi_def_cfa_offset 5
+ 669               		.cfi_offset 29, -4
+ 670               	/* prologue: function */
+ 671               	/* frame size = 0 */
+ 672               	/* stack size = 2 */
+ 673               	.L__stack_usage = 2
+ 674 0266 EC01      		movw r28,r24
+ 675               	.LVL38:
+ 676               	.L34:
+ 677               	.LBB8:
+ 678               	.LBB9:
+ 195:uart.c        ****     while(1)
+ 196:uart.c        ****     {
+ 197:uart.c        ****         uint8_t b = pgm_read_byte_near(str++);
+ 679               		.loc 1 197 0
+ 680 0268 FE01      		movw r30,r28
+ 681               	.LVL39:
+ 682 026a 2196      		adiw r28,1
+ 683               	.LVL40:
+ 684               	/* #APP */
+ 685               	 ;  197 "uart.c" 1
+ 686 026c 8491      		lpm r24, Z
+ 687               		
+ 688               	 ;  0 "" 2
+ 689               	.LVL41:
+ 690               	/* #NOAPP */
+ 691               	.LBE9:
+ 198:uart.c        ****         if(!b)
+ 692               		.loc 1 198 0
+ 693 026e 8823      		tst r24
+ 694 0270 01F0      		breq .L32
+ 199:uart.c        ****             break;
+ 200:uart.c        **** 
+ 201:uart.c        ****         uart_putc(b);
+GAS LISTING /tmp/ccRaMRx5.s 			page 17
+
+
+ 695               		.loc 1 201 0
+ 696 0272 0E94 0000 		call uart_putc
+ 697               	.LVL42:
+ 698               	.LBE8:
+ 202:uart.c        ****     }
+ 699               		.loc 1 202 0
+ 700 0276 00C0      		rjmp .L34
+ 701               	.LVL43:
+ 702               	.L32:
+ 703               	/* epilogue start */
+ 203:uart.c        **** }
+ 704               		.loc 1 203 0
+ 705 0278 DF91      		pop r29
+ 706 027a CF91      		pop r28
+ 707               	.LVL44:
+ 708 027c 0895      		ret
+ 709               		.cfi_endproc
+ 710               	.LFE11:
+ 711               		.size	uart_puts_p, .-uart_puts_p
+ 712               	.global	uart_buffer_empty
+ 713               		.type	uart_buffer_empty, @function
+ 714               	uart_buffer_empty:
+ 715               	.LFB12:
+ 204:uart.c        **** 
+ 205:uart.c        **** 
+ 206:uart.c        **** 
+ 207:uart.c        **** // Returns true if recieve buffer is empty 
+ 208:uart.c        **** //
+ 209:uart.c        **** unsigned char uart_buffer_empty(void)
+ 210:uart.c        **** {
+ 716               		.loc 1 210 0
+ 717               		.cfi_startproc
+ 718               	/* prologue: function */
+ 719               	/* frame size = 0 */
+ 720               	/* stack size = 0 */
+ 721               	.L__stack_usage = 0
+ 211:uart.c        ****   return (rx_buffer_tail == rx_buffer_head);
+ 722               		.loc 1 211 0
+ 723 027e 2091 0000 		lds r18,rx_buffer_tail
+ 724 0282 9091 0000 		lds r25,rx_buffer_head
+ 725 0286 81E0      		ldi r24,lo8(1)
+ 726 0288 2913      		cpse r18,r25
+ 727 028a 80E0      		ldi r24,lo8(0)
+ 728               	.L36:
+ 212:uart.c        **** }
+ 729               		.loc 1 212 0
+ 730 028c 0895      		ret
+ 731               		.cfi_endproc
+ 732               	.LFE12:
+ 733               		.size	uart_buffer_empty, .-uart_buffer_empty
+ 734               	.global	uart_getc
+ 735               		.type	uart_getc, @function
+ 736               	uart_getc:
+ 737               	.LFB13:
+ 213:uart.c        **** 
+ 214:uart.c        **** 
+ 215:uart.c        **** // Get char from buffer. 
+GAS LISTING /tmp/ccRaMRx5.s 			page 18
+
+
+ 216:uart.c        **** // Note that this function BLOCKS until a char is recieved. 
+ 217:uart.c        **** //
+ 218:uart.c        **** unsigned char uart_getc(void) 
+ 219:uart.c        **** {
+ 738               		.loc 1 219 0
+ 739               		.cfi_startproc
+ 740               	/* prologue: function */
+ 741               	/* frame size = 0 */
+ 742               	/* stack size = 0 */
+ 743               	.L__stack_usage = 0
+ 744               	.L38:
+ 220:uart.c        ****   unsigned char c;
+ 221:uart.c        ****   
+ 222:uart.c        ****   while (rx_buffer_tail == rx_buffer_head);
+ 745               		.loc 1 222 0 discriminator 1
+ 746 028e 9091 0000 		lds r25,rx_buffer_tail
+ 747 0292 8091 0000 		lds r24,rx_buffer_head
+ 748 0296 9817      		cp r25,r24
+ 749 0298 01F0      		breq .L38
+ 223:uart.c        ****   
+ 224:uart.c        ****   c = rx_buffer[rx_buffer_tail];
+ 750               		.loc 1 224 0
+ 751 029a E091 0000 		lds r30,rx_buffer_tail
+ 752 029e F0E0      		ldi r31,lo8(0)
+ 753 02a0 E050      		subi r30,lo8(-(rx_buffer))
+ 754 02a2 F040      		sbci r31,hi8(-(rx_buffer))
+ 755 02a4 8081      		ld r24,Z
+ 756               	.LVL45:
+ 225:uart.c        ****   INC_RING(rx_buffer_tail, RX_BUFFER_SIZE);
+ 757               		.loc 1 225 0
+ 758 02a6 9091 0000 		lds r25,rx_buffer_tail
+ 759 02aa 9B33      		cpi r25,lo8(59)
+ 760 02ac 01F4      		brne .L39
+ 761               		.loc 1 225 0 is_stmt 0 discriminator 1
+ 762 02ae 1092 0000 		sts rx_buffer_tail,__zero_reg__
+ 763 02b2 0895      		ret
+ 764               	.L39:
+ 765               		.loc 1 225 0 discriminator 2
+ 766 02b4 9091 0000 		lds r25,rx_buffer_tail
+ 767 02b8 9F5F      		subi r25,lo8(-(1))
+ 768 02ba 9093 0000 		sts rx_buffer_tail,r25
+ 226:uart.c        ****   
+ 227:uart.c        ****   return c;
+ 228:uart.c        **** }
+ 769               		.loc 1 228 0 is_stmt 1 discriminator 2
+ 770 02be 0895      		ret
+ 771               		.cfi_endproc
+ 772               	.LFE13:
+ 773               		.size	uart_getc, .-uart_getc
+ 774               		.comm tx_complete,1,1
+ 775               		.comm rx_buffer_tail,1,1
+ 776               		.comm rx_buffer_head,1,1
+ 777               		.comm rx_buffer,60,1
+ 778               	.Letext0:
+ 779               		.file 2 "/usr/local/avr/bin/../lib/gcc/avr/4.6.2/../../../../avr/include/stdint.h"
+ 780               		.section	.debug_info,"",@progbits
+ 781               	.Ldebug_info0:
+GAS LISTING /tmp/ccRaMRx5.s 			page 19
+
+
+ 782 0000 AD03 0000 		.long	0x3ad
+ 783 0004 0200      		.word	0x2
+ 784 0006 0000 0000 		.long	.Ldebug_abbrev0
+ 785 000a 04        		.byte	0x4
+ 786 000b 01        		.uleb128 0x1
+ 787 000c 0000 0000 		.long	.LASF26
+ 788 0010 01        		.byte	0x1
+ 789 0011 0000 0000 		.long	.LASF27
+ 790 0015 0000 0000 		.long	.LASF28
+ 791 0019 0000 0000 		.long	.Ltext0
+ 792 001d 0000 0000 		.long	.Letext0
+ 793 0021 0000 0000 		.long	.Ldebug_line0
+ 794 0025 02        		.uleb128 0x2
+ 795 0026 01        		.byte	0x1
+ 796 0027 06        		.byte	0x6
+ 797 0028 0000 0000 		.long	.LASF0
+ 798 002c 03        		.uleb128 0x3
+ 799 002d 0000 0000 		.long	.LASF2
+ 800 0031 02        		.byte	0x2
+ 801 0032 7A        		.byte	0x7a
+ 802 0033 3700 0000 		.long	0x37
+ 803 0037 02        		.uleb128 0x2
+ 804 0038 01        		.byte	0x1
+ 805 0039 08        		.byte	0x8
+ 806 003a 0000 0000 		.long	.LASF1
+ 807 003e 04        		.uleb128 0x4
+ 808 003f 02        		.byte	0x2
+ 809 0040 05        		.byte	0x5
+ 810 0041 696E 7400 		.string	"int"
+ 811 0045 03        		.uleb128 0x3
+ 812 0046 0000 0000 		.long	.LASF3
+ 813 004a 02        		.byte	0x2
+ 814 004b 7C        		.byte	0x7c
+ 815 004c 5000 0000 		.long	0x50
+ 816 0050 02        		.uleb128 0x2
+ 817 0051 02        		.byte	0x2
+ 818 0052 07        		.byte	0x7
+ 819 0053 0000 0000 		.long	.LASF4
+ 820 0057 02        		.uleb128 0x2
+ 821 0058 04        		.byte	0x4
+ 822 0059 05        		.byte	0x5
+ 823 005a 0000 0000 		.long	.LASF5
+ 824 005e 03        		.uleb128 0x3
+ 825 005f 0000 0000 		.long	.LASF6
+ 826 0063 02        		.byte	0x2
+ 827 0064 7E        		.byte	0x7e
+ 828 0065 6900 0000 		.long	0x69
+ 829 0069 02        		.uleb128 0x2
+ 830 006a 04        		.byte	0x4
+ 831 006b 07        		.byte	0x7
+ 832 006c 0000 0000 		.long	.LASF7
+ 833 0070 02        		.uleb128 0x2
+ 834 0071 08        		.byte	0x8
+ 835 0072 05        		.byte	0x5
+ 836 0073 0000 0000 		.long	.LASF8
+ 837 0077 02        		.uleb128 0x2
+ 838 0078 08        		.byte	0x8
+GAS LISTING /tmp/ccRaMRx5.s 			page 20
+
+
+ 839 0079 07        		.byte	0x7
+ 840 007a 0000 0000 		.long	.LASF9
+ 841 007e 02        		.uleb128 0x2
+ 842 007f 01        		.byte	0x1
+ 843 0080 08        		.byte	0x8
+ 844 0081 0000 0000 		.long	.LASF10
+ 845 0085 05        		.uleb128 0x5
+ 846 0086 01        		.byte	0x1
+ 847 0087 0000 0000 		.long	.LASF29
+ 848 008b 01        		.byte	0x1
+ 849 008c 7A        		.byte	0x7a
+ 850 008d 01        		.byte	0x1
+ 851 008e 01        		.byte	0x1
+ 852 008f 9D00 0000 		.long	0x9d
+ 853 0093 06        		.uleb128 0x6
+ 854 0094 6200      		.string	"b"
+ 855 0096 01        		.byte	0x1
+ 856 0097 7A        		.byte	0x7a
+ 857 0098 2C00 0000 		.long	0x2c
+ 858 009c 00        		.byte	0
+ 859 009d 07        		.uleb128 0x7
+ 860 009e 01        		.byte	0x1
+ 861 009f 0000 0000 		.long	.LASF11
+ 862 00a3 01        		.byte	0x1
+ 863 00a4 52        		.byte	0x52
+ 864 00a5 01        		.byte	0x1
+ 865 00a6 0000 0000 		.long	.LFB2
+ 866 00aa 0000 0000 		.long	.LFE2
+ 867 00ae 0000 0000 		.long	.LLST0
+ 868 00b2 C400 0000 		.long	0xc4
+ 869 00b6 08        		.uleb128 0x8
+ 870 00b7 6300      		.string	"c"
+ 871 00b9 01        		.byte	0x1
+ 872 00ba 54        		.byte	0x54
+ 873 00bb 7E00 0000 		.long	0x7e
+ 874 00bf 0000 0000 		.long	.LLST1
+ 875 00c3 00        		.byte	0
+ 876 00c4 09        		.uleb128 0x9
+ 877 00c5 01        		.byte	0x1
+ 878 00c6 0000 0000 		.long	.LASF30
+ 879 00ca 01        		.byte	0x1
+ 880 00cb 5B        		.byte	0x5b
+ 881 00cc 0000 0000 		.long	.LFB3
+ 882 00d0 0000 0000 		.long	.LFE3
+ 883 00d4 03        		.byte	0x3
+ 884 00d5 92        		.byte	0x92
+ 885 00d6 20        		.uleb128 0x20
+ 886 00d7 03        		.sleb128 3
+ 887 00d8 07        		.uleb128 0x7
+ 888 00d9 01        		.byte	0x1
+ 889 00da 0000 0000 		.long	.LASF12
+ 890 00de 01        		.byte	0x1
+ 891 00df 6E        		.byte	0x6e
+ 892 00e0 01        		.byte	0x1
+ 893 00e1 0000 0000 		.long	.LFB4
+ 894 00e5 0000 0000 		.long	.LFE4
+ 895 00e9 0000 0000 		.long	.LLST2
+GAS LISTING /tmp/ccRaMRx5.s 			page 21
+
+
+ 896 00ed FF00 0000 		.long	0xff
+ 897 00f1 0A        		.uleb128 0xa
+ 898 00f2 6300      		.string	"c"
+ 899 00f4 01        		.byte	0x1
+ 900 00f5 6E        		.byte	0x6e
+ 901 00f6 2C00 0000 		.long	0x2c
+ 902 00fa 0000 0000 		.long	.LLST3
+ 903 00fe 00        		.byte	0
+ 904 00ff 0B        		.uleb128 0xb
+ 905 0100 8500 0000 		.long	0x85
+ 906 0104 0000 0000 		.long	.LFB5
+ 907 0108 0000 0000 		.long	.LFE5
+ 908 010c 0000 0000 		.long	.LLST4
+ 909 0110 3301 0000 		.long	0x133
+ 910 0114 0C        		.uleb128 0xc
+ 911 0115 9300 0000 		.long	0x93
+ 912 0119 0000 0000 		.long	.LLST5
+ 913 011d 0D        		.uleb128 0xd
+ 914 011e 8500 0000 		.long	0x85
+ 915 0122 0000 0000 		.long	.LBB4
+ 916 0126 0000 0000 		.long	.LBE4
+ 917 012a 01        		.byte	0x1
+ 918 012b 7A        		.byte	0x7a
+ 919 012c 0E        		.uleb128 0xe
+ 920 012d 9300 0000 		.long	0x93
+ 921 0131 00        		.byte	0
+ 922 0132 00        		.byte	0
+ 923 0133 07        		.uleb128 0x7
+ 924 0134 01        		.byte	0x1
+ 925 0135 0000 0000 		.long	.LASF13
+ 926 0139 01        		.byte	0x1
+ 927 013a 89        		.byte	0x89
+ 928 013b 01        		.byte	0x1
+ 929 013c 0000 0000 		.long	.LFB6
+ 930 0140 0000 0000 		.long	.LFE6
+ 931 0144 0000 0000 		.long	.LLST6
+ 932 0148 5A01 0000 		.long	0x15a
+ 933 014c 0A        		.uleb128 0xa
+ 934 014d 7700      		.string	"w"
+ 935 014f 01        		.byte	0x1
+ 936 0150 89        		.byte	0x89
+ 937 0151 4500 0000 		.long	0x45
+ 938 0155 0000 0000 		.long	.LLST7
+ 939 0159 00        		.byte	0
+ 940 015a 07        		.uleb128 0x7
+ 941 015b 01        		.byte	0x1
+ 942 015c 0000 0000 		.long	.LASF14
+ 943 0160 01        		.byte	0x1
+ 944 0161 8F        		.byte	0x8f
+ 945 0162 01        		.byte	0x1
+ 946 0163 0000 0000 		.long	.LFB7
+ 947 0167 0000 0000 		.long	.LFE7
+ 948 016b 0000 0000 		.long	.LLST8
+ 949 016f 8201 0000 		.long	0x182
+ 950 0173 0A        		.uleb128 0xa
+ 951 0174 6477 00   		.string	"dw"
+ 952 0177 01        		.byte	0x1
+GAS LISTING /tmp/ccRaMRx5.s 			page 22
+
+
+ 953 0178 8F        		.byte	0x8f
+ 954 0179 5E00 0000 		.long	0x5e
+ 955 017d 0000 0000 		.long	.LLST9
+ 956 0181 00        		.byte	0
+ 957 0182 07        		.uleb128 0x7
+ 958 0183 01        		.byte	0x1
+ 959 0184 0000 0000 		.long	.LASF15
+ 960 0188 01        		.byte	0x1
+ 961 0189 95        		.byte	0x95
+ 962 018a 01        		.byte	0x1
+ 963 018b 0000 0000 		.long	.LFB8
+ 964 018f 0000 0000 		.long	.LFE8
+ 965 0193 0000 0000 		.long	.LLST10
+ 966 0197 DE01 0000 		.long	0x1de
+ 967 019b 0A        		.uleb128 0xa
+ 968 019c 7700      		.string	"w"
+ 969 019e 01        		.byte	0x1
+ 970 019f 95        		.byte	0x95
+ 971 01a0 4500 0000 		.long	0x45
+ 972 01a4 0000 0000 		.long	.LLST11
+ 973 01a8 08        		.uleb128 0x8
+ 974 01a9 6E75 6D00 		.string	"num"
+ 975 01ad 01        		.byte	0x1
+ 976 01ae 97        		.byte	0x97
+ 977 01af 4500 0000 		.long	0x45
+ 978 01b3 0000 0000 		.long	.LLST12
+ 979 01b7 0F        		.uleb128 0xf
+ 980 01b8 0000 0000 		.long	.LASF16
+ 981 01bc 01        		.byte	0x1
+ 982 01bd 98        		.byte	0x98
+ 983 01be 2C00 0000 		.long	0x2c
+ 984 01c2 0000 0000 		.long	.LLST13
+ 985 01c6 10        		.uleb128 0x10
+ 986 01c7 0000 0000 		.long	.LBB6
+ 987 01cb 0000 0000 		.long	.LBE6
+ 988 01cf 08        		.uleb128 0x8
+ 989 01d0 6200      		.string	"b"
+ 990 01d2 01        		.byte	0x1
+ 991 01d3 9C        		.byte	0x9c
+ 992 01d4 2C00 0000 		.long	0x2c
+ 993 01d8 0000 0000 		.long	.LLST14
+ 994 01dc 00        		.byte	0
+ 995 01dd 00        		.byte	0
+ 996 01de 07        		.uleb128 0x7
+ 997 01df 01        		.byte	0x1
+ 998 01e0 0000 0000 		.long	.LASF17
+ 999 01e4 01        		.byte	0x1
+ 1000 01e5 A8        		.byte	0xa8
+ 1001 01e6 01        		.byte	0x1
+ 1002 01e7 0000 0000 		.long	.LFB9
+ 1003 01eb 0000 0000 		.long	.LFE9
+ 1004 01ef 0000 0000 		.long	.LLST15
+ 1005 01f3 3B02 0000 		.long	0x23b
+ 1006 01f7 0A        		.uleb128 0xa
+ 1007 01f8 6477 00   		.string	"dw"
+ 1008 01fb 01        		.byte	0x1
+ 1009 01fc A8        		.byte	0xa8
+GAS LISTING /tmp/ccRaMRx5.s 			page 23
+
+
+ 1010 01fd 5E00 0000 		.long	0x5e
+ 1011 0201 0000 0000 		.long	.LLST16
+ 1012 0205 08        		.uleb128 0x8
+ 1013 0206 6E75 6D00 		.string	"num"
+ 1014 020a 01        		.byte	0x1
+ 1015 020b AA        		.byte	0xaa
+ 1016 020c 5E00 0000 		.long	0x5e
+ 1017 0210 0000 0000 		.long	.LLST17
+ 1018 0214 0F        		.uleb128 0xf
+ 1019 0215 0000 0000 		.long	.LASF16
+ 1020 0219 01        		.byte	0x1
+ 1021 021a AB        		.byte	0xab
+ 1022 021b 2C00 0000 		.long	0x2c
+ 1023 021f 0000 0000 		.long	.LLST18
+ 1024 0223 10        		.uleb128 0x10
+ 1025 0224 0000 0000 		.long	.LBB7
+ 1026 0228 0000 0000 		.long	.LBE7
+ 1027 022c 08        		.uleb128 0x8
+ 1028 022d 6200      		.string	"b"
+ 1029 022f 01        		.byte	0x1
+ 1030 0230 AF        		.byte	0xaf
+ 1031 0231 2C00 0000 		.long	0x2c
+ 1032 0235 0000 0000 		.long	.LLST19
+ 1033 0239 00        		.byte	0
+ 1034 023a 00        		.byte	0
+ 1035 023b 07        		.uleb128 0x7
+ 1036 023c 01        		.byte	0x1
+ 1037 023d 0000 0000 		.long	.LASF18
+ 1038 0241 01        		.byte	0x1
+ 1039 0242 BB        		.byte	0xbb
+ 1040 0243 01        		.byte	0x1
+ 1041 0244 0000 0000 		.long	.LFB10
+ 1042 0248 0000 0000 		.long	.LFE10
+ 1043 024c 0000 0000 		.long	.LLST20
+ 1044 0250 6402 0000 		.long	0x264
+ 1045 0254 0A        		.uleb128 0xa
+ 1046 0255 7374 7200 		.string	"str"
+ 1047 0259 01        		.byte	0x1
+ 1048 025a BB        		.byte	0xbb
+ 1049 025b 6402 0000 		.long	0x264
+ 1050 025f 0000 0000 		.long	.LLST21
+ 1051 0263 00        		.byte	0
+ 1052 0264 11        		.uleb128 0x11
+ 1053 0265 02        		.byte	0x2
+ 1054 0266 6A02 0000 		.long	0x26a
+ 1055 026a 12        		.uleb128 0x12
+ 1056 026b 7E00 0000 		.long	0x7e
+ 1057 026f 07        		.uleb128 0x7
+ 1058 0270 01        		.byte	0x1
+ 1059 0271 0000 0000 		.long	.LASF19
+ 1060 0275 01        		.byte	0x1
+ 1061 0276 C1        		.byte	0xc1
+ 1062 0277 01        		.byte	0x1
+ 1063 0278 0000 0000 		.long	.LFB11
+ 1064 027c 0000 0000 		.long	.LFE11
+ 1065 0280 0000 0000 		.long	.LLST22
+ 1066 0284 D702 0000 		.long	0x2d7
+GAS LISTING /tmp/ccRaMRx5.s 			page 24
+
+
+ 1067 0288 0A        		.uleb128 0xa
+ 1068 0289 7374 7200 		.string	"str"
+ 1069 028d 01        		.byte	0x1
+ 1070 028e C1        		.byte	0xc1
+ 1071 028f 6402 0000 		.long	0x264
+ 1072 0293 0000 0000 		.long	.LLST23
+ 1073 0297 10        		.uleb128 0x10
+ 1074 0298 0000 0000 		.long	.LBB8
+ 1075 029c 0000 0000 		.long	.LBE8
+ 1076 02a0 08        		.uleb128 0x8
+ 1077 02a1 6200      		.string	"b"
+ 1078 02a3 01        		.byte	0x1
+ 1079 02a4 C5        		.byte	0xc5
+ 1080 02a5 2C00 0000 		.long	0x2c
+ 1081 02a9 0000 0000 		.long	.LLST24
+ 1082 02ad 10        		.uleb128 0x10
+ 1083 02ae 0000 0000 		.long	.LBB9
+ 1084 02b2 0000 0000 		.long	.LBE9
+ 1085 02b6 0F        		.uleb128 0xf
+ 1086 02b7 0000 0000 		.long	.LASF20
+ 1087 02bb 01        		.byte	0x1
+ 1088 02bc C5        		.byte	0xc5
+ 1089 02bd 4500 0000 		.long	0x45
+ 1090 02c1 0000 0000 		.long	.LLST25
+ 1091 02c5 0F        		.uleb128 0xf
+ 1092 02c6 0000 0000 		.long	.LASF21
+ 1093 02ca 01        		.byte	0x1
+ 1094 02cb C5        		.byte	0xc5
+ 1095 02cc 2C00 0000 		.long	0x2c
+ 1096 02d0 0000 0000 		.long	.LLST24
+ 1097 02d4 00        		.byte	0
+ 1098 02d5 00        		.byte	0
+ 1099 02d6 00        		.byte	0
+ 1100 02d7 13        		.uleb128 0x13
+ 1101 02d8 01        		.byte	0x1
+ 1102 02d9 0000 0000 		.long	.LASF31
+ 1103 02dd 01        		.byte	0x1
+ 1104 02de D1        		.byte	0xd1
+ 1105 02df 01        		.byte	0x1
+ 1106 02e0 3700 0000 		.long	0x37
+ 1107 02e4 0000 0000 		.long	.LFB12
+ 1108 02e8 0000 0000 		.long	.LFE12
+ 1109 02ec 03        		.byte	0x3
+ 1110 02ed 92        		.byte	0x92
+ 1111 02ee 20        		.uleb128 0x20
+ 1112 02ef 03        		.sleb128 3
+ 1113 02f0 14        		.uleb128 0x14
+ 1114 02f1 01        		.byte	0x1
+ 1115 02f2 0000 0000 		.long	.LASF32
+ 1116 02f6 01        		.byte	0x1
+ 1117 02f7 DA        		.byte	0xda
+ 1118 02f8 01        		.byte	0x1
+ 1119 02f9 3700 0000 		.long	0x37
+ 1120 02fd 0000 0000 		.long	.LFB13
+ 1121 0301 0000 0000 		.long	.LFE13
+ 1122 0305 03        		.byte	0x3
+ 1123 0306 92        		.byte	0x92
+GAS LISTING /tmp/ccRaMRx5.s 			page 25
+
+
+ 1124 0307 20        		.uleb128 0x20
+ 1125 0308 03        		.sleb128 3
+ 1126 0309 1A03 0000 		.long	0x31a
+ 1127 030d 15        		.uleb128 0x15
+ 1128 030e 6300      		.string	"c"
+ 1129 0310 01        		.byte	0x1
+ 1130 0311 DC        		.byte	0xdc
+ 1131 0312 3700 0000 		.long	0x37
+ 1132 0316 02        		.byte	0x2
+ 1133 0317 8E        		.byte	0x8e
+ 1134 0318 00        		.sleb128 0
+ 1135 0319 00        		.byte	0
+ 1136 031a 16        		.uleb128 0x16
+ 1137 031b 3700 0000 		.long	0x37
+ 1138 031f 2A03 0000 		.long	0x32a
+ 1139 0323 17        		.uleb128 0x17
+ 1140 0324 5000 0000 		.long	0x50
+ 1141 0328 3B        		.byte	0x3b
+ 1142 0329 00        		.byte	0
+ 1143 032a 18        		.uleb128 0x18
+ 1144 032b 0000 0000 		.long	.LASF22
+ 1145 032f 01        		.byte	0x1
+ 1146 0330 48        		.byte	0x48
+ 1147 0331 1A03 0000 		.long	0x31a
+ 1148 0335 01        		.byte	0x1
+ 1149 0336 01        		.byte	0x1
+ 1150 0337 18        		.uleb128 0x18
+ 1151 0338 0000 0000 		.long	.LASF23
+ 1152 033c 01        		.byte	0x1
+ 1153 033d 49        		.byte	0x49
+ 1154 033e 4403 0000 		.long	0x344
+ 1155 0342 01        		.byte	0x1
+ 1156 0343 01        		.byte	0x1
+ 1157 0344 19        		.uleb128 0x19
+ 1158 0345 3700 0000 		.long	0x37
+ 1159 0349 18        		.uleb128 0x18
+ 1160 034a 0000 0000 		.long	.LASF24
+ 1161 034e 01        		.byte	0x1
+ 1162 034f 4A        		.byte	0x4a
+ 1163 0350 4403 0000 		.long	0x344
+ 1164 0354 01        		.byte	0x1
+ 1165 0355 01        		.byte	0x1
+ 1166 0356 18        		.uleb128 0x18
+ 1167 0357 0000 0000 		.long	.LASF25
+ 1168 035b 01        		.byte	0x1
+ 1169 035c 4B        		.byte	0x4b
+ 1170 035d 6303 0000 		.long	0x363
+ 1171 0361 01        		.byte	0x1
+ 1172 0362 01        		.byte	0x1
+ 1173 0363 19        		.uleb128 0x19
+ 1174 0364 7E00 0000 		.long	0x7e
+ 1175 0368 1A        		.uleb128 0x1a
+ 1176 0369 0000 0000 		.long	.LASF22
+ 1177 036d 01        		.byte	0x1
+ 1178 036e 48        		.byte	0x48
+ 1179 036f 1A03 0000 		.long	0x31a
+ 1180 0373 01        		.byte	0x1
+GAS LISTING /tmp/ccRaMRx5.s 			page 26
+
+
+ 1181 0374 05        		.byte	0x5
+ 1182 0375 03        		.byte	0x3
+ 1183 0376 0000 0000 		.long	rx_buffer
+ 1184 037a 1A        		.uleb128 0x1a
+ 1185 037b 0000 0000 		.long	.LASF23
+ 1186 037f 01        		.byte	0x1
+ 1187 0380 49        		.byte	0x49
+ 1188 0381 4403 0000 		.long	0x344
+ 1189 0385 01        		.byte	0x1
+ 1190 0386 05        		.byte	0x5
+ 1191 0387 03        		.byte	0x3
+ 1192 0388 0000 0000 		.long	rx_buffer_head
+ 1193 038c 1A        		.uleb128 0x1a
+ 1194 038d 0000 0000 		.long	.LASF24
+ 1195 0391 01        		.byte	0x1
+ 1196 0392 4A        		.byte	0x4a
+ 1197 0393 4403 0000 		.long	0x344
+ 1198 0397 01        		.byte	0x1
+ 1199 0398 05        		.byte	0x5
+ 1200 0399 03        		.byte	0x3
+ 1201 039a 0000 0000 		.long	rx_buffer_tail
+ 1202 039e 1A        		.uleb128 0x1a
+ 1203 039f 0000 0000 		.long	.LASF25
+ 1204 03a3 01        		.byte	0x1
+ 1205 03a4 4B        		.byte	0x4b
+ 1206 03a5 6303 0000 		.long	0x363
+ 1207 03a9 01        		.byte	0x1
+ 1208 03aa 05        		.byte	0x5
+ 1209 03ab 03        		.byte	0x3
+ 1210 03ac 0000 0000 		.long	tx_complete
+ 1211 03b0 00        		.byte	0
+ 1212               		.section	.debug_abbrev,"",@progbits
+ 1213               	.Ldebug_abbrev0:
+ 1214 0000 01        		.uleb128 0x1
+ 1215 0001 11        		.uleb128 0x11
+ 1216 0002 01        		.byte	0x1
+ 1217 0003 25        		.uleb128 0x25
+ 1218 0004 0E        		.uleb128 0xe
+ 1219 0005 13        		.uleb128 0x13
+ 1220 0006 0B        		.uleb128 0xb
+ 1221 0007 03        		.uleb128 0x3
+ 1222 0008 0E        		.uleb128 0xe
+ 1223 0009 1B        		.uleb128 0x1b
+ 1224 000a 0E        		.uleb128 0xe
+ 1225 000b 11        		.uleb128 0x11
+ 1226 000c 01        		.uleb128 0x1
+ 1227 000d 12        		.uleb128 0x12
+ 1228 000e 01        		.uleb128 0x1
+ 1229 000f 10        		.uleb128 0x10
+ 1230 0010 06        		.uleb128 0x6
+ 1231 0011 00        		.byte	0
+ 1232 0012 00        		.byte	0
+ 1233 0013 02        		.uleb128 0x2
+ 1234 0014 24        		.uleb128 0x24
+ 1235 0015 00        		.byte	0
+ 1236 0016 0B        		.uleb128 0xb
+ 1237 0017 0B        		.uleb128 0xb
+GAS LISTING /tmp/ccRaMRx5.s 			page 27
+
+
+ 1238 0018 3E        		.uleb128 0x3e
+ 1239 0019 0B        		.uleb128 0xb
+ 1240 001a 03        		.uleb128 0x3
+ 1241 001b 0E        		.uleb128 0xe
+ 1242 001c 00        		.byte	0
+ 1243 001d 00        		.byte	0
+ 1244 001e 03        		.uleb128 0x3
+ 1245 001f 16        		.uleb128 0x16
+ 1246 0020 00        		.byte	0
+ 1247 0021 03        		.uleb128 0x3
+ 1248 0022 0E        		.uleb128 0xe
+ 1249 0023 3A        		.uleb128 0x3a
+ 1250 0024 0B        		.uleb128 0xb
+ 1251 0025 3B        		.uleb128 0x3b
+ 1252 0026 0B        		.uleb128 0xb
+ 1253 0027 49        		.uleb128 0x49
+ 1254 0028 13        		.uleb128 0x13
+ 1255 0029 00        		.byte	0
+ 1256 002a 00        		.byte	0
+ 1257 002b 04        		.uleb128 0x4
+ 1258 002c 24        		.uleb128 0x24
+ 1259 002d 00        		.byte	0
+ 1260 002e 0B        		.uleb128 0xb
+ 1261 002f 0B        		.uleb128 0xb
+ 1262 0030 3E        		.uleb128 0x3e
+ 1263 0031 0B        		.uleb128 0xb
+ 1264 0032 03        		.uleb128 0x3
+ 1265 0033 08        		.uleb128 0x8
+ 1266 0034 00        		.byte	0
+ 1267 0035 00        		.byte	0
+ 1268 0036 05        		.uleb128 0x5
+ 1269 0037 2E        		.uleb128 0x2e
+ 1270 0038 01        		.byte	0x1
+ 1271 0039 3F        		.uleb128 0x3f
+ 1272 003a 0C        		.uleb128 0xc
+ 1273 003b 03        		.uleb128 0x3
+ 1274 003c 0E        		.uleb128 0xe
+ 1275 003d 3A        		.uleb128 0x3a
+ 1276 003e 0B        		.uleb128 0xb
+ 1277 003f 3B        		.uleb128 0x3b
+ 1278 0040 0B        		.uleb128 0xb
+ 1279 0041 27        		.uleb128 0x27
+ 1280 0042 0C        		.uleb128 0xc
+ 1281 0043 20        		.uleb128 0x20
+ 1282 0044 0B        		.uleb128 0xb
+ 1283 0045 01        		.uleb128 0x1
+ 1284 0046 13        		.uleb128 0x13
+ 1285 0047 00        		.byte	0
+ 1286 0048 00        		.byte	0
+ 1287 0049 06        		.uleb128 0x6
+ 1288 004a 05        		.uleb128 0x5
+ 1289 004b 00        		.byte	0
+ 1290 004c 03        		.uleb128 0x3
+ 1291 004d 08        		.uleb128 0x8
+ 1292 004e 3A        		.uleb128 0x3a
+ 1293 004f 0B        		.uleb128 0xb
+ 1294 0050 3B        		.uleb128 0x3b
+GAS LISTING /tmp/ccRaMRx5.s 			page 28
+
+
+ 1295 0051 0B        		.uleb128 0xb
+ 1296 0052 49        		.uleb128 0x49
+ 1297 0053 13        		.uleb128 0x13
+ 1298 0054 00        		.byte	0
+ 1299 0055 00        		.byte	0
+ 1300 0056 07        		.uleb128 0x7
+ 1301 0057 2E        		.uleb128 0x2e
+ 1302 0058 01        		.byte	0x1
+ 1303 0059 3F        		.uleb128 0x3f
+ 1304 005a 0C        		.uleb128 0xc
+ 1305 005b 03        		.uleb128 0x3
+ 1306 005c 0E        		.uleb128 0xe
+ 1307 005d 3A        		.uleb128 0x3a
+ 1308 005e 0B        		.uleb128 0xb
+ 1309 005f 3B        		.uleb128 0x3b
+ 1310 0060 0B        		.uleb128 0xb
+ 1311 0061 27        		.uleb128 0x27
+ 1312 0062 0C        		.uleb128 0xc
+ 1313 0063 11        		.uleb128 0x11
+ 1314 0064 01        		.uleb128 0x1
+ 1315 0065 12        		.uleb128 0x12
+ 1316 0066 01        		.uleb128 0x1
+ 1317 0067 40        		.uleb128 0x40
+ 1318 0068 06        		.uleb128 0x6
+ 1319 0069 01        		.uleb128 0x1
+ 1320 006a 13        		.uleb128 0x13
+ 1321 006b 00        		.byte	0
+ 1322 006c 00        		.byte	0
+ 1323 006d 08        		.uleb128 0x8
+ 1324 006e 34        		.uleb128 0x34
+ 1325 006f 00        		.byte	0
+ 1326 0070 03        		.uleb128 0x3
+ 1327 0071 08        		.uleb128 0x8
+ 1328 0072 3A        		.uleb128 0x3a
+ 1329 0073 0B        		.uleb128 0xb
+ 1330 0074 3B        		.uleb128 0x3b
+ 1331 0075 0B        		.uleb128 0xb
+ 1332 0076 49        		.uleb128 0x49
+ 1333 0077 13        		.uleb128 0x13
+ 1334 0078 02        		.uleb128 0x2
+ 1335 0079 06        		.uleb128 0x6
+ 1336 007a 00        		.byte	0
+ 1337 007b 00        		.byte	0
+ 1338 007c 09        		.uleb128 0x9
+ 1339 007d 2E        		.uleb128 0x2e
+ 1340 007e 00        		.byte	0
+ 1341 007f 3F        		.uleb128 0x3f
+ 1342 0080 0C        		.uleb128 0xc
+ 1343 0081 03        		.uleb128 0x3
+ 1344 0082 0E        		.uleb128 0xe
+ 1345 0083 3A        		.uleb128 0x3a
+ 1346 0084 0B        		.uleb128 0xb
+ 1347 0085 3B        		.uleb128 0x3b
+ 1348 0086 0B        		.uleb128 0xb
+ 1349 0087 11        		.uleb128 0x11
+ 1350 0088 01        		.uleb128 0x1
+ 1351 0089 12        		.uleb128 0x12
+GAS LISTING /tmp/ccRaMRx5.s 			page 29
+
+
+ 1352 008a 01        		.uleb128 0x1
+ 1353 008b 40        		.uleb128 0x40
+ 1354 008c 0A        		.uleb128 0xa
+ 1355 008d 00        		.byte	0
+ 1356 008e 00        		.byte	0
+ 1357 008f 0A        		.uleb128 0xa
+ 1358 0090 05        		.uleb128 0x5
+ 1359 0091 00        		.byte	0
+ 1360 0092 03        		.uleb128 0x3
+ 1361 0093 08        		.uleb128 0x8
+ 1362 0094 3A        		.uleb128 0x3a
+ 1363 0095 0B        		.uleb128 0xb
+ 1364 0096 3B        		.uleb128 0x3b
+ 1365 0097 0B        		.uleb128 0xb
+ 1366 0098 49        		.uleb128 0x49
+ 1367 0099 13        		.uleb128 0x13
+ 1368 009a 02        		.uleb128 0x2
+ 1369 009b 06        		.uleb128 0x6
+ 1370 009c 00        		.byte	0
+ 1371 009d 00        		.byte	0
+ 1372 009e 0B        		.uleb128 0xb
+ 1373 009f 2E        		.uleb128 0x2e
+ 1374 00a0 01        		.byte	0x1
+ 1375 00a1 31        		.uleb128 0x31
+ 1376 00a2 13        		.uleb128 0x13
+ 1377 00a3 11        		.uleb128 0x11
+ 1378 00a4 01        		.uleb128 0x1
+ 1379 00a5 12        		.uleb128 0x12
+ 1380 00a6 01        		.uleb128 0x1
+ 1381 00a7 40        		.uleb128 0x40
+ 1382 00a8 06        		.uleb128 0x6
+ 1383 00a9 01        		.uleb128 0x1
+ 1384 00aa 13        		.uleb128 0x13
+ 1385 00ab 00        		.byte	0
+ 1386 00ac 00        		.byte	0
+ 1387 00ad 0C        		.uleb128 0xc
+ 1388 00ae 05        		.uleb128 0x5
+ 1389 00af 00        		.byte	0
+ 1390 00b0 31        		.uleb128 0x31
+ 1391 00b1 13        		.uleb128 0x13
+ 1392 00b2 02        		.uleb128 0x2
+ 1393 00b3 06        		.uleb128 0x6
+ 1394 00b4 00        		.byte	0
+ 1395 00b5 00        		.byte	0
+ 1396 00b6 0D        		.uleb128 0xd
+ 1397 00b7 1D        		.uleb128 0x1d
+ 1398 00b8 01        		.byte	0x1
+ 1399 00b9 31        		.uleb128 0x31
+ 1400 00ba 13        		.uleb128 0x13
+ 1401 00bb 11        		.uleb128 0x11
+ 1402 00bc 01        		.uleb128 0x1
+ 1403 00bd 12        		.uleb128 0x12
+ 1404 00be 01        		.uleb128 0x1
+ 1405 00bf 58        		.uleb128 0x58
+ 1406 00c0 0B        		.uleb128 0xb
+ 1407 00c1 59        		.uleb128 0x59
+ 1408 00c2 0B        		.uleb128 0xb
+GAS LISTING /tmp/ccRaMRx5.s 			page 30
+
+
+ 1409 00c3 00        		.byte	0
+ 1410 00c4 00        		.byte	0
+ 1411 00c5 0E        		.uleb128 0xe
+ 1412 00c6 05        		.uleb128 0x5
+ 1413 00c7 00        		.byte	0
+ 1414 00c8 31        		.uleb128 0x31
+ 1415 00c9 13        		.uleb128 0x13
+ 1416 00ca 00        		.byte	0
+ 1417 00cb 00        		.byte	0
+ 1418 00cc 0F        		.uleb128 0xf
+ 1419 00cd 34        		.uleb128 0x34
+ 1420 00ce 00        		.byte	0
+ 1421 00cf 03        		.uleb128 0x3
+ 1422 00d0 0E        		.uleb128 0xe
+ 1423 00d1 3A        		.uleb128 0x3a
+ 1424 00d2 0B        		.uleb128 0xb
+ 1425 00d3 3B        		.uleb128 0x3b
+ 1426 00d4 0B        		.uleb128 0xb
+ 1427 00d5 49        		.uleb128 0x49
+ 1428 00d6 13        		.uleb128 0x13
+ 1429 00d7 02        		.uleb128 0x2
+ 1430 00d8 06        		.uleb128 0x6
+ 1431 00d9 00        		.byte	0
+ 1432 00da 00        		.byte	0
+ 1433 00db 10        		.uleb128 0x10
+ 1434 00dc 0B        		.uleb128 0xb
+ 1435 00dd 01        		.byte	0x1
+ 1436 00de 11        		.uleb128 0x11
+ 1437 00df 01        		.uleb128 0x1
+ 1438 00e0 12        		.uleb128 0x12
+ 1439 00e1 01        		.uleb128 0x1
+ 1440 00e2 00        		.byte	0
+ 1441 00e3 00        		.byte	0
+ 1442 00e4 11        		.uleb128 0x11
+ 1443 00e5 0F        		.uleb128 0xf
+ 1444 00e6 00        		.byte	0
+ 1445 00e7 0B        		.uleb128 0xb
+ 1446 00e8 0B        		.uleb128 0xb
+ 1447 00e9 49        		.uleb128 0x49
+ 1448 00ea 13        		.uleb128 0x13
+ 1449 00eb 00        		.byte	0
+ 1450 00ec 00        		.byte	0
+ 1451 00ed 12        		.uleb128 0x12
+ 1452 00ee 26        		.uleb128 0x26
+ 1453 00ef 00        		.byte	0
+ 1454 00f0 49        		.uleb128 0x49
+ 1455 00f1 13        		.uleb128 0x13
+ 1456 00f2 00        		.byte	0
+ 1457 00f3 00        		.byte	0
+ 1458 00f4 13        		.uleb128 0x13
+ 1459 00f5 2E        		.uleb128 0x2e
+ 1460 00f6 00        		.byte	0
+ 1461 00f7 3F        		.uleb128 0x3f
+ 1462 00f8 0C        		.uleb128 0xc
+ 1463 00f9 03        		.uleb128 0x3
+ 1464 00fa 0E        		.uleb128 0xe
+ 1465 00fb 3A        		.uleb128 0x3a
+GAS LISTING /tmp/ccRaMRx5.s 			page 31
+
+
+ 1466 00fc 0B        		.uleb128 0xb
+ 1467 00fd 3B        		.uleb128 0x3b
+ 1468 00fe 0B        		.uleb128 0xb
+ 1469 00ff 27        		.uleb128 0x27
+ 1470 0100 0C        		.uleb128 0xc
+ 1471 0101 49        		.uleb128 0x49
+ 1472 0102 13        		.uleb128 0x13
+ 1473 0103 11        		.uleb128 0x11
+ 1474 0104 01        		.uleb128 0x1
+ 1475 0105 12        		.uleb128 0x12
+ 1476 0106 01        		.uleb128 0x1
+ 1477 0107 40        		.uleb128 0x40
+ 1478 0108 0A        		.uleb128 0xa
+ 1479 0109 00        		.byte	0
+ 1480 010a 00        		.byte	0
+ 1481 010b 14        		.uleb128 0x14
+ 1482 010c 2E        		.uleb128 0x2e
+ 1483 010d 01        		.byte	0x1
+ 1484 010e 3F        		.uleb128 0x3f
+ 1485 010f 0C        		.uleb128 0xc
+ 1486 0110 03        		.uleb128 0x3
+ 1487 0111 0E        		.uleb128 0xe
+ 1488 0112 3A        		.uleb128 0x3a
+ 1489 0113 0B        		.uleb128 0xb
+ 1490 0114 3B        		.uleb128 0x3b
+ 1491 0115 0B        		.uleb128 0xb
+ 1492 0116 27        		.uleb128 0x27
+ 1493 0117 0C        		.uleb128 0xc
+ 1494 0118 49        		.uleb128 0x49
+ 1495 0119 13        		.uleb128 0x13
+ 1496 011a 11        		.uleb128 0x11
+ 1497 011b 01        		.uleb128 0x1
+ 1498 011c 12        		.uleb128 0x12
+ 1499 011d 01        		.uleb128 0x1
+ 1500 011e 40        		.uleb128 0x40
+ 1501 011f 0A        		.uleb128 0xa
+ 1502 0120 01        		.uleb128 0x1
+ 1503 0121 13        		.uleb128 0x13
+ 1504 0122 00        		.byte	0
+ 1505 0123 00        		.byte	0
+ 1506 0124 15        		.uleb128 0x15
+ 1507 0125 34        		.uleb128 0x34
+ 1508 0126 00        		.byte	0
+ 1509 0127 03        		.uleb128 0x3
+ 1510 0128 08        		.uleb128 0x8
+ 1511 0129 3A        		.uleb128 0x3a
+ 1512 012a 0B        		.uleb128 0xb
+ 1513 012b 3B        		.uleb128 0x3b
+ 1514 012c 0B        		.uleb128 0xb
+ 1515 012d 49        		.uleb128 0x49
+ 1516 012e 13        		.uleb128 0x13
+ 1517 012f 02        		.uleb128 0x2
+ 1518 0130 0A        		.uleb128 0xa
+ 1519 0131 00        		.byte	0
+ 1520 0132 00        		.byte	0
+ 1521 0133 16        		.uleb128 0x16
+ 1522 0134 01        		.uleb128 0x1
+GAS LISTING /tmp/ccRaMRx5.s 			page 32
+
+
+ 1523 0135 01        		.byte	0x1
+ 1524 0136 49        		.uleb128 0x49
+ 1525 0137 13        		.uleb128 0x13
+ 1526 0138 01        		.uleb128 0x1
+ 1527 0139 13        		.uleb128 0x13
+ 1528 013a 00        		.byte	0
+ 1529 013b 00        		.byte	0
+ 1530 013c 17        		.uleb128 0x17
+ 1531 013d 21        		.uleb128 0x21
+ 1532 013e 00        		.byte	0
+ 1533 013f 49        		.uleb128 0x49
+ 1534 0140 13        		.uleb128 0x13
+ 1535 0141 2F        		.uleb128 0x2f
+ 1536 0142 0B        		.uleb128 0xb
+ 1537 0143 00        		.byte	0
+ 1538 0144 00        		.byte	0
+ 1539 0145 18        		.uleb128 0x18
+ 1540 0146 34        		.uleb128 0x34
+ 1541 0147 00        		.byte	0
+ 1542 0148 03        		.uleb128 0x3
+ 1543 0149 0E        		.uleb128 0xe
+ 1544 014a 3A        		.uleb128 0x3a
+ 1545 014b 0B        		.uleb128 0xb
+ 1546 014c 3B        		.uleb128 0x3b
+ 1547 014d 0B        		.uleb128 0xb
+ 1548 014e 49        		.uleb128 0x49
+ 1549 014f 13        		.uleb128 0x13
+ 1550 0150 3F        		.uleb128 0x3f
+ 1551 0151 0C        		.uleb128 0xc
+ 1552 0152 3C        		.uleb128 0x3c
+ 1553 0153 0C        		.uleb128 0xc
+ 1554 0154 00        		.byte	0
+ 1555 0155 00        		.byte	0
+ 1556 0156 19        		.uleb128 0x19
+ 1557 0157 35        		.uleb128 0x35
+ 1558 0158 00        		.byte	0
+ 1559 0159 49        		.uleb128 0x49
+ 1560 015a 13        		.uleb128 0x13
+ 1561 015b 00        		.byte	0
+ 1562 015c 00        		.byte	0
+ 1563 015d 1A        		.uleb128 0x1a
+ 1564 015e 34        		.uleb128 0x34
+ 1565 015f 00        		.byte	0
+ 1566 0160 03        		.uleb128 0x3
+ 1567 0161 0E        		.uleb128 0xe
+ 1568 0162 3A        		.uleb128 0x3a
+ 1569 0163 0B        		.uleb128 0xb
+ 1570 0164 3B        		.uleb128 0x3b
+ 1571 0165 0B        		.uleb128 0xb
+ 1572 0166 49        		.uleb128 0x49
+ 1573 0167 13        		.uleb128 0x13
+ 1574 0168 3F        		.uleb128 0x3f
+ 1575 0169 0C        		.uleb128 0xc
+ 1576 016a 02        		.uleb128 0x2
+ 1577 016b 0A        		.uleb128 0xa
+ 1578 016c 00        		.byte	0
+ 1579 016d 00        		.byte	0
+GAS LISTING /tmp/ccRaMRx5.s 			page 33
+
+
+ 1580 016e 00        		.byte	0
+ 1581               		.section	.debug_loc,"",@progbits
+ 1582               	.Ldebug_loc0:
+ 1583               	.LLST0:
+ 1584 0000 0000 0000 		.long	.LFB2-.Ltext0
+ 1585 0004 0200 0000 		.long	.LCFI0-.Ltext0
+ 1586 0008 0300      		.word	0x3
+ 1587 000a 92        		.byte	0x92
+ 1588 000b 20        		.uleb128 0x20
+ 1589 000c 03        		.sleb128 3
+ 1590 000d 0200 0000 		.long	.LCFI0-.Ltext0
+ 1591 0011 0400 0000 		.long	.LCFI1-.Ltext0
+ 1592 0015 0300      		.word	0x3
+ 1593 0017 92        		.byte	0x92
+ 1594 0018 20        		.uleb128 0x20
+ 1595 0019 04        		.sleb128 4
+ 1596 001a 0400 0000 		.long	.LCFI1-.Ltext0
+ 1597 001e 1000 0000 		.long	.LCFI2-.Ltext0
+ 1598 0022 0300      		.word	0x3
+ 1599 0024 92        		.byte	0x92
+ 1600 0025 20        		.uleb128 0x20
+ 1601 0026 05        		.sleb128 5
+ 1602 0027 1000 0000 		.long	.LCFI2-.Ltext0
+ 1603 002b 1200 0000 		.long	.LCFI3-.Ltext0
+ 1604 002f 0300      		.word	0x3
+ 1605 0031 92        		.byte	0x92
+ 1606 0032 20        		.uleb128 0x20
+ 1607 0033 06        		.sleb128 6
+ 1608 0034 1200 0000 		.long	.LCFI3-.Ltext0
+ 1609 0038 1400 0000 		.long	.LCFI4-.Ltext0
+ 1610 003c 0300      		.word	0x3
+ 1611 003e 92        		.byte	0x92
+ 1612 003f 20        		.uleb128 0x20
+ 1613 0040 07        		.sleb128 7
+ 1614 0041 1400 0000 		.long	.LCFI4-.Ltext0
+ 1615 0045 5000 0000 		.long	.LFE2-.Ltext0
+ 1616 0049 0300      		.word	0x3
+ 1617 004b 92        		.byte	0x92
+ 1618 004c 20        		.uleb128 0x20
+ 1619 004d 08        		.sleb128 8
+ 1620 004e 0000 0000 		.long	0
+ 1621 0052 0000 0000 		.long	0
+ 1622               	.LLST1:
+ 1623 0056 1800 0000 		.long	.LVL0-.Ltext0
+ 1624 005a 2800 0000 		.long	.LVL1-.Ltext0
+ 1625 005e 0100      		.word	0x1
+ 1626 0060 68        		.byte	0x68
+ 1627 0061 2800 0000 		.long	.LVL1-.Ltext0
+ 1628 0065 4000 0000 		.long	.LVL2-.Ltext0
+ 1629 0069 0200      		.word	0x2
+ 1630 006b 8E        		.byte	0x8e
+ 1631 006c 00        		.sleb128 0
+ 1632 006d 0000 0000 		.long	0
+ 1633 0071 0000 0000 		.long	0
+ 1634               	.LLST2:
+ 1635 0075 7600 0000 		.long	.LFB4-.Ltext0
+ 1636 0079 7800 0000 		.long	.LCFI5-.Ltext0
+GAS LISTING /tmp/ccRaMRx5.s 			page 34
+
+
+ 1637 007d 0300      		.word	0x3
+ 1638 007f 92        		.byte	0x92
+ 1639 0080 20        		.uleb128 0x20
+ 1640 0081 03        		.sleb128 3
+ 1641 0082 7800 0000 		.long	.LCFI5-.Ltext0
+ 1642 0086 9400 0000 		.long	.LFE4-.Ltext0
+ 1643 008a 0300      		.word	0x3
+ 1644 008c 92        		.byte	0x92
+ 1645 008d 20        		.uleb128 0x20
+ 1646 008e 04        		.sleb128 4
+ 1647 008f 0000 0000 		.long	0
+ 1648 0093 0000 0000 		.long	0
+ 1649               	.LLST3:
+ 1650 0097 7600 0000 		.long	.LVL3-.Ltext0
+ 1651 009b 8000 0000 		.long	.LVL4-.Ltext0
+ 1652 009f 0100      		.word	0x1
+ 1653 00a1 68        		.byte	0x68
+ 1654 00a2 8000 0000 		.long	.LVL4-.Ltext0
+ 1655 00a6 9200 0000 		.long	.LVL5-.Ltext0
+ 1656 00aa 0100      		.word	0x1
+ 1657 00ac 6C        		.byte	0x6c
+ 1658 00ad 9200 0000 		.long	.LVL5-.Ltext0
+ 1659 00b1 9400 0000 		.long	.LFE4-.Ltext0
+ 1660 00b5 0200      		.word	0x2
+ 1661 00b7 08        		.byte	0x8
+ 1662 00b8 C6        		.byte	0xc6
+ 1663 00b9 0000 0000 		.long	0
+ 1664 00bd 0000 0000 		.long	0
+ 1665               	.LLST4:
+ 1666 00c1 9400 0000 		.long	.LFB5-.Ltext0
+ 1667 00c5 9600 0000 		.long	.LCFI6-.Ltext0
+ 1668 00c9 0300      		.word	0x3
+ 1669 00cb 92        		.byte	0x92
+ 1670 00cc 20        		.uleb128 0x20
+ 1671 00cd 03        		.sleb128 3
+ 1672 00ce 9600 0000 		.long	.LCFI6-.Ltext0
+ 1673 00d2 CA00 0000 		.long	.LFE5-.Ltext0
+ 1674 00d6 0300      		.word	0x3
+ 1675 00d8 92        		.byte	0x92
+ 1676 00d9 20        		.uleb128 0x20
+ 1677 00da 04        		.sleb128 4
+ 1678 00db 0000 0000 		.long	0
+ 1679 00df 0000 0000 		.long	0
+ 1680               	.LLST5:
+ 1681 00e3 9400 0000 		.long	.LVL6-.Ltext0
+ 1682 00e7 9A00 0000 		.long	.LVL7-.Ltext0
+ 1683 00eb 0100      		.word	0x1
+ 1684 00ed 68        		.byte	0x68
+ 1685 00ee 9A00 0000 		.long	.LVL7-.Ltext0
+ 1686 00f2 C800 0000 		.long	.LVL8-.Ltext0
+ 1687 00f6 0100      		.word	0x1
+ 1688 00f8 6C        		.byte	0x6c
+ 1689 00f9 0000 0000 		.long	0
+ 1690 00fd 0000 0000 		.long	0
+ 1691               	.LLST6:
+ 1692 0101 CA00 0000 		.long	.LFB6-.Ltext0
+ 1693 0105 CC00 0000 		.long	.LCFI7-.Ltext0
+GAS LISTING /tmp/ccRaMRx5.s 			page 35
+
+
+ 1694 0109 0300      		.word	0x3
+ 1695 010b 92        		.byte	0x92
+ 1696 010c 20        		.uleb128 0x20
+ 1697 010d 03        		.sleb128 3
+ 1698 010e CC00 0000 		.long	.LCFI7-.Ltext0
+ 1699 0112 DE00 0000 		.long	.LFE6-.Ltext0
+ 1700 0116 0300      		.word	0x3
+ 1701 0118 92        		.byte	0x92
+ 1702 0119 20        		.uleb128 0x20
+ 1703 011a 04        		.sleb128 4
+ 1704 011b 0000 0000 		.long	0
+ 1705 011f 0000 0000 		.long	0
+ 1706               	.LLST7:
+ 1707 0123 CA00 0000 		.long	.LVL9-.Ltext0
+ 1708 0127 D000 0000 		.long	.LVL10-.Ltext0
+ 1709 012b 0600      		.word	0x6
+ 1710 012d 68        		.byte	0x68
+ 1711 012e 93        		.byte	0x93
+ 1712 012f 01        		.uleb128 0x1
+ 1713 0130 69        		.byte	0x69
+ 1714 0131 93        		.byte	0x93
+ 1715 0132 01        		.uleb128 0x1
+ 1716 0133 0000 0000 		.long	0
+ 1717 0137 0000 0000 		.long	0
+ 1718               	.LLST8:
+ 1719 013b DE00 0000 		.long	.LFB7-.Ltext0
+ 1720 013f E000 0000 		.long	.LCFI8-.Ltext0
+ 1721 0143 0300      		.word	0x3
+ 1722 0145 92        		.byte	0x92
+ 1723 0146 20        		.uleb128 0x20
+ 1724 0147 03        		.sleb128 3
+ 1725 0148 E000 0000 		.long	.LCFI8-.Ltext0
+ 1726 014c E200 0000 		.long	.LCFI9-.Ltext0
+ 1727 0150 0300      		.word	0x3
+ 1728 0152 92        		.byte	0x92
+ 1729 0153 20        		.uleb128 0x20
+ 1730 0154 04        		.sleb128 4
+ 1731 0155 E200 0000 		.long	.LCFI9-.Ltext0
+ 1732 0159 E400 0000 		.long	.LCFI10-.Ltext0
+ 1733 015d 0300      		.word	0x3
+ 1734 015f 92        		.byte	0x92
+ 1735 0160 20        		.uleb128 0x20
+ 1736 0161 05        		.sleb128 5
+ 1737 0162 E400 0000 		.long	.LCFI10-.Ltext0
+ 1738 0166 E600 0000 		.long	.LCFI11-.Ltext0
+ 1739 016a 0300      		.word	0x3
+ 1740 016c 92        		.byte	0x92
+ 1741 016d 20        		.uleb128 0x20
+ 1742 016e 06        		.sleb128 6
+ 1743 016f E600 0000 		.long	.LCFI11-.Ltext0
+ 1744 0173 0001 0000 		.long	.LFE7-.Ltext0
+ 1745 0177 0300      		.word	0x3
+ 1746 0179 92        		.byte	0x92
+ 1747 017a 20        		.uleb128 0x20
+ 1748 017b 07        		.sleb128 7
+ 1749 017c 0000 0000 		.long	0
+ 1750 0180 0000 0000 		.long	0
+GAS LISTING /tmp/ccRaMRx5.s 			page 36
+
+
+ 1751               	.LLST9:
+ 1752 0184 DE00 0000 		.long	.LVL11-.Ltext0
+ 1753 0188 EF00 0000 		.long	.LVL12-1-.Ltext0
+ 1754 018c 0C00      		.word	0xc
+ 1755 018e 66        		.byte	0x66
+ 1756 018f 93        		.byte	0x93
+ 1757 0190 01        		.uleb128 0x1
+ 1758 0191 67        		.byte	0x67
+ 1759 0192 93        		.byte	0x93
+ 1760 0193 01        		.uleb128 0x1
+ 1761 0194 68        		.byte	0x68
+ 1762 0195 93        		.byte	0x93
+ 1763 0196 01        		.uleb128 0x1
+ 1764 0197 69        		.byte	0x69
+ 1765 0198 93        		.byte	0x93
+ 1766 0199 01        		.uleb128 0x1
+ 1767 019a EF00 0000 		.long	.LVL12-1-.Ltext0
+ 1768 019e FE00 0000 		.long	.LVL13-.Ltext0
+ 1769 01a2 0C00      		.word	0xc
+ 1770 01a4 5C        		.byte	0x5c
+ 1771 01a5 93        		.byte	0x93
+ 1772 01a6 01        		.uleb128 0x1
+ 1773 01a7 5D        		.byte	0x5d
+ 1774 01a8 93        		.byte	0x93
+ 1775 01a9 01        		.uleb128 0x1
+ 1776 01aa 5E        		.byte	0x5e
+ 1777 01ab 93        		.byte	0x93
+ 1778 01ac 01        		.uleb128 0x1
+ 1779 01ad 5F        		.byte	0x5f
+ 1780 01ae 93        		.byte	0x93
+ 1781 01af 01        		.uleb128 0x1
+ 1782 01b0 0000 0000 		.long	0
+ 1783 01b4 0000 0000 		.long	0
+ 1784               	.LLST10:
+ 1785 01b8 0001 0000 		.long	.LFB8-.Ltext0
+ 1786 01bc 0201 0000 		.long	.LCFI12-.Ltext0
+ 1787 01c0 0300      		.word	0x3
+ 1788 01c2 92        		.byte	0x92
+ 1789 01c3 20        		.uleb128 0x20
+ 1790 01c4 03        		.sleb128 3
+ 1791 01c5 0201 0000 		.long	.LCFI12-.Ltext0
+ 1792 01c9 0401 0000 		.long	.LCFI13-.Ltext0
+ 1793 01cd 0300      		.word	0x3
+ 1794 01cf 92        		.byte	0x92
+ 1795 01d0 20        		.uleb128 0x20
+ 1796 01d1 04        		.sleb128 4
+ 1797 01d2 0401 0000 		.long	.LCFI13-.Ltext0
+ 1798 01d6 0601 0000 		.long	.LCFI14-.Ltext0
+ 1799 01da 0300      		.word	0x3
+ 1800 01dc 92        		.byte	0x92
+ 1801 01dd 20        		.uleb128 0x20
+ 1802 01de 05        		.sleb128 5
+ 1803 01df 0601 0000 		.long	.LCFI14-.Ltext0
+ 1804 01e3 0801 0000 		.long	.LCFI15-.Ltext0
+ 1805 01e7 0300      		.word	0x3
+ 1806 01e9 92        		.byte	0x92
+ 1807 01ea 20        		.uleb128 0x20
+GAS LISTING /tmp/ccRaMRx5.s 			page 37
+
+
+ 1808 01eb 06        		.sleb128 6
+ 1809 01ec 0801 0000 		.long	.LCFI15-.Ltext0
+ 1810 01f0 0A01 0000 		.long	.LCFI16-.Ltext0
+ 1811 01f4 0300      		.word	0x3
+ 1812 01f6 92        		.byte	0x92
+ 1813 01f7 20        		.uleb128 0x20
+ 1814 01f8 07        		.sleb128 7
+ 1815 01f9 0A01 0000 		.long	.LCFI16-.Ltext0
+ 1816 01fd 0C01 0000 		.long	.LCFI17-.Ltext0
+ 1817 0201 0300      		.word	0x3
+ 1818 0203 92        		.byte	0x92
+ 1819 0204 20        		.uleb128 0x20
+ 1820 0205 08        		.sleb128 8
+ 1821 0206 0C01 0000 		.long	.LCFI17-.Ltext0
+ 1822 020a 0E01 0000 		.long	.LCFI18-.Ltext0
+ 1823 020e 0300      		.word	0x3
+ 1824 0210 92        		.byte	0x92
+ 1825 0211 20        		.uleb128 0x20
+ 1826 0212 09        		.sleb128 9
+ 1827 0213 0E01 0000 		.long	.LCFI18-.Ltext0
+ 1828 0217 1001 0000 		.long	.LCFI19-.Ltext0
+ 1829 021b 0300      		.word	0x3
+ 1830 021d 92        		.byte	0x92
+ 1831 021e 20        		.uleb128 0x20
+ 1832 021f 0A        		.sleb128 10
+ 1833 0220 1001 0000 		.long	.LCFI19-.Ltext0
+ 1834 0224 1201 0000 		.long	.LCFI20-.Ltext0
+ 1835 0228 0300      		.word	0x3
+ 1836 022a 92        		.byte	0x92
+ 1837 022b 20        		.uleb128 0x20
+ 1838 022c 0B        		.sleb128 11
+ 1839 022d 1201 0000 		.long	.LCFI20-.Ltext0
+ 1840 0231 8801 0000 		.long	.LFE8-.Ltext0
+ 1841 0235 0300      		.word	0x3
+ 1842 0237 92        		.byte	0x92
+ 1843 0238 20        		.uleb128 0x20
+ 1844 0239 0C        		.sleb128 12
+ 1845 023a 0000 0000 		.long	0
+ 1846 023e 0000 0000 		.long	0
+ 1847               	.LLST11:
+ 1848 0242 0001 0000 		.long	.LVL14-.Ltext0
+ 1849 0246 2601 0000 		.long	.LVL16-.Ltext0
+ 1850 024a 0600      		.word	0x6
+ 1851 024c 68        		.byte	0x68
+ 1852 024d 93        		.byte	0x93
+ 1853 024e 01        		.uleb128 0x1
+ 1854 024f 69        		.byte	0x69
+ 1855 0250 93        		.byte	0x93
+ 1856 0251 01        		.uleb128 0x1
+ 1857 0252 2601 0000 		.long	.LVL16-.Ltext0
+ 1858 0256 7C01 0000 		.long	.LVL22-.Ltext0
+ 1859 025a 0600      		.word	0x6
+ 1860 025c 60        		.byte	0x60
+ 1861 025d 93        		.byte	0x93
+ 1862 025e 01        		.uleb128 0x1
+ 1863 025f 61        		.byte	0x61
+ 1864 0260 93        		.byte	0x93
+GAS LISTING /tmp/ccRaMRx5.s 			page 38
+
+
+ 1865 0261 01        		.uleb128 0x1
+ 1866 0262 0000 0000 		.long	0
+ 1867 0266 0000 0000 		.long	0
+ 1868               	.LLST12:
+ 1869 026a 1401 0000 		.long	.LVL15-.Ltext0
+ 1870 026e 2601 0000 		.long	.LVL16-.Ltext0
+ 1871 0272 0400      		.word	0x4
+ 1872 0274 0A        		.byte	0xa
+ 1873 0275 1027      		.word	0x2710
+ 1874 0277 9F        		.byte	0x9f
+ 1875 0278 6801 0000 		.long	.LVL21-.Ltext0
+ 1876 027c 8801 0000 		.long	.LFE8-.Ltext0
+ 1877 0280 0600      		.word	0x6
+ 1878 0282 66        		.byte	0x66
+ 1879 0283 93        		.byte	0x93
+ 1880 0284 01        		.uleb128 0x1
+ 1881 0285 67        		.byte	0x67
+ 1882 0286 93        		.byte	0x93
+ 1883 0287 01        		.uleb128 0x1
+ 1884 0288 0000 0000 		.long	0
+ 1885 028c 0000 0000 		.long	0
+ 1886               	.LLST13:
+ 1887 0290 1401 0000 		.long	.LVL15-.Ltext0
+ 1888 0294 2601 0000 		.long	.LVL16-.Ltext0
+ 1889 0298 0200      		.word	0x2
+ 1890 029a 30        		.byte	0x30
+ 1891 029b 9F        		.byte	0x9f
+ 1892 029c 4601 0000 		.long	.LVL18-.Ltext0
+ 1893 02a0 4801 0000 		.long	.LVL19-.Ltext0
+ 1894 02a4 0200      		.word	0x2
+ 1895 02a6 31        		.byte	0x31
+ 1896 02a7 9F        		.byte	0x9f
+ 1897 02a8 4801 0000 		.long	.LVL19-.Ltext0
+ 1898 02ac 8801 0000 		.long	.LFE8-.Ltext0
+ 1899 02b0 0100      		.word	0x1
+ 1900 02b2 62        		.byte	0x62
+ 1901 02b3 0000 0000 		.long	0
+ 1902 02b7 0000 0000 		.long	0
+ 1903               	.LLST14:
+ 1904 02bb 3001 0000 		.long	.LVL17-.Ltext0
+ 1905 02bf 4501 0000 		.long	.LVL18-1-.Ltext0
+ 1906 02c3 0100      		.word	0x1
+ 1907 02c5 66        		.byte	0x66
+ 1908 02c6 4501 0000 		.long	.LVL18-1-.Ltext0
+ 1909 02ca 8601 0000 		.long	.LVL23-.Ltext0
+ 1910 02ce 0100      		.word	0x1
+ 1911 02d0 5B        		.byte	0x5b
+ 1912 02d1 0000 0000 		.long	0
+ 1913 02d5 0000 0000 		.long	0
+ 1914               	.LLST15:
+ 1915 02d9 8801 0000 		.long	.LFB9-.Ltext0
+ 1916 02dd 8A01 0000 		.long	.LCFI21-.Ltext0
+ 1917 02e1 0300      		.word	0x3
+ 1918 02e3 92        		.byte	0x92
+ 1919 02e4 20        		.uleb128 0x20
+ 1920 02e5 03        		.sleb128 3
+ 1921 02e6 8A01 0000 		.long	.LCFI21-.Ltext0
+GAS LISTING /tmp/ccRaMRx5.s 			page 39
+
+
+ 1922 02ea 8C01 0000 		.long	.LCFI22-.Ltext0
+ 1923 02ee 0300      		.word	0x3
+ 1924 02f0 92        		.byte	0x92
+ 1925 02f1 20        		.uleb128 0x20
+ 1926 02f2 04        		.sleb128 4
+ 1927 02f3 8C01 0000 		.long	.LCFI22-.Ltext0
+ 1928 02f7 8E01 0000 		.long	.LCFI23-.Ltext0
+ 1929 02fb 0300      		.word	0x3
+ 1930 02fd 92        		.byte	0x92
+ 1931 02fe 20        		.uleb128 0x20
+ 1932 02ff 05        		.sleb128 5
+ 1933 0300 8E01 0000 		.long	.LCFI23-.Ltext0
+ 1934 0304 9001 0000 		.long	.LCFI24-.Ltext0
+ 1935 0308 0300      		.word	0x3
+ 1936 030a 92        		.byte	0x92
+ 1937 030b 20        		.uleb128 0x20
+ 1938 030c 06        		.sleb128 6
+ 1939 030d 9001 0000 		.long	.LCFI24-.Ltext0
+ 1940 0311 9201 0000 		.long	.LCFI25-.Ltext0
+ 1941 0315 0300      		.word	0x3
+ 1942 0317 92        		.byte	0x92
+ 1943 0318 20        		.uleb128 0x20
+ 1944 0319 07        		.sleb128 7
+ 1945 031a 9201 0000 		.long	.LCFI25-.Ltext0
+ 1946 031e 9401 0000 		.long	.LCFI26-.Ltext0
+ 1947 0322 0300      		.word	0x3
+ 1948 0324 92        		.byte	0x92
+ 1949 0325 20        		.uleb128 0x20
+ 1950 0326 08        		.sleb128 8
+ 1951 0327 9401 0000 		.long	.LCFI26-.Ltext0
+ 1952 032b 9601 0000 		.long	.LCFI27-.Ltext0
+ 1953 032f 0300      		.word	0x3
+ 1954 0331 92        		.byte	0x92
+ 1955 0332 20        		.uleb128 0x20
+ 1956 0333 09        		.sleb128 9
+ 1957 0334 9601 0000 		.long	.LCFI27-.Ltext0
+ 1958 0338 9801 0000 		.long	.LCFI28-.Ltext0
+ 1959 033c 0300      		.word	0x3
+ 1960 033e 92        		.byte	0x92
+ 1961 033f 20        		.uleb128 0x20
+ 1962 0340 0A        		.sleb128 10
+ 1963 0341 9801 0000 		.long	.LCFI28-.Ltext0
+ 1964 0345 9A01 0000 		.long	.LCFI29-.Ltext0
+ 1965 0349 0300      		.word	0x3
+ 1966 034b 92        		.byte	0x92
+ 1967 034c 20        		.uleb128 0x20
+ 1968 034d 0B        		.sleb128 11
+ 1969 034e 9A01 0000 		.long	.LCFI29-.Ltext0
+ 1970 0352 9C01 0000 		.long	.LCFI30-.Ltext0
+ 1971 0356 0300      		.word	0x3
+ 1972 0358 92        		.byte	0x92
+ 1973 0359 20        		.uleb128 0x20
+ 1974 035a 0C        		.sleb128 12
+ 1975 035b 9C01 0000 		.long	.LCFI30-.Ltext0
+ 1976 035f 9E01 0000 		.long	.LCFI31-.Ltext0
+ 1977 0363 0300      		.word	0x3
+ 1978 0365 92        		.byte	0x92
+GAS LISTING /tmp/ccRaMRx5.s 			page 40
+
+
+ 1979 0366 20        		.uleb128 0x20
+ 1980 0367 0D        		.sleb128 13
+ 1981 0368 9E01 0000 		.long	.LCFI31-.Ltext0
+ 1982 036c A001 0000 		.long	.LCFI32-.Ltext0
+ 1983 0370 0300      		.word	0x3
+ 1984 0372 92        		.byte	0x92
+ 1985 0373 20        		.uleb128 0x20
+ 1986 0374 0E        		.sleb128 14
+ 1987 0375 A001 0000 		.long	.LCFI32-.Ltext0
+ 1988 0379 A201 0000 		.long	.LCFI33-.Ltext0
+ 1989 037d 0300      		.word	0x3
+ 1990 037f 92        		.byte	0x92
+ 1991 0380 20        		.uleb128 0x20
+ 1992 0381 0F        		.sleb128 15
+ 1993 0382 A201 0000 		.long	.LCFI33-.Ltext0
+ 1994 0386 A401 0000 		.long	.LCFI34-.Ltext0
+ 1995 038a 0300      		.word	0x3
+ 1996 038c 92        		.byte	0x92
+ 1997 038d 20        		.uleb128 0x20
+ 1998 038e 10        		.sleb128 16
+ 1999 038f A401 0000 		.long	.LCFI34-.Ltext0
+ 2000 0393 A601 0000 		.long	.LCFI35-.Ltext0
+ 2001 0397 0300      		.word	0x3
+ 2002 0399 92        		.byte	0x92
+ 2003 039a 20        		.uleb128 0x20
+ 2004 039b 11        		.sleb128 17
+ 2005 039c A601 0000 		.long	.LCFI35-.Ltext0
+ 2006 03a0 A801 0000 		.long	.LCFI36-.Ltext0
+ 2007 03a4 0300      		.word	0x3
+ 2008 03a6 92        		.byte	0x92
+ 2009 03a7 20        		.uleb128 0x20
+ 2010 03a8 12        		.sleb128 18
+ 2011 03a9 A801 0000 		.long	.LCFI36-.Ltext0
+ 2012 03ad 4A02 0000 		.long	.LFE9-.Ltext0
+ 2013 03b1 0300      		.word	0x3
+ 2014 03b3 92        		.byte	0x92
+ 2015 03b4 20        		.uleb128 0x20
+ 2016 03b5 13        		.sleb128 19
+ 2017 03b6 0000 0000 		.long	0
+ 2018 03ba 0000 0000 		.long	0
+ 2019               	.LLST16:
+ 2020 03be 8801 0000 		.long	.LVL24-.Ltext0
+ 2021 03c2 CA01 0000 		.long	.LVL26-.Ltext0
+ 2022 03c6 0C00      		.word	0xc
+ 2023 03c8 66        		.byte	0x66
+ 2024 03c9 93        		.byte	0x93
+ 2025 03ca 01        		.uleb128 0x1
+ 2026 03cb 67        		.byte	0x67
+ 2027 03cc 93        		.byte	0x93
+ 2028 03cd 01        		.uleb128 0x1
+ 2029 03ce 68        		.byte	0x68
+ 2030 03cf 93        		.byte	0x93
+ 2031 03d0 01        		.uleb128 0x1
+ 2032 03d1 69        		.byte	0x69
+ 2033 03d2 93        		.byte	0x93
+ 2034 03d3 01        		.uleb128 0x1
+ 2035 03d4 CA01 0000 		.long	.LVL26-.Ltext0
+GAS LISTING /tmp/ccRaMRx5.s 			page 41
+
+
+ 2036 03d8 4002 0000 		.long	.LVL34-.Ltext0
+ 2037 03dc 0C00      		.word	0xc
+ 2038 03de 58        		.byte	0x58
+ 2039 03df 93        		.byte	0x93
+ 2040 03e0 01        		.uleb128 0x1
+ 2041 03e1 59        		.byte	0x59
+ 2042 03e2 93        		.byte	0x93
+ 2043 03e3 01        		.uleb128 0x1
+ 2044 03e4 5A        		.byte	0x5a
+ 2045 03e5 93        		.byte	0x93
+ 2046 03e6 01        		.uleb128 0x1
+ 2047 03e7 5B        		.byte	0x5b
+ 2048 03e8 93        		.byte	0x93
+ 2049 03e9 01        		.uleb128 0x1
+ 2050 03ea 0000 0000 		.long	0
+ 2051 03ee 0000 0000 		.long	0
+ 2052               	.LLST17:
+ 2053 03f2 AC01 0000 		.long	.LVL25-.Ltext0
+ 2054 03f6 CA01 0000 		.long	.LVL26-.Ltext0
+ 2055 03fa 0600      		.word	0x6
+ 2056 03fc 0C        		.byte	0xc
+ 2057 03fd 00CA 9A3B 		.long	0x3b9aca00
+ 2058 0401 9F        		.byte	0x9f
+ 2059 0402 2202 0000 		.long	.LVL31-.Ltext0
+ 2060 0406 4A02 0000 		.long	.LFE9-.Ltext0
+ 2061 040a 0C00      		.word	0xc
+ 2062 040c 62        		.byte	0x62
+ 2063 040d 93        		.byte	0x93
+ 2064 040e 01        		.uleb128 0x1
+ 2065 040f 63        		.byte	0x63
+ 2066 0410 93        		.byte	0x93
+ 2067 0411 01        		.uleb128 0x1
+ 2068 0412 64        		.byte	0x64
+ 2069 0413 93        		.byte	0x93
+ 2070 0414 01        		.uleb128 0x1
+ 2071 0415 65        		.byte	0x65
+ 2072 0416 93        		.byte	0x93
+ 2073 0417 01        		.uleb128 0x1
+ 2074 0418 0000 0000 		.long	0
+ 2075 041c 0000 0000 		.long	0
+ 2076               	.LLST18:
+ 2077 0420 AC01 0000 		.long	.LVL25-.Ltext0
+ 2078 0424 CA01 0000 		.long	.LVL26-.Ltext0
+ 2079 0428 0200      		.word	0x2
+ 2080 042a 30        		.byte	0x30
+ 2081 042b 9F        		.byte	0x9f
+ 2082 042c F401 0000 		.long	.LVL28-.Ltext0
+ 2083 0430 F601 0000 		.long	.LVL29-.Ltext0
+ 2084 0434 0200      		.word	0x2
+ 2085 0436 31        		.byte	0x31
+ 2086 0437 9F        		.byte	0x9f
+ 2087 0438 F601 0000 		.long	.LVL29-.Ltext0
+ 2088 043c 2C02 0000 		.long	.LVL33-.Ltext0
+ 2089 0440 0100      		.word	0x1
+ 2090 0442 6C        		.byte	0x6c
+ 2091 0443 0000 0000 		.long	0
+ 2092 0447 0000 0000 		.long	0
+GAS LISTING /tmp/ccRaMRx5.s 			page 42
+
+
+ 2093               	.LLST19:
+ 2094 044b D801 0000 		.long	.LVL27-.Ltext0
+ 2095 044f F301 0000 		.long	.LVL28-1-.Ltext0
+ 2096 0453 0100      		.word	0x1
+ 2097 0455 62        		.byte	0x62
+ 2098 0456 F301 0000 		.long	.LVL28-1-.Ltext0
+ 2099 045a 2A02 0000 		.long	.LVL32-.Ltext0
+ 2100 045e 0100      		.word	0x1
+ 2101 0460 6D        		.byte	0x6d
+ 2102 0461 0000 0000 		.long	0
+ 2103 0465 0000 0000 		.long	0
+ 2104               	.LLST20:
+ 2105 0469 4A02 0000 		.long	.LFB10-.Ltext0
+ 2106 046d 4C02 0000 		.long	.LCFI37-.Ltext0
+ 2107 0471 0300      		.word	0x3
+ 2108 0473 92        		.byte	0x92
+ 2109 0474 20        		.uleb128 0x20
+ 2110 0475 03        		.sleb128 3
+ 2111 0476 4C02 0000 		.long	.LCFI37-.Ltext0
+ 2112 047a 4E02 0000 		.long	.LCFI38-.Ltext0
+ 2113 047e 0300      		.word	0x3
+ 2114 0480 92        		.byte	0x92
+ 2115 0481 20        		.uleb128 0x20
+ 2116 0482 04        		.sleb128 4
+ 2117 0483 4E02 0000 		.long	.LCFI38-.Ltext0
+ 2118 0487 6202 0000 		.long	.LFE10-.Ltext0
+ 2119 048b 0300      		.word	0x3
+ 2120 048d 92        		.byte	0x92
+ 2121 048e 20        		.uleb128 0x20
+ 2122 048f 05        		.sleb128 5
+ 2123 0490 0000 0000 		.long	0
+ 2124 0494 0000 0000 		.long	0
+ 2125               	.LLST21:
+ 2126 0498 4A02 0000 		.long	.LVL35-.Ltext0
+ 2127 049c 5202 0000 		.long	.LVL36-.Ltext0
+ 2128 04a0 0600      		.word	0x6
+ 2129 04a2 68        		.byte	0x68
+ 2130 04a3 93        		.byte	0x93
+ 2131 04a4 01        		.uleb128 0x1
+ 2132 04a5 69        		.byte	0x69
+ 2133 04a6 93        		.byte	0x93
+ 2134 04a7 01        		.uleb128 0x1
+ 2135 04a8 0000 0000 		.long	0
+ 2136 04ac 0000 0000 		.long	0
+ 2137               	.LLST22:
+ 2138 04b0 6202 0000 		.long	.LFB11-.Ltext0
+ 2139 04b4 6402 0000 		.long	.LCFI39-.Ltext0
+ 2140 04b8 0300      		.word	0x3
+ 2141 04ba 92        		.byte	0x92
+ 2142 04bb 20        		.uleb128 0x20
+ 2143 04bc 03        		.sleb128 3
+ 2144 04bd 6402 0000 		.long	.LCFI39-.Ltext0
+ 2145 04c1 6602 0000 		.long	.LCFI40-.Ltext0
+ 2146 04c5 0300      		.word	0x3
+ 2147 04c7 92        		.byte	0x92
+ 2148 04c8 20        		.uleb128 0x20
+ 2149 04c9 04        		.sleb128 4
+GAS LISTING /tmp/ccRaMRx5.s 			page 43
+
+
+ 2150 04ca 6602 0000 		.long	.LCFI40-.Ltext0
+ 2151 04ce 7E02 0000 		.long	.LFE11-.Ltext0
+ 2152 04d2 0300      		.word	0x3
+ 2153 04d4 92        		.byte	0x92
+ 2154 04d5 20        		.uleb128 0x20
+ 2155 04d6 05        		.sleb128 5
+ 2156 04d7 0000 0000 		.long	0
+ 2157 04db 0000 0000 		.long	0
+ 2158               	.LLST23:
+ 2159 04df 6202 0000 		.long	.LVL37-.Ltext0
+ 2160 04e3 6802 0000 		.long	.LVL38-.Ltext0
+ 2161 04e7 0600      		.word	0x6
+ 2162 04e9 68        		.byte	0x68
+ 2163 04ea 93        		.byte	0x93
+ 2164 04eb 01        		.uleb128 0x1
+ 2165 04ec 69        		.byte	0x69
+ 2166 04ed 93        		.byte	0x93
+ 2167 04ee 01        		.uleb128 0x1
+ 2168 04ef 6802 0000 		.long	.LVL38-.Ltext0
+ 2169 04f3 7C02 0000 		.long	.LVL44-.Ltext0
+ 2170 04f7 0600      		.word	0x6
+ 2171 04f9 6C        		.byte	0x6c
+ 2172 04fa 93        		.byte	0x93
+ 2173 04fb 01        		.uleb128 0x1
+ 2174 04fc 6D        		.byte	0x6d
+ 2175 04fd 93        		.byte	0x93
+ 2176 04fe 01        		.uleb128 0x1
+ 2177 04ff 0000 0000 		.long	0
+ 2178 0503 0000 0000 		.long	0
+ 2179               	.LLST24:
+ 2180 0507 6E02 0000 		.long	.LVL41-.Ltext0
+ 2181 050b 7502 0000 		.long	.LVL42-1-.Ltext0
+ 2182 050f 0100      		.word	0x1
+ 2183 0511 68        		.byte	0x68
+ 2184 0512 7802 0000 		.long	.LVL43-.Ltext0
+ 2185 0516 7E02 0000 		.long	.LFE11-.Ltext0
+ 2186 051a 0100      		.word	0x1
+ 2187 051c 68        		.byte	0x68
+ 2188 051d 0000 0000 		.long	0
+ 2189 0521 0000 0000 		.long	0
+ 2190               	.LLST25:
+ 2191 0525 6A02 0000 		.long	.LVL39-.Ltext0
+ 2192 0529 6C02 0000 		.long	.LVL40-.Ltext0
+ 2193 052d 0600      		.word	0x6
+ 2194 052f 6C        		.byte	0x6c
+ 2195 0530 93        		.byte	0x93
+ 2196 0531 01        		.uleb128 0x1
+ 2197 0532 6D        		.byte	0x6d
+ 2198 0533 93        		.byte	0x93
+ 2199 0534 01        		.uleb128 0x1
+ 2200 0535 6C02 0000 		.long	.LVL40-.Ltext0
+ 2201 0539 7502 0000 		.long	.LVL42-1-.Ltext0
+ 2202 053d 0600      		.word	0x6
+ 2203 053f 6E        		.byte	0x6e
+ 2204 0540 93        		.byte	0x93
+ 2205 0541 01        		.uleb128 0x1
+ 2206 0542 6F        		.byte	0x6f
+GAS LISTING /tmp/ccRaMRx5.s 			page 44
+
+
+ 2207 0543 93        		.byte	0x93
+ 2208 0544 01        		.uleb128 0x1
+ 2209 0545 7502 0000 		.long	.LVL42-1-.Ltext0
+ 2210 0549 7C02 0000 		.long	.LVL44-.Ltext0
+ 2211 054d 0300      		.word	0x3
+ 2212 054f 8C        		.byte	0x8c
+ 2213 0550 7F        		.sleb128 -1
+ 2214 0551 9F        		.byte	0x9f
+ 2215 0552 7C02 0000 		.long	.LVL44-.Ltext0
+ 2216 0556 7E02 0000 		.long	.LFE11-.Ltext0
+ 2217 055a 0600      		.word	0x6
+ 2218 055c 6E        		.byte	0x6e
+ 2219 055d 93        		.byte	0x93
+ 2220 055e 01        		.uleb128 0x1
+ 2221 055f 6F        		.byte	0x6f
+ 2222 0560 93        		.byte	0x93
+ 2223 0561 01        		.uleb128 0x1
+ 2224 0562 0000 0000 		.long	0
+ 2225 0566 0000 0000 		.long	0
+ 2226               		.section	.debug_aranges,"",@progbits
+ 2227 0000 1C00 0000 		.long	0x1c
+ 2228 0004 0200      		.word	0x2
+ 2229 0006 0000 0000 		.long	.Ldebug_info0
+ 2230 000a 04        		.byte	0x4
+ 2231 000b 00        		.byte	0
+ 2232 000c 0000      		.word	0
+ 2233 000e 0000      		.word	0
+ 2234 0010 0000 0000 		.long	.Ltext0
+ 2235 0014 C002 0000 		.long	.Letext0-.Ltext0
+ 2236 0018 0000 0000 		.long	0
+ 2237 001c 0000 0000 		.long	0
+ 2238               		.section	.debug_line,"",@progbits
+ 2239               	.Ldebug_line0:
+ 2240 0000 1501 0000 		.section	.debug_str,"MS",@progbits,1
+ 2240      0200 6600 
+ 2240      0000 0201 
+ 2240      FB0E 0A00 
+ 2240      0101 0101 
+ 2241               	.LASF31:
+ 2242 0000 7561 7274 		.string	"uart_buffer_empty"
+ 2242      5F62 7566 
+ 2242      6665 725F 
+ 2242      656D 7074 
+ 2242      7900 
+ 2243               	.LASF17:
+ 2244 0012 7561 7274 		.string	"uart_putdw_dec"
+ 2244      5F70 7574 
+ 2244      6477 5F64 
+ 2244      6563 00
+ 2245               	.LASF5:
+ 2246 0021 6C6F 6E67 		.string	"long int"
+ 2246      2069 6E74 
+ 2246      00
+ 2247               	.LASF27:
+ 2248 002a 7561 7274 		.string	"uart.c"
+ 2248      2E63 00
+ 2249               	.LASF15:
+GAS LISTING /tmp/ccRaMRx5.s 			page 45
+
+
+ 2250 0031 7561 7274 		.string	"uart_putw_dec"
+ 2250      5F70 7574 
+ 2250      775F 6465 
+ 2250      6300 
+ 2251               	.LASF30:
+ 2252 003f 7561 7274 		.string	"uart_init"
+ 2252      5F69 6E69 
+ 2252      7400 
+ 2253               	.LASF25:
+ 2254 0049 7478 5F63 		.string	"tx_complete"
+ 2254      6F6D 706C 
+ 2254      6574 6500 
+ 2255               	.LASF22:
+ 2256 0055 7278 5F62 		.string	"rx_buffer"
+ 2256      7566 6665 
+ 2256      7200 
+ 2257               	.LASF1:
+ 2258 005f 756E 7369 		.string	"unsigned char"
+ 2258      676E 6564 
+ 2258      2063 6861 
+ 2258      7200 
+ 2259               	.LASF7:
+ 2260 006d 6C6F 6E67 		.string	"long unsigned int"
+ 2260      2075 6E73 
+ 2260      6967 6E65 
+ 2260      6420 696E 
+ 2260      7400 
+ 2261               	.LASF32:
+ 2262 007f 7561 7274 		.string	"uart_getc"
+ 2262      5F67 6574 
+ 2262      6300 
+ 2263               	.LASF26:
+ 2264 0089 474E 5520 		.string	"GNU C 4.6.2"
+ 2264      4320 342E 
+ 2264      362E 3200 
+ 2265               	.LASF16:
+ 2266 0095 7374 6172 		.string	"started"
+ 2266      7465 6400 
+ 2267               	.LASF23:
+ 2268 009d 7278 5F62 		.string	"rx_buffer_head"
+ 2268      7566 6665 
+ 2268      725F 6865 
+ 2268      6164 00
+ 2269               	.LASF4:
+ 2270 00ac 756E 7369 		.string	"unsigned int"
+ 2270      676E 6564 
+ 2270      2069 6E74 
+ 2270      00
+ 2271               	.LASF9:
+ 2272 00b9 6C6F 6E67 		.string	"long long unsigned int"
+ 2272      206C 6F6E 
+ 2272      6720 756E 
+ 2272      7369 676E 
+ 2272      6564 2069 
+ 2273               	.LASF2:
+ 2274 00d0 7569 6E74 		.string	"uint8_t"
+ 2274      385F 7400 
+GAS LISTING /tmp/ccRaMRx5.s 			page 46
+
+
+ 2275               	.LASF14:
+ 2276 00d8 7561 7274 		.string	"uart_putdw_hex"
+ 2276      5F70 7574 
+ 2276      6477 5F68 
+ 2276      6578 00
+ 2277               	.LASF20:
+ 2278 00e7 5F5F 6164 		.string	"__addr16"
+ 2278      6472 3136 
+ 2278      00
+ 2279               	.LASF21:
+ 2280 00f0 5F5F 7265 		.string	"__result"
+ 2280      7375 6C74 
+ 2280      00
+ 2281               	.LASF8:
+ 2282 00f9 6C6F 6E67 		.string	"long long int"
+ 2282      206C 6F6E 
+ 2282      6720 696E 
+ 2282      7400 
+ 2283               	.LASF10:
+ 2284 0107 6368 6172 		.string	"char"
+ 2284      00
+ 2285               	.LASF13:
+ 2286 010c 7561 7274 		.string	"uart_putw_hex"
+ 2286      5F70 7574 
+ 2286      775F 6865 
+ 2286      7800 
+ 2287               	.LASF19:
+ 2288 011a 7561 7274 		.string	"uart_puts_p"
+ 2288      5F70 7574 
+ 2288      735F 7000 
+ 2289               	.LASF3:
+ 2290 0126 7569 6E74 		.string	"uint16_t"
+ 2290      3136 5F74 
+ 2290      00
+ 2291               	.LASF12:
+ 2292 012f 7561 7274 		.string	"uart_putc"
+ 2292      5F70 7574 
+ 2292      6300 
+ 2293               	.LASF6:
+ 2294 0139 7569 6E74 		.string	"uint32_t"
+ 2294      3332 5F74 
+ 2294      00
+ 2295               	.LASF28:
+ 2296 0142 2F69 6E69 		.ascii	"/initrd/mnt/dev_save/all_files/Circuits2009/Python_"
+ 2296      7472 642F 
+ 2296      6D6E 742F 
+ 2296      6465 765F 
+ 2296      7361 7665 
+ 2297 0175 7072 6F6A 		.string	"projects/ladder/latest_versions/ladder_maker_allOS_102/program/C"
+ 2297      6563 7473 
+ 2297      2F6C 6164 
+ 2297      6465 722F 
+ 2297      6C61 7465 
+ 2298               	.LASF24:
+ 2299 01b6 7278 5F62 		.string	"rx_buffer_tail"
+ 2299      7566 6665 
+ 2299      725F 7461 
+GAS LISTING /tmp/ccRaMRx5.s 			page 47
+
+
+ 2299      696C 00
+ 2300               	.LASF29:
+ 2301 01c5 7561 7274 		.string	"uart_putc_hex"
+ 2301      5F70 7574 
+ 2301      635F 6865 
+ 2301      7800 
+ 2302               	.LASF0:
+ 2303 01d3 7369 676E 		.string	"signed char"
+ 2303      6564 2063 
+ 2303      6861 7200 
+ 2304               	.LASF11:
+ 2305 01df 5F5F 7665 		.string	"__vector_25"
+ 2305      6374 6F72 
+ 2305      5F32 3500 
+ 2306               	.LASF18:
+ 2307 01eb 7561 7274 		.string	"uart_puts"
+ 2307      5F70 7574 
+ 2307      7300 
+GAS LISTING /tmp/ccRaMRx5.s 			page 48
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 uart.c
+     /tmp/ccRaMRx5.s:2      *ABS*:0000003f __SREG__
+     /tmp/ccRaMRx5.s:3      *ABS*:0000003e __SP_H__
+     /tmp/ccRaMRx5.s:4      *ABS*:0000003d __SP_L__
+     /tmp/ccRaMRx5.s:5      *ABS*:00000034 __CCP__
+     /tmp/ccRaMRx5.s:6      *ABS*:00000000 __tmp_reg__
+     /tmp/ccRaMRx5.s:7      *ABS*:00000001 __zero_reg__
+     /tmp/ccRaMRx5.s:15     .text:00000000 __vector_25
+                            *COM*:00000001 rx_buffer_head
+                            *COM*:0000003c rx_buffer
+     /tmp/ccRaMRx5.s:90     .text:00000050 uart_init
+                            *COM*:00000001 rx_buffer_tail
+                            *COM*:00000001 tx_complete
+     /tmp/ccRaMRx5.s:124    .text:00000076 uart_putc
+     /tmp/ccRaMRx5.s:162    .text:00000094 uart_putc_hex
+     /tmp/ccRaMRx5.s:222    .text:000000ca uart_putw_hex
+     /tmp/ccRaMRx5.s:252    .text:000000de uart_putdw_hex
+     /tmp/ccRaMRx5.s:299    .text:00000100 uart_putw_dec
+     /tmp/ccRaMRx5.s:433    .text:00000188 uart_putdw_dec
+     /tmp/ccRaMRx5.s:617    .text:0000024a uart_puts
+     /tmp/ccRaMRx5.s:657    .text:00000262 uart_puts_p
+     /tmp/ccRaMRx5.s:714    .text:0000027e uart_buffer_empty
+     /tmp/ccRaMRx5.s:736    .text:0000028e uart_getc
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss
+__udivmodhi4
+__udivmodsi4
+__mulsi3

@@ -1,0 +1,15 @@
+<svg width="36" height="27" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <clipPath id="clipPath3935">
+   <rect width="33.375" height="27.125" x="363.375" y="527.36218" id="rect3937" fill-opacity="0.524038" fill="#000000"/>
+  </clipPath>
+ </defs>
+ <metadata id="metadata7">image/svg+xml</metadata>
+ <g>
+  <title>Layer 1</title>
+  <rect id="rect5909" width="35.294506" height="26.084745" x="0.38755" y="0.703375" stroke-miterlimit="4" stroke-linejoin="round" stroke="#ffffff" fill="#ffffff"/>
+  <line id="svg_4" y2="13.129451" x2="9.415318" y1="13.129451" x1="7.797195" stroke-linecap="null" stroke-linejoin="round" stroke="#ffffff" fill="none"/>
+  <line id="svg_8" y2="8.035076" x2="11.732332" y1="20.131854" x1="24.843087" stroke-linecap="null" stroke-linejoin="round" stroke="#000000" fill="none"/>
+  <line id="svg_9" y2="20.15167" x2="11.931808" y1="8.014655" x1="24.314749" stroke-linecap="null" stroke-linejoin="round" stroke="#000000" fill="none"/>
+ </g>
+</svg>

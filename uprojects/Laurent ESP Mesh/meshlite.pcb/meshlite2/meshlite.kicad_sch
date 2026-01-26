@@ -725,638 +725,6 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "CPC1916Y:CPC1916Y"
-			(pin_names
-				(offset 0.254)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "K"
-				(at 13.97 10.16 0)
-				(effects
-					(font
-						(size 1.524 1.524)
-					)
-				)
-			)
-			(property "Value" "CPC1916Y"
-				(at 15.24 7.62 0)
-				(effects
-					(font
-						(size 1.524 1.524)
-					)
-				)
-			)
-			(property "Footprint" "CPC1916Y_IXY"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(italic yes)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "CPC1916Y"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(italic yes)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_locked" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_keywords" "CPC1916Y"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "CPC1916Y_IXY"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "CPC1916Y_0_1"
-				(polyline
-					(pts
-						(xy 7.62 5.08) (xy 7.62 -7.62)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 7.62 0) (xy 10.16 0)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 7.62 -2.54) (xy 10.16 -2.54)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 7.62 -7.62) (xy 20.32 -7.62)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 9.652 -0.762) (xy 10.668 -0.762)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 10.16 -0.762) (xy 10.16 0)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 10.16 -0.762) (xy 9.652 -1.778) (xy 10.668 -1.778)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(polyline
-					(pts
-						(xy 10.16 -2.54) (xy 10.16 -1.778)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 11.43 -1.016) (xy 12.192 -0.254)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 11.43 -2.032) (xy 12.192 -1.27)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 12.446 0) (xy 11.938 -0.254) (xy 12.192 -0.508)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(polyline
-					(pts
-						(xy 12.446 -1.016) (xy 11.938 -1.27) (xy 12.192 -1.524)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(polyline
-					(pts
-						(xy 13.97 1.27) (xy 13.97 -3.81)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 13.97 1.27) (xy 15.24 1.27)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 13.97 -3.81) (xy 15.24 -3.81)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 15.24 2.794) (xy 15.24 -0.254)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 15.24 -2.54) (xy 15.24 -5.08)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 15.748 2.794) (xy 15.748 2.286)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 15.748 2.54) (xy 19.05 2.54)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 15.748 1.524) (xy 15.748 1.016)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 15.748 1.27) (xy 16.51 1.016) (xy 16.51 1.524)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(polyline
-					(pts
-						(xy 15.748 0.254) (xy 15.748 -0.254)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 15.748 -2.286) (xy 15.748 -2.794)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 15.748 -2.54) (xy 17.78 -2.54)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 15.748 -3.556) (xy 15.748 -4.064)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 15.748 -3.81) (xy 16.51 -4.064) (xy 16.51 -3.556)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(polyline
-					(pts
-						(xy 15.748 -4.826) (xy 15.748 -5.334)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 15.748 -5.08) (xy 19.05 -5.08)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 16.51 -3.81) (xy 17.78 -3.81)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 17.78 1.27) (xy 16.51 1.27)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 17.78 0) (xy 15.748 0)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 17.78 0)
-					(radius 0.127)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 17.78 -2.54)
-					(radius 0.127)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 17.78 -3.81) (xy 17.78 1.27)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 19.05 2.54) (xy 19.05 0)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 19.05 0) (xy 20.32 0)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 19.05 -2.54) (xy 19.05 -5.08)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 19.05 -2.54) (xy 20.32 -2.54)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 20.32 5.08) (xy 7.62 5.08)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 20.32 -7.62) (xy 20.32 5.08)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(pin unspecified line
-					(at 0 0 0)
-					(length 7.62)
-					(name "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin unspecified line
-					(at 0 -2.54 0)
-					(length 7.62)
-					(name "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin unspecified line
-					(at 27.94 0 180)
-					(length 7.62)
-					(name "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin unspecified line
-					(at 27.94 -2.54 180)
-					(length 7.62)
-					(name "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "DCJ200-10-A-XX-K_REVA:DCJ200-10-A-XX-K_REVA"
 			(pin_names
 				(offset 1.016)
@@ -3915,6 +3283,162 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "yaaj_dcdc_stepdown_lm2596:YAAJ_DCDC_StepDown_LM2596"
+			(pin_names
+				(offset 1.016)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at -5.08 6.35 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "YAAJ_DCDC_StepDown_LM2596"
+				(at 0 11.43 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at -1.27 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at -1.27 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "module : adjustable step down module 3.2V-40V to 1.25V-35V 3A"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "module stepdown step down buck converter DCDC DC"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "YAAJ_DCDC_StepDown_LM2596_0_1"
+				(rectangle
+					(start -7.62 5.08)
+					(end 7.62 -5.08)
+					(stroke
+						(width 0)
+						(type solid)
+					)
+					(fill
+						(type background)
+					)
+				)
+			)
+			(symbol "YAAJ_DCDC_StepDown_LM2596_1_1"
+				(text "Y@@V"
+					(at 6.1976 -4.2672 0)
+					(effects
+						(font
+							(size 0.508 0.508)
+						)
+					)
+				)
+				(pin power_in line
+					(at -10.16 2.54 0)
+					(length 2.54)
+					(name "Vin"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at -2.54 -7.62 90)
+					(length 2.54)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 2.54 -7.62 90)
+					(length 2.54)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_out line
+					(at 10.16 2.54 180)
+					(length 2.54)
+					(name "Vout"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 	)
 	(junction
 		(at 86.36 90.17)
@@ -3940,16 +3464,6 @@
 	)
 	(wire
 		(pts
-			(xy 177.165 86.995) (xy 180.975 86.995)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0d9461ab-44ac-4c2d-8321-646fda719c5f")
-	)
-	(wire
-		(pts
 			(xy 102.87 36.83) (xy 100.33 36.83)
 		)
 		(stroke
@@ -3967,16 +3481,6 @@
 			(type default)
 		)
 		(uuid "1408b31e-161b-4b43-aa88-81a279c47161")
-	)
-	(wire
-		(pts
-			(xy 184.785 89.535) (xy 187.96 89.535)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "145b919c-f178-4a5a-9a3b-a4ab5b812317")
 	)
 	(wire
 		(pts
@@ -4060,16 +3564,6 @@
 	)
 	(wire
 		(pts
-			(xy 186.055 86.995) (xy 187.96 86.995)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4c65327d-04d2-422f-b134-0bb486d35e26")
-	)
-	(wire
-		(pts
 			(xy 91.44 52.07) (xy 95.25 52.07)
 		)
 		(stroke
@@ -4117,16 +3611,6 @@
 			(type default)
 		)
 		(uuid "5f2d5b83-298f-440d-a40c-8c9a93c33e74")
-	)
-	(wire
-		(pts
-			(xy 184.785 92.075) (xy 184.785 89.535)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "668d84fb-175b-4be5-91d6-3a2d31d1ce23")
 	)
 	(wire
 		(pts
@@ -4200,16 +3684,6 @@
 	)
 	(wire
 		(pts
-			(xy 167.005 94.615) (xy 177.165 94.615)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7e87602b-a446-414b-8c02-970e7cc6a66d")
-	)
-	(wire
-		(pts
 			(xy 86.36 52.07) (xy 81.28 52.07)
 		)
 		(stroke
@@ -4257,16 +3731,6 @@
 			(type default)
 		)
 		(uuid "97e0db94-0f3c-41f7-963e-675c48aa9fd0")
-	)
-	(wire
-		(pts
-			(xy 177.165 94.615) (xy 177.165 86.995)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "98fd0560-ad50-4223-b6a6-036cd78baa63")
 	)
 	(wire
 		(pts
@@ -4784,73 +4248,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R_Small")
-		(at 183.515 86.995 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "142403de-478a-4f1d-bc83-116eae952e22")
-		(property "Reference" "R2"
-			(at 183.515 81.28 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "R_Small"
-			(at 183.515 83.82 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 183.515 86.995 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 183.515 86.995 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 183.515 86.995 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "2"
-			(uuid "39bf1be2-018d-4466-956f-21bf14b93953")
-		)
-		(pin "1"
-			(uuid "41d06d45-f316-4fba-8ce3-ed20bea2eccd")
-		)
-		(instances
-			(project "meshlite"
-				(path "/5228a7f0-3f2c-4c1e-8386-5ebdfda02c7b"
-					(reference "R2")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:LED_Small")
 		(at 92.075 94.615 0)
 		(unit 1)
@@ -4911,146 +4308,6 @@
 			(project "meshlite"
 				(path "/5228a7f0-3f2c-4c1e-8386-5ebdfda02c7b"
 					(reference "D3")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "CPC1916Y:CPC1916Y")
-		(at 187.96 86.995 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "23eea43c-042f-4da0-8b08-fa55b674d584")
-		(property "Reference" "K1"
-			(at 201.93 77.47 0)
-			(effects
-				(font
-					(size 1.524 1.524)
-				)
-			)
-		)
-		(property "Value" "CPC1916Y"
-			(at 201.93 80.01 0)
-			(effects
-				(font
-					(size 1.524 1.524)
-				)
-			)
-		)
-		(property "Footprint" "CPC1916Y:CPC1916Y"
-			(at 187.96 86.995 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(italic yes)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "CPC1916Y"
-			(at 187.96 86.995 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(italic yes)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 187.96 86.995 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "4"
-			(uuid "32b36e5a-92f0-4b45-b221-71a31d327e60")
-		)
-		(pin "1"
-			(uuid "3ce53b7d-112c-4859-9cd9-5406c42bbd1c")
-		)
-		(pin "2"
-			(uuid "5ffcbac0-f374-4478-8124-2d4e179b04cf")
-		)
-		(pin "3"
-			(uuid "c75a36b8-66d6-4e83-9400-729353cd3811")
-		)
-		(instances
-			(project "meshlite"
-				(path "/5228a7f0-3f2c-4c1e-8386-5ebdfda02c7b"
-					(reference "K1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 184.785 92.075 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "2a86eefb-5b0f-4216-b52d-6e2299a4716a")
-		(property "Reference" "#PWR02"
-			(at 184.785 98.425 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 184.785 96.52 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 184.785 92.075 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 184.785 92.075 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 184.785 92.075 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "0227b017-4d50-485d-9d98-9b4ba50ef975")
-		)
-		(instances
-			(project "meshlite"
-				(path "/5228a7f0-3f2c-4c1e-8386-5ebdfda02c7b"
-					(reference "#PWR02")
 					(unit 1)
 				)
 			)
@@ -6284,6 +5541,80 @@
 			(project "meshlite"
 				(path "/5228a7f0-3f2c-4c1e-8386-5ebdfda02c7b"
 					(reference "R1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "yaaj_dcdc_stepdown_lm2596:YAAJ_DCDC_StepDown_LM2596")
+		(at 173.99 132.08 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d6129614-8a27-41f8-8005-6675043d85e0")
+		(property "Reference" "U3"
+			(at 173.99 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "YAAJ_DCDC_StepDown_LM2596"
+			(at 173.99 124.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "KiCad:YAAJ_DCDC_StepDown_LM2596"
+			(at 172.72 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 172.72 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "module : adjustable step down module 3.2V-40V to 1.25V-35V 3A"
+			(at 173.99 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "6b84a451-bf72-401f-8cfc-c530930b505a")
+		)
+		(pin "4"
+			(uuid "d44dfa41-c2c2-480c-abf9-cbbb877a47c0")
+		)
+		(pin "2"
+			(uuid "ff630989-1279-4ecf-8da3-9928ffcb7fac")
+		)
+		(pin "1"
+			(uuid "082ffdc3-2b50-420e-8ec1-8c1b58851cf4")
+		)
+		(instances
+			(project ""
+				(path "/5228a7f0-3f2c-4c1e-8386-5ebdfda02c7b"
+					(reference "U3")
 					(unit 1)
 				)
 			)

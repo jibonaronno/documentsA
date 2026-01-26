@@ -1,0 +1,320 @@
+from PyQt4 import uic
+from PyQt4 import QtGui
+from PyQt4.QtGui import QMessageBox
+import os
+import sys
+import re
+from PyQt4.QtGui import QApplication
+from PyQt4 import QtCore
+from PyQt4.QtCore import *
+
+# import pyserial library
+import serial
+from serial.tools import list_ports
+from serial.threaded import ReaderThread
+from serial.threaded import LineReader
+
+import time
+
+from threading import Event, Thread
+
+
+PyDuinoDialog, PyDuinoClass = uic.loadUiType('ui_pyduino.ui')
+
+MultiCellDialog, MultiCellClass = uic.loadUiType('datadialog.ui')
+
+DataViewWidget, DataViewClass = uic.loadUiType('dataviewwidget.ui')
+
+DataRowWidget, DataRowClass = uic.loadUiType('datarowwidget.ui')
+
+class dataRow(DataRowWidget, QtGui.QWidget):
+    def __init__(self):
+        DataRowWidget.__init__(self)
+        QtGui.QWidget.__init__(self)
+        self.setupUi(self)
+
+class dataView(DataViewWidget, QtGui.QWidget):
+    def __init__(self):
+        DataViewWidget.__init__(self)
+        QtGui.QWidget.__init__(self)
+        self.setupUi(self)
+
+class Sygnal(QtCore.QObject):
+    emiter = QtCore.pyqtSignal()
+
+class multiCell(MultiCellDialog, QtGui.QDialog):
+    def __init__(self):
+        MultiCellDialog.__init__(self)
+        QtGui.QDialog.__init__(self)
+        self.rxSig001 = Sygnal()
+        self.rxSig001.emiter.connect(self.SendTextToTextBrowser)
+
+        self.connect(self, SIGNAL("DOD"), self.SendTextToTextBrowser)
+
+        self.bauds = ['1200', '2400', '4800', '9600', '19200', '38400', '57600', '115200']
+        self.initUi()
+        self.localText01 = ''
+        self.serialport = None
+
+        self.event = Event()
+        self.SerialDataArrivedEvent = Event()
+        self.thread001 = Thread(target=self.job01)
+        self.thread001.start()
+
+        #self.dataview.setWindowModality()
+        #self.dataview.showNormal()
+
+    def closeEvent(self, evnt):
+        self.event.set()
+        super(multiCell, self).closeEvent(evnt)
+
+    def job01(self):
+        while not self.event.wait(0.5):
+            last_byte = ''
+            if(self.serialport):
+                if(self.serialport.is_open):
+                    while(self.serialport.in_waiting):
+                        last_byte = self.serialport.read()
+                        self.localText01 = self.localText01 + last_byte
+                    self.SerialDataArrivedEvent.set()
+                    self.label.setText(self.localText01)
+                    if(last_byte != ''):
+                        self.emit(SIGNAL("DOD"), self.localText01)
+                    #self.rxSig001.emit(SIGNAL("DOD"), self.localText01)
+                    #self.textBrowser.setText(self.localText01)
+
+    def initUi(self):
+        self.setupUi(self)
+        self.dataview = dataView()
+        self.formLayout.addWidget(self.dataview)
+        #self.datarow = dataRow()
+        #self.dataview.verticalLayout.addWidget(self.datarow)
+        #self.dataview.verticalLayout.addWidget(dataRow())
+        #self.dataview.verticalLayout.addWidget(dataRow())
+        self.dataview.verticalLayout.addStretch(1)
+        self.connectSignals()
+        self.initFrontSetup()
+
+    def initFrontSetup(self):
+        # Initializing com ports
+        for device in list_ports.comports():
+            self.comboPortList.addItem(device.device)
+
+        # adding the bauds
+        for baud in self.bauds:
+            self.comboBaudList.addItem(str(baud))
+
+        #combo = QtGui.QComboBox()
+        #self.button = QtGui.QPushButton()
+        #self.button.setText()
+
+
+    def connectSignals(self):
+        self.btn001.clicked.connect(self.ShowCount)
+
+        self.comboBaudList.currentIndexChanged.connect(self.tag_baudrate)
+        self.comboPortList.currentIndexChanged.connect(self.tag_com_port)
+        self.btnConnect.clicked.connect(self.connectPort)
+        self.btnDisconnect.clicked.connect(self.disconnectport)
+        self.btnSend.clicked.connect(self.SendData)
+        #self.rxSig001.connect(self.SendTextToTextBrowser)
+
+    def connectPort(self):
+        self.tag_com_port()
+        self.tag_baudrate()
+        self.serialport = serial.Serial(str(self.current_port))
+        self.serialport.baudrate = int(self.baudrate)
+        if(self.current_port):
+            if(self.current_port != ""):
+                print self.current_port
+        if(self.baudrate):
+            if(self.baudrate != ""):
+                print self.baudrate
+        if(self.current_port != None or self.baudrate != None):
+            self.serialport.close()
+            self.serialport.open()
+            print 'connected'
+
+    def disconnectport(self):
+        self.serialport.close()
+        print 'disconnected'
+
+    def SendData(self):
+        databytes = [121, 011, 012]
+        if(self.serialport.is_open):
+            self.serialport.write(databytes)
+            #self.serialport.write(databytes)
+            #self.serialport.timeout = 200
+            self.serialport.reset_input_buffer()
+            #self.localText01 = ''
+            #time.sleep(1)
+            #self.textBrowser.setText(self.localText01)
+            #while(self.serialport.in_waiting):
+                #self.localText01 = self.localText01 + self.serialport.read()
+            #self.localText01 = self.serialport.readline()
+            #self.localText01 = self.localText01 + self.serialport.readline()
+            #self.localText01 = self.serialport.read(2)
+            #self.label.setText(self.localText01)
+
+    def SendTextToTextBrowser(self, text):
+        self.textBrowser.setText(text)
+
+    def setUiValues(self):
+        pass
+
+    def ShowCount(self):
+        cnt = self.dataview.verticalLayout.count()
+        #print cnt
+        for idx in range(cnt):
+            wid = self.dataview.verticalLayout.itemAt(idx)
+            #print type(wid)
+            if(type(wid) is QtGui.QWidgetItem):
+                wid.widget().calibSpinBox.setValue(idx)
+                #print wid.widget().mainHorizontalLayout.count()
+
+    def updateConfig01(self):
+        if (os.path.isfile(os.path.join(os.getcwd(), 'config.txt'))):
+            confRegex = re.compile(r'\S+ +\{ +(id += +\d+) +(text\s+=\s+"\w+(\s+\w+|\s+)*")')
+            configFile = open(os.path.join(os.getcwd(), 'config.txt'))
+            lines = configFile.readlines()
+            strLines = ""
+            for line in lines:
+                confRes = confRegex.search(line)
+                if (confRes):
+                    if (len(confRes.groups()) > 0):
+                        strLines = strLines + confRes.group(1) + '  ' + confRes.group(2) + '\n'
+                    else:
+                        strLines = strLines + '\t nothing'
+                else:
+                    strLines = strLines + 'Nothing\n'
+
+    def tag_com_port(self):
+        if(self.comboPortList.count() > 0):
+            self.current_port = self.comboPortList.currentText()
+        else:
+            self.current_port = None
+
+    def tag_baudrate(self):
+        if(self.comboBaudList.count() > 0):
+            self.baudrate = str(self.comboBaudList.currentText())
+        else:
+            self.baudrate = None
+
+    def refresh_com_ports(self):
+        self.comboPortList.clear()
+        for device in list_ports.comports():
+            self.comboPortList.addItem(device.device)
+
+
+
+class PyDuino(PyDuinoDialog, QtGui.QDialog):
+
+    def __init__(self):
+        PyDuinoDialog.__init__(self)
+        QtGui.QDialog.__init__(self)
+        self.setupUi(self)
+
+        # baud rate list
+        self.bauds = ['1200', '2400', '4800', '9600', '19200', '38400', '57600', '115200']
+
+        # Initializing com ports
+        for device in list_ports.comports():
+            self.COMComboBox.addItem(device.device)
+
+        # adding the bauds
+        for baud in self.bauds:
+            self.BaudComboBox.addItem(str(baud))
+
+        self.BaudComboBox.currentIndexChanged.connect(self.set_baudrate)
+        self.RefreshButton.clicked.connect(self.refresh_com_ports)
+
+        # When COM Port is selected
+        self.COMComboBox.currentIndexChanged.connect(self.set_com_port)
+
+        # When connect button is clicked
+        self.ConnectButton.clicked.connect(self.connect_arduino)
+
+        self.DisconnectButton.setEnabled(False)
+        self.DisconnectButton.clicked.connect(self.disconnect_arduino)
+
+        # when description button is clicked show a dialog
+        self.DescriptionButton.clicked.connect(self.show_description)
+
+        # when clicked ON Button sends a string
+        self.ONButton.clicked.connect(self.send_on_command)
+        self.OFFButton.clicked.connect(self.send_off_command)
+        self.SendButton.clicked.connect(self.send_command)
+
+        self.ClearInputButton.clicked.connect(self.clear_input)
+
+    # refreshes the port list
+    def refresh_com_ports(self):
+        self.COMComboBox.clear()
+        for device in list_ports.comports():
+            self.COMComboBox.addItem(device.device)
+
+    def set_com_port(self):
+        self.current_port = self.COMComboBox.currentText()
+
+    # connects
+    def connect_arduino(self):
+        self.ConnectButton.setEnabled(False)
+        self.DisconnectButton.setEnabled(True)
+        self.set_com_port()
+        self.arduino = serial.Serial(str(self.current_port))
+        self.arduino.baudrate = int(self.baudrate)
+        self.arduino.close()
+        self.arduino.open()
+
+    def disconnect_arduino(self):
+        self.DisconnectButton.setEnabled(False)
+        self.arduino.close()
+        self.ConnectButton.setEnabled(True)
+
+    def set_baudrate(self, index):
+        self.baudrate = str(self.BaudComboBox.currentText())
+        print self.baudrate
+
+    def show_description(self):
+        self.port_description = ''
+        for device in list_ports.comports():
+            if device.device == str(self.COMComboBox.currentText()):
+                self.port_description = device.description
+        self.message_box = QMessageBox()
+        self.message_box.setWindowTitle('About Selected Port')
+        self.message_box.setText(self.port_description)
+        self.message_box.setIcon(QMessageBox.Information)
+        self.message_box.show()
+
+    def send_on_command(self):
+        if (self.arduino.is_open):
+            self.arduino.write('on\n')
+            if (self.ReadEnableCheckBox.isChecked()):
+                self.ReadTextEdit.append(self.arduino.readline())
+
+    def send_off_command(self):
+        if (self.arduino.is_open):
+            self.arduino.write('off\n')
+            if (self.ReadEnableCheckBox.isChecked()):
+                self.ReadTextEdit.append(self.arduino.readline())
+
+    def send_command(self):
+        if (self.arduino.is_open):
+            self.text = str(self.CommandLineEdit.text()) + '\n'
+            self.arduino.write(self.text)
+            if (self.ReadEnableCheckBox.isChecked()):
+                self.ReadTextEdit.append(self.arduino.readline())
+            self.CommandLineEdit.clear()
+
+    def clear_input(self):
+        self.ReadTextEdit.clear()
+
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    #pyduino = PyDuino()
+    #pyduino.show()
+    cellDialog = multiCell()
+    cellDialog.show()
+    sys.exit(app.exec_())
+

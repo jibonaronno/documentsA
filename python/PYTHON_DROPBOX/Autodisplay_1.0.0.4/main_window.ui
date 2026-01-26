@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>main_window</class>
+ <widget class="QMainWindow" name="main_window">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1054</width>
+    <height>821</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>AutoBinder</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout_2"/>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1054</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <addaction name="action_New_Page"/>
+    <addaction name="action_Save"/>
+   </widget>
+   <addaction name="menuFile"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionToolNew"/>
+   <addaction name="actionToolSave"/>
+   <addaction name="actionToolDelete"/>
+  </widget>
+  <action name="action_New_Page">
+   <property name="text">
+    <string>&amp;New Page</string>
+   </property>
+  </action>
+  <action name="action_Save">
+   <property name="text">
+    <string>&amp;Save</string>
+   </property>
+  </action>
+  <action name="actionToolNew">
+   <property name="icon">
+    <iconset>
+     <normalon>svg/plus-button.svg</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>ToolNew</string>
+   </property>
+   <property name="toolTip">
+    <string>New Page</string>
+   </property>
+  </action>
+  <action name="actionToolSave">
+   <property name="icon">
+    <iconset>
+     <normaloff>svg/check.svg</normaloff>svg/check.svg</iconset>
+   </property>
+   <property name="text">
+    <string>ToolSave</string>
+   </property>
+   <property name="toolTip">
+    <string>Save</string>
+   </property>
+  </action>
+  <action name="actionToolDelete">
+   <property name="icon">
+    <iconset>
+     <normaloff>svg/cancel.svg</normaloff>svg/cancel.svg</iconset>
+   </property>
+   <property name="text">
+    <string>ToolDelete</string>
+   </property>
+   <property name="toolTip">
+    <string>Delete Page</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

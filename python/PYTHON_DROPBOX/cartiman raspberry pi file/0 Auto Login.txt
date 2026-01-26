@@ -1,0 +1,22 @@
+In LXTerminal:
+sudo nano /etc/inittab
+
+Scroll down to:
+1:2345:respawn:/sbin/getty 115200 tty1
+
+and change to
+#1:2345:respawn:/sbin/getty 115200 tty1
+
+Under that line add:
+1:2345:respawn:/bin/login -f pi tty1 </dev/tty1 >/dev/tty1 2>&1
+
+Ctrl+X to exit, Y to save followed by enter twice
+
+Auto StartX (Run LXDE):
+In LXTerminal:
+sudo nano /etc/rc.local
+
+Scroll to the bottom and add the following above exit 0:
+su -l pi -c startx
+
+Ctrl+X to exit, Y to save followed by enter twice

@@ -1,0 +1,62 @@
+
+<big><a href="#WalNix">Linux USB, Waltech Hardware</a><br>
+<a href="#ardNIX">Linux USB, Arduino Hardware</a><br>
+<a href="#walWIN">Windows USB, Waltech Hardware</a><br>
+<a href="#ardWIN">Windows USB, Arduino Hardware</a></big> 
+<br><br>
+
+<a name="WalNix"></a><big>Linux USB, Waltech Hardware</big>:<br>
+When the device is plugged in, it will show in the lsusb list as "USBtiny."<br><br>
+Permissions: (If running as a user other than root) 
+<br>
+
+Use sudo <i>a_text_editor</i>, and create a new file: usbbtiny.rules in /etc/udev/rules.d/  
+<br>
+Put one line in it:  
+SUBSYSTEM== "usb", ATTR{product}=="USBtiny", ATTR{idProduct}=="0c9f", ATTRS{idVendor}=="1781", MODE="0660", GROUP="dialout" 
+<br>
+Disconnect and reconnect USB. Or, (in a terminal) $ sudo udevadm control --reload-rules 
+<br>
+This only needs to be done one time.<br>
+<br>
+<big><a name="ardNIX"></a>Linux USB, Arduino Hardware:<br>
+</big>
+The Arduino usb interface is a Serial to USB adapter. It should show up as  /dev/ttyACMx or /dev/ttyUSBx   (Where x is a number.)<br>
+<br>
+Permissions: If running as a user other than root: <br>
+<br>
+symptoms: test shows device is indeed in lsusb list, but still fails to locate port.<br>
+<br>
+Use sudo <i>a_text_editor</i>, and create a new file: arduino.rules in /etc/udev/rules.d/  
+<br>
+Put these two lines in it:  <br>
+SUBSYSTEMS=="usb", ACTION=="add", ATTRS{idVendor}=="2341", ATTRS{idProduct}=="00[0-a][0-f]", MODE="666", SYMLINK+="arduino arduino_$attr{serial}", GROUP="dialout"
+<br>
+<br>
+SUBSYSTEMS=="usb", ACTION=="add", ATTRS{idProduct}=="6001", ATTRS{idVendor}=="0403", MODE="666", SYMLINK+="arduino arduino_nano_$attr{serial}", GROUP="dialout"
+<br>
+<br>
+Disconnect and reconnect USB.  Or, (in a terminal) $ sudo udevadm control --reload-rules 
+<br>
+This only needs to be done one time.<br>
+<br>
+<br>
+If the compilation fails, and the message in the terminal refers to libmpc.so.2 "no such file or directory" install libmpc-dev with the package manager, and make a symlink with the following command:
+<br># sudo ln -s /usr/lib/i386-linux-gnu/libmpc.so /usr/lib/i386-linux-gnu/libmpc.so.2
+<br>
+ 
+<br>
+<big><a name="walWIN"></a>Windows USB, Waltech Hardware:</big><br>
+The USBtiny programmer requires a driver. <br>
+Open Device Manager then plug in the Waltech Board. <br> 
+When the device appears, update the driver manually:<br> 
+The inf file can be found /helpers/Drivers/usbtinyisp_libusb-win32_1.2.1/USBtiny.inf <br>
+<br> 
+
+ 
+<big><a name="ardWIN"></a>Windows USB, Arduino Hardware</big>
+<br>
+The Arduino usb interface is a Serial to USB adapter. 
+Open Device Manager then plug in the Arduio. <br> When the device appears, update the driver manually:<br> 
+The inf file can be found /helpers/Drivers/Arduino_UNO.inf 
+<br>

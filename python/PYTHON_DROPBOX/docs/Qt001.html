@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>QT-001</title>
+	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+    <!-- BEGIN syntax highlighter -->
+    <script type="text/javascript" src="sh/shCore.js"></script>
+    <script type="text/javascript" src="sh/shBrushJScript.js"></script>
+    <link type="text/css" rel="stylesheet" href="sh/shCore.css"/>
+    <link type="text/css" rel="stylesheet" href="sh/shThemeDefault.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Gruppo" rel="stylesheet">
+    <script type="text/javascript">
+      SyntaxHighlighter.all();
+    </script>
+    <!-- END syntax highlighter -->
+
+    <link href="css" rel="stylesheet" type="text/css">
+    <link href="css(1)" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="linuxsetup.css">
+    <script language="JavaScript" type="text/javascript"></script>
+    <script src="jquery-1.5.1.js"></script>
+  </head>
+  <body onload="load()">
+  
+  <div class="title_a"> Qt with Python and C++ </div><br>
+  
+  <div class="content_text_gen" style="padding: 20px;font-size: 24px;font-weight: bold;">
+
+  <h2>PyQt4</h2>
+
+  <div class="title_b">PyQt4</div>
+  <pp>Date - 7-11-17</pp><br />
+  This document is raised from PyQt GUI programming for an OpenCV application where I wanted to manipulate the captured image for ratio measurement. Qt itself is a large and very featurefull library. Primarily programmed by C++ for multiple platforms. In windows it has tools to be worked with MinGW in QtCreator. But Still facing problem in QtCreator C++ dependencis. Could not create indipendent apps. But created PyQt projects as well. I will discuss overall Qt C++ and PyQt sample projects with some GUI features. <br /><br />
+
+  A good collection of QT C++ tutorial video has been provided by <p3>Bryan</p3> in <a href="https://www.youtube.com/channel/UCYP0nk48grsMwO3iL8YaAKA">https://www.youtube.com/channel/UCYP0nk48grsMwO3iL8YaAKA</a> this place. From this tutorials I found some Ideas to work with the GUIs usefull features. Presently I am up to some custom Graphics UI operations like drawing images, insert dynamic numbers of UI-controls over the image to measure distances between some specific positions. This video <br />
+  <a href="https://www.youtube.com/watch?v=b35JF4LqtBs">C++ Qt 81 - QGraphicsView and QGraphicsScene</a><br />
+  shows how to use QGraphicsView and QGraphicsScene in C++ Qt. But things are not seems easier in C++ right now, Hence I have few complete apps written in PyQt. So I would prefer to convert the concept to PyQt. But Object orientation are not same in PyQt. Thats why I had to serach web for documents on how to use various graphics objects.<br /><br />
+
+  The concept of QGraphicsView and QGraphicsScene is that QGraphicsView attaches a QGraphicsScene instance, this scene has a array or list called Items. It accepts QGraphicsItem instances as additions. There are QtGui.QGraphicsTextItem, QGraphicsPixmapItem, QGraphicsRectItem etc, Coder can also create custom items. This video tutorial <a href="https://www.youtube.com/watch?v=hgDd2QspuDg">C++ Qt 82 - Custom QGraphicsItem</a> shows how to make Custom QGraphicsItem. In the following example I used an RectItem <br /><br />
+
+  <pp>qtex02.py</pp><br />
+  <pre class="brush:js;">
+
+  from PyQt4 import QtCore, QtGui, uic
+  import sys
+  .....................
+  .....................
+  .....................
+  class MyWindowClass(QtGui.QMainWindow, form_class):
+    def __init__(self, parent=None):
+        QtGui.QMainWindow.__init__(self, parent)
+        self.setupUi(self)
+
+        self.startButton.clicked.connect(self.start_clicked)
+        self.scene = QtGui.QGraphicsScene()
+        self.graphicsView.setScene(self.scene)
+
+        self.linearGradient = QtGui.QLinearGradient(-100, -100, 150, 150)
+        self.linearGradient.setColorAt(0.0, QtCore.Qt.white)
+        self.linearGradient.setColorAt(0.2, QtCore.Qt.green)
+        self.linearGradient.setColorAt(1.0, QtCore.Qt.black)
+
+        self.rect = self.scene.addRect(-100, -100, 150, 150, QtGui.QPen(QtCore.Qt.black, 5), QtGui.QBrush(self.linearGradient))
+        self.rect.setFlag(QtGui.QGraphicsItem.ItemIsMovable)
+  </pre><br />
+  <img alt="NO IMAGE" src="img/png032.png"><br /><br />
+
+  Observe how I used linearGradient color effect and ItemIsMovable flag. Again adding following code will also add external image to the scene.<br />
+
+  <pre class="brush:js;">
+    self.pix = QtGui.QPixmap.fromImage(QtGui.QImage('sample.svg'))
+    self.pixmap = self.scene.addPixmap(self.pix)
+    self.pixmap.setFlag(QtGui.QGraphicsItem.ItemIsMovable)
+  </pre><br /><br />
+  <img alt="NO IMAGE" src="img/png033.png"><br /><br />
+
+  here we added a svg file only to the scene. Other image files are also supported. 
+  <br /><br />
+
+  <img alt="NO IMAGE" src="img/png039.png"><br /><br />
+
+  
+
+  There is a good collection of PyQt examples in <a href="https://github.com/Werkov/PyQt4/blob/master/examples/painting/basicdrawing/basicdrawing.py">Werkov Github</a> place. So many examples and also <a href="nullege.com">nullege.com</a> is a remarkable python code search engine. Such as <a href="http://nullege.com/codes/search/PyQt4.QtGui.QPen">http://nullege.com/codes/search/PyQt4.QtGui.QPen</a> <br /><br />
+
+  <h2>QT C++</h2>
+  After some search I found a blog post that says to copy some dll files from QT bin folder and MinGW bin folder as follows:<br />
+  <img alt="NO IMAGE" src="img/error001.png"><br /><br />
+  Copy these files to the Qt project exe folder. Then the exe should run properly.<br /><br />
+
+  <div class="title_b">Older Versions of Qt SDK + MinGW</div>
+  To experiment I downloaded an older version of QT from <a href="http://download.qt.io/archive/qt/">http://download.qt.io/archive/qt/</a> . All older versions are available here including Embedded Linux Version and source codes. I downloaded Windows 32Bit MinGW version <p5>4.8.6</p5>. <br />
+  <img alt="NO IMAGE" src="img/png034.png"><br /><br />
+
+  It gives an installer for windows. You must install the <p3>MinGW</p3> first. The Qt-4.8.6 will want MinGW location <p3>(C:\MinGW)</p3> . After installation the runtime dll files are in <pp>C:\QT\4.8.6\bin</pp> location.
+  <br />
+  <h2>MinGW <p3>libstdc++6.dll</p3> file conflict with Qt's <p3>libstdc++6.dll</p3></h2>
+
+  I think there is a version conflict between the libraries of MinGW and Qt-4.8.6 . This is because I installed a latest version of MinGW where Qt version is 4.8.6 . I copied all the dll files to the Qt project release directory where the exe file is generated. It shows entry point error in <p3>libstdc++6.dll</p3> file. Then I copied the dll file from <pp>C:\MinGW\bin</pp> location to the exe folder. Then the program runs. This is just a single conflict. It is important to maintain version compatibility of MinGW with Qt-4.8.6 . <br />
+  <br />
+  <p5>Book C++ GUI Programming with QT 4, Second Edition</p5> dowloaded as <p3>/Dropbox/QTC++/Book C++ GUI Programming with QT 4.pdf</p3> . This book covers QT-4.3 . It has instruction on how to Generate .pro file and Makefile with simple commands. These are very smart type of compile automation. This generator can also be used with other C++ projects. <br />
+  <img alt="NO IMAGE" src="img/png035.png"><br />
+  <h2>Open Sample Dialog QAction Menu Operations</h2>
+  In this small app I am trying to open a sample dialog with or without Modal property, later I will add QGraphicsView object / instance to the dialog. <br /><br />
+  <img alt="NO IMAGE" src="img/png036.png"><br /><br />
+
+  Observe the video <p3>C Qt 05 - Displaying Windows.mp4</p3> . It shows how to create a dialog in QT Designer and it generates necessary classes for you. Also It shows how to add menu and menu items and assigns icons and function to QAction. Adding menu and menu items in QtDesigner is easy, then we have to implement functions for each menu item, In QtDesigner when a menu is selected, then a list called <p3>Action Editor</p3> appeares at the bottom or anywhere. Right click on an item and select <code>Go To Slot</code>. Then select a proper slot ( triggered ) will add this slot function to the related .cpp file.<br /><br />
+  <img alt="NO IMAGE" src="img/png037.png"><br /><br />
+
+  As this example creates <code>void MainWindow::on_actionQGraphicsViewDialog_triggered()</code> slot function. Then I add a dialog and show the dialog in this slot function as follows:<br /><br />
+
+  <img alt="NO IMAGE" src="img/png036.png"><br /><br />
+
+  As I already created <p3>qgraphicsdialog.ui</p3> as seen from the left panel, QtDesigner generates the class <code>QGraphicsDialog</code> form to work with the code. Then I added a <code>QGraphicsView</code> element object to the dialog and implemented <code>QGraphicsScene</code> to draw various graphics to the Graphics View. The scene implementation is done in the <pp>qgraphicsdialog.cpp</pp> file.<br /><br />
+
+  <img alt="NO IMAGE" src="img/png038.png"><br /><br />
+
+  Here I added Brush, Pen and QImage. Load a pixmap from a QImage file. Note that <code>pix</code> and <code>rect</code> are declared in the class constructor to be alive as long as the instance exist. 
+
+
+  <br />
+   <pre class="brush:js;">
+   </pre><br /><br />
+
+  <img alt="NO IMAGE" src="img/img.jpg"><br /><br />
+  
+  </div>
+
+  <script language="JavaScript" type="text/javascript">
+  	$(document).ready(function()
+			{
+				document.getElementById("content").innerHTML='<object type="text/html" data="https://code.google.com/p/u8glib/" width="800px" height="400px" style="overflow:auto;border:5px ridge blue" ></object>';
+			});		
+  </script>
+  
+  
+  
+  </body></html>
+

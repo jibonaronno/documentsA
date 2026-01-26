@@ -5,4 +5,5 @@
   (lib (name "INA219")(type "KiCad")(uri "${KIPRJMOD}/INA219")(options "")(descr ""))
   (lib (name "DCJ200-10-A-XX-K_REVA")(type "KiCad")(uri "${KIPRJMOD}/DCJ200-10-A-XX-K_REVA")(options "")(descr ""))
   (lib (name "footprints")(type "KiCad")(uri "${KIPRJMOD}/B5PS_VH_FOOTPRINT/KiCADv6/footprints.pretty")(options "")(descr ""))
+  (lib (name "KiCad")(type "KiCad")(uri "${KIPRJMOD}/lm2596-model-for-kicad/KiCad")(options "")(descr ""))
 )

@@ -1,0 +1,1 @@
+if((encrypt[0] != 0xFF34) || (encrypt[1] != 0x05DB) || (encrypt[2] != 0x5431) || (encrypt[3] != 0x3636) || (encrypt[4] != 0x5922) || (encrypt[5] != 0x4310))

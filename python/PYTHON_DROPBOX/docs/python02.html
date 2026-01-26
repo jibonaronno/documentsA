@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>PYTON - 002</title>
+	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+    <!-- BEGIN syntax highlighter -->
+    <script type="text/javascript" src="sh/shCore.js"></script>
+    <script type="text/javascript" src="sh/shBrushJScript.js"></script>
+    <link type="text/css" rel="stylesheet" href="sh/shCore.css"/>
+    <link type="text/css" rel="stylesheet" href="sh/shThemeDefault.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Gruppo" rel="stylesheet">
+    <script type="text/javascript">
+      SyntaxHighlighter.all();
+    </script>
+    <!-- END syntax highlighter -->
+
+    <link href="css" rel="stylesheet" type="text/css">
+    <link href="css(1)" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="linuxsetup.css">
+    <script language="JavaScript" type="text/javascript"></script>
+    <script src="jquery-1.5.1.js"></script>
+  </head>
+  <body onload="load()">
+
+  <div class="title_a"> Python PIP PyQt4 Installation </div><br>
+  <div class="content_text_gen" style="padding: 20px;font-size: 14px;font-weight: bold;">
+  Could not find any portable or executable installer for Windows 10 64 . I downloaded MSI installer of python 2.7.14 for windows 64 bit. Also could not find exe installer for PyQt4. A blog page suggest to download .whl (wheel) file from this <a href="http://www.lfd.uci.edu/~gohlke/pythonlibs/#pyqt4">http://www.lfd.uci.edu/~gohlke/pythonlibs/#pyqt4</a> location and then apply command:<br />
+  <code>C:\path\where\wheel\is\> pip install PyQt4-4.11.4-cp27-cp27m-win_amd64.whl</code><br />
+  I downloaded the file in <a href="http://180.234.12.125:8090/pen/PROJECTS/python/PyQt4-4.11.4-cp27-cp27m-win_amd64.whl">PyQt4-4.11.4-cp27-cp27m-win_amd64.whl</a> local private server.<br />
+
+  This page <a href="http://www.lfd.uci.edu/~gohlke/pythonlibs/">http://www.lfd.uci.edu/~gohlke/pythonlibs/</a> has huge resource of python wheel installers:<br /><br />
+  <img alt="NO IMAGE" src="img/png028.png"><br /><br />
+
+  PyQt4 source codes are available in <a href="https://riverbankcomputing.com/software/pyqt/download">https://riverbankcomputing.com/software/pyqt/download</a>. It was the previous place where the installer was available. Now the installer is not there.
+  <br /><br />
+  <img alt="NO IMAGE" src="img/png029.png"><br /><br />
+
+  Sourceforge also has a good collecton of PyQt files in <a href="https://sourceforge.net/projects/pyqt/files/PyQt4/PyQt-4.11.4/">https://sourceforge.net/projects/pyqt/files/PyQt4/PyQt-4.11.4/</a> . It has all the different platform packages. But these are not installers. These are may be python library files.<br /><br />
+
+  <img alt="NO IMAGE" src="img/png030.png"><br /><br />
+  
+  <br /><br />
+
+  <div class="title_b">Numpy OpenCV Install Wheel</div>
+
+  For windows opencv programming I tried to install necessary packages. I installed numpy for windows from <a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#numpy">https://www.lfd.uci.edu/~gohlke/pythonlibs/#numpy</a> location. This is wheel installer. Also found OpenCV 3.1.0 wheeler in this <a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#opencv">https://www.lfd.uci.edu/~gohlke/pythonlibs/#opencv</a> location. I installed this OpenCV package. My small apps did works well with this Numpy and OpenCV installed packages. Also my camera feed small app <p3>test03.py</p3> runs well. <br /><br />
+
+  This page <a href="http://kurokesu.com/main/2016/08/01/opencv-usb-camera-widget-in-pyqt/">http://kurokesu.com/main/2016/08/01/opencv-usb-camera-widget-in-pyqt/</a> showing how to combine OpenCV output images to <p3>qt</p3> GUI window. Saved in <p3>/Dropbox/opencv/OpenCV USB camera widget in PyQT.mht</p3>. 
+
+  <div class="title_b">PyQt5 Install</div>
+  <p3>PyQt5</p3> can be easily install with Python 3.6.2 pip3 by command <code>./pip3 install pyqt5</code> or <code>pip3 install pyqt5</code> .<br />
+  It is may require to go to pip folder to run pip. Typical Location is <p3>C:\Users\aronno\AppData\Local\Programs\Python\Python36\Scripts</p3>. <br />
+  During the installation of <p3>DXF2GCode</p3> we installed some software like PostScript and PDF Interpreter from <a href="https://www.ghostscript.com/">https://www.ghostscript.com/</a> <br />
+  Another interesting set of tools is XPdf from <a href="http://www.xpdfreader.com/">http://www.xpdfreader.com/</a> and <a href="http://www.pstoedit.com/">http://www.pstoedit.com/</a>. This <p3>pstoedit</p3> tool is a set of command line tool is very usefull to convert PDF to many other formats, even to GCode... <br />
+  <img alt="NO IMAGE" src="img/png040.png"><br /><br />
+  <img alt="NO IMAGE" src="img/png041.png"><br /><br />
+
+
+  </div>
+  
+  <div class="title_a"> PYTHON BASIC FEATURES </div><br>
+  
+  <div class="content_text_gen" style="padding: 20px;font-size: 24px;font-weight: bold;">
+   <p3>Python Basic Feature Examples </p3> <br><br>
+
+   <a href="https://program-plc.blogspot.com/2014/10/modbus-rtu-communication-between-plc.html?utm_content=buffer3e8e4&utm_medium=social&utm_source=facebook.com&utm_campaign=buffer">https://program-plc.blogspot.com/2014/10/modbus-rtu-communication-between-plc.html?utm_content=buffer3e8e4&utm_medium=social&utm_source=facebook.com&utm_campaign=buffer</a><br /><br />
+
+   <p3>/Dropbox/python/CRCTest.py</p3><br /><br />
+
+   <p3><a href="http://www.simplymodbus.ca/FAQ.htm#Modbus">http://www.simplymodbus.ca/FAQ.htm#Modbus</a></p3> <br /><br />
+
+   <a href="http://www.simplymodbus.ca/FC02.htm">http://www.simplymodbus.ca/FC02.htm</a><br /><br />
+
+   <img alt="NO IMAGE" src="img/img.jpg"><br /><br />
+
+   <pre class="brush:js;">
+uint16_t CRC16cal(char *buffer, uint16_t size)
+{
+	uint16_t i=0;
+	uint16_t j=0;
+	uint16_t CRC = 0xFFFF;
+	uint8_t  CRCHi = 0xFF;
+	uint8_t  CRCLo = 0xFF;
+	uint8_t  CRCLSB = 0x00;
+	
+	for (i=0; i < size; i++)
+	{
+		CRC = CRC ^ buffer[i];
+		
+		for (j=0; j < 8; j++)
+		{
+			CRCLSB = (CRC & 0x0001);
+			CRC = ((CRC >> 1) & 0x7FFF);
+			
+			if (CRCLSB)
+			{
+				CRC = (CRC ^ 0xA001);
+			}
+		}
+	}
+	
+	return CRC;
+	
+}
+   </pre><br /><br />
+
+
+   <pp>Offtopic</pp>
+  <div class="title_b"> virtual terminal </div>
+  <img alt="NO IMAGE" src="img/img136.jpg"><br /><br /> 
+  
+  <img alt="NO IMAGE" src="img/img.jpg"><br /><br />
+  <span class="tab"></span><br /><br />
+
+  </div>
+
+  <script language="JavaScript" type="text/javascript">
+  	$(document).ready(function()
+			{
+				document.getElementById("content").innerHTML='<object type="text/html" data="https://code.google.com/p/u8glib/" width="800px" height="400px" style="overflow:auto;border:5px ridge blue" ></object>';
+			});		
+  </script>
+  
+  
+  
+  </body></html>
+

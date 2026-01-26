@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>PYTON - 004 - PROJECTS - 002</title>
+	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+    <!-- BEGIN syntax highlighter -->
+    <script type="text/javascript" src="sh/shCore.js"></script>
+    <script type="text/javascript" src="sh/shBrushJScript.js"></script>
+    <link type="text/css" rel="stylesheet" href="sh/shCore.css"/>
+    <link type="text/css" rel="stylesheet" href="sh/shThemeDefault.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Gruppo" rel="stylesheet">
+    <script type="text/javascript">
+      SyntaxHighlighter.all();
+    </script>
+    <!-- END syntax highlighter -->
+
+    <link href="css" rel="stylesheet" type="text/css">
+    <link href="css(1)" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="linuxsetup.css">
+    <script language="JavaScript" type="text/javascript"></script>
+    <script src="jquery-1.5.1.js"></script>
+  </head>
+  <body onload="load()">
+  
+  <div class="title_a"> Python Projects </div><br>
+  
+  <div class="content_text_gen" style="padding: 20px;font-size: 24px;font-weight: bold;">
+
+  <div class="title_b">Flask Installation</div>
+  <pp>Installing Flask in OrangePi Zero Plus 2</pp><br />
+  There are some issues about installing flask in Armbian OPi0+2. I applied commands below:<br /><br />
+  <pre class="brush:js;">
+  export LC_ALL="en_US.UTF-8"
+  export LC_CTYPE="en_US.UTF-8"
+  sudo dpkg-reconfigure locales
+
+  sudo apt install python-pip
+  sudo pip install setuptools
+  sudo pip install flask
+  </pre><br /><br />
+
+  <h2>Project - First Flask Projects</h2>
+
+  <div class="title_b">First Flask App</div>
+  My first ever Python Flask project instructed from <a href="https://code.tutsplus.com/tutorials/creating-a-web-app-from-scratch-using-python-flask-and-mysql--cms-22972">creating-a-web-app-from-scratch-using-python-flask-and-mysql</a>. 
+  <br />
+  <img alt="NO IMAGE" src="img/png001.png"><br /><br />
+
+  Observe that we added <code>app.run(host='192.168.88.10')</code> to access this flask app from outside. I added route rules to the router to access the flask app from outside. Note that I am running the code on rock@180.234.12.125:8050. I route the port 8050 to 5000, as default flask app uses port 5000. The code from the blog does not uses the parameter inside <code>app.run()</code> . <br /><br />
+
+  This first flask program only sends a welcome message as a response to the request <code>180.234.12.125:8050</code>. On rock server the python program is in <p3>/home/rock/flaskapps/startups/project001/app.py</p3> . Run the app as <code>sudo python app.py</code> . Then it will run the flask server on port 5000. But we will access it over <p3>180.234.12.125:8050</p3> from outside. 
+
+  <br /><br />
+
+  I am not sure about the code <code>@app.route('\')</code> what does it mean. This is a very basic app, We will create a new app that will render an external html page to the client. Here the concept of <p3>template</p3> will come to play the role. By default flask app looks for template files insidee <p3>templates</p3> folder. So create a folder name <p5>template</p5> and put the html template files inside it. I will create a file <p5>index.html</p5> that uses <p3>bootstrap</p3> css classes for decorations. Lets see how this html file uses bootstrap css classes. For this I created some series of html files in <p3>/Dropbox/PYTHON/docs/index001.html</p3> and so on.
+
+  <br /><br />
+  <pp>index001.html</pp><br />
+
+  <pre class="brush:js;">
+ 
+    <title>Python Flask Bucket List App</title>
+ 
+ 
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+ 
+    <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+
+    -<-body->-
+ 
+    <div class="container">
+        <div class="header">
+            <nav>
+                <ul class="nav nav-pills pull-right">
+                    <li role="presentation" class="active"><a href="#">Home</a>
+                    </li>
+                    <li role="presentation"><a href="#">Sign In</a>
+                    </li>
+                    <li role="presentation"><a href="showSignUp">Sign Up</a>
+                    </li>
+                </ul>
+            </nav>
+            <h3 class="text-muted">Python Flask App</h3>
+        </div>
+    </div>
+  </pre><br /><br />
+
+  This html will draw a page as follows:<br /><br />
+
+  <img alt="NO IMAGE" src="img/png002.png"><br /><br />
+
+  <br /><br />
+
+  This way the bootstrap css classes are usefull to draw standard html pages. Observe the <p3>container</p3>, <p3>header</p3>, <p3>nav</p3>, <p3>nav-pills</p3>, <p3>pull-right</p3>, <p3>active</p3> classes and their presentation / decoration over the page.
+
+  <br /><br />
+
+  See the <p3>jumbotron</p3> div's decoration. Observe that Links are decorated to act like buttons:<br /><br />
+
+  <img alt="NO IMAGE" src="img/png004.png"><br /><br />
+  <img alt="NO IMAGE" src="img/png003.png"><br /><br />
+
+  Then add these html codes to show the bucket list.<br /><br />
+
+  <img alt="NO IMAGE" src="img/png005.png"><br /><br />
+
+  I am trying to understand the css parts that decorates the page. These css calsses gives the page some good looks:<br /><br />
+
+  <img alt="NO IMAGE" src="img/png006.png"><br /><br />
+  <img alt="NO IMAGE" src="img/png007.png"><br /><br />
+
+  To apply this html file as a template, create a folder name <p3>templates</p3>, give it permission <code>sudo chmod 777 templates</code> . Then I copied a file <pp>index002.html</pp> to templates folder and edit <p3>app.py</p3> as follows:<br /><br />
+
+  <img alt="NO IMAGE" src="img/png008.png"><br /><br />  
+
+  Now we will setup a mysql database by command line. In rock server, mysql user and password is <p3>root</p3> and <p3>redhat07</p3>. Apply commands as follows:<br /><br />
+
+  <pre class="brush:js;">
+  mysql -u root -p
+  password: redhat07
+
+  CREATE DATABASE bucketlist;
+
+  CREATE TABLE `bucketlist`.`tbl_user` (
+  `user_id` BIGINT NULL AUTO_INCREMENT,
+  `user_name` VARCHAR(45) NULL,
+  `user_username` VARCHAR(45) NULL,
+  `user_password` VARCHAR(45) NULL,
+  PRIMARY KEY (`user_id`));
+  </pre><br /><br />
+  <pp>Note the database object names are in `tbl_user` signs</pp><br />
+  Here I am using the stored procedure in MySql for the first time. Our <p3>tbl_user</p3> table has basic user info storing structure. We will store <p3>nick name, login user name, and password</p3> for a user. Our stored procedure will check for login user name existance and prevent login user name duplicacy. For practice I created 3 stored precedure <pp>adduser02</pp>, <pp>adduser03</pp> and finaly <p3>sp_createUser</p3>. Here are the designes:<br /><br />
+
+  <img alt="NO IMAGE" src="img/png009.png"><br /><br />
+  <img alt="NO IMAGE" src="img/png010.png"><br /><br />
+  <img alt="NO IMAGE" src="img/png011.png"><br /><br />
+  <img alt="NO IMAGE" src="img/png012.png"><br /><br />
+
+  As instructed by <a href="https://code.tutsplus.com/tutorials/creating-a-web-app-from-scratch-using-python-flask-and-mysql--cms-22972">Tutorial Page</a> we need to create a singup page as follows: <br /><br />
+
+  <img alt="NO IMAGE" src="img/png013.png"><br /><br />
+
+  Create <p3>signup.html</p3> file in <pp>templates</pp> folder. Observe the file that it uses <p3>html form</p3> tag for user input.<br /><br />
+
+  <img alt="NO IMAGE" src="img/png014.png"><br /><br />
+
+  The tutorial also asked to add a CSS <pp>signup.css</pp> file inside <pp>/static</pp> folder as follows:<br /><br />
+
+
+  <pre class="brush:js;">
+body {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+ 
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+  </pre><br /><br />
+
+  But my signup page does looks ok without the CSS. Now update the <p3>app.py</p3> server app as instructed as follows:<br /><br />
+
+  <img alt="NO IMAGE" src="img/png015.png"><br /><br />
+
+  Note that we added an extra <code>'/main'</code> route for home button.<br /><br />
+
+  All these examples are about page routing and linking. We will apply the user signup registration process by the help of the tutorial. <br /><br />
+
+  We will add a new method and route <p3>'/signUp'</p3> in <pp>app.py</pp> code. We will use Ajax for signup data transaction. We need to import <p3>json</p3> and <p3>request</p3> module for web request mechanism. <br /><br />
+
+   <pre class="brush:js;">
+   from flask import Flask, render_template, request, json
+   ............
+   ............
+   ............
+  @app.route('/signUp',methods=['POST'])
+  def signUp():
+ 
+    # read the posted values from the UI
+    _name = request.form['inputName']
+    _email = request.form['inputEmail']
+    _password = request.form['inputPassword']
+
+    # validate the received values
+    if _name and _email and _password:
+        return json.dumps({'html':'<span>All fields good !!</span>'})
+    else:
+        return json.dumps({'html':'<span>Enter the required fields</span>'})
+
+   </pre><br /><br />
+   Observe that <p3>request</p3> module collects data from <pp>form</pp> html object represented as array list. 
+
+  <br /><br />
+
+  <p5>Step 4: Create a Signup request</p5><br />
+  We will use ajax call from html page. we need to download <p3>jQuery</p3> inside <pp>/flaskapp/startups/project001/static/js/</pp> folder and add a link to signup page and wherever it needs. we'll add a <p3>jQuery POST</p3> request when the user clicks the <p3>Sign Up</p3> button.
+  <br /><br />
+
+  <pre class="brush:js;">
+  <script type="text/javascript">
+  $(function() {
+    $('#btnSignUp').click(function() {
+ 
+        $.ajax({
+            url: '/signUp',
+            data: $('form').serialize(),
+            type: 'POST',
+            success: function(response) {
+                console.log(response);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    });
+});
+  </script>
+  </pre><br /><br />
+
+  Upto this ajax call and response the project is saved in <pp>Dropbox/PYTHON/Project Compressed/flask signup 001.7z</pp> compressed format file. <br /><br />
+
+Now we will intigrate MySQL module to our program. There are some information gape from the tutorial because some of the modules name and some naming conventions are changed. Finally I managed to run the modules for MySQL stored procedure call and password hashing function. But the password was not saved to database -> <p3>tbl_user</p3> correctly. <br /><br />
+
+<img alt="NO IMAGE" src="img/png016.png"><br /><br />
+
+There also some changes at MySQL database operation calls from python.<br /><br />
+
+<img alt="NO IMAGE" src="img/png017.png"><br /><br />
+
+<p3>Remember the difference when coding later.</p3><br /><br />
+
+Now when user provides the info and credentials and pressed the signup button, the user informations are saved to <p3>tbl_user</p3> table with hashed encrypted password. <br /><br />
+
+<img alt="NO IMAGE" src="img/png018.png"><br /><br />
+<img alt="NO IMAGE" src="img/png019.png"><br /><br />
+
+But till now the UI does not show any message whether the signup is successfull or not. It shows some messages to the browser console window. The button press sends ajax call to the server page <p3>/signUp</p3>. Server then calls a stored procedure <p3>sp_createuser</p3>. This stored procedure checks for user id duplicacy and add the user info to the data table. 
+<br /><br />
+
+As per the tutorial 1st part ended here, We are moving to 2nd part :<br /><br />
+
+We will create a sign in page for the user to login to the system. I created the <p3>signin.html</p3> page and updated other pages linked to signin page. Also added route to <p3>app.py</p3> code.<br /><br />
+
+<img alt="NO IMAGE" src="img/png020.png"><br /><br />
+<img alt="NO IMAGE" src="img/png021.png"><br /><br />
+
+Remember that all the template files are in <pp>/templates</pp> folder. <br /><br />
+
+Observe <p3>signin.html</p3>. Previously in <p3>signup.html</p3> we used ajax call for user signup. In <p3>signin.html</p3> we are using html form submit mechanism with post. <br /><br />
+
+<pp>signin.html</pp><br />
+<img alt="NO IMAGE" src="img/png022.png"><br /><br />
+
+So the action is <p3>"/validateLogin"</p3>. Before adding this route to app.py we will create a stored procedure as follows:<br /><br />
+
+   <pre class="brush:js;">
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_validateLogin`(
+IN p_username VARCHAR(20)
+)
+BEGIN
+    select * from tbl_user where user_username = p_username;
+END$$
+DELIMITER ;
+   </pre><br /><br />
+
+<img alt="NO IMAGE" src="img/png023.png"><br /><br />
+
+Now we have to write the <p3>'/validateLogin'</p3> function and add this route to <pp>app.py</pp> . We must import some modules <p3>redirect</p3> and <p3>session</p3>  from <p3>flask</p3>, which is not mentioned in the tutorial.<br /><br />
+
+To use session in flask, it requires a secret key and SESSION_TYPE. Dont know yet why it is needed. The code uses <p3>user_id</p3> from database as session id. When user inputs user name and password, the <p3>'validateLogin()'</p3> function extract data from table <p3>tbl_user</p3> and put the unique value <p3>user_id</p3> to the session id as <code>session['user'] = data[0][0]</code> . <br /><br />
+
+<img alt="NO IMAGE" src="img/png024.png"><br /><br />
+
+Up to this code we skipped password authentication for some errors. Up to this code functionality the project is saved as <p3>/Dropbox/python/Project Compressed/flaskapp.signin.2.tar.gz</p3> without database backup. Also observe that bootstrap functionality is in action like email address format notification, fillup required field notification etc. Such as email input and password input must follow a format, bootstrap js api takes care of that by setting up elements correct properties.<br /><br />
+
+<img alt="NO IMAGE" src="img/png025.png"><br /><br />
+
+As we can see that this sign in form elements are decorated with bootstrap css supports. <br /><br />
+
+We need to find out why the password checking is not working. <br /><br />
+
+Ok , the error is <br />
+<pp>Warning: (1265, u"Data truncated for column 'p_password' at row 1")</pp><br />
+that means the parameter size was not enough to hold the hashed password. Here <p3>"p_password"</p3> is a stored procedure password. I applied a larger size for this parameter. Then it worked.<br /><br />
+
+<img alt="NO IMAGE" src="img/png026.png"><br /><br />
+
+As the tutorial explained, I applied the session mechanism. When user login, a session element <code>session['user']</code> is assigned with a value user_id from database table <p3>tbl_user</p3>. Later when logout, the <code>logout()</code> method imply the command <code>session.pop('user', None)</code> to remove the session.
+
+<br /><br />
+<div class="title_b">Get Method and Parameters</div>
+I also did applied a GET Method code to the flask app as follows:<br /><br />
+
+<img alt="NO IMAGE" src="img/png027.png"><br /><br />
+
+As we can see that it checks for method type and then takes dicision. This same function can also handle POST method. Observe how this function retrives the GET method's parameters.<br /><br />
+
+Up to this functionality the code is saved as <p3>/Dropbox/PYTHON/Project Compressed/flaskapp.get_method.7z</p3><br /><br />
+
+<pre class="brush:js;">
+</pre><br /><br />
+
+  <img alt="NO IMAGE" src="img/img.jpg"><br /><br />
+  
+  </div>
+
+  <script language="JavaScript" type="text/javascript">
+  	$(document).ready(function()
+			{
+				document.getElementById("content").innerHTML='<object type="text/html" data="https://code.google.com/p/u8glib/" width="800px" height="400px" style="overflow:auto;border:5px ridge blue" ></object>';
+			});		
+  </script>
+  
+  
+  
+  </body></html>
+

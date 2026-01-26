@@ -1,0 +1,42 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>icons/ADC.svg</file>
+    <file>icons/divide.svg</file>
+    <file>icons/equ.svg</file>
+    <file>icons/greater_than_or_eq.svg</file>
+    <file>icons/greater_than.svg</file>
+    <file>icons/less_than_or_eq.svg</file>
+    <file>icons/less_than.svg</file>
+    <file>icons/minus.svg</file>
+    <file>icons/move.svg</file>
+    <file>icons/plus.svg</file>
+    <file>icons/PWM.svg</file>
+    <file>icons/times.svg</file>
+    <file>icons/contact_NC.svg</file>
+    <file>icons/contact_NO.svg</file>
+    <file>icons/contact_NO_button.svg</file>
+    <file>icons/falling.svg</file>
+    <file>icons/rising_button.svg</file>
+    <file>icons/falling_button.svg</file>
+    <file>icons/contact_NC_button.svg</file>
+    <file>icons/rising.svg</file>
+    <file>icons/falling_button.svg</file>
+    <file>icons/Coil_button.svg</file>
+    <file>icons/Coil_not_button.svg</file>
+    <file>icons/Coil_not.svg</file>
+    <file>icons/counter.svg</file>
+    <file>icons/timer_button.svg</file>
+    <file>icons/narrow.png</file>
+    <file>icons/counter_button.svg</file>
+    <file>icons/ORwire.png</file>
+    <file>icons/timer.svg</file>
+    <file>icons/OR_big.png</file>
+    <file>icons/del.png</file>
+    <file>icons/widen.png</file>
+    <file>icons/rung.png</file>
+    <file>icons/CurvedArrowLeftDown.svg</file>
+    <file>icons/CurvedArrowRightDown.svg</file>
+    <file>icons/OR.png</file>
+    <file>icons/Coil.svg</file>
+  </qresource>
+</RCC>

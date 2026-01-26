@@ -1,0 +1,13 @@
+Using 'file manager'
+Copy the file pyserial-2.7.tar.gz into /home/pi
+Double click on pyserial-2.7.tar.gz
+Choose 'Action'
+Choose 'Extract'
+double click on pyserial-2.7.tar0
+Choose 'Action'
+Choose 'Extract'
+Open LXTerminal
+type cd pyserial-2.7
+press Enter
+type sudo python setup.py install
+press Enter

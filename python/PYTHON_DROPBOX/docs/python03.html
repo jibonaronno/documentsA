@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>PYTON - 003 - PROJECTS - 001</title>
+	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+    <!-- BEGIN syntax highlighter -->
+    <script type="text/javascript" src="sh/shCore.js"></script>
+    <script type="text/javascript" src="sh/shBrushJScript.js"></script>
+    <link type="text/css" rel="stylesheet" href="sh/shCore.css"/>
+    <link type="text/css" rel="stylesheet" href="sh/shThemeDefault.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Gruppo" rel="stylesheet">
+    <script type="text/javascript">
+      SyntaxHighlighter.all();
+    </script>
+    <!-- END syntax highlighter -->
+
+    <link href="css" rel="stylesheet" type="text/css">
+    <link href="css(1)" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="linuxsetup.css">
+    <script language="JavaScript" type="text/javascript"></script>
+    <script src="jquery-1.5.1.js"></script>
+  </head>
+  <body onload="load()">
+  
+  <div class="title_a"> Python Projects </div><br>
+  
+  <div class="content_text_gen" style="padding: 20px;font-size: 24px;font-weight: bold;">
+
+  <h2>Project - Pyduino_0.0.0.2</h2>
+
+  <div class="title_b">Simple Thread in PyQt (Pyduino_0.0.0.2)</div>
+  <p3>Event</p3>: An event object has two properties: <p3>SET</p3> and <p3>RESET</p3>. After creation, an Event object is in RESET state. To SET an Event object, <p3>Event.set()</p3> method must be called. Here we are running an while loop untill an event object is set. 
+  <br /><br />
+  <img alt="NO IMAGE" src="img/img132.jpg"><br /><br />
+
+  We also override an virtual event function <p3>closeEvent()</p3>. This function is called when the dialog is about to close. In this project we used an event object to stop the thread loop. I didnt find any conventional way to stop the thread. All we had to do is, the thread loop always have to check for an event to be set to exit the loop as below::<br /><br />
+
+  <img alt="NO IMAGE" src="img/img133.jpg"><br /><br />
+
+  <br /><br />
+
+  <h2>Emit Signal With Argument</h2><br />
+
+  Following example from blog <a href="http://www.saltycrane.com/blog/2008/01/pyqt-how-to-pass-arguments-while/">http://www.saltycrane.com/blog/2008/01/pyqt-how-to-pass-arguments-while/</a> shows on how to emit signal with arguments::<br /><br />
+
+  <pre class="brush:js;">
+import sys
+import time
+from PyQt4.QtCore import * 
+from PyQt4.QtGui import * 
+
+#################################################################### 
+class MyWindow(QWidget): 
+    def __init__(self, *args): 
+        QWidget.__init__(self, *args)
+
+        self.label = QLabel(" ")
+        layout = QVBoxLayout()
+        layout.addWidget(self.label)
+        self.setLayout(layout)
+        self.connect(self, SIGNAL("didSomething"),
+                     self.update_label)
+        self.do_something()
+
+    def do_something(self):
+        self.emit(SIGNAL("didSomething"), "important", "information")
+
+    def update_label(self, value1, value2):
+        self.label.setText(value1 + " " + value2)
+
+####################################################################
+if __name__ == "__main__": 
+    app = QApplication(sys.argv) 
+    w = MyWindow() 
+    w.show() 
+    sys.exit(app.exec_())
+  </pre><br /><br />
+
+  <img alt="NO IMAGE" src="img/img134.jpg"><br /><br />
+
+  From this concept we did transfer the received Rx data from the thread to a slot function to display the data to the UI.
+
+  <br /><br />
+
+  <h2>Project PyDuino_0.0.0.3</h2>
+   <p3>G:\Study\Python\PyDuino_0.0.0.3</p3> <br />
+   <p3>Laptop -- \Study\Python\PyDuino_0.0.0.3</p3><br />
+   <p3>Dropbox\PYTHON\Project Compressed\PyDuino_0.0.0.3.7z</p3><br />
+   <br /><br />
+
+   <p5>Remember the project structure</p5><br />
+   <pp>#001</pp><br />
+   <pp>#002</pp><br />
+   <pp>#003</pp><br />
+
+   <br /><br />
+   <div class="title_b">Python Subprocess</div>
+   <img alt="NO IMAGE" src="img/img006.png"><br /><br />
+   Source docs are saved in <pp>\Dropbox\PYTHON\Subprocess and Shell Commands in Python.pdf</pp><br />
+   Also some docs here <a href="http://sharats.me/the-ever-useful-and-neat-subprocess-module.html">http://sharats.me/the-ever-useful-and-neat-subprocess-module.html</a><br /><br />
+   
+
+   <br /><br />
+   <div class="title_b">Energypac HMI Project</div>
+
+   For an Energypac project in location <p3>P:\H(H2O)\Study\Python\Energypa....\</p3> new setup is writing and modfying codes to adjust project requirements. Basically HMI for winding machine operations. Trying to apply a touchscreen with RPi3. PyDuino_0.0.0.3 did run on RPi3, And arduino connected to the RPi's USB port is also active. But for isolation we may need to isolate the serial port or isolate the input outputs. 
+
+   <h2>Send Data to user interfaces that resides in another Class -> Container -> Array -> Elements</h2>
+   <pp>pyduino.py</pp>
+   <pre class="brush:js;">
+   def ShowCount(self):
+        cnt = self.dataview.verticalLayout.count()
+        #print cnt
+        for idx in range(cnt):
+            wid = self.dataview.verticalLayout.itemAt(idx)
+            #print type(wid)
+            if(type(wid) is QtGui.QWidgetItem):
+                wid.widget().calibSpinBox.setValue(idx)
+                #print wid.widget().mainHorizontalLayout.count()
+   </pre><br /><br />
+
+   Observe how I did access the spinbox in a custom widget where there are multiple widgets in an array formation inside verticalLayout container. The widgets are attached dynamically in initUi(self) function:<br /><br />
+   <pp>pyduino.py</pp>
+   <pre class="brush:js;">
+   def initUi(self):
+        self.setupUi(self)
+        self.dataview = dataView()
+        self.formLayout.addWidget(self.dataview)
+        #self.datarow = dataRow()
+        #self.dataview.verticalLayout.addWidget(self.datarow)
+        self.dataview.verticalLayout.addWidget(dataRow())
+        self.dataview.verticalLayout.addWidget(dataRow())
+        self.dataview.verticalLayout.addStretch(1)
+        self.connectSignals()
+        self.initFrontSetup()
+    </pre><br /><br />
+
+
+
+   <pre class="brush:js;">
+   </pre><br /><br />
+
+  <img alt="NO IMAGE" src="img/img.jpg"><br /><br />
+  
+  </div>
+
+  <script language="JavaScript" type="text/javascript">
+  	$(document).ready(function()
+			{
+				document.getElementById("content").innerHTML='<object type="text/html" data="https://code.google.com/p/u8glib/" width="800px" height="400px" style="overflow:auto;border:5px ridge blue" ></object>';
+			});		
+  </script>
+  
+  
+  
+  </body></html>
+

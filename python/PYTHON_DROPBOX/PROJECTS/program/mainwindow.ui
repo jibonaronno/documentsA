@@ -1,0 +1,944 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>996</width>
+    <height>609</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Waltech Ladder Maker</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QGraphicsView" name="graphicsView">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>50</y>
+      <width>651</width>
+      <height>521</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="mouseTracking">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>10</y>
+      <width>50</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Mouse X:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>630</x>
+      <y>10</y>
+      <width>50</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>30</y>
+      <width>50</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Mouse Y:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>630</x>
+      <y>30</y>
+      <width>50</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="undoBbutton">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>10</y>
+      <width>61</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Undo</string>
+    </property>
+    <property name="icon">
+     <iconset resource="toolbaricons.qrc">
+      <normaloff>:/icons/icons/CurvedArrowRightDown.svg</normaloff>:/icons/icons/CurvedArrowRightDown.svg</iconset>
+    </property>
+    <property name="toolButtonStyle">
+     <enum>Qt::ToolButtonTextBesideIcon</enum>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="redoButton">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>10</y>
+      <width>61</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Redo</string>
+    </property>
+    <property name="icon">
+     <iconset resource="toolbaricons.qrc">
+      <normaloff>:/icons/icons/CurvedArrowLeftDown.svg</normaloff>:/icons/icons/CurvedArrowLeftDown.svg</iconset>
+    </property>
+    <property name="toolButtonStyle">
+     <enum>Qt::ToolButtonTextBesideIcon</enum>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="tableWidget">
+    <property name="geometry">
+     <rect>
+      <x>680</x>
+      <y>50</y>
+      <width>231</width>
+      <height>321</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>8</pointsize>
+     </font>
+    </property>
+    <property name="editTriggers">
+     <set>QAbstractItemView::NoEditTriggers</set>
+    </property>
+    <property name="selectionMode">
+     <enum>QAbstractItemView::NoSelection</enum>
+    </property>
+    <property name="sortingEnabled">
+     <bool>true</bool>
+    </property>
+    <property name="cornerButtonEnabled">
+     <bool>false</bool>
+    </property>
+    <property name="columnCount">
+     <number>4</number>
+    </property>
+    <attribute name="horizontalHeaderVisible">
+     <bool>true</bool>
+    </attribute>
+    <attribute name="horizontalHeaderDefaultSectionSize">
+     <number>55</number>
+    </attribute>
+    <attribute name="verticalHeaderVisible">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="verticalHeaderDefaultSectionSize">
+     <number>14</number>
+    </attribute>
+    <column>
+     <property name="text">
+      <string>Name</string>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>8</pointsize>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>I/O</string>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>8</pointsize>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Elmnt.</string>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>8</pointsize>
+      </font>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>loc.</string>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>8</pointsize>
+      </font>
+     </property>
+    </column>
+   </widget>
+   <widget class="QPushButton" name="infoButton">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>10</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Create hex file and upload it to the Hardware&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="whatsThis">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This buton starts the following: &lt;/p&gt;&lt;p&gt;- creation of C code.  &lt;/p&gt;&lt;p&gt;- compiling of that cod with GCC&lt;/p&gt;&lt;p&gt;- uploading of the resulting hex file to the hardware via USB&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="text">
+     <string>compile</string>
+    </property>
+   </widget>
+   <widget class="QTextBrowser" name="textBrowser">
+    <property name="geometry">
+     <rect>
+      <x>680</x>
+      <y>380</y>
+      <width>231</width>
+      <height>101</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="cursor">
+    <cursorShape>ArrowCursor</cursorShape>
+   </property>
+   <property name="contextMenuPolicy">
+    <enum>Qt::PreventContextMenu</enum>
+   </property>
+   <property name="windowTitle">
+    <string>Elements</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionElemnents"/>
+   <addaction name="actionContNO"/>
+   <addaction name="actionContNC"/>
+   <addaction name="actionCoil"/>
+   <addaction name="actionFalling"/>
+   <addaction name="actionTimer"/>
+   <addaction name="actionCounter"/>
+   <addaction name="separator"/>
+   <addaction name="actionPlus"/>
+   <addaction name="actionMinus"/>
+   <addaction name="actionMult"/>
+   <addaction name="actionDivide"/>
+   <addaction name="actionMove"/>
+   <addaction name="separator"/>
+   <addaction name="actionGreater"/>
+   <addaction name="actionLessthan"/>
+   <addaction name="actionGreaterOrEq"/>
+   <addaction name="actionLessOrEq"/>
+   <addaction name="actionEquals"/>
+   <addaction name="separator"/>
+   <addaction name="actionPWM"/>
+   <addaction name="actionADC"/>
+   <addaction name="separator"/>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>996</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionClose"/>
+    <addaction name="actionOpen"/>
+    <addaction name="actionSave"/>
+    <addaction name="actionSave_As"/>
+   </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+    <addaction name="actionUndo"/>
+    <addaction name="actionRedo"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionWhatsThis"/>
+    <addaction name="separator"/>
+    <addaction name="actionUSBHelp"/>
+    <addaction name="actionArduinoUno_IO"/>
+    <addaction name="actionArduinoNano_IO"/>
+    <addaction name="actionArduinoMega_IO"/>
+    <addaction name="actionAbout"/>
+   </widget>
+   <widget class="QMenu" name="menuDiagnostics">
+    <property name="title">
+     <string>Hardware</string>
+    </property>
+    <addaction name="actionWaltech"/>
+    <addaction name="actionArduinoUno"/>
+    <addaction name="actionArduinoNano"/>
+    <addaction name="actionArduinoMega"/>
+    <addaction name="separator"/>
+    <addaction name="actionCheck_HW_2"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuEdit"/>
+   <addaction name="menuDiagnostics"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QToolBar" name="toolBar_2">
+   <property name="windowTitle">
+    <string>toolBar_2</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>LeftToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionEdit_nTools"/>
+   <addaction name="actionaddRung"/>
+   <addaction name="actionORwire"/>
+   <addaction name="actionWiden"/>
+   <addaction name="actionNarrow"/>
+   <addaction name="actionDEL"/>
+  </widget>
+  <action name="actionContNO">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="toolbaricons.qrc">
+     <normaloff>:/icons/icons/contact_NO_button.svg</normaloff>:/icons/icons/contact_NO_button.svg</iconset>
+   </property>
+   <property name="text">
+    <string>contNO</string>
+   </property>
+   <property name="toolTip">
+    <string>Normally Open Contact</string>
+   </property>
+   <property name="whatsThis">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; color:#000000;&quot;&gt;Inserts a Normally Open Contact in the ladder. &lt;/span&gt;&lt;span style=&quot; font-size:10pt; color:#000000;&quot;&gt;&lt;br/&gt;&lt;br/&gt;--A dialog window will appear.&lt;br/&gt;--Choose an input from the dropdown menu.&lt;br/&gt;--If &amp;quot;internal&amp;quot; selected and name is shared, the state will come from a Coil&lt;/span&gt;&lt;span style=&quot; color:#000000;&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </action>
+  <action name="actionContNC">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="toolbaricons.qrc">
+     <normaloff>:/icons/icons/contact_NC_button.svg</normaloff>:/icons/icons/contact_NC_button.svg</iconset>
+   </property>
+   <property name="text">
+    <string>contNC</string>
+   </property>
+   <property name="toolTip">
+    <string>Normally Closed Contact</string>
+   </property>
+   <property name="whatsThis">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-family:'Sans Serif'; font-size:11pt; color:#000000;&quot;&gt;Inserts a Normally Closed Contact in the ladder. &lt;br/&gt;&lt;br/&gt;--A dialog window will appear.&lt;br/&gt;--Choose an input from the dropdown menu.&lt;br/&gt;--If &amp;quot;internal&amp;quot; selected and name is shared, the state will come from a Coil &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </action>
+  <action name="actionCoil">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="toolbaricons.qrc">
+     <normaloff>:/icons/icons/Coil_button.svg</normaloff>:/icons/icons/Coil_button.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Coil</string>
+   </property>
+   <property name="toolTip">
+    <string>Coil</string>
+   </property>
+   <property name="whatsThis">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; color:#000000;&quot;&gt;Inserts a Coil in the ladder. &lt;br/&gt;&lt;br/&gt;--A dialog window will appear.&lt;br/&gt;--Choose an Output from the dropdown menu.&lt;br/&gt;--If &amp;quot;internal&amp;quot; selected and name is shared with another element, the state of this coil will pass to that element.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </action>
+  <action name="actionClose">
+   <property name="text">
+    <string>Close</string>
+   </property>
+  </action>
+  <action name="actionUndo">
+   <property name="text">
+    <string>undo</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Z</string>
+   </property>
+  </action>
+  <action name="actionRedo">
+   <property name="text">
+    <string>redo</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
+   </property>
+  </action>
+  <action name="actionaddRung">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="toolbaricons.qrc">
+     <normaloff>:/icons/icons/rung.png</normaloff>:/icons/icons/rung.png</iconset>
+   </property>
+   <property name="text">
+    <string>addRung</string>
+   </property>
+   <property name="toolTip">
+    <string>Add a Rung</string>
+   </property>
+   <property name="whatsThis">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;span style=&quot; font-size:11pt; color:#000000;&quot;&gt;&lt;p&gt;Add a rung&lt;/p&gt;&lt;p&gt;Note: rungs can be converted to OR branches with the vertical wire tool.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </action>
+  <action name="actionWiden">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="toolbaricons.qrc">
+     <normaloff>:/icons/icons/widen.png</normaloff>:/icons/icons/widen.png</iconset>
+   </property>
+   <property name="text">
+    <string>Widen</string>
+   </property>
+   <property name="toolTip">
+    <string>Widen rung</string>
+   </property>
+   <property name="whatsThis">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;span style=&quot; font-size:11pt; color:#000000;&quot;&gt;&lt;p&gt;Makes the entire ladder one element width wider.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </action>
+  <action name="actionOpen">
+   <property name="text">
+    <string>Open</string>
+   </property>
+  </action>
+  <action name="actionNew">
+   <property name="text">
+    <string>New</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="text">
+    <string>Save</string>
+   </property>
+  </action>
+  <action name="actionDEL">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="toolbaricons.qrc">
+     <normaloff>:/icons/icons/del.png</normaloff>:/icons/icons/del.png</iconset>
+   </property>
+   <property name="text">
+    <string>DEL</string>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Delete an element or empty rung &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="whatsThis">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;span style=&quot; font-size:11pt; color:#000000;&quot;&gt;&lt;p&gt;Delete an element&lt;/p&gt;&lt;p&gt;Delete an empty rung&lt;/p&gt;&lt;p&gt;Note: Use the vertical wire (OR) to delete branches. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </action>
+  <action name="actionORwire">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="toolbaricons.qrc">
+     <normaloff>:/icons/icons/ORwire.png</normaloff>:/icons/icons/ORwire.png</iconset>
+   </property>
+   <property name="text">
+    <string>OR wire</string>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Toggles vertical wire to to OR branch.&lt;/p&gt;&lt;p&gt;Connects Rung to Rung below, Becomes OR branch&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="whatsThis">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;span style=&quot; font-size:11pt; color:#000000;&quot;&gt;&lt;p&gt;--Click to add or remove a vertical wire&lt;/p&gt;&lt;p&gt;--This tool can link rungs together to make an OR branch.&lt;/p&gt;&lt;p&gt;--Use this tool to widen or shrink the OR branch&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </action>
+  <action name="actionNarrow">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="toolbaricons.qrc">
+     <normaloff>:/icons/icons/narrow.png</normaloff>:/icons/icons/narrow.png</iconset>
+   </property>
+   <property name="text">
+    <string>Narrow</string>
+   </property>
+   <property name="toolTip">
+    <string>Remove extra empty locations</string>
+   </property>
+   <property name="whatsThis">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;span style=&quot; font-size:11pt; color:#000000;&quot;&gt;&lt;p&gt;Narrows the ladder by one element width&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </action>
+  <action name="actionFalling">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="toolbaricons.qrc">
+     <normaloff>:/icons/icons/falling_button.svg</normaloff>:/icons/icons/falling_button.svg</iconset>
+   </property>
+   <property name="text">
+    <string>falling</string>
+   </property>
+   <property name="toolTip">
+    <string>Falling edge</string>
+   </property>
+   <property name="whatsThis">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; color:#000000;&quot;&gt;Inserts a falling Edge in the ladder. &lt;br/&gt;&lt;br/&gt;--Creates a 10ns pulse on the rung-out when a falling edge is dected at the rung-in&lt;/span&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </action>
+  <action name="actionTimer">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="toolbaricons.qrc">
+     <normaloff>:/icons/icons/timer_button.svg</normaloff>:/icons/icons/timer_button.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Timer</string>
+   </property>
+   <property name="toolTip">
+    <string>Timer</string>
+   </property>
+   <property name="whatsThis">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; color:#000000;&quot;&gt;Inserts a Timer in the ladder. &lt;br/&gt;&lt;br/&gt;--A dialog window will appear.&lt;br/&gt;--Set the time delay.  10 min max (655 sec)&lt;br/&gt;--If rung-in state goes True and stays that way for the delay duration, the rung-out will go True.  &lt;br/&gt;--Timer is reset when the rung-in state goes False&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </action>
+  <action name="actionCounter">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="toolbaricons.qrc">
+     <normaloff>:/icons/icons/counter_button.svg</normaloff>:/icons/icons/counter_button.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Counter</string>
+   </property>
+   <property name="toolTip">
+    <string>Counter</string>
+   </property>
+   <property name="whatsThis">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; color:#000000;&quot;&gt;Inserts a Counter in the ladder. &lt;br/&gt;&lt;br/&gt;--A dialog window will appear.&lt;br/&gt;--Set the number of counts (setpoint).  65535 max.&lt;br/&gt;--If rung-in state goes True setpoint number of times, the rung-out will go True. &lt;br/&gt;--Choose a name.  If shared with a Coil, this will provide a Reset.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </action>
+  <action name="actionEdit_nTools">
+   <property name="text">
+    <string>Edit</string>
+   </property>
+  </action>
+  <action name="actionElemnents">
+   <property name="text">
+    <string>Elemnents</string>
+   </property>
+  </action>
+  <action name="actionWhatsThis">
+   <property name="text">
+    <string>WhatsThis</string>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Click this to get help with a tool&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </action>
+  <action name="actionCheck_HW">
+   <property name="text">
+    <string>Test Hardware</string>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Checks USB&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="whatsThis">
+    <string>Checks USB connection, programmer, and controller.</string>
+   </property>
+  </action>
+  <action name="actionUSBHelp">
+   <property name="text">
+    <string>USB</string>
+   </property>
+  </action>
+  <action name="actionSettings">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Settings</string>
+   </property>
+  </action>
+  <action name="actionWaltech">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Waltech</string>
+   </property>
+   <property name="autoRepeat">
+    <bool>false</bool>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::ApplicationSpecificRole</enum>
+   </property>
+  </action>
+  <action name="actionArduinoUno">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Arduino Uno</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::ApplicationSpecificRole</enum>
+   </property>
+  </action>
+  <action name="actionCheck_HW_2">
+   <property name="text">
+    <string>Test USB</string>
+   </property>
+   <property name="toolTip">
+    <string>Test USB connection, drver, programmer, hardware</string>
+   </property>
+  </action>
+  <action name="actionArduinoUno_IO">
+   <property name="text">
+    <string>Arduino Uno IO</string>
+   </property>
+  </action>
+  <action name="actionSave_As">
+   <property name="text">
+    <string>Save As</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="actionPlus">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="toolbaricons.qrc">
+     <normaloff>:/icons/icons/plus.svg</normaloff>:/icons/icons/plus.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Plus</string>
+   </property>
+   <property name="whatsThis">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;span style=&quot; font-size:11pt; color:#000000;&quot;&gt;&lt;p&gt;Add. &lt;/p&gt;&lt;p&gt;Must be paced on far right.&lt;/p&gt;&lt;p&gt;Sources can be a constant or a name of another element. &lt;/p&gt;&lt;p&gt;sources and result are 16 bit signed.  (-32767 to 32767)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </action>
+  <action name="actionMinus">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="toolbaricons.qrc">
+     <normaloff>:/icons/icons/minus.svg</normaloff>:/icons/icons/minus.svg</iconset>
+   </property>
+   <property name="text">
+    <string>minus</string>
+   </property>
+   <property name="whatsThis">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;span style=&quot; font-size:11pt; color:#000000;&quot;&gt;&lt;p&gt;Subtract. &lt;/p&gt;&lt;p&gt;Must be paced on far right.&lt;/p&gt;&lt;p&gt;Sources can be a constant or a name of another element. &lt;/p&gt;&lt;p&gt;sources and result are 16 bit signed.  (-32767 to 32767)&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </action>
+  <action name="actionEquals">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="toolbaricons.qrc">
+     <normaloff>:/icons/icons/equ.svg</normaloff>:/icons/icons/equ.svg</iconset>
+   </property>
+   <property name="text">
+    <string>equals</string>
+   </property>
+   <property name="whatsThis">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Comparison: Equals.&lt;/p&gt;&lt;p&gt;Conductive if true.&lt;/p&gt;&lt;p&gt;Sources can be a constant or a name of another element. &lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </action>
+  <action name="actionMove">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="toolbaricons.qrc">
+     <normaloff>:/icons/icons/move.svg</normaloff>:/icons/icons/move.svg</iconset>
+   </property>
+   <property name="text">
+    <string>move</string>
+   </property>
+   <property name="visible">
+    <bool>false</bool>
+   </property>
+  </action>
+  <action name="actionDivide">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="toolbaricons.qrc">
+     <normaloff>:/icons/icons/divide.svg</normaloff>:/icons/icons/divide.svg</iconset>
+   </property>
+   <property name="text">
+    <string>divide</string>
+   </property>
+   <property name="whatsThis">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;span style=&quot; font-size:11pt; color:#000000;&quot;&gt;&lt;p&gt;Divide. &lt;/p&gt;&lt;p&gt;Must be paced on far right.&lt;/p&gt;&lt;p&gt;Sources can be a constant or a name of another element. &lt;/p&gt;&lt;p&gt;sources and result are 16 bit signed.  (-32767 to 32767)&lt;/p&gt;&lt;p&gt;Divide by zero OK.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </action>
+  <action name="actionMult">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="toolbaricons.qrc">
+     <normaloff>:/icons/icons/times.svg</normaloff>:/icons/icons/times.svg</iconset>
+   </property>
+   <property name="text">
+    <string>mult</string>
+   </property>
+   <property name="whatsThis">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;span style=&quot; font-size:11pt; color:#000000;&quot;&gt;&lt;p&gt;Multiply.&lt;/p&gt;&lt;p&gt;Must be paced on far right.&lt;/p&gt;&lt;p&gt;Sources can be a constant or a name of another element. &lt;/p&gt;&lt;p&gt;sources and result are 16 bit signed.  (-32767 to 32767)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </action>
+  <action name="actionGreater">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="toolbaricons.qrc">
+     <normaloff>:/icons/icons/greater_than.svg</normaloff>:/icons/icons/greater_than.svg</iconset>
+   </property>
+   <property name="text">
+    <string>greater</string>
+   </property>
+   <property name="whatsThis">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;span style=&quot; font-size:11pt; color:#000000;&quot;&gt;&lt;p&gt;Comparison: Greater Than.&lt;/p&gt;&lt;p&gt;Conductive if true.&lt;/p&gt;&lt;p&gt;Sources can be a constant or a name of another element.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </action>
+  <action name="actionLessthan">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="toolbaricons.qrc">
+     <normaloff>:/icons/icons/less_than.svg</normaloff>:/icons/icons/less_than.svg</iconset>
+   </property>
+   <property name="text">
+    <string>lessthan</string>
+   </property>
+   <property name="whatsThis">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;span style=&quot; font-size:11pt; color:#000000;&quot;&gt;&lt;p&gt;Comparison: Less Than.&lt;/p&gt;&lt;p&gt;Conductive if true.&lt;/p&gt;&lt;p&gt;Sources can be a constant or a name of another element.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </action>
+  <action name="actionGreaterOrEq">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="toolbaricons.qrc">
+     <normaloff>:/icons/icons/greater_than_or_eq.svg</normaloff>:/icons/icons/greater_than_or_eq.svg</iconset>
+   </property>
+   <property name="text">
+    <string>greaterOrEq</string>
+   </property>
+   <property name="whatsThis">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;span style=&quot; font-size:11pt; color:#000000;&quot;&gt;&lt;p&gt;Comparison: Greater Than or Equal.&lt;/p&gt;&lt;p&gt;Conductive if true.&lt;/p&gt;&lt;p&gt;Sources can be a constant or a name of another element.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </action>
+  <action name="actionLessOrEq">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="toolbaricons.qrc">
+     <normaloff>:/icons/icons/less_than_or_eq.svg</normaloff>:/icons/icons/less_than_or_eq.svg</iconset>
+   </property>
+   <property name="text">
+    <string>lessOrEq</string>
+   </property>
+   <property name="whatsThis">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Comparison: Less Than or Equal.&lt;/p&gt;&lt;p&gt;Conductive if true.&lt;/p&gt;&lt;p&gt;Sources can be a constant or a name of another element.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </action>
+  <action name="actionPWM">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="toolbaricons.qrc">
+     <normaloff>:/icons/icons/PWM.svg</normaloff>:/icons/icons/PWM.svg</iconset>
+   </property>
+   <property name="text">
+    <string>PWM</string>
+   </property>
+   <property name="whatsThis">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#000000;&quot;&gt;Pulse width modulated output. &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; color:#000000;&quot;&gt;Must be placed on far right.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; color:#000000;&quot;&gt;Active if rung in state True.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; color:#000000;&quot;&gt;Menu item will be greyed if PWM not available on this hardware.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; color:#000000;&quot;&gt;If output set to &amp;quot;Internal&amp;quot; PWM will be de-activated&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; color:#000000;&quot;&gt;NOTES:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; color:#000000;&quot;&gt;If two PWM elements exist in the ladder with the same hardware output, the first active one will apply. This allows to set a single output to different levels.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; color:#000000;&quot;&gt;The PWM frequency is fixed at 16khz. &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </action>
+  <action name="actionADC">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="toolbaricons.qrc">
+     <normaloff>:/icons/icons/ADC.svg</normaloff>:/icons/icons/ADC.svg</iconset>
+   </property>
+   <property name="text">
+    <string>ADC</string>
+   </property>
+   <property name="whatsThis">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;span style=&quot; font-size:11pt; color:#000000;&quot;&gt;&lt;p&gt;ADC. Measure Voltage.&lt;/p&gt;&lt;p&gt;Ten bit output (0 to 1024)&lt;/p&gt;&lt;p&gt;5v (AVcc) refrence.  value = (Vin x 1024)÷5&lt;/p&gt;&lt;p&gt;Must be placed on far right.&lt;/p&gt;&lt;p&gt;Active if rung in state True.&lt;/p&gt;&lt;p&gt;Menu item will be greyed if ADC not available on this hardware.&lt;/p&gt;&lt;p&gt;if input set to &amp;quot;Internal&amp;quot; ADC will be de-activated.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </action>
+  <action name="actionArduinoMega_IO">
+   <property name="text">
+    <string>Arduino Mega IO</string>
+   </property>
+  </action>
+  <action name="actionArduinoMega">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Arduino Mega</string>
+   </property>
+  </action>
+  <action name="actionArduinoNano">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Arduino Nano</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::ApplicationSpecificRole</enum>
+   </property>
+  </action>
+  <action name="actionArduinoNano_IO">
+   <property name="text">
+    <string>Arduino Nano IO</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="toolbaricons.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>actionClose</sender>
+   <signal>activated()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>374</x>
+     <y>301</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>undoBbutton</sender>
+   <signal>clicked()</signal>
+   <receiver>actionUndo</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>128</x>
+     <y>82</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>redoButton</sender>
+   <signal>clicked()</signal>
+   <receiver>actionRedo</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>198</x>
+     <y>82</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

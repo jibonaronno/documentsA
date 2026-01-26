@@ -1,0 +1,14 @@
+In LXTerminal:
+cp /boot/cmdline.txt /boot/cmdline.bak
+cp /etc/inittab /etc/inittab.bak
+
+In LXTerminal:
+nano /boot/cmdline.txt
+Remove "console=ttyAMA0,115200" and "kgdboc=ttyAMA0,115200"
+Ctrl+X to exit, Y to save followed by enter twice
+
+In LXTerminal:
+nano /etc/inittab
+Put a '#' before "T0:23:respawn:/sbin/getty -L ttyAMA0 115200 vt100
+Ctrl+X to exit, Y to save followed by enter twice
+

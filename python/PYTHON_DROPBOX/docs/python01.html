@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>PYTON - 001</title>
+	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+    <!-- BEGIN syntax highlighter -->
+    <script type="text/javascript" src="sh/shCore.js"></script>
+    <script type="text/javascript" src="sh/shBrushJScript.js"></script>
+    <link type="text/css" rel="stylesheet" href="sh/shCore.css"/>
+    <link type="text/css" rel="stylesheet" href="sh/shThemeDefault.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Gruppo" rel="stylesheet">
+    <script type="text/javascript">
+      SyntaxHighlighter.all();
+    </script>
+    <!-- END syntax highlighter -->
+
+    <link href="css" rel="stylesheet" type="text/css">
+    <link href="css(1)" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="linuxsetup.css">
+    <script language="JavaScript" type="text/javascript"></script>
+    <script src="jquery-1.5.1.js"></script>
+  </head>
+  <body onload="load()">
+  
+  <div class="title_a"> PYTHON 2.7 QT4 </div><br>
+  
+  <div class="content_text_gen" style="padding: 20px;font-size: 24px;font-weight: bold;">
+   <p3>Python PyQt4 Examples </p3> <a href="http://doc.qt.io/qt-4.8/designer-creating-mainwindows.html">LINK</a> <br><br>
+
+   <img alt="NO IMAGE" src="img/img001.jpg"><br /><br />
+   
+   Python minimum examples created by me by using Pycharm Editor and its project system. I will explain some elementary project wit PyQt4 GUI. 
+   First project is AutoDisplay_1.0.0.1 . Here we just created a sample program with a main window and menu bar and a tool bar. We implemented 
+   SVG Icons for toolbar buttons. The SVG files are downloaded from <a href="http://www.flaticon.com/packs/3">Here</a>. There are more free SVGs 
+   there. In <p3>Pycharm</p3> we created the project, then added <pp>main.py</pp> file and write downs the codes as follows::.. <br /><br />
+
+   <pre class="brush:js;">  
+import copy
+import sys
+import os
+import time
+import re
+import pickle #for saving the file
+from PyQt4 import QtCore, QtGui
+from PyQt4 import QtSvg
+from PyQt4.QtGui import QApplication, QDialog, QMainWindow, QActionGroup
+from PyQt4.QtGui import QPrinter, QPainter
+from PyQt4.QtCore import Qt
+from PyQt4.Qt import QFont
+from PyQt4.Qt import QString
+from PyQt4.Qt import QStringList
+
+
+try:
+    _fromUtf8 = QtCore.QString.fromUtf8
+except AttributeError:
+    _fromUtf8 = lambda s: s
+
+
+class mainWindowUI(QMainWindow):#mainwindow inheriting from QMainWindow here.
+
+    def __init__(self):
+        QDialog.__init__(self)
+   </pre><br /><br />
+
+   We just import some libraries not all of them are usefull right now and just created a class and its constructor.<br />
+
+   Now I will create a <p3>MainWindow</p3> user interface in <p3>Qt Designer</p3> and add it to my project. We name it 
+   <p3>main_window.ui</p3> . We will apply a Menubar and a Toolbar:: <br /><br />
+
+   <img alt="NO IMAGE" src="img/img002.jpg"><br /><br />
+   <img alt="NO IMAGE" src="img/img004.jpg"><br /><br />
+
+   To add a toolbar, right click on the main window as follows and add toolbar.. <br /><br />
+   <img alt="NO IMAGE" src="img/img005.jpg"><br /><br />
+
+   Use the action editor to add / remove tool buttons as follows:: <br /><br />
+   <img alt="NO IMAGE" src="img/img006.jpg"><br /><br />
+   <img alt="NO IMAGE" src="img/img007.jpg"><br /><br />
+   <img alt="NO IMAGE" src="img/img008.jpg"><br /><br />
+   <img alt="NO IMAGE" src="img/img009.jpg"><br /><br />
+   <img alt="NO IMAGE" src="img/img010.jpg"><br /><br />
+
+   We need to convert this ui file to python file by command line as follows:: <br /><br />
+   <pp>FOR LINUX</pp><br />
+   <p5>pyuic4 main_window.ui > main_window.py</p5><br /><br />
+
+   <pp>FOR WINDOWS</pp><br />
+   <p5>pyuic4 -o main_window.py main_window.ui</p5><br /><br />
+
+   This command will generate a Python file with a class inside named: <p5>Ui_main_window</p5> . So we need to import this class in our <pp>main.py</pp> 
+   file. Now edit the <pp>main.py</pp> file to show this window as the main window. Keep the previous imports and add the following codes::<br /><br />
+   
+   <pp>main.py</pp><br />
+   <pre class="brush:js;">
+....
+....
+....
+from main_window import Ui_main_window
+
+try:
+    _fromUtf8 = QtCore.QString.fromUtf8
+except AttributeError:
+    _fromUtf8 = lambda s: s
+
+
+class mainWindowUI(QMainWindow):#mainwindow inheriting from QMainWindow here.
+
+    def __init__(self):
+        QDialog.__init__(self)
+        self.ui = Ui_main_window()
+        self.ui.setupUi(self)
+
+if __name__=='__main__':
+    app = QApplication(sys.argv)#makes a QtGui thing
+    window = mainWindowUI()
+    window.show()
+    sys.exit(app.exec_())
+   </pre><br /><br />
+
+Thats it, Running the program will show the window designed in <p3>QT Designer</p3>. This stage of code is saved as <p3>Autodisplay_1.0.0.1</p3> . 
+Later we will apply tool button and menu actions..<br /><br />
+<img alt="NO IMAGE" src="img/img011.jpg"><br /><br />
+  
+  <div class="title_b">Toolbar Button Click Action</div>
+
+  The final generated file <pp>main_window.py</pp> from <p3>QT Designer</p3>, The class <p3>Ui_main_window</p3> function <p3>setupUi(...)</p3> 
+  assignes each individual object for each button action. The objects are accessible from main program and are alloweble to attach event functions 
+  with that objects. Otherway... The UI class file is separate, but the event functions and manipulation functions can be attached from parent or 
+  main class.<br /><br />
+
+  <span class="tab"></span>Note that in QT Designer generated file, all the UI elements are declared and created in <p3>setupUi(...)</p3> 
+  function in the UI class file. Observe following portion of the code. Each Menu Item or Toolbar Button Item are coded and are suitable for 
+  access from outside.  
+  <br /><br />
+
+  <pp>main_window.py</pp><p5>Ui_main_window.setupUi(...)</p5><br />
+  <pre class="brush:js;">
+  self.action_New_Page = QtGui.QAction(main_window)
+  self.action_New_Page.setObjectName(_fromUtf8("action_New_Page"))
+  self.action_Save = QtGui.QAction(main_window)
+  self.action_Save.setObjectName(_fromUtf8("action_Save"))
+  self.actionToolNew = QtGui.QAction(main_window)
+  icon = QtGui.QIcon()
+  icon.addPixmap(QtGui.QPixmap(_fromUtf8("svg/plus-button.svg")), QtGui.QIcon.Normal, QtGui.QIcon.On)
+  self.actionToolNew.setIcon(icon)
+  self.actionToolNew.setObjectName(_fromUtf8("actionToolNew"))
+  self.actionToolSave = QtGui.QAction(main_window)
+  icon1 = QtGui.QIcon()
+  icon1.addPixmap(QtGui.QPixmap(_fromUtf8("svg/check.svg")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+  </pre><br /><br />
+
+  UI programming uses a concept here with PyQt4. The generated python file from UI file is a class that act like a configurator. Passing an appropriate 
+  QT GUI object to the configurator will prepare that object with UI elements and other UI related informations. Then call the <p3>show()</p3> method 
+  or <p3>exec_()</p3> method to show the UI Dialog or window. We found this concept very basic to show a sample dialog box. 
+  <br /><br />
+
+  <span class="tab"></span> Here is the function that shows the dialog box designed in th <p3>QT Designer</p3> . <br /><br />
+
+  <pre class="brush:js;">
+  def showSampleDialog(self, strMsg):
+        diag = QtGui.QDialog()
+        ui = Ui_sampleDiag()
+        ui.setupUi(diag)
+        diag.exec_()
+  </pre><br /><br />
+
+  Here we created an object of <p3>QtGui.QDialog()</p3> called <p3>diag</p3> . This is the main Object. The <p3>QT Designer</p3> generated class 
+  <p3>Ui_sampleDiag</p3> applies operation on the <p3>QDialog</p3> object and make it look like as designed. The operation happened in 
+  <p3>ui.setupUi(diag)</p3> function. the <p3>diag.exec_()</p3> function makes the dialog box modal. The <p3>show()</p3> function does not worked properly yet.
+  <br /><br />
+
+  <span class="tab"></span>The <p3>show()</p3> function works if the dialog object was globally declared and initiated. After the dialog was globally declared, the <p3>show()</p3> function will show up the dialog as Modaless. 
+
+  <br /><br />
+
+  <span class="tab"></span> Another issue is handling button click signals. We created a function similar to <p3>Ladder</p3> program called 
+  <p3>signalConnection(self)</p3> under main class. This function connects the <p3>"triggered"</p3> signal from the toolbar button to the function <p3>showSampleDialog()</p3> .  The function is as follows. <br /><br />
+
+   <pre class="brush:js;">
+   def signalConnection(self):
+        self.connect(self.ui.actionToolNew, QtCore.SIGNAL("triggered()"), lambda: self.showSampleDialog("sample text"))
+   </pre><br /><br />
+
+   Here we see that, Signal is mentioned as <p3>String</p3> type in 2nd parameter <p3>QtCore.SIGNAL("triggered()")</p3> . So it will be dificult to 
+   find other kinds of signals. Then we have to depends on documentations. Also for the target function we had to use <p3>lambda: ...</p3> instruction. 
+   We are saving this stage of the program as <p3>Autodisplay_1.0.0.2</p3> in dropbox. It is needed to understand the event system that PyQt uses.........<br /><br />
+
+   Tutorial in <a href="http://zetcode.com/gui/pyqt4/menusandtoolbars/">Zetcode</a> uses raw coding rather than QT Designer Ui Concept. Only the approches are different but the operations are similar. We will analyze the <p3>Menubar</p3> example from zetcode. It is RAW Code and we will be introduced with 
+   <p3>QAction</p3> object. Follow the Code::..
+
+  <br /><br />
+
+  <pre class="brush:js;">
+import sys
+from PyQt4 import QtGui
+
+class Example(QtGui.QMainWindow):
+
+    def __init__(self):
+        super(Example, self).__init__()
+        self.initUI()
+
+    def initUI(self):
+
+        exitAction = QtGui.QAction(QtGui.QIcon('exit.png'), '&Exit', self)
+        exitAction.setShortcut('Ctrl+Q')
+        exitAction.setStatusTip('Exit application')
+        exitAction.triggered.connect(QtGui.qApp.quit)
+
+        self.statusBar()
+
+        menubar = self.menuBar()
+        fileMenu = menubar.addMenu('&File')
+        fileMenu.addAction(exitAction)
+
+        self.setGeometry(300, 300, 300, 200)
+        self.setWindowTitle('Menubar')
+        self.show()
+
+def main():
+    app = QtGui.QApplication(sys.argv)
+    ex = Example()
+    sys.exit(app.exec_())
+
+if __name__ == '__main__':
+    main()
+  </pre><br /><br />
+
+  Code is straight forward here. The QT Designer Code generator uses more nested calls and more functions to do this job. But the operations are same. 
+  The function <p3>QAction.triggered.connect(function address)</p3> does work on Autodisplay program as follows::..<br />
+
+  <pre class="brush:js;">
+  def signalConnection(self):
+        #self.connect(self.ui.actionToolNew, QtCore.SIGNAL("triggered()"), lambda: self.showSampleDialog())
+        self.ui.actionToolNew.triggered.connect(self.showSampleDialog)
+  </pre>
+
+  Here I did desable the previous connection code and applied the <p3>QAction.triggered.connect(...)</p3> method. It is good facility that in QT Designer generated code all the objects has separate names and can be accesible form outside. All objects variables are stored in the class. <br /><br />
+
+  <span class="tab"></span> To apply Menu system, Sequentially create:<br />
+  <p5>1</p5>. <p3>Menu Bar</p3><br />
+  <p5>2</p5>. <p3>Menu</p3><br />
+  <p5>3</p5>. <p3>QAction</p3><br />
+
+   As the example from zetcode did. Finally creates the <p3>QAction</p3> variables. We have to connect the Menu / Tool Button or other UI Action Event with the target function. In Autodisplay application we have done it in <p3>signalConnection(...)</p3> method of <p3>mainWindowUI</p3> class in <pp>main.py</pp> file as shown above code. But the code generator does some additional function call. Suppose the third line of the following code is confusing in the generated code's <p3>setupUi(..)</p3> function. <br /><br />
+
+   <pre class="brush:js;">
+        self.menuFile.addAction(self.action_New_Page)
+        self.menuFile.addAction(self.action_Save)
+        self.menubar.addAction(self.menuFile.menuAction())
+   </pre><br /><br />
+
+   The third line of this code does add a manu in the menubar. In case of raw code, it was just straight forward to add a menu. It is just like as:<br /><br /> 
+   <pre class="brush:js;">
+   fileMenu = menubar.addMenu('&File')
+   </pre><br /><br />
+
+   The QT Designer UI Code generator does some extra function calls differently and also declares more objects, but it does this thing for make it reconfigurable. User does not need to code inside the UI File, so we can change the user interface whenever we wants. Just need to follow the way 
+   UI files and classes are connected to user code. We need to understand how we should write user application code to make the UI flexible. <br /><br />
+
+   <span class="tab"></span><p3>MEMO:</p3> We need to observe and remember the GUI Class name and their basic startup setups for QT Designer 
+   generated codes. <br /><br />
+
+   <pp>main.py</pp><p5>class mainWindowUI(QMainWindow):</p5><br />
+   <pre class="brush:js;">
+   class mainWindowUI(QMainWindow):#mainwindow inheriting from QMainWindow here.
+
+    def __init__(self):
+        super(mainWindowUI, self).__init__()
+        #QDialog.__init__(self)
+        self.ui = Ui_main_window()
+        self.ui.setupUi(self)
+        self.signalConnection()
+        self.statusBar().showMessage('Ready')
+   </pre><br /><br />
+   This class is inerited from <p3>QMainWindow</p3> . In line no 6 we take an object of <p3>Ui_main_window(..)</p3> class, which is generated from 
+   QT Designer. Next line we passed <p3>self</p3> in <p3>setupUi(self)</p3> method of that <p3>Ui_main_window(..)</p3> object, which is also member 
+   of self. Because <p3>self</p3> is an object of <p3>QMainWindow</p3> class, The <p3>setupUi(self)</p3> takes this object and configures it as designed 
+   in the QT Designer. After configuration done by <p3>setupUi(self)</p3>, when we need to work with that GUI (self or other) , Then we have to access the 
+   main object (<p3>self</p3>) itself , not the config object (not <p3>self.ui</p3> in our case).<br /><br />
+
+   <span class="tab"></span><p3>RE MENTION:</p3>Again mentioning about how to display an QT Designer UI by code. <br />
+   <p5>1</p5>. Take the desired <p3>QtGui</p3> object.<br />
+   <p5>2</p5>. Take the QT Ui object.<br />
+   <p5>3</p5>. Call as <p3>QT_Ui.setupUI(QtGui_object)</p3> .<br />
+   <p5>4</p5>. Call as <p3>QtGui_object.Show()</p3> or <p3>QtGui_object.ecec_()</p3>.
+   <br /><br />
+
+   <span class="tab"></span> After these steps we can further modify or make addition to the UI by accessing the <p3>QtGui_object</p3>. <br /><br />
+
+   Get back here later ...................... <br /><br />
+
+
+   <div class="title_b">Energypac Project - CSV File Manipulation</div>
+
+   We are making step by step try and test basis project development. Last saved project <p3>Autodisplay_1.0.0.2</p3> and we are editing <p3>Autodisplay</p3>. <br />
+   <p5>STEP-1</p5><pp>Open CSV File Dialog</pp><br /><br />
+
+   First we are opening a file with <p3>QtGui.QFileDialog.getOpenFileNameAndFilter(self, 'Open file', '.', '*.py')</p3> this function. As described in
+   <a href="http://zetcode.com/gui/pyqt4/dialogs/"> Zetcode Link </a> tutorial. Following code is added to <pp>main.py</pp> to show OpenFileDialog ::..<br /><br />
+
+   <pre class="brush:js;">
+   def showOpenFileDialog(self):
+        #open_dialog = QtGui.QFileDialog()
+        #open_dialog.getOpenFileNameAndFilter(self, 'Open File', '*.csv')
+        fname = QtGui.QFileDialog.getOpenFileNameAndFilter(self, 'Open file', '.', '*.py')
+        self.statusBar().showMessage(fname[0]+' -- '+fname[1])
+   </pre><br /><br />
+
+   This code will show the OpenFileDialog in the present execution folder and shows only *.py files. 
+   <br /><br />
+
+  get started with csv file tutorial video in python video files. first import csv module, open the desired csv file, use csv.reader(..) function to get a multidimentional array. observe the syntex, used to get data from array. out = [row for row in out], this kind of syndex is used in that tutorial.
+
+  <br /><br />
+
+  <div class="title_b">PIP INSTALL</div>
+  <pp>pyserial</pp><br />
+  <img alt="NO IMAGE" src="img/img131.jpg"><br /><br />
+
+  <pp>esptool</pp><br />
+  <code>python -m pip install esptool</code><br /><br />
+
+  <div class="title_b">Simple Thread in PyQt (Pyduino_0.0.0.2)</div>
+  <p3>Event</p3>: An event object has two properties: <p3>SET</p3> and <p3>RESET</p3>. After creation, an Event object is in RESET state. To SET an Event object, <p3>Event.set()</p3> method must be called. Here we are running an while loop untill an event object is set. 
+  <br /><br />
+  <img alt="NO IMAGE" src="img/img132.jpg"><br /><br />
+
+  We also override an virtual event function <p3>closeEvent()</p3>. This function is called when the dialog is about to close. In this project we used an event object to stop the thread loop. I didnt find any conventional way to stop the thread. All we had to do is, the thread loop always have to check for an event to be set to exit the loop as below::<br /><br />
+
+  <img alt="NO IMAGE" src="img/img133.jpg"><br /><br />
+
+  <br /><br />
+
+  <h2>Emit Signal With Argument</h2><br />
+
+  Following example from blog <a href="http://www.saltycrane.com/blog/2008/01/pyqt-how-to-pass-arguments-while/">http://www.saltycrane.com/blog/2008/01/pyqt-how-to-pass-arguments-while/</a> shows on how to emit signal with arguments::<br /><br />
+
+  <pre class="brush:js;">
+import sys
+import time
+from PyQt4.QtCore import * 
+from PyQt4.QtGui import * 
+
+#################################################################### 
+class MyWindow(QWidget): 
+    def __init__(self, *args): 
+        QWidget.__init__(self, *args)
+
+        self.label = QLabel(" ")
+        layout = QVBoxLayout()
+        layout.addWidget(self.label)
+        self.setLayout(layout)
+        self.connect(self, SIGNAL("didSomething"),
+                     self.update_label)
+        self.do_something()
+
+    def do_something(self):
+        self.emit(SIGNAL("didSomething"), "important", "information")
+
+    def update_label(self, value1, value2):
+        self.label.setText(value1 + " " + value2)
+
+####################################################################
+if __name__ == "__main__": 
+    app = QApplication(sys.argv) 
+    w = MyWindow() 
+    w.show() 
+    sys.exit(app.exec_())
+  </pre><br /><br />
+
+  <img alt="NO IMAGE" src="img/img134.jpg"><br /><br />
+
+  From this concept we did transfer the received Rx data from the thread to a slot function to display the data to the UI.
+
+  <br /><br />
+  <div class="title_b">PyQt4 Table View</div>
+  Open the example file <pp>\Dropbox\PYTHON\tableview\tableview.py</pp>. It shows a sort enabled table on a form window (QWidget). 
+  The code uses QTableView object to draw the table, and uses a QAbstractTableModel object to represent the data on table. 
+  We creates a class <p3>MyTableModel</p3> inherited from <p3>QAbstractTableModel</p3>. <br /><br />
+
+  <pre class="brush:js;">
+  class MyTableModel(QAbstractTableModel):
+    """
+    keep the method names
+    they are an integral part of the model
+    """
+    def __init__(self, parent, mylist, header, *args):
+        QAbstractTableModel.__init__(self, parent, *args)
+        self.mylist = mylist
+        self.header = header
+
+    def rowCount(self, parent):
+        return len(self.mylist)
+
+    def columnCount(self, parent):
+        return len(self.mylist[0])
+
+    def data(self, index, role):
+        if not index.isValid():
+            return None
+        elif role != Qt.DisplayRole:
+            return None
+        return self.mylist[index.row()][index.column()]
+
+    def headerData(self, col, orientation, role):
+        if orientation == Qt.Horizontal and role == Qt.DisplayRole:
+            return self.header[col]
+        return None
+
+    def sort(self, col, order):
+        """sort table by given column number col"""
+        self.emit(SIGNAL("layoutAboutToBeChanged()"))
+        self.mylist = sorted(self.mylist,
+            key=operator.itemgetter(col))
+        if order == Qt.DescendingOrder:
+            self.mylist.reverse()
+        self.emit(SIGNAL("layoutChanged()"))
+
+  </pre> <br /><br />
+
+  There are virtual functions thats why the comments on the beginning says to keep the function names intact. <br /><br />
+
+  <span class="tab"></span>This programming style is called MVC style coding. QT supplied the UI parts with MVC support, like: <p3>QListView</p3> , <p3>QComboBox</p3>, <p3>QListWidgetView</p3> etc. These UI parts has MVC supports. Coder has to provide a suitable model for each widget. Model actually is a class, inherited from some abstract model classes for each kind of view. From the video tutorial <p3>VIDEO PYTHON/PyQt4 Model View Tutorial Part 02_0(720p).MP4</p3> it says that, An UI element could recieve 3 kind of data or we can assume that there are 3 kind of data model. They are:<br />
+  <pp>1</pp>. Single Dimension(for QComboBox).
+
+   <br /><br />
+
+   <div class="title_a">Python + sqlite3 + Linux</div>
+
+   We are trying to setup python and database with sqlite3 and apply some operation on linux. This articles is directed from <pp>/Dropbox/Linux/Docs/linuxpages/web/development2.html</pp> document. First we tried to do some installation ::
+
+    <br />
+
+    Installing::<br />
+    <p3>sudo apt-get install python-minimal</p3><br />
+    <p3>sudo apt-get install python-sqlite</p3><br />
+    <p5>sudo apt-get install sqlite3</p5><br />
+
+    type <p5>python</p5> in command line. It will enter to python interactive shell. Type <p5>exit()</p5> to exit 
+    from interactive shell.<br />
+    Then type <p5>sqlite3</p5> to enter to sqlite shell. Type <p5>.exit</p5> to exit.<br /><br />
+
+    After installing these packages check them from inside python shell::<br /><br />
+    <pre class="brush:js;">
+    rock@rabian-rock-pro:~$ python
+    Python 2.7.9 (default, Mar  1 2015, 13:48:22)
+    [GCC 4.9.2] on linux2
+    Type "help", "copyright", "credits" or "license" for more information.
+    >>> import sqlite3
+    >>> sqlite3.version
+    '2.6.0'
+    >>> sqlite3.sqlite_version
+    '3.8.7.1'
+    >>>
+    </pre>
+    <img alt="NO IMAGE" src="img/img012.jpg"><br /><br />
+
+    The python-sqlite tutorial came from <a href="http://zetcode.com/db/sqlitepythontutorial/">Zetcode</a>. 
+
+  <br /><br />
+
+  <div class="title_b">Automate Boring Stuff</div>
+  We did some regular expression experiments in IDLE terminal. The rule is to look for function with parameter list. The experiment is saved as <p3>C:\Users\aronno\Dropbox\PYTHON\Idle_test01.py</p3>. 
+  <br /><br />
+
+  <img alt="NO IMAGE" src="img/img127.jpg"><br /><br />
+  <img alt="NO IMAGE" src="img/img128.jpg"><br /><br />
+
+  <span class="tab"></span>In <a href="https://automatetheboringstuff.com/chapter7/">Chapter 7</a> <p3>Pattern Matching with Regular Expressions</p3> is tutorials about regular expressions. I am trying to use RE for some pattern searching like, list of functions of a calss or in a file and gather those functions attributes. Below is a sample example for matching a function call.
+
+  <br /><br />
+
+  <img alt="NO IMAGE" src="img/img129.jpg"><br /><br />
+
+  Lets examine a function searcing pattern. <br /><br />
+
+  <p3> 2_delay3(100, 200 , YES , NO); </p3><br /><br />
+  
+  <img alt="NO IMAGE" src="img/img130.jpg"><br /><br />
+
+  A simple code generator using regex.<br />
+
+  <pre class="brush:js;">
+import re
+
+def main():
+  uid_regex = re.compile(r'(\w+)*-(\w+)*-(\w+)*-(\w+)*-(\w+)*-(\w+)*')
+  id_col = uid_regex.search('FF33-5D9-4132-3531-4964-4324')
+  #print(id_col.groups()[0])
+  print('if((encrypt[0] != 0x'+id_col.groups()[0]+') || (encrypt[1] != 0x0'+id_col.groups()[1]+') || (encrypt[2] != 0x'+id_col.groups()[2]+') || (encrypt[3] != 0x'+id_col.groups()[3]+') || (encrypt[4] != 0x'+id_col.groups()[4]+') || (encrypt[5] != 0x'+id_col.groups()[5]+'))')
+
+if __name__ == '__main__':
+  main()
+  </pre><br /><br />
+
+  A Read Modify Right File Operation to edit a C File at a specific line:
+  <pre class="brush:js;">
+import re
+import sys
+
+def main():
+  uid_regex = re.compile(r'(\w+)*-(\w+)*-(\w+)*-(\w+)*-(\w+)*-(\w+)*')
+  id_col = uid_regex.search('FF34-5DB-5431-3636-5922-4310')
+  #print(id_col.groups()[0])
+  #print('if((encrypt[0] != 0x'+id_col.groups()[0]+') || (encrypt[1] != 0x0'+id_col.groups()[1]+') || (encrypt[2] != 0x'+id_col.groups()[2]+') || (encrypt[3] != 0x'+id_col.groups()[3]+') || (encrypt[4] != 0x'+id_col.groups()[4]+') || (encrypt[5] != 0x'+id_col.groups()[5]+'))')
+
+  newline = 'if((encrypt[0] != 0x'+id_col.groups()[0]+') || (encrypt[1] != 0x0'+id_col.groups()[1]+') || (encrypt[2] != 0x'+id_col.groups()[2]+') || (encrypt[3] != 0x'+id_col.groups()[3]+') || (encrypt[4] != 0x'+id_col.groups()[4]+') || (encrypt[5] != 0x'+id_col.groups()[5]+'))'
+
+  idx = 0
+
+  with open('main1.c', 'r') as f:
+    txt = f.readlines()
+    f.close()
+    with open('main1.c', 'w') as f:
+      txt[495] = '\t' + newline + '\n' #Change the contents of line 496
+      f.writelines(txt)
+      f.close()
+
+if __name__ == '__main__':
+  main()
+
+  </pre><br /><br />
+
+  <img alt="NO IMAGE" src="img/img.jpg"><br /><br />
+  <span class="tab"></span><br /><br />
+  <img alt="NO IMAGE" src="img/img.jpg"><br /><br />
+
+  
+  
+  </div>
+
+  <script language="JavaScript" type="text/javascript">
+  	$(document).ready(function()
+			{
+				document.getElementById("content").innerHTML='<object type="text/html" data="https://code.google.com/p/u8glib/" width="800px" height="400px" style="overflow:auto;border:5px ridge blue" ></object>';
+			});		
+  </script>
+  
+  
+  
+  </body></html>
+
