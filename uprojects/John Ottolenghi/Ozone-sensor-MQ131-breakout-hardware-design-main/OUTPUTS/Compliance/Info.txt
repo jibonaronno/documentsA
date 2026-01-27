@@ -1,0 +1,5 @@
+SKU: 333110
+Full product name: Ozone sensor MQ131 breakout
+Country of origin: Croatia
+HS tariff code: 85340090
+EAN/UPC barcode: 732388667307
