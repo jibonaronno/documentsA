@@ -2,4 +2,5 @@
   (version 7)
   (lib (name "sensors")(type "KiCad")(uri "${KIPRJMOD}/sensors.kicad_sym")(options "")(descr ""))
   (lib (name "MQ-X")(type "KiCad")(uri "${KIPRJMOD}/MQ-X.kicad_sym")(options "")(descr ""))
+  (lib (name "ARDUINO_MEGA_2560_REV3_A000067")(type "KiCad")(uri "${KIPRJMOD}/ARDUINO_MEGA_2560_REV3_A000067/ARDUINO_MEGA_2560_REV3_A000067.kicad_sym")(options "")(descr ""))
 )
