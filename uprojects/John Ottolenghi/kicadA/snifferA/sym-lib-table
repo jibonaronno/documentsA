@@ -3,4 +3,5 @@
   (lib (name "sensors")(type "KiCad")(uri "${KIPRJMOD}/sensors.kicad_sym")(options "")(descr ""))
   (lib (name "MQ-X")(type "KiCad")(uri "${KIPRJMOD}/MQ-X.kicad_sym")(options "")(descr ""))
   (lib (name "ARDUINO_MEGA_2560_REV3_A000067")(type "KiCad")(uri "${KIPRJMOD}/ARDUINO_MEGA_2560_REV3_A000067/ARDUINO_MEGA_2560_REV3_A000067.kicad_sym")(options "")(descr ""))
+  (lib (name "yaaj_dcdc_stepdown_lm2596")(type "Legacy")(uri "${KIPRJMOD}/lm2596-model-for-kicad/KiCad/yaaj_dcdc_stepdown_lm2596.lib")(options "")(descr ""))
 )

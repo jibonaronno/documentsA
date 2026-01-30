@@ -237,7 +237,7 @@
 	(footprint "MQ-X:MQ"
 		(layer "F.Cu")
 		(uuid "062be80d-60a3-4de9-a8a2-26f40bf1301f")
-		(at 106.641243 101.358757)
+		(at 53.641243 94.858757)
 		(property "Reference" "U6"
 			(at 0 -9.5 0)
 			(unlocked yes)
@@ -416,7 +416,7 @@
 	(footprint "MQ-X:MQ"
 		(layer "F.Cu")
 		(uuid "2b2cc5a7-75e6-4915-be3f-e5961577a4eb")
-		(at 106.641243 74.641243)
+		(at 53.641243 68.141243)
 		(property "Reference" "U1"
 			(at 0 -9.5 0)
 			(unlocked yes)
@@ -595,7 +595,7 @@
 	(footprint "Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical"
 		(layer "F.Cu")
 		(uuid "5dfd192d-2e19-4a1f-b250-9eef4d83ec00")
-		(at 142.72 171 90)
+		(at 89.72 164.5 90)
 		(descr "Through hole straight pin header, 1x08, 2.54mm pitch, single row")
 		(tags "Through hole pin header THT 1x08 2.54mm single row")
 		(property "Reference" "J3"
@@ -914,7 +914,7 @@
 	(footprint "Connector_PinSocket_2.54mm:PinSocket_1x04_P2.54mm_Vertical"
 		(layer "F.Cu")
 		(uuid "768e515c-abe1-4973-a19b-bfb769f13e74")
-		(at 121.92 171 90)
+		(at 68.92 164.5 90)
 		(descr "Through hole straight socket strip, 1x04, 2.54mm pitch, single row (from Kicad 4.0.7), script generated")
 		(tags "Through hole socket strip THT 1x04 2.54mm single row")
 		(property "Reference" "J1"
@@ -1189,7 +1189,7 @@
 	(footprint "MQ-X:MQ"
 		(layer "F.Cu")
 		(uuid "9ec9d5ba-39d9-453c-94f8-1655c61c1506")
-		(at 106.641243 128.858757)
+		(at 53.641243 122.358757)
 		(property "Reference" "U5"
 			(at 0 -9.5 0)
 			(unlocked yes)
@@ -1368,7 +1368,7 @@
 	(footprint "MQ-X:MQ"
 		(layer "F.Cu")
 		(uuid "adc994a9-9ad1-4475-b0a1-9b7f74904273")
-		(at 107.5 48)
+		(at 54.5 41.5)
 		(property "Reference" "U2"
 			(at 0 -9.5 0)
 			(unlocked yes)
@@ -1547,7 +1547,7 @@
 	(footprint "MQ-X:MQ"
 		(layer "F.Cu")
 		(uuid "cf16ef8f-e9be-49dd-a1cc-962daa67cb1d")
-		(at 106.5 154)
+		(at 53.5 147.5)
 		(property "Reference" "U4"
 			(at 0 -9.5 0)
 			(unlocked yes)
@@ -1726,7 +1726,7 @@
 	(footprint "MQ-X:MQ"
 		(layer "F.Cu")
 		(uuid "e2319b8e-f030-4aee-82b4-b81ae03387e7")
-		(at 202.25 101.5)
+		(at 149.25 95)
 		(property "Reference" "U8"
 			(at 0 -9.5 0)
 			(unlocked yes)
@@ -1905,7 +1905,7 @@
 	(footprint "MQ-X:MQ"
 		(layer "F.Cu")
 		(uuid "e73d125f-1dde-4e86-ba86-7c46e08ea69c")
-		(at 202 74.5)
+		(at 149 68)
 		(property "Reference" "U7"
 			(at 0 -9.5 0)
 			(unlocked yes)
@@ -2084,7 +2084,7 @@
 	(footprint "Connector_PinHeader_2.54mm:PinHeader_1x10_P2.54mm_Vertical"
 		(layer "F.Cu")
 		(uuid "ed4cbe3a-9a5e-49ab-8ad8-569e6b7a01e7")
-		(at 126.5 74.64)
+		(at 73.5 68.14)
 		(descr "Through hole straight pin header, 1x10, 2.54mm pitch, single row")
 		(tags "Through hole pin header THT 1x10 2.54mm single row")
 		(property "Reference" "J2"
@@ -2425,7 +2425,7 @@
 	(footprint "MQ-X:MQ"
 		(layer "F.Cu")
 		(uuid "ff5061cc-2a04-4c3e-89ed-011bff3176c2")
-		(at 201.75 48.5)
+		(at 148.75 42)
 		(property "Reference" "U3"
 			(at 0 -9.5 0)
 			(unlocked yes)
@@ -2604,7 +2604,7 @@
 	(footprint "ARDUINO_MEGA_2560_REV3_A000067:ARDUINO_ARDUINO_MEGA_2560_REV3_A000067"
 		(layer "B.Cu")
 		(uuid "1d3c731a-04aa-4f85-bb96-31dcb5248a18")
-		(at 156 106.5 180)
+		(at 103 100 180)
 		(property "Reference" "A1"
 			(at -23.525 53.945 0)
 			(layer "B.SilkS")
@@ -4311,6 +4311,122 @@
 			)
 			(rotate
 				(xyz -90 -0 90)
+			)
+		)
+	)
+	(gr_line
+		(start 178.5 196)
+		(end 39.5 196)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "Edge.Cuts")
+		(uuid "1021bf2f-a106-4683-bfb4-396a1eb6bc06")
+	)
+	(gr_line
+		(start 39.5 22)
+		(end 162 22)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "Edge.Cuts")
+		(uuid "4a528e27-6f6d-4f28-b568-797f81d62aaa")
+	)
+	(gr_line
+		(start 162 22)
+		(end 162 196)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "Edge.Cuts")
+		(uuid "7cc58c5e-4798-422c-b2f7-f79a7d5d0165")
+	)
+	(gr_line
+		(start 39.5 196)
+		(end 39.5 22)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "Edge.Cuts")
+		(uuid "e4e1043a-77cc-4773-ae26-ec1a7b56a0b9")
+	)
+	(dimension
+		(type orthogonal)
+		(layer "F.SilkS")
+		(uuid "7ad043a8-8260-4d3b-b4ff-27fe15816b59")
+		(pts
+			(xy 39.5 22) (xy 162 22)
+		)
+		(height 5)
+		(orientation 0)
+		(format
+			(prefix "")
+			(suffix "")
+			(units 3)
+			(units_format 0)
+			(precision 4)
+			(suppress_zeroes yes)
+		)
+		(style
+			(thickness 0.1)
+			(arrow_length 1.27)
+			(text_position_mode 0)
+			(arrow_direction outward)
+			(extension_height 0.58642)
+			(extension_offset 0.5)
+			(keep_text_aligned yes)
+		)
+		(gr_text "122.5"
+			(at 100.75 25.9 0)
+			(layer "F.SilkS")
+			(uuid "7ad043a8-8260-4d3b-b4ff-27fe15816b59")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.1)
+				)
+			)
+		)
+	)
+	(dimension
+		(type orthogonal)
+		(layer "F.SilkS")
+		(uuid "f1cb1e71-8ce6-4c5b-a2a4-1057b67e282e")
+		(pts
+			(xy 162 22) (xy 162 196)
+		)
+		(height -25)
+		(orientation 1)
+		(format
+			(prefix "")
+			(suffix "")
+			(units 3)
+			(units_format 0)
+			(precision 4)
+			(suppress_zeroes yes)
+		)
+		(style
+			(thickness 0.1)
+			(arrow_length 1.27)
+			(text_position_mode 0)
+			(arrow_direction outward)
+			(extension_height 0.58642)
+			(extension_offset 0.5)
+			(keep_text_aligned yes)
+		)
+		(gr_text "174"
+			(at 135.9 109 90)
+			(layer "F.SilkS")
+			(uuid "f1cb1e71-8ce6-4c5b-a2a4-1057b67e282e")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.1)
+				)
 			)
 		)
 	)

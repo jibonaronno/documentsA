@@ -2,4 +2,5 @@
   (version 7)
   (lib (name "MQ-X")(type "KiCad")(uri "${KIPRJMOD}/MQ-X.pretty")(options "")(descr ""))
   (lib (name "ARDUINO_MEGA_2560_REV3_A000067")(type "KiCad")(uri "${KIPRJMOD}/ARDUINO_MEGA_2560_REV3_A000067")(options "")(descr ""))
+  (lib (name "KiCad")(type "KiCad")(uri "${KIPRJMOD}/lm2596-model-for-kicad/KiCad")(options "")(descr ""))
 )
