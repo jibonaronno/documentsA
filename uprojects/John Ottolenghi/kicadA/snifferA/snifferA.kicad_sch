@@ -3673,7 +3673,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "KiCad:YAAJ_DCDC_StepDown_LM2596"
 			(at 137.16 176.53 0)
 			(effects
 				(font
