@@ -4751,6 +4751,86 @@
 		)
 	)
 	(symbol
+		(lib_id "2026-01-20_10-41-15:B5PS-VH")
+		(at 146.05 140.97 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "5676e1f2-cee5-4f89-a960-4518bd24d23f")
+		(property "Reference" "J2"
+			(at 144.272 124.714 90)
+			(effects
+				(font
+					(size 1.524 1.524)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "B5PS-VH"
+			(at 143.764 126.746 90)
+			(effects
+				(font
+					(size 1.524 1.524)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "CONN_B5PS-VH_JST"
+			(at 146.05 140.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "B5PS-VH"
+			(at 146.05 140.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 146.05 140.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c3950a80-d5a7-4ace-a4e6-4ac9f764cbf8")
+		)
+		(pin "2"
+			(uuid "93a2e102-efb3-494f-9eac-9aa3962ff745")
+		)
+		(pin "3"
+			(uuid "7205d30c-1770-4c55-9815-dc70bb14d139")
+		)
+		(pin "4"
+			(uuid "01d20b42-42f6-4684-97e6-d05d5c41c6b3")
+		)
+		(pin "5"
+			(uuid "828ed5c5-1cb4-403e-8218-b06578da2d67")
+		)
+		(instances
+			(project "meshlite"
+				(path "/5228a7f0-3f2c-4c1e-8386-5ebdfda02c7b"
+					(reference "J2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "DCJ200-10-A-XX-K_REVA:DCJ200-10-A-XX-K_REVA")
 		(at 100.33 135.89 0)
 		(unit 1)
@@ -5093,10 +5173,9 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "84931689-01e5-4209-844e-850afe4e22a0")
 		(property "Reference" "J3"
-			(at 132.08 130.8099 90)
+			(at 115.57 124.46 90)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -5105,7 +5184,7 @@
 			)
 		)
 		(property "Value" "B5PS-VH"
-			(at 132.08 133.3499 90)
+			(at 115.316 127 90)
 			(effects
 				(font
 					(size 1.524 1.524)
