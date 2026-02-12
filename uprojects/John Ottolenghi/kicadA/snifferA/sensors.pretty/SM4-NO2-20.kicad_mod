@@ -16,7 +16,7 @@
 		)
 	)
 	(property "Value" "MQ-X"
-		(at 0.02 11.13 0)
+		(at -0.02 11.13 0)
 		(unlocked yes)
 		(layer "F.Fab")
 		(uuid "12736c55-83b0-4de3-bce4-4782b3dea88d")
@@ -96,8 +96,73 @@
 			)
 		)
 	)
+	(fp_text user "Rx"
+		(at 2.5 -2.5 0)
+		(unlocked yes)
+		(layer "User.1")
+		(uuid "3c1c690c-24df-48a2-810d-039921717d6a")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+			)
+			(justify left bottom)
+		)
+	)
+	(fp_text user "Tx"
+		(at 2.25 4.5 0)
+		(unlocked yes)
+		(layer "User.1")
+		(uuid "81a3b628-6e1b-4483-b4f3-9af43ff073c9")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+			)
+			(justify left bottom)
+		)
+	)
+	(fp_text user "Vo"
+		(at -0.75 -4.25 0)
+		(unlocked yes)
+		(layer "User.1")
+		(uuid "983708d2-585c-4249-bf99-ecbe849cab66")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+			)
+			(justify left bottom)
+		)
+	)
+	(fp_text user "Vin"
+		(at -4.25 -2.5 0)
+		(unlocked yes)
+		(layer "User.1")
+		(uuid "9a6c8eb9-1bf8-4a78-b0ea-08373a914fde")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+			)
+			(justify left bottom)
+		)
+	)
+	(fp_text user "GND"
+		(at -4 4.5 0)
+		(unlocked yes)
+		(layer "User.1")
+		(uuid "e7018bc5-ae9e-43fb-81f6-5fe3c9bc8a09")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+			)
+			(justify left bottom)
+		)
+	)
 	(pad "1" thru_hole circle
-		(at 6 -4)
+		(at 6 4)
 		(size 4 4)
 		(drill 2.8)
 		(layers "*.Cu" "*.Mask")
@@ -105,7 +170,7 @@
 		(uuid "12387a9b-147c-4a77-9967-5c87000dd4f4")
 	)
 	(pad "2" thru_hole circle
-		(at 6.5 3.5)
+		(at 6.5 -3.5)
 		(size 4 4)
 		(drill 2.8)
 		(layers "*.Cu" "*.Mask")
@@ -113,7 +178,7 @@
 		(uuid "ad7b999f-20fc-4057-a1f4-145a65c638f6")
 	)
 	(pad "3" thru_hole circle
-		(at 0 7.5)
+		(at 0 -7.5)
 		(size 4 4)
 		(drill 2.8)
 		(layers "*.Cu" "*.Mask")
@@ -121,7 +186,7 @@
 		(uuid "01a0d4af-3f0a-4b9d-8145-80580a9b7aac")
 	)
 	(pad "4" thru_hole circle
-		(at -6.5 3.5)
+		(at -6.5 -3.5)
 		(size 4 4)
 		(drill 2.8)
 		(layers "*.Cu" "*.Mask")
@@ -129,7 +194,7 @@
 		(uuid "b0ff3a18-4d4c-48b3-a006-fc6a1642472e")
 	)
 	(pad "5" thru_hole circle
-		(at -6 -4)
+		(at -6 4)
 		(size 4 4)
 		(drill 2.8)
 		(layers "*.Cu" "*.Mask")

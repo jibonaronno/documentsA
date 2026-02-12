@@ -6007,6 +6007,83 @@
 		)
 	)
 	(symbol
+		(lib_id "sensors:SM4-NO2-20")
+		(at 212.09 77.47 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a85a0883-9749-4587-b242-11d3b872b3a0")
+		(property "Reference" "U14"
+			(at 215.9 82.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SM4-NO2-20"
+			(at 215.9 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "sensors:SM4-NO2-20"
+			(at 212.09 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 212.09 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 212.09 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "eaec7588-50b3-47c9-87c7-d84bb7aa4a82")
+		)
+		(pin "4"
+			(uuid "97649905-8376-465b-a6f8-cb9b9d2e6af0")
+		)
+		(pin "2"
+			(uuid "f53357c6-dd59-49e1-9e48-daa07ab80eee")
+		)
+		(pin "5"
+			(uuid "997ac3d2-7423-4b1e-a3dd-ed498b0e5350")
+		)
+		(pin "3"
+			(uuid "dd672aae-3d26-4bf3-aac9-21cf17ee006e")
+		)
+		(instances
+			(project ""
+				(path "/15fbcfff-fd81-4c4b-9218-077244baf01d"
+					(reference "U14")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Connector_Generic:Conn_01x08")
 		(at 125.73 71.12 0)
 		(mirror x)
