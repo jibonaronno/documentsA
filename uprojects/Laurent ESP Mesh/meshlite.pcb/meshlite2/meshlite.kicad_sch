@@ -4111,6 +4111,12 @@
 		)
 	)
 	(junction
+		(at 49.53 129.54)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "0012ee5a-6fca-4623-b71a-e198c7090bb9")
+	)
+	(junction
 		(at 167.64 148.59)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -4133,6 +4139,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "711028ec-50c0-4be9-8e8f-7780aa54eb01")
+	)
+	(junction
+		(at 177.8 57.15)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "73e7762d-a323-4680-b8ba-aed2121fb8b3")
 	)
 	(junction
 		(at 49.53 137.16)
@@ -4159,6 +4171,24 @@
 		(uuid "cf85187f-25a1-44d5-8baa-1bf5aa89b02d")
 	)
 	(junction
+		(at 113.03 142.24)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "cfe50be5-287a-4b36-827f-65becb801523")
+	)
+	(junction
+		(at 165.1 58.42)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "d8aaedd1-f3e6-405a-be6b-aa1098d97b3c")
+	)
+	(junction
+		(at 175.26 57.15)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "ee0e8aef-d548-42df-b0f2-68faa180f9ac")
+	)
+	(junction
 		(at 118.11 142.24)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -4183,6 +4213,36 @@
 			(type default)
 		)
 		(uuid "083e8e0e-75d4-422c-bdc1-50a19e3ed31a")
+	)
+	(wire
+		(pts
+			(xy 175.26 54.61) (xy 175.26 57.15)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "097bf628-6d30-458b-b02d-8191ad074d1a")
+	)
+	(wire
+		(pts
+			(xy 173.99 58.42) (xy 175.26 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0c1f16d3-9ea9-4180-8853-f95b99154aa0")
+	)
+	(wire
+		(pts
+			(xy 113.03 142.24) (xy 118.11 142.24)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0c4af70e-8936-455a-beab-5f0a2a512545")
 	)
 	(wire
 		(pts
@@ -4256,6 +4316,16 @@
 	)
 	(wire
 		(pts
+			(xy 168.91 54.61) (xy 167.64 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1cbc0b3a-92b0-44ef-b4e2-960fd1deadbb")
+	)
+	(wire
+		(pts
 			(xy 74.93 72.39) (xy 167.64 72.39)
 		)
 		(stroke
@@ -4283,6 +4353,16 @@
 			(type default)
 		)
 		(uuid "2496917d-09b4-4659-a3df-65d1df5b6c71")
+	)
+	(wire
+		(pts
+			(xy 113.03 118.11) (xy 49.53 118.11)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2646a157-5f25-4915-9e55-df8198e62c30")
 	)
 	(wire
 		(pts
@@ -4366,7 +4446,7 @@
 	)
 	(wire
 		(pts
-			(xy 165.1 76.2) (xy 165.1 57.15)
+			(xy 165.1 76.2) (xy 165.1 58.42)
 		)
 		(stroke
 			(width 0)
@@ -4426,7 +4506,7 @@
 	)
 	(wire
 		(pts
-			(xy 109.22 142.24) (xy 118.11 142.24)
+			(xy 109.22 142.24) (xy 113.03 142.24)
 		)
 		(stroke
 			(width 0)
@@ -4526,6 +4606,26 @@
 	)
 	(wire
 		(pts
+			(xy 175.26 57.15) (xy 175.26 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "60d1a8ce-9374-4ab1-83c4-0b5d787889cb")
+	)
+	(wire
+		(pts
+			(xy 165.1 58.42) (xy 168.91 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "611b81ba-5027-46f3-a6ba-8c86accc589c")
+	)
+	(wire
+		(pts
 			(xy 180.34 148.59) (xy 180.34 154.94)
 		)
 		(stroke
@@ -4603,6 +4703,16 @@
 			(type default)
 		)
 		(uuid "6c4acfb2-ae95-4259-9793-e3e8a7f816de")
+	)
+	(wire
+		(pts
+			(xy 113.03 142.24) (xy 113.03 118.11)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6d51a1ab-37c6-4801-a6c4-1bec81472406")
 	)
 	(wire
 		(pts
@@ -4716,6 +4826,26 @@
 	)
 	(wire
 		(pts
+			(xy 165.1 58.42) (xy 165.1 57.15)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "802751dd-6bef-4967-8cd0-b440ff4057b0")
+	)
+	(wire
+		(pts
+			(xy 49.53 118.11) (xy 49.53 129.54)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "80471065-e670-403b-b532-b59c91820e9d")
+	)
+	(wire
+		(pts
 			(xy 177.8 82.55) (xy 166.37 82.55)
 		)
 		(stroke
@@ -4826,7 +4956,7 @@
 	)
 	(wire
 		(pts
-			(xy 177.8 49.53) (xy 177.8 82.55)
+			(xy 177.8 49.53) (xy 177.8 57.15)
 		)
 		(stroke
 			(width 0)
@@ -4843,6 +4973,16 @@
 			(type default)
 		)
 		(uuid "9d6495b3-1efa-4ca3-9ba1-9babd1935df3")
+	)
+	(wire
+		(pts
+			(xy 177.8 57.15) (xy 177.8 82.55)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9dc3a97a-35ef-47c2-a40b-ba67944ceb87")
 	)
 	(wire
 		(pts
@@ -5056,6 +5196,16 @@
 	)
 	(wire
 		(pts
+			(xy 175.26 57.15) (xy 177.8 57.15)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e79aeb44-77fc-4480-9086-705be4334c9f")
+	)
+	(wire
+		(pts
 			(xy 49.53 134.62) (xy 49.53 137.16)
 		)
 		(stroke
@@ -5133,6 +5283,16 @@
 			(type default)
 		)
 		(uuid "fa4e2d90-4404-424e-affc-d41c485c86ce")
+	)
+	(wire
+		(pts
+			(xy 173.99 54.61) (xy 175.26 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fc183475-536c-420e-a715-4103556b1f6a")
 	)
 	(wire
 		(pts
@@ -5554,6 +5714,72 @@
 			(project "meshlite"
 				(path "/5228a7f0-3f2c-4c1e-8386-5ebdfda02c7b"
 					(reference "#PWR03")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_Small")
+		(at 171.45 58.42 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "19c6f7bd-b131-4cb0-9c12-7de929aa0264")
+		(property "Reference" "R8"
+			(at 171.45 58.42 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "4k7"
+			(at 171.45 57.15 90)
+			(effects
+				(font
+					(size 0.8 0.8)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 171.45 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 171.45 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 171.45 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "0dd9d72f-330a-41c8-96f3-2ce578568473")
+		)
+		(pin "1"
+			(uuid "da12ed3a-fa81-4380-b429-86b99edefeb3")
+		)
+		(instances
+			(project "meshlite"
+				(path "/5228a7f0-3f2c-4c1e-8386-5ebdfda02c7b"
+					(reference "R8")
 					(unit 1)
 				)
 			)
@@ -6424,6 +6650,72 @@
 			(project "meshlite"
 				(path "/5228a7f0-3f2c-4c1e-8386-5ebdfda02c7b"
 					(reference "R2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_Small")
+		(at 171.45 54.61 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "5a7f0554-9cad-4c17-b012-777abcee60be")
+		(property "Reference" "R7"
+			(at 171.45 54.61 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "4k7"
+			(at 171.45 53.34 90)
+			(effects
+				(font
+					(size 0.8 0.8)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 171.45 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 171.45 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 171.45 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "70039f9f-da2c-44b7-8db6-fc6df893027e")
+		)
+		(pin "1"
+			(uuid "4362b6cd-41a0-4eed-aecc-ce92778cfb46")
+		)
+		(instances
+			(project "meshlite"
+				(path "/5228a7f0-3f2c-4c1e-8386-5ebdfda02c7b"
+					(reference "R7")
 					(unit 1)
 				)
 			)
