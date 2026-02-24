@@ -1,0 +1,30 @@
+### Footprint positions - created on 2026-02-24T17:02:26+0900 ###
+### Printed by KiCad version 9.0.4
+## Unit = mm, Angle = deg.
+## Side : top
+# Ref     Val                        Package                               PosX       PosY       Rot  Side
+D1        LED                        LED_D3.0mm                        123.7300   -48.5000    0.0000  top
+D2        LED                        LED_D3.0mm                        195.2700   -48.5500  180.0000  top
+D3        LED                        LED_D3.0mm                        123.7500   -84.3000    0.0000  top
+D4        LED                        LED_D3.0mm                        195.2500   -84.3000  180.0000  top
+D6        SS14                       D_SMA                             206.0000   -65.0000  180.0000  top
+J1        DCJ200-10-A-XX-K_REVA      GCT_DCJ200-10-A-XX-K_REVA         160.3500   -90.0500    0.0000  top
+J2        B5PS-VH                    CONN_B5PS-VH_JST                  202.6556   -86.3151   90.0000  top
+J3        B5PS-VH                    CONN_B5PS-VH_JST                  119.3444   -70.6849  -90.0000  top
+J4        Conn_01x07                 PinSocket_1x07_P2.54mm_Vertical   167.0000   -47.3800    0.0000  top
+J5        Conn_01x07                 PinSocket_1x07_P2.54mm_Vertical   183.0000   -62.5400  180.0000  top
+J6        Conn_01x06                 PinSocket_1x06_P2.54mm_Vertical   171.5250   -76.6750    0.0000  top
+J7        Conn_01x02                 PinHeader_1x02_P2.54mm_Vertical   195.5000   -59.9600    0.0000  top
+K2        FINDER-36.11               Relay_SPDT_Finder_36.11           211.9325   -59.2000  180.0000  top
+Q1        MMBT2222A                  SOT-23                            196.4375   -74.5500    0.0000  top
+R1        R_Small                    R_0603_1608Metric                 171.2500   -47.5000  180.0000  top
+R2        1K                         R_0603_1608Metric                 125.5000   -54.5000    0.0000  top
+R3        470E                       R_0603_1608Metric                 171.2500   -50.0000  180.0000  top
+R4        470E                       R_0603_1608Metric                 171.2500   -52.5000  180.0000  top
+R5        470E                       R_0603_1608Metric                 162.2500   -54.9800    0.0000  top
+R6        470E                       R_0603_1608Metric                 193.2500   -74.5000  -90.0000  top
+R7        4k7                        R_0603_1608Metric                 172.0000   -60.0100    0.0000  top
+R8        4k7                        R_0603_1608Metric                 172.0000   -57.5000    0.0000  top
+U2        INA219                     MODULE_INA219                     179.1200   -83.0000  -90.0000  top
+U3        YAAJ_DCDC_StepDown_LM2596  YAAJ_DCDC_StepDown_LM2596         150.0000   -54.3600  -90.0000  top
+## End
