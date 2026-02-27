@@ -1,4 +1,4 @@
-26645065540604344
+26646834668206904
 ARDUINO_MEGA_2560_REV3_A000067
 ARDUINO_ARDUINO_MEGA_2560_REV3_A000067
 
@@ -59328,6 +59328,13 @@ Crystal
 Resonator_SMD_Murata_TPSKA-3Pin_7.9x3.8mm_HandSoldering
 Murata TPSKA, Resonator/Filter, 7.9x3.8mm package, SMD, hand-soldering, generated with kicad-footprint-generator make_crystal.py, http://cdn-reichelt.de/documents/datenblatt/B400/SFECV-107.pdf
 ceramic
+0
+3
+3
+DCJ200-10-A-XX-K_REVA
+GCT_DCJ200-10-A-XX-K_REVA
+
+
 0
 3
 3
