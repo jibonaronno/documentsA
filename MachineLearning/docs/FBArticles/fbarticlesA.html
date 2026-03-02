@@ -1,0 +1,54 @@
+
+QLoRA: Quantized Low-Rank Adapters for Efficient Finetuning of Large Language Models
+
+Train 65B LLMs on a SINGLE 24GB GPU without losing quality
+99.3% of ChatGPT performance. For real.
+Fine-tuned a 65-33B-parameter LLM on Google Colab in a few hours. or on one GPU, no million-dollar clusters. custom 7B model on laptops… 
+still carrying most serious fine-tunes in 2026.  Quantize to 4-bit  slap LoRA adapters train huge models on one consumer card. No datacenter needed. 
+QLoRA, a technique combining 4-bit quantization with LoRA adapters to fine-tune 33B-parameter LLMs on a single 24GB GPU, like Google Colab, without performance loss versus 16-bit methods.
+Are you using open-source LLMs on normal GPUs, QLoRA, which is nothing short of game-changing for the ability to train and fine-tune LLMs on consumers' GPUs?
+QLoRA reduces the memory usage of LLM fine-tuning without any performance tradeoffs compared to standard 16-bit model fine-tuning.
+This method enables 33B model fine-tuning on a single 24GB GPU and 65B model fine-tuning on a single 46GB GPU. This is incredible! 😍
+More specifically, QLoRA uses 4-bit quantization to compress a pre-trained language model. The LM parameters are then frozen, and a relatively small number of trainable parameters are added to the model in the form of Low-Rank Adapters.
+During finetuning, QLoRA backpropagates gradients through the frozen 4-bit quantized pretrained language model into the Low-Rank Adapters. The LoRA layers are the only parameters being updated during training. Read more about LoRA in the original LoRA paper https://arxiv.org/abs/2106.09685. 
+QLoRA has one storage data type (usually 4-bit NormalFloat) for the base model weights and a computation data type (16-bit BrainFloat) used to perform computations. QLoRA dequantizes weights from the storage data type to the computation data type to perform the forward and backward passes, but only computes weight gradients for the LoRA parameters, which use 16-bit bfloat. The weights are decompressed only when they are needed, therefore the memory usage stays low during training and inference. Beautiful!
+QLoRA tuning is shown to match 16-bit finetuning methods in a wide range of experiments. In addition, the Guanaco models, which use QLoRA finetuning for LLaMA models on the OpenAssistant dataset (OASST1), are state-of-the-art chatbot systems and are close to ChatGPT on the Vicuna benchmark. This is an additional demonstration of the power of QLoRA tuning.
+Their Guanaco models are reaching 99.3% of the performance level of ChatGPT while only requiring 24 hours of fine-tuning on a single GPU. You can actually do it in Google Colab.
+Democratized LLM fine-tuning forever. Still the go-to in 2026 for domain experts, finance models (+36% gains), personal agents… on $1500 hardware.
+
+QLoRA Paper - https://arxiv.org/pdf/2305.14314.pdf
+Colab for inference - https://colab.research.google.com/.../1ge2F1QSK8Q7h0hn3YK...
+Colab for fine-tuning - https://colab.research.google.com/.../1VoYNfYDKcKRQRor98Z...
+GitHub Repository- https://github.com/artidoro/qlora
+Use it with HuggingFace - https://huggingface.co/blog/4bit-transformers-bitsandbytes
+
+
+To start with Machine Learning:
+1. Learn Python 
+2. Practice using Google Colab 
+Take these 2 free courses:
+- Introduction to Python Programming (Udacity)
+- Machine Learning Crash Course (Google)
+If you need a bit more time before diving deeper, finish the following Kaggle tutorials:
+- Intro to Machine Learning
+- Intermediate Machine Learning
+At this point, you are ready to finish your first project: The Titanic Challenge on Kaggle.
+If Math is not your strong suit, don't worry. I don't recommend you spend too much time learning Math before writing code. Instead, learn the concepts on-demand: Find what you need when needed.
+From here, take the Machine Learning specialization in Coursera. It's more advanced, and it will stretch you out a bit.
+The top universities worldwide have published their Machine Learning and Deep Learning classes online. Here are some of them:
+- MIT 6.S191 Introduction to Deep Learning 
+- DS-GA 1008 Deep Learning 
+- UC Berkeley Full Stack Deep Learning 
+- UC Berkeley CS 182 Deep Learning 
+- Cornell Tech CS 5787 Applied Machine Learning
+Many different books will help you. The attached image will give you an idea of my favorite ones.
+Finally, keep these three ideas in mind:
+1. Start by working on solved problems so you can find help whenever you get stuck.
+2. ChatGPT will help you make progress. Use it to summarize complex concepts and generate questions you can answer to practice.
+3. Find a community here on 𝕏 and share your work. Ask questions, and help others.
+During this time, you'll deal with a lot. Sometimes, you will feel it's impossible to keep up with everything happening, and you'll be right.
+Here are the good news: 
+Most people understand a tiny fraction of the world of Machine Learning. You don't need more to build a fantastic career in the space.
+Focus on finding your path, and Write. More. Code.
+That's how you win.
+

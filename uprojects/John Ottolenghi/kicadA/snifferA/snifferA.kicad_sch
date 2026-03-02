@@ -5651,6 +5651,16 @@
 		)
 		(uuid "02541c84-a9cc-4695-8402-d6f3227e7421")
 	)
+	(text "SCL"
+		(exclude_from_sim no)
+		(at 48.7114 176.8404 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "1702f6db-b9e4-4fcc-a300-62d8a59afb07")
+	)
 	(text "Tx1"
 		(exclude_from_sim no)
 		(at 181.102 92.456 0)
@@ -5670,6 +5680,16 @@
 			)
 		)
 		(uuid "3f684b83-84d7-4be0-9bb2-ad69ce3d309d")
+	)
+	(text "SDA"
+		(exclude_from_sim no)
+		(at 48.514 179.324 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "4de660c3-7340-47ec-b001-e571fa780b19")
 	)
 	(text "Tx3"
 		(exclude_from_sim no)
@@ -7067,6 +7087,16 @@
 	)
 	(wire
 		(pts
+			(xy 15.24 154.94) (xy 27.94 154.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4f5066a0-4a03-4638-a034-14883471d151")
+	)
+	(wire
+		(pts
 			(xy 73.66 68.58) (xy 71.12 68.58)
 		)
 		(stroke
@@ -7214,6 +7244,16 @@
 			(type default)
 		)
 		(uuid "5d434b34-7413-4712-b7e5-9ff187b70b9d")
+	)
+	(wire
+		(pts
+			(xy 16.51 143.51) (xy 16.51 147.32)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "619c7c11-59cb-4fa9-badb-8d76c6636a4b")
 	)
 	(wire
 		(pts
@@ -7534,6 +7574,16 @@
 			(type default)
 		)
 		(uuid "7167e061-94c4-439a-82e1-800db26d4023")
+	)
+	(wire
+		(pts
+			(xy 15.24 157.48) (xy 15.24 154.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "726dd57b-2feb-4ccb-a244-7318bfa8fb1c")
 	)
 	(wire
 		(pts
@@ -8837,16 +8887,6 @@
 	)
 	(wire
 		(pts
-			(xy 16.51 154.94) (xy 27.94 154.94)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d2cdb95e-31db-4bcf-b8ca-5db7522ccd14")
-	)
-	(wire
-		(pts
 			(xy 96.52 26.67) (xy 93.98 26.67)
 		)
 		(stroke
@@ -9606,7 +9646,7 @@
 		(uuid "89255db2-385b-41b0-9ad3-9bc2b4dc56ed")
 	)
 	(label "SDA"
-		(at 46.99 180.34 0)
+		(at 21.59 179.07 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9616,7 +9656,7 @@
 		(uuid "adeee6ee-e67b-4e06-afd7-3a7d170ca571")
 	)
 	(label "SCL"
-		(at 46.99 177.8 0)
+		(at 21.59 176.53 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9625,7 +9665,7 @@
 		)
 		(uuid "ae00408b-52d3-4067-a733-3afb04344fd1")
 	)
-	(label "A12-ZP07-A"
+	(label "A12-ZP07-B"
 		(at 109.22 93.98 0)
 		(effects
 			(font
@@ -10737,6 +10777,73 @@
 			(project "snifferA"
 				(path "/15fbcfff-fd81-4c4b-9218-077244baf01d"
 					(reference "#PWR038")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 15.24 157.48 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "2ee57e87-2477-484c-aff2-bee02b31bfe7")
+		(property "Reference" "#PWR047"
+			(at 15.24 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 17.78 158.7499 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 15.24 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 15.24 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 15.24 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "7dc9fb16-57a1-4d77-bc36-f876b2309902")
+		)
+		(instances
+			(project "snifferA"
+				(path "/15fbcfff-fd81-4c4b-9218-077244baf01d"
+					(reference "#PWR047")
 					(unit 1)
 				)
 			)
@@ -13410,6 +13517,72 @@
 			(project "snifferA"
 				(path "/15fbcfff-fd81-4c4b-9218-077244baf01d"
 					(reference "R16")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+5V")
+		(at 16.51 143.51 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "7b6edb88-38d2-413b-b34c-d9c38db51ba4")
+		(property "Reference" "#PWR046"
+			(at 16.51 147.32 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+5V"
+			(at 16.51 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 16.51 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 16.51 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+5V\""
+			(at 16.51 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0db8f8d2-9284-4bb0-a845-cbe2aae8336c")
+		)
+		(instances
+			(project "snifferA"
+				(path "/15fbcfff-fd81-4c4b-9218-077244baf01d"
+					(reference "#PWR046")
 					(unit 1)
 				)
 			)
