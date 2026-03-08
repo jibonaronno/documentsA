@@ -1,0 +1,47 @@
+
+I think this is a good path forward. I will continue on these v2 boards to complete them. 
+While I am completing these, you can make a fully finished v3. 
+I think you will be able to produce much higher quality than I can here. 
+Please build 2, v3 sensor arrays. Please send me a list of the costs before placing 
+the orders for all the parts, so I can give approval. 
+I will reimburse you immediately and give you an extra $100 for your time ordering all of the parts.
+
+Okay got it.
+
+John Ottolenghi
+4:49 AM
+I started this project a little over a year ago and it feels like we are just starting over now. 
+You and I can do this, I don't think we need anyone else. Let's discuss every step, decide on a 
+reasonable price, and I am glad to pay you for your time and expertise. You have been very generous with me. 
+If you stick with me and show dedication to finishing this project, I will remember it. 
+If Sniffi ever makes money and becomes valuable, you will share in the upside. If you really help me finish, 
+this project could change both of our lives. Thank you for your help.
+
+Okay I will finish it up with full dedication.
+
+John Ottolenghi
+5:20 AM
+Is this true? This is what Ai is telling me "You don't need the LM2596 for 3.3V.
+Your Arduino Mega already has a built-in 3.3V regulator onboard. It automatically takes 5V 
+and produces 3.3V for the CCS811 and TXS0108E. It's already doing this job right now on your current design."
+
+You need to understand why we need LM2596. Every MQ sensors has a heating element like a low ohm resistor, that 
+will draw a good amount of power.  
+
+John Ottolenghi
+5:41 AM
+I just realized CJMCU-811 has it's own voltage regulator built in so that means we can remove TXS0108E 
+and LM2596 from v3. This is great. We are finding many parts to remove. v3 should be getting much smaller. 
+Now everything runs on 5v so we don't have any conversion
+
+John Ottolenghi
+5:49 AM
+We need to make sure that the v3 pcb is powered by USB (not usb-c) Unless we change battery banks. 
+This battery bank only has one usb-c with 3a. My plan is ot use that to power the Pi. Pi will power 
+the screen and the arduino. Then a separate usb with 2.1a will power the PCB.
+
+John Ottolenghi
+6:05 AM
+I look forward to your answers. It seems the only part I am missing that will remain in the design is ZE-08. 
+So once you and I decide how I power this v2, I should be able to start receiving signals and coding. 
+As long as there are no short circuits.
