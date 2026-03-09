@@ -26,13 +26,15 @@ Your Arduino Mega already has a built-in 3.3V regulator onboard. It automaticall
 and produces 3.3V for the CCS811 and TXS0108E. It's already doing this job right now on your current design."
 
 You need to understand why we need LM2596. Every MQ sensors has a heating element like a low ohm resistor, that 
-will draw a good amount of power.  
+will draw a good amount of power.  So the board may need not only one but may be 2 LM2596 module.
 
 John Ottolenghi
 5:41 AM
 I just realized CJMCU-811 has it's own voltage regulator built in so that means we can remove TXS0108E 
 and LM2596 from v3. This is great. We are finding many parts to remove. v3 should be getting much smaller. 
 Now everything runs on 5v so we don't have any conversion
+
+
 
 John Ottolenghi
 5:49 AM
