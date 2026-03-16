@@ -7,7 +7,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(property "Reference" "U"
-			(at 0 0 0)
+			(at -11.43 3.81 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15,7 +15,7 @@
 			)
 		)
 		(property "Value" "CM0"
-			(at 0 0 0)
+			(at -11.43 3.81 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -23,7 +23,7 @@
 			)
 		)
 		(property "Footprint" "CM0_Module:CM0_Module"
-			(at 0 0 0)
+			(at -11.43 3.81 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -32,7 +32,7 @@
 			)
 		)
 		(property "Datasheet" "https://pip-assets.raspberrypi.com/categories/1286-raspberry-pi-compute-module-zero/documents/RP-009251-DS-2-cm0-datasheet.pdf?disposition=inline"
-			(at 0 0 0)
+			(at 6.35 3.81 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -49,10 +49,19 @@
 				(hide yes)
 			)
 		)
+		(property "Web" "https://www.lcsc.com/product-detail/C52108793.html"
+			(at -11.43 3.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(symbol "ModuleA_0_1"
 			(rectangle
-				(start -41.91 39.37)
-				(end 50.8 -46.99)
+				(start -53.34 43.18)
+				(end 57.15 -43.18)
 				(stroke
 					(width 0)
 					(type default)
@@ -63,8 +72,1064 @@
 			)
 		)
 		(symbol "ModuleA_1_1"
+			(text "GND"
+				(at -49.53 40.64 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at -49.276 33.02 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at -49.276 25.4 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at -48.26 17.78 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at -48.006 10.16 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at -48.006 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at -48.006 -10.16 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at -48.006 -17.78 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at -48.006 -25.4 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at -48.006 -33.02 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at -47.752 -40.64 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "DSI_D3_P"
+				(at -46.99 38.1 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "DSI_D3_N"
+				(at -46.99 35.56 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "DSI_D2_P"
+				(at -46.99 30.48 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "DSI_D2_N"
+				(at -46.99 27.94 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "DSI_CK_P"
+				(at -46.99 22.86 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "DSI_CK_N"
+				(at -46.99 20.32 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "DSI_D1_P"
+				(at -45.974 15.24 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "DSI_D1_N"
+				(at -45.72 12.7 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "DSI_D0_N"
+				(at -45.72 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "HDMI_SDA"
+				(at -45.466 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "HDMI_SCL"
+				(at -45.466 -5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "DSI_D0_P "
+				(at -45.212 7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "HDMI_HPD"
+				(at -45.212 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "HDMI_CEC"
+				(at -45.212 -7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "HDMI_D0_P"
+				(at -44.704 -22.86 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "HDMI_D1_N"
+				(at -44.704 -27.94 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "HDMI_D1_P"
+				(at -44.704 -30.48 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "HDMI_D2_N"
+				(at -44.704 -35.56 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "HDMI_D2_P"
+				(at -44.704 -38.1 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "HDMI_CK_N "
+				(at -44.196 -12.7 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "HDMI_CK_P "
+				(at -44.196 -15.24 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "HDMI_D0_N "
+				(at -44.196 -20.32 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at -38.1 36.83 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at -38.1 -37.846 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "SD_DAT2"
+				(at -35.56 34.798 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "USB_N"
+				(at -35.56 -36.83 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "SD_DAT3"
+				(at -33.02 34.798 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "USB_P"
+				(at -33.02 -36.83 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at -30.48 36.83 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at -30.48 -37.846 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "SD_CMD"
+				(at -27.94 35.052 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "USB_OTG "
+				(at -27.94 -35.052 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "SD_CLK"
+				(at -25.4 35.306 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "CVBS"
+				(at -25.4 -37.338 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at -22.86 -37.846 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at -22.606 36.576 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "CM0_3.3V (Output)"
+				(at -20.32 -30.988 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "SD_DAT0"
+				(at -20.066 34.798 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "SD_DAT1"
+				(at -17.78 34.798 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "SDA0 (GPIO 44 FOR CAMERA)"
+				(at -17.78 -25.908 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "SCL0"
+				(at -15.24 -37.592 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at -14.986 36.83 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "CAM_GPIO"
+				(at -12.7 -35.306 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "SD_VREF"
+				(at -12.446 34.798 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at -10.16 -37.846 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "nRPI_BOOT"
+				(at -9.906 33.782 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "CM0_3.3V (Output"
+				(at -7.62 30.226 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "CSI_D3_P"
+				(at -7.62 -35.56 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "CM0_3.3V (Output"
+				(at -5.08 30.226 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "CSI_D3_N "
+				(at -5.08 -35.052 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at -2.54 -37.846 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "LED_nACT "
+				(at -2.286 34.798 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "BT_ON"
+				(at 0 35.56 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "CSI_D2_P"
+				(at 0 -35.306 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "CSI_D2_N"
+				(at 2.54 -35.306 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "WiFi_ON"
+				(at 2.794 35.052 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at 5.08 -37.846 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at 5.334 36.83 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GPIO2"
+				(at 7.62 35.814 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "CSI_CK_P"
+				(at 7.62 -35.56 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "CSI_CK_N"
+				(at 10.16 -35.56 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GPIO3 "
+				(at 10.414 36.322 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at 12.7 -38.1 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at 12.954 36.83 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "CSI_D1_P"
+				(at 15.24 -35.56 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GPIO4"
+				(at 15.494 35.814 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GPIO14"
+				(at 17.78 35.306 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "CSI_D1_N"
+				(at 17.78 -35.56 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at 20.066 -37.846 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at 20.574 36.83 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "CSI_D0_P"
+				(at 22.86 -35.56 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GPIO15"
+				(at 23.114 35.306 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "CSI_D0_N"
+				(at 25.4 -35.56 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GPIO17"
+				(at 25.654 35.306 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at 27.94 -37.846 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at 28.194 36.83 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "RUN_PG (GND-RST ?)"
+				(at 30.48 -29.464 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GPIO18"
+				(at 30.734 35.306 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GLOBAL_EN (GND-Power Off)"
+				(at 33.02 -25.908 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GPIO27"
+				(at 33.274 35.306 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at 35.56 -37.846 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at 35.814 36.83 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GPIO22 "
+				(at 38.1 35.814 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "CM0_1.8V (Output)"
+				(at 38.1 -30.734 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GPIO23"
+				(at 40.64 35.306 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "CM0_1.8V (Output) "
+				(at 40.64 -30.226 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at 43.18 -37.846 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at 43.434 36.83 900)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "5V(Input)"
+				(at 49.276 -38.1 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "5V(Input)"
+				(at 49.276 -40.64 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GPIO24"
+				(at 50.546 38.1 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GPIO10"
+				(at 50.546 35.56 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GPIO25"
+				(at 50.546 27.94 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GPIO11"
+				(at 50.546 22.86 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GPIO12"
+				(at 50.546 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GPIO13"
+				(at 50.546 -7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GPIO19"
+				(at 50.546 -10.16 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GPIO20"
+				(at 50.546 -22.86 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GPIO21"
+				(at 50.8 -25.4 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GPIO9"
+				(at 51.054 30.48 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GPIO7"
+				(at 51.054 15.24 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "ID_SD"
+				(at 51.054 12.7 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GPIO5"
+				(at 51.054 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GPIO6"
+				(at 51.054 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GPIO16 "
+				(at 51.054 -15.24 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GPIO26 "
+				(at 51.054 -17.78 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GPIO8"
+				(at 51.308 20.32 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "ID_SC"
+				(at 51.308 7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at 52.07 40.64 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at 52.07 33.02 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at 52.07 25.4 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at 52.07 17.78 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at 52.07 10.16 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at 52.07 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at 52.07 -5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at 52.07 -12.7 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at 52.07 -20.32 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at 52.07 -27.94 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "GND"
+				(at 52.07 -35.56 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "NC"
+				(at 52.578 -30.734 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(text "NC"
+				(at 52.578 -33.02 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
 			(pin input line
-				(at -44.45 36.83 0)
+				(at -55.88 40.64 0)
 				(length 2.54)
 				(name "1"
 					(effects
@@ -82,7 +1147,7 @@
 				)
 			)
 			(pin input line
-				(at -44.45 34.29 0)
+				(at -55.88 38.1 0)
 				(length 2.54)
 				(name "2"
 					(effects
@@ -100,7 +1165,7 @@
 				)
 			)
 			(pin input line
-				(at -44.45 31.75 0)
+				(at -55.88 35.56 0)
 				(length 2.54)
 				(name "3"
 					(effects
@@ -118,7 +1183,7 @@
 				)
 			)
 			(pin input line
-				(at -44.45 29.21 0)
+				(at -55.88 33.02 0)
 				(length 2.54)
 				(name "4"
 					(effects
@@ -136,7 +1201,7 @@
 				)
 			)
 			(pin input line
-				(at -44.45 26.67 0)
+				(at -55.88 30.48 0)
 				(length 2.54)
 				(name "5"
 					(effects
@@ -154,7 +1219,7 @@
 				)
 			)
 			(pin input line
-				(at -44.45 24.13 0)
+				(at -55.88 27.94 0)
 				(length 2.54)
 				(name "6"
 					(effects
@@ -172,7 +1237,7 @@
 				)
 			)
 			(pin input line
-				(at -44.45 21.59 0)
+				(at -55.88 25.4 0)
 				(length 2.54)
 				(name "7"
 					(effects
@@ -190,7 +1255,7 @@
 				)
 			)
 			(pin input line
-				(at -44.45 19.05 0)
+				(at -55.88 22.86 0)
 				(length 2.54)
 				(name "8"
 					(effects
@@ -208,7 +1273,7 @@
 				)
 			)
 			(pin input line
-				(at -44.45 16.51 0)
+				(at -55.88 20.32 0)
 				(length 2.54)
 				(name "9"
 					(effects
@@ -226,7 +1291,7 @@
 				)
 			)
 			(pin input line
-				(at -44.45 13.97 0)
+				(at -55.88 17.78 0)
 				(length 2.54)
 				(name "10"
 					(effects
@@ -244,7 +1309,7 @@
 				)
 			)
 			(pin input line
-				(at -44.45 11.43 0)
+				(at -55.88 15.24 0)
 				(length 2.54)
 				(name "11"
 					(effects
@@ -262,7 +1327,7 @@
 				)
 			)
 			(pin input line
-				(at -44.45 8.89 0)
+				(at -55.88 12.7 0)
 				(length 2.54)
 				(name "12"
 					(effects
@@ -280,7 +1345,7 @@
 				)
 			)
 			(pin input line
-				(at -44.45 6.35 0)
+				(at -55.88 10.16 0)
 				(length 2.54)
 				(name "13"
 					(effects
@@ -298,7 +1363,7 @@
 				)
 			)
 			(pin input line
-				(at -44.45 3.81 0)
+				(at -55.88 7.62 0)
 				(length 2.54)
 				(name "14"
 					(effects
@@ -316,7 +1381,7 @@
 				)
 			)
 			(pin input line
-				(at -44.45 1.27 0)
+				(at -55.88 5.08 0)
 				(length 2.54)
 				(name "15"
 					(effects
@@ -334,7 +1399,7 @@
 				)
 			)
 			(pin input line
-				(at -44.45 -1.27 0)
+				(at -55.88 2.54 0)
 				(length 2.54)
 				(name "16"
 					(effects
@@ -352,7 +1417,7 @@
 				)
 			)
 			(pin input line
-				(at -44.45 -3.81 0)
+				(at -55.88 0 0)
 				(length 2.54)
 				(name "17"
 					(effects
@@ -370,7 +1435,7 @@
 				)
 			)
 			(pin input line
-				(at -44.45 -6.35 0)
+				(at -55.88 -2.54 0)
 				(length 2.54)
 				(name "18"
 					(effects
@@ -388,7 +1453,7 @@
 				)
 			)
 			(pin input line
-				(at -44.45 -8.89 0)
+				(at -55.88 -5.08 0)
 				(length 2.54)
 				(name "19"
 					(effects
@@ -406,7 +1471,7 @@
 				)
 			)
 			(pin input line
-				(at -44.45 -11.43 0)
+				(at -55.88 -7.62 0)
 				(length 2.54)
 				(name "20"
 					(effects
@@ -424,7 +1489,7 @@
 				)
 			)
 			(pin input line
-				(at -44.45 -13.97 0)
+				(at -55.88 -10.16 0)
 				(length 2.54)
 				(name "21"
 					(effects
@@ -442,7 +1507,7 @@
 				)
 			)
 			(pin input line
-				(at -44.45 -16.51 0)
+				(at -55.88 -12.7 0)
 				(length 2.54)
 				(name "22"
 					(effects
@@ -460,7 +1525,7 @@
 				)
 			)
 			(pin input line
-				(at -44.45 -19.05 0)
+				(at -55.88 -15.24 0)
 				(length 2.54)
 				(name "23"
 					(effects
@@ -478,7 +1543,7 @@
 				)
 			)
 			(pin input line
-				(at -44.45 -21.59 0)
+				(at -55.88 -17.78 0)
 				(length 2.54)
 				(name "24"
 					(effects
@@ -496,7 +1561,7 @@
 				)
 			)
 			(pin input line
-				(at -44.45 -24.13 0)
+				(at -55.88 -20.32 0)
 				(length 2.54)
 				(name "25"
 					(effects
@@ -514,7 +1579,7 @@
 				)
 			)
 			(pin input line
-				(at -44.45 -26.67 0)
+				(at -55.88 -22.86 0)
 				(length 2.54)
 				(name "26"
 					(effects
@@ -532,7 +1597,7 @@
 				)
 			)
 			(pin input line
-				(at -44.45 -29.21 0)
+				(at -55.88 -25.4 0)
 				(length 2.54)
 				(name "27"
 					(effects
@@ -550,7 +1615,7 @@
 				)
 			)
 			(pin input line
-				(at -44.45 -31.75 0)
+				(at -55.88 -27.94 0)
 				(length 2.54)
 				(name "28"
 					(effects
@@ -568,7 +1633,7 @@
 				)
 			)
 			(pin input line
-				(at -44.45 -34.29 0)
+				(at -55.88 -30.48 0)
 				(length 2.54)
 				(name "29"
 					(effects
@@ -586,7 +1651,7 @@
 				)
 			)
 			(pin input line
-				(at -44.45 -36.83 0)
+				(at -55.88 -33.02 0)
 				(length 2.54)
 				(name "30"
 					(effects
@@ -604,7 +1669,7 @@
 				)
 			)
 			(pin input line
-				(at -44.45 -39.37 0)
+				(at -55.88 -35.56 0)
 				(length 2.54)
 				(name "31"
 					(effects
@@ -622,7 +1687,7 @@
 				)
 			)
 			(pin input line
-				(at -44.45 -41.91 0)
+				(at -55.88 -38.1 0)
 				(length 2.54)
 				(name "32"
 					(effects
@@ -640,7 +1705,7 @@
 				)
 			)
 			(pin input line
-				(at -44.45 -44.45 0)
+				(at -55.88 -40.64 0)
 				(length 2.54)
 				(name "33"
 					(effects
@@ -658,7 +1723,7 @@
 				)
 			)
 			(pin input line
-				(at -35.56 41.91 270)
+				(at -38.1 45.72 270)
 				(length 2.54)
 				(name "132"
 					(effects
@@ -676,7 +1741,7 @@
 				)
 			)
 			(pin input line
-				(at -35.56 -49.53 90)
+				(at -38.1 -45.72 90)
 				(length 2.54)
 				(name "34"
 					(effects
@@ -694,7 +1759,7 @@
 				)
 			)
 			(pin input line
-				(at -33.02 41.91 270)
+				(at -35.56 45.72 270)
 				(length 2.54)
 				(name "131"
 					(effects
@@ -712,7 +1777,7 @@
 				)
 			)
 			(pin input line
-				(at -33.02 -49.53 90)
+				(at -35.56 -45.72 90)
 				(length 2.54)
 				(name "35"
 					(effects
@@ -730,7 +1795,7 @@
 				)
 			)
 			(pin input line
-				(at -30.48 41.91 270)
+				(at -33.02 45.72 270)
 				(length 2.54)
 				(name "130"
 					(effects
@@ -748,7 +1813,7 @@
 				)
 			)
 			(pin input line
-				(at -30.48 -49.53 90)
+				(at -33.02 -45.72 90)
 				(length 2.54)
 				(name "36"
 					(effects
@@ -766,7 +1831,7 @@
 				)
 			)
 			(pin input line
-				(at -27.94 41.91 270)
+				(at -30.48 45.72 270)
 				(length 2.54)
 				(name "129"
 					(effects
@@ -784,7 +1849,7 @@
 				)
 			)
 			(pin input line
-				(at -27.94 -49.53 90)
+				(at -30.48 -45.72 90)
 				(length 2.54)
 				(name "37"
 					(effects
@@ -802,7 +1867,7 @@
 				)
 			)
 			(pin input line
-				(at -25.4 41.91 270)
+				(at -27.94 45.72 270)
 				(length 2.54)
 				(name "128"
 					(effects
@@ -820,7 +1885,7 @@
 				)
 			)
 			(pin input line
-				(at -25.4 -49.53 90)
+				(at -27.94 -45.72 90)
 				(length 2.54)
 				(name "38"
 					(effects
@@ -838,7 +1903,7 @@
 				)
 			)
 			(pin input line
-				(at -22.86 41.91 270)
+				(at -25.4 45.72 270)
 				(length 2.54)
 				(name "127"
 					(effects
@@ -856,7 +1921,7 @@
 				)
 			)
 			(pin input line
-				(at -22.86 -49.53 90)
+				(at -25.4 -45.72 90)
 				(length 2.54)
 				(name "39"
 					(effects
@@ -874,7 +1939,7 @@
 				)
 			)
 			(pin input line
-				(at -20.32 41.91 270)
+				(at -22.86 45.72 270)
 				(length 2.54)
 				(name "126"
 					(effects
@@ -892,7 +1957,7 @@
 				)
 			)
 			(pin input line
-				(at -20.32 -49.53 90)
+				(at -22.86 -45.72 90)
 				(length 2.54)
 				(name "40"
 					(effects
@@ -910,7 +1975,7 @@
 				)
 			)
 			(pin input line
-				(at -17.78 41.91 270)
+				(at -20.32 45.72 270)
 				(length 2.54)
 				(name "125"
 					(effects
@@ -928,7 +1993,7 @@
 				)
 			)
 			(pin input line
-				(at -17.78 -49.53 90)
+				(at -20.32 -45.72 90)
 				(length 2.54)
 				(name "41"
 					(effects
@@ -946,7 +2011,7 @@
 				)
 			)
 			(pin input line
-				(at -15.24 41.91 270)
+				(at -17.78 45.72 270)
 				(length 2.54)
 				(name "124"
 					(effects
@@ -964,7 +2029,7 @@
 				)
 			)
 			(pin input line
-				(at -15.24 -49.53 90)
+				(at -17.78 -45.72 90)
 				(length 2.54)
 				(name "42"
 					(effects
@@ -982,7 +2047,7 @@
 				)
 			)
 			(pin input line
-				(at -12.7 41.91 270)
+				(at -15.24 45.72 270)
 				(length 2.54)
 				(name "123"
 					(effects
@@ -1000,7 +2065,7 @@
 				)
 			)
 			(pin input line
-				(at -12.7 -49.53 90)
+				(at -15.24 -45.72 90)
 				(length 2.54)
 				(name "43"
 					(effects
@@ -1018,7 +2083,7 @@
 				)
 			)
 			(pin input line
-				(at -10.16 41.91 270)
+				(at -12.7 45.72 270)
 				(length 2.54)
 				(name "122"
 					(effects
@@ -1036,7 +2101,7 @@
 				)
 			)
 			(pin input line
-				(at -10.16 -49.53 90)
+				(at -12.7 -45.72 90)
 				(length 2.54)
 				(name "44"
 					(effects
@@ -1054,7 +2119,7 @@
 				)
 			)
 			(pin input line
-				(at -7.62 41.91 270)
+				(at -10.16 45.72 270)
 				(length 2.54)
 				(name "121"
 					(effects
@@ -1072,7 +2137,7 @@
 				)
 			)
 			(pin input line
-				(at -7.62 -49.53 90)
+				(at -10.16 -45.72 90)
 				(length 2.54)
 				(name "45"
 					(effects
@@ -1090,7 +2155,7 @@
 				)
 			)
 			(pin input line
-				(at -5.08 41.91 270)
+				(at -7.62 45.72 270)
 				(length 2.54)
 				(name "120"
 					(effects
@@ -1108,7 +2173,7 @@
 				)
 			)
 			(pin input line
-				(at -5.08 -49.53 90)
+				(at -7.62 -45.72 90)
 				(length 2.54)
 				(name "46"
 					(effects
@@ -1126,7 +2191,7 @@
 				)
 			)
 			(pin input line
-				(at -2.54 41.91 270)
+				(at -5.08 45.72 270)
 				(length 2.54)
 				(name "119"
 					(effects
@@ -1144,7 +2209,7 @@
 				)
 			)
 			(pin input line
-				(at -2.54 -49.53 90)
+				(at -5.08 -45.72 90)
 				(length 2.54)
 				(name "47"
 					(effects
@@ -1162,7 +2227,7 @@
 				)
 			)
 			(pin input line
-				(at 0 41.91 270)
+				(at -2.54 45.72 270)
 				(length 2.54)
 				(name "118"
 					(effects
@@ -1180,7 +2245,7 @@
 				)
 			)
 			(pin input line
-				(at 0 -49.53 90)
+				(at -2.54 -45.72 90)
 				(length 2.54)
 				(name "48"
 					(effects
@@ -1198,7 +2263,7 @@
 				)
 			)
 			(pin input line
-				(at 2.54 41.91 270)
+				(at 0 45.72 270)
 				(length 2.54)
 				(name "117"
 					(effects
@@ -1216,7 +2281,7 @@
 				)
 			)
 			(pin input line
-				(at 2.54 -49.53 90)
+				(at 0 -45.72 90)
 				(length 2.54)
 				(name "49"
 					(effects
@@ -1234,7 +2299,7 @@
 				)
 			)
 			(pin input line
-				(at 5.08 41.91 270)
+				(at 2.54 45.72 270)
 				(length 2.54)
 				(name "116"
 					(effects
@@ -1252,7 +2317,7 @@
 				)
 			)
 			(pin input line
-				(at 5.08 -49.53 90)
+				(at 2.54 -45.72 90)
 				(length 2.54)
 				(name "50"
 					(effects
@@ -1270,7 +2335,7 @@
 				)
 			)
 			(pin input line
-				(at 7.62 41.91 270)
+				(at 5.08 45.72 270)
 				(length 2.54)
 				(name "115"
 					(effects
@@ -1288,7 +2353,7 @@
 				)
 			)
 			(pin input line
-				(at 7.62 -49.53 90)
+				(at 5.08 -45.72 90)
 				(length 2.54)
 				(name "51"
 					(effects
@@ -1306,7 +2371,7 @@
 				)
 			)
 			(pin input line
-				(at 10.16 41.91 270)
+				(at 7.62 45.72 270)
 				(length 2.54)
 				(name "114"
 					(effects
@@ -1324,7 +2389,7 @@
 				)
 			)
 			(pin input line
-				(at 10.16 -49.53 90)
+				(at 7.62 -45.72 90)
 				(length 2.54)
 				(name "52"
 					(effects
@@ -1342,7 +2407,7 @@
 				)
 			)
 			(pin input line
-				(at 12.7 41.91 270)
+				(at 10.16 45.72 270)
 				(length 2.54)
 				(name "113"
 					(effects
@@ -1360,7 +2425,7 @@
 				)
 			)
 			(pin input line
-				(at 12.7 -49.53 90)
+				(at 10.16 -45.72 90)
 				(length 2.54)
 				(name "53"
 					(effects
@@ -1378,7 +2443,7 @@
 				)
 			)
 			(pin input line
-				(at 15.24 41.91 270)
+				(at 12.7 45.72 270)
 				(length 2.54)
 				(name "112"
 					(effects
@@ -1396,7 +2461,7 @@
 				)
 			)
 			(pin input line
-				(at 15.24 -49.53 90)
+				(at 12.7 -45.72 90)
 				(length 2.54)
 				(name "54"
 					(effects
@@ -1414,7 +2479,7 @@
 				)
 			)
 			(pin input line
-				(at 17.78 41.91 270)
+				(at 15.24 45.72 270)
 				(length 2.54)
 				(name "111"
 					(effects
@@ -1432,7 +2497,7 @@
 				)
 			)
 			(pin input line
-				(at 17.78 -49.53 90)
+				(at 15.24 -45.72 90)
 				(length 2.54)
 				(name "55"
 					(effects
@@ -1450,7 +2515,7 @@
 				)
 			)
 			(pin input line
-				(at 20.32 41.91 270)
+				(at 17.78 45.72 270)
 				(length 2.54)
 				(name "110"
 					(effects
@@ -1468,7 +2533,7 @@
 				)
 			)
 			(pin input line
-				(at 20.32 -49.53 90)
+				(at 17.78 -45.72 90)
 				(length 2.54)
 				(name "56"
 					(effects
@@ -1486,7 +2551,7 @@
 				)
 			)
 			(pin input line
-				(at 22.86 41.91 270)
+				(at 20.32 45.72 270)
 				(length 2.54)
 				(name "109"
 					(effects
@@ -1504,7 +2569,7 @@
 				)
 			)
 			(pin input line
-				(at 22.86 -49.53 90)
+				(at 20.32 -45.72 90)
 				(length 2.54)
 				(name "57"
 					(effects
@@ -1522,7 +2587,7 @@
 				)
 			)
 			(pin input line
-				(at 25.4 41.91 270)
+				(at 22.86 45.72 270)
 				(length 2.54)
 				(name "108"
 					(effects
@@ -1540,7 +2605,7 @@
 				)
 			)
 			(pin input line
-				(at 25.4 -49.53 90)
+				(at 22.86 -45.72 90)
 				(length 2.54)
 				(name "58"
 					(effects
@@ -1558,7 +2623,7 @@
 				)
 			)
 			(pin input line
-				(at 27.94 41.91 270)
+				(at 25.4 45.72 270)
 				(length 2.54)
 				(name "107"
 					(effects
@@ -1576,7 +2641,7 @@
 				)
 			)
 			(pin input line
-				(at 27.94 -49.53 90)
+				(at 25.4 -45.72 90)
 				(length 2.54)
 				(name "59"
 					(effects
@@ -1594,7 +2659,7 @@
 				)
 			)
 			(pin input line
-				(at 30.48 41.91 270)
+				(at 27.94 45.72 270)
 				(length 2.54)
 				(name "106"
 					(effects
@@ -1612,7 +2677,7 @@
 				)
 			)
 			(pin input line
-				(at 30.48 -49.53 90)
+				(at 27.94 -45.72 90)
 				(length 2.54)
 				(name "60"
 					(effects
@@ -1630,7 +2695,7 @@
 				)
 			)
 			(pin input line
-				(at 33.02 41.91 270)
+				(at 30.48 45.72 270)
 				(length 2.54)
 				(name "105"
 					(effects
@@ -1648,7 +2713,7 @@
 				)
 			)
 			(pin input line
-				(at 33.02 -49.53 90)
+				(at 30.48 -45.72 90)
 				(length 2.54)
 				(name "61"
 					(effects
@@ -1666,7 +2731,7 @@
 				)
 			)
 			(pin input line
-				(at 35.56 41.91 270)
+				(at 33.02 45.72 270)
 				(length 2.54)
 				(name "104"
 					(effects
@@ -1684,7 +2749,7 @@
 				)
 			)
 			(pin input line
-				(at 35.56 -49.53 90)
+				(at 33.02 -45.72 90)
 				(length 2.54)
 				(name "62"
 					(effects
@@ -1702,7 +2767,7 @@
 				)
 			)
 			(pin input line
-				(at 38.1 41.91 270)
+				(at 35.56 45.72 270)
 				(length 2.54)
 				(name "103"
 					(effects
@@ -1720,7 +2785,7 @@
 				)
 			)
 			(pin input line
-				(at 38.1 -49.53 90)
+				(at 35.56 -45.72 90)
 				(length 2.54)
 				(name "63"
 					(effects
@@ -1738,7 +2803,7 @@
 				)
 			)
 			(pin input line
-				(at 40.64 41.91 270)
+				(at 38.1 45.72 270)
 				(length 2.54)
 				(name "102"
 					(effects
@@ -1756,7 +2821,7 @@
 				)
 			)
 			(pin input line
-				(at 40.64 -49.53 90)
+				(at 38.1 -45.72 90)
 				(length 2.54)
 				(name "64"
 					(effects
@@ -1774,7 +2839,7 @@
 				)
 			)
 			(pin input line
-				(at 43.18 41.91 270)
+				(at 40.64 45.72 270)
 				(length 2.54)
 				(name "101"
 					(effects
@@ -1792,7 +2857,7 @@
 				)
 			)
 			(pin input line
-				(at 43.18 -49.53 90)
+				(at 40.64 -45.72 90)
 				(length 2.54)
 				(name "65"
 					(effects
@@ -1810,7 +2875,7 @@
 				)
 			)
 			(pin input line
-				(at 45.72 41.91 270)
+				(at 43.18 45.72 270)
 				(length 2.54)
 				(name "100"
 					(effects
@@ -1828,7 +2893,7 @@
 				)
 			)
 			(pin input line
-				(at 45.72 -49.53 90)
+				(at 43.18 -45.72 90)
 				(length 2.54)
 				(name "66"
 					(effects
@@ -1846,7 +2911,7 @@
 				)
 			)
 			(pin input line
-				(at 53.34 36.83 180)
+				(at 59.69 40.64 180)
 				(length 2.54)
 				(name "99"
 					(effects
@@ -1864,7 +2929,7 @@
 				)
 			)
 			(pin input line
-				(at 53.34 34.29 180)
+				(at 59.69 38.1 180)
 				(length 2.54)
 				(name "98"
 					(effects
@@ -1882,7 +2947,7 @@
 				)
 			)
 			(pin input line
-				(at 53.34 31.75 180)
+				(at 59.69 35.56 180)
 				(length 2.54)
 				(name "97"
 					(effects
@@ -1900,7 +2965,7 @@
 				)
 			)
 			(pin input line
-				(at 53.34 29.21 180)
+				(at 59.69 33.02 180)
 				(length 2.54)
 				(name "96"
 					(effects
@@ -1918,7 +2983,7 @@
 				)
 			)
 			(pin input line
-				(at 53.34 26.67 180)
+				(at 59.69 30.48 180)
 				(length 2.54)
 				(name "95"
 					(effects
@@ -1936,7 +3001,7 @@
 				)
 			)
 			(pin input line
-				(at 53.34 24.13 180)
+				(at 59.69 27.94 180)
 				(length 2.54)
 				(name "94"
 					(effects
@@ -1954,7 +3019,7 @@
 				)
 			)
 			(pin input line
-				(at 53.34 21.59 180)
+				(at 59.69 25.4 180)
 				(length 2.54)
 				(name "93"
 					(effects
@@ -1972,7 +3037,7 @@
 				)
 			)
 			(pin input line
-				(at 53.34 19.05 180)
+				(at 59.69 22.86 180)
 				(length 2.54)
 				(name "92"
 					(effects
@@ -1990,7 +3055,7 @@
 				)
 			)
 			(pin input line
-				(at 53.34 16.51 180)
+				(at 59.69 20.32 180)
 				(length 2.54)
 				(name "91"
 					(effects
@@ -2008,7 +3073,7 @@
 				)
 			)
 			(pin input line
-				(at 53.34 13.97 180)
+				(at 59.69 17.78 180)
 				(length 2.54)
 				(name "90"
 					(effects
@@ -2026,7 +3091,7 @@
 				)
 			)
 			(pin input line
-				(at 53.34 11.43 180)
+				(at 59.69 15.24 180)
 				(length 2.54)
 				(name "89"
 					(effects
@@ -2044,7 +3109,7 @@
 				)
 			)
 			(pin input line
-				(at 53.34 8.89 180)
+				(at 59.69 12.7 180)
 				(length 2.54)
 				(name "88"
 					(effects
@@ -2062,7 +3127,7 @@
 				)
 			)
 			(pin input line
-				(at 53.34 6.35 180)
+				(at 59.69 10.16 180)
 				(length 2.54)
 				(name "87"
 					(effects
@@ -2080,7 +3145,7 @@
 				)
 			)
 			(pin input line
-				(at 53.34 3.81 180)
+				(at 59.69 7.62 180)
 				(length 2.54)
 				(name "86"
 					(effects
@@ -2098,7 +3163,7 @@
 				)
 			)
 			(pin input line
-				(at 53.34 1.27 180)
+				(at 59.69 5.08 180)
 				(length 2.54)
 				(name "85"
 					(effects
@@ -2116,7 +3181,7 @@
 				)
 			)
 			(pin input line
-				(at 53.34 -1.27 180)
+				(at 59.69 2.54 180)
 				(length 2.54)
 				(name "84"
 					(effects
@@ -2134,7 +3199,7 @@
 				)
 			)
 			(pin input line
-				(at 53.34 -3.81 180)
+				(at 59.69 0 180)
 				(length 2.54)
 				(name "83"
 					(effects
@@ -2152,7 +3217,7 @@
 				)
 			)
 			(pin input line
-				(at 53.34 -6.35 180)
+				(at 59.69 -2.54 180)
 				(length 2.54)
 				(name "82"
 					(effects
@@ -2170,7 +3235,7 @@
 				)
 			)
 			(pin input line
-				(at 53.34 -8.89 180)
+				(at 59.69 -5.08 180)
 				(length 2.54)
 				(name "81"
 					(effects
@@ -2188,7 +3253,7 @@
 				)
 			)
 			(pin input line
-				(at 53.34 -11.43 180)
+				(at 59.69 -7.62 180)
 				(length 2.54)
 				(name "80"
 					(effects
@@ -2206,7 +3271,7 @@
 				)
 			)
 			(pin input line
-				(at 53.34 -13.97 180)
+				(at 59.69 -10.16 180)
 				(length 2.54)
 				(name "79"
 					(effects
@@ -2224,7 +3289,7 @@
 				)
 			)
 			(pin input line
-				(at 53.34 -16.51 180)
+				(at 59.69 -12.7 180)
 				(length 2.54)
 				(name "78"
 					(effects
@@ -2242,7 +3307,7 @@
 				)
 			)
 			(pin input line
-				(at 53.34 -19.05 180)
+				(at 59.69 -15.24 180)
 				(length 2.54)
 				(name "77"
 					(effects
@@ -2260,7 +3325,7 @@
 				)
 			)
 			(pin input line
-				(at 53.34 -21.59 180)
+				(at 59.69 -17.78 180)
 				(length 2.54)
 				(name "76"
 					(effects
@@ -2278,7 +3343,7 @@
 				)
 			)
 			(pin input line
-				(at 53.34 -24.13 180)
+				(at 59.69 -20.32 180)
 				(length 2.54)
 				(name "75"
 					(effects
@@ -2296,7 +3361,7 @@
 				)
 			)
 			(pin input line
-				(at 53.34 -26.67 180)
+				(at 59.69 -22.86 180)
 				(length 2.54)
 				(name "74"
 					(effects
@@ -2314,7 +3379,7 @@
 				)
 			)
 			(pin input line
-				(at 53.34 -29.21 180)
+				(at 59.69 -25.4 180)
 				(length 2.54)
 				(name "73"
 					(effects
@@ -2332,7 +3397,7 @@
 				)
 			)
 			(pin input line
-				(at 53.34 -31.75 180)
+				(at 59.69 -27.94 180)
 				(length 2.54)
 				(name "72"
 					(effects
@@ -2350,7 +3415,7 @@
 				)
 			)
 			(pin input line
-				(at 53.34 -34.29 180)
+				(at 59.69 -30.48 180)
 				(length 2.54)
 				(name "71"
 					(effects
@@ -2368,7 +3433,7 @@
 				)
 			)
 			(pin input line
-				(at 53.34 -36.83 180)
+				(at 59.69 -33.02 180)
 				(length 2.54)
 				(name "70"
 					(effects
@@ -2386,7 +3451,7 @@
 				)
 			)
 			(pin input line
-				(at 53.34 -39.37 180)
+				(at 59.69 -35.56 180)
 				(length 2.54)
 				(name "69"
 					(effects
@@ -2404,7 +3469,7 @@
 				)
 			)
 			(pin input line
-				(at 53.34 -41.91 180)
+				(at 59.69 -38.1 180)
 				(length 2.54)
 				(name "68"
 					(effects
@@ -2422,7 +3487,7 @@
 				)
 			)
 			(pin input line
-				(at 53.34 -44.45 180)
+				(at 59.69 -40.64 180)
 				(length 2.54)
 				(name "67"
 					(effects
