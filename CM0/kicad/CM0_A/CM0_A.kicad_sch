@@ -2,9 +2,153 @@
 	(version 20250114)
 	(generator "eeschema")
 	(generator_version "9.0")
-	(uuid 50bd9559-836c-4ff6-9873-987acf610763)
-	(paper "A4")
+	(uuid "50bd9559-836c-4ff6-9873-987acf610763")
+	(paper "A1")
 	(lib_symbols)
+	(sheet
+		(at 220.98 157.48)
+		(size 81.026 124.968)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "7027d727-8fb0-4cda-ae9b-f65d02ae0ba2")
+		(property "Sheetname" "CM0_Module"
+			(at 220.98 156.7684 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "CM0_Module.kicad_sch"
+			(at 220.98 283.0326 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "DSI_CK_N" output
+			(at 220.98 179.07 180)
+			(uuid "5626ca99-4fc6-41b8-b972-82e706f38701")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "DSI_CK_P" output
+			(at 220.98 176.53 180)
+			(uuid "a0bdb767-4358-45ab-a15b-5a1ad35f420f")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "DSI_D0_N" output
+			(at 220.98 185.42 180)
+			(uuid "12a4b314-f2a9-4e4e-8e6d-a1f4e1f6b51f")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "DSI_D1_N" output
+			(at 220.98 191.77 180)
+			(uuid "e8a7535e-6afe-44df-99e3-250da5448086")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "DSI_D1_P" output
+			(at 220.98 189.23 180)
+			(uuid "9ec7ad04-898a-411b-80e9-15a5c85aab4e")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "DSI_D0_P" output
+			(at 220.98 182.88 180)
+			(uuid "a57645fc-3d96-49d3-95cc-2b4a92dcb545")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(instances
+			(project "CM0_A"
+				(path "/50bd9559-836c-4ff6-9873-987acf610763"
+					(page "2")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 158.496 165.862)
+		(size 38.608 35.56)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "f0ec2515-36a6-400c-9fe3-e9483f3db06c")
+		(property "Sheetname" "LCD_FPC"
+			(at 158.496 165.1504 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "lcd_fpc.kicad_sch"
+			(at 158.496 202.0066 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "CM0_A"
+				(path "/50bd9559-836c-4ff6-9873-987acf610763"
+					(page "3")
+				)
+			)
+		)
+	)
 	(sheet_instances
 		(path "/"
 			(page "1")
