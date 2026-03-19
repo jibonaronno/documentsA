@@ -408,19 +408,6 @@
     "subpart_first_id": 65,
     "subpart_id_separator": 0
   },
-  "sheets": [
-    [
-      "50bd9559-836c-4ff6-9873-987acf610763",
-      "Root"
-    ],
-    [
-      "7027d727-8fb0-4cda-ae9b-f65d02ae0ba2",
-      "CM0_Module"
-    ],
-    [
-      "f0ec2515-36a6-400c-9fe3-e9483f3db06c",
-      "LCD_FPC"
-    ]
-  ],
+  "sheets": [],
   "text_variables": {}
 }
