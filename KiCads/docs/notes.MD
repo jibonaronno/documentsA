@@ -12,3 +12,7 @@ Multiple Schematic Sheet Document Management:
 3. In Root page Place Sheet Pins and click on a sheet.
 <img>img002.jpg</img><br>
 <img>img003.jpg</img><br>
+
+
+How to automatically Panelize PCB board in KiCad 9 using KiKit plugin | KiCad 9 Beginner's Tutorials
+https://www.youtube.com/watch?v=8J39-98jXFA
