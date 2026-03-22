@@ -6,4 +6,5 @@
   (lib (name "yaaj_dcdc_stepdown_lm2596")(type "Legacy")(uri "${KIPRJMOD}/lm2596-model-for-kicad/KiCad/yaaj_dcdc_stepdown_lm2596.lib")(options "")(descr ""))
   (lib (name "DCJ200-10-A-XX-K_REVA")(type "KiCad")(uri "${KIPRJMOD}/DCJ200-10-A-XX-K_REVA/DCJ200-10-A-XX-K_REVA.kicad_sym")(options "")(descr ""))
   (lib (name "MOSFET-P-20V")(type "KiCad")(uri "${KIPRJMOD}/SI4403DDY_T1_GE3/KiCADv6/2026-03-12_02-06-56.kicad_sym")(options "")(descr ""))
+  (lib (name "ADS1115")(type "KiCad")(uri "${KIPRJMOD}/ADS1115IDGST/ADS1115.kicad_sym")(options "")(descr ""))
 )

@@ -655,6 +655,10 @@
     [
       "15fbcfff-fd81-4c4b-9218-077244baf01d",
       "Root"
+    ],
+    [
+      "ebca4801-4cee-416c-95fd-8c465ffeae4c",
+      "ADS1115_ADC"
     ]
   ],
   "text_variables": {}
