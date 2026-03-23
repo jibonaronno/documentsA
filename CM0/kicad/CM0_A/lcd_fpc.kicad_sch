@@ -6019,7 +6019,7 @@
 		)
 		(uuid "ff575636-4990-41c9-93ed-a3db1c401421")
 	)
-	(hierarchical_label "DSI_D1_N"
+	(hierarchical_label "LCD_DSI_D1_N"
 		(shape input)
 		(at 147.32 66.04 0)
 		(effects
@@ -6030,7 +6030,7 @@
 		)
 		(uuid "1d12b8d4-c8a5-4f0e-9973-1181d2946855")
 	)
-	(hierarchical_label "DSI_D1_P"
+	(hierarchical_label "LCD_DSI_D1_P"
 		(shape input)
 		(at 147.32 68.58 0)
 		(effects
@@ -6041,7 +6041,7 @@
 		)
 		(uuid "4f551cc7-0890-4a39-860c-79d80b53693c")
 	)
-	(hierarchical_label "DSI_D0_N"
+	(hierarchical_label "LCD_DSI_D0_N"
 		(shape input)
 		(at 147.32 50.8 0)
 		(effects
@@ -6052,7 +6052,7 @@
 		)
 		(uuid "63e14d98-0100-449e-9e64-de3996456595")
 	)
-	(hierarchical_label "DSI_CK_N"
+	(hierarchical_label "LCD_DSI_CK_N"
 		(shape input)
 		(at 147.32 58.42 0)
 		(effects
@@ -6063,7 +6063,7 @@
 		)
 		(uuid "c562f37b-0713-4051-b55e-b4d9e16dda99")
 	)
-	(hierarchical_label "DSI_CK_P"
+	(hierarchical_label "LCD_DSI_CK_P"
 		(shape input)
 		(at 147.32 60.96 0)
 		(effects
@@ -6085,7 +6085,7 @@
 		)
 		(uuid "ee03f540-4939-4164-884e-76d0a1a7abcd")
 	)
-	(hierarchical_label "DSI_D0_P"
+	(hierarchical_label "LCD_DSI_D0_P"
 		(shape input)
 		(at 147.32 53.34 0)
 		(effects
