@@ -5,6 +5,76 @@
 	(uuid "50bd9559-836c-4ff6-9873-987acf610763")
 	(paper "A1")
 	(lib_symbols)
+	(wire
+		(pts
+			(xy 220.98 189.23) (xy 191.77 189.23)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "16f93861-aaea-45f8-8bbd-9bd78615171f")
+	)
+	(wire
+		(pts
+			(xy 220.98 182.88) (xy 191.77 182.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "20c2d3ea-6628-43ff-804b-aeee9083658c")
+	)
+	(wire
+		(pts
+			(xy 220.98 196.85) (xy 191.77 196.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8fabde7a-7d09-4b63-a359-be09b33c856d")
+	)
+	(wire
+		(pts
+			(xy 220.98 191.77) (xy 191.77 191.77)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a3509f58-4981-4120-a4cf-b718d0cf5417")
+	)
+	(wire
+		(pts
+			(xy 220.98 176.53) (xy 191.77 176.53)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ac016a19-8e5a-4018-9170-d6eb734b1a8d")
+	)
+	(wire
+		(pts
+			(xy 220.98 179.07) (xy 191.77 179.07)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d2e5732c-04eb-4573-851d-d311b45658af")
+	)
+	(wire
+		(pts
+			(xy 191.77 185.42) (xy 220.98 185.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fbea6256-5272-4958-ad8d-a419c44f2818")
+	)
 	(sheet
 		(at 220.98 157.48)
 		(size 81.026 124.968)
@@ -99,6 +169,16 @@
 				(justify left)
 			)
 		)
+		(pin "LCD_RESET_CPU" output
+			(at 220.98 196.85 180)
+			(uuid "2c538780-b42c-43bf-89c3-1401b92d3db2")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
 		(instances
 			(project "CM0_A"
 				(path "/50bd9559-836c-4ff6-9873-987acf610763"
@@ -108,7 +188,7 @@
 		)
 	)
 	(sheet
-		(at 158.496 165.862)
+		(at 153.162 165.354)
 		(size 38.608 35.56)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -124,7 +204,7 @@
 		)
 		(uuid "f0ec2515-36a6-400c-9fe3-e9483f3db06c")
 		(property "Sheetname" "LCD_FPC"
-			(at 158.496 165.1504 0)
+			(at 153.162 164.6424 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -133,12 +213,82 @@
 			)
 		)
 		(property "Sheetfile" "lcd_fpc.kicad_sch"
-			(at 158.496 202.0066 0)
+			(at 153.162 201.4986 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left top)
+			)
+		)
+		(pin "LCD_DSI_D0_N" input
+			(at 191.77 185.42 0)
+			(uuid "8d0a3e8e-6ee1-4d38-8345-e97ab0eb4d71")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "LCD_DSI_CK_N" input
+			(at 191.77 179.07 0)
+			(uuid "e724d1a6-54d0-46bd-961c-236a7edf441f")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "LCD_DSI_CK_P" input
+			(at 191.77 176.53 0)
+			(uuid "eda4304b-448a-4ef8-b998-8508e2167d6f")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "LCD_DSI_D0_P" input
+			(at 191.77 182.88 0)
+			(uuid "d6470ff9-0da9-47ce-ad82-b67b37a8b9f6")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "LCD_DSI_D1_N" input
+			(at 191.77 191.77 0)
+			(uuid "135cb67b-a152-4a50-ba96-08f17a54504b")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "LCD_DSI_D1_P" input
+			(at 191.77 189.23 0)
+			(uuid "04553c2c-a718-42f1-906e-421bfe9e71b6")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "LCD_RESET" input
+			(at 191.77 196.85 0)
+			(uuid "9b3c0ad1-259c-449d-8b4d-335907463a6f")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 			)
 		)
 		(instances
