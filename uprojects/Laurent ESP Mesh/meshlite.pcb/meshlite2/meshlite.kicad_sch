@@ -5403,6 +5403,16 @@
 	)
 	(wire
 		(pts
+			(xy 121.92 97.79) (xy 116.84 97.79)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bd119d54-71c5-4436-834f-86713431bdc8")
+	)
+	(wire
+		(pts
 			(xy 88.9 95.25) (xy 86.36 94.615)
 		)
 		(stroke
@@ -5460,6 +5470,16 @@
 			(type default)
 		)
 		(uuid "d45b4d8e-0df8-4b99-bcee-6930658bcaaf")
+	)
+	(wire
+		(pts
+			(xy 116.84 97.79) (xy 116.84 105.41)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d66fb003-6909-4e59-9931-f9f86a37c080")
 	)
 	(wire
 		(pts
@@ -5643,13 +5663,13 @@
 	)
 	(wire
 		(pts
-			(xy 175.26 92.71) (xy 166.37 92.71)
+			(xy 116.84 105.41) (xy 125.73 105.41)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "fa4e2d90-4404-424e-affc-d41c485c86ce")
+		(uuid "fa226462-6eb9-4439-8c61-1470937b9b8a")
 	)
 	(wire
 		(pts
@@ -5742,7 +5762,7 @@
 		(uuid "67af0362-c7e8-4cb4-bdcc-78365f904534")
 	)
 	(label "RELAY_ON"
-		(at 175.26 92.71 0)
+		(at 125.73 105.41 0)
 		(effects
 			(font
 				(size 1.27 1.27)
