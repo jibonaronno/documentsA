@@ -1,0 +1,10 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "MOUDLE-SEEEDUINO-XIAO-ESP32C3")(type "KiCad")(uri "${KIPRJMOD}/Seeeduino xiao ESP32C3 KiCAD Library/MOUDLE-SEEEDUINO-XIAO-ESP32C3.kicad_sym")(options "")(descr ""))
+  (lib (name "CPC1916Y")(type "KiCad")(uri "${KIPRJMOD}/CPC1916Y/CPC1916Y.kicad_sym")(options "")(descr ""))
+  (lib (name "INA219")(type "KiCad")(uri "${KIPRJMOD}/INA219/INA219.kicad_sym")(options "")(descr ""))
+  (lib (name "DCJ200-10-A-XX-K_REVA")(type "KiCad")(uri "${KIPRJMOD}/DCJ200-10-A-XX-K_REVA/DCJ200-10-A-XX-K_REVA.kicad_sym")(options "")(descr ""))
+  (lib (name "2026-01-20_10-41-15")(type "KiCad")(uri "${KIPRJMOD}/B5PS_VH_FOOTPRINT/KiCADv6/2026-01-20_10-41-15.kicad_sym")(options "")(descr ""))
+  (lib (name "yaaj_dcdc_stepdown_lm2596")(type "Legacy")(uri "${KIPRJMOD}/lm2596-model-for-kicad/KiCad/yaaj_dcdc_stepdown_lm2596.lib")(options "")(descr ""))
+  (lib (name "spacer")(type "KiCad")(uri "${KIPRJMOD}/spacer.kicad_sym")(options "")(descr ""))
+)

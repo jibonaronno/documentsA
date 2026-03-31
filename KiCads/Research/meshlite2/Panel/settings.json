@@ -1,0 +1,32 @@
+{
+    "layout": {
+        "hspace": "4mm",
+        "vspace": "4mm",
+        "rows": "2",
+        "cols": "2",
+        "vbonecut": "False"
+    },
+    "tabs": {
+        "type": "fixed"
+    },
+    "cuts": {
+        "type": "mousebites",
+        "offset": "0.1mm"
+    },
+    "framing": {
+        "type": "frame"
+    },
+    "tooling": {
+        "type": "4hole",
+        "hoffset": "1mm",
+        "voffset": "1mm"
+    },
+    "fiducials": {
+        "type": "4fid",
+        "hoffset": "3mm",
+        "voffset": "1mm"
+    },
+    "post": {
+        "millradius": "1mm"
+    }
+}
