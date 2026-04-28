@@ -1,0 +1,49 @@
+EESchema-LIBRARY Version 2.3
+#encoding utf-8
+#SamacSys ECAD Model F32Q-1A7H1-11022
+#/14970399/1330582/2.50/26/2/Connector
+DEF F32Q-1A7H1-11022 J 0 30 Y Y 1 F N
+F0 "J" 2550 500 50 H V L CNN
+F1 "F32Q-1A7H1-11022" 2550 400 50 H V L CNN
+F2 "F32Q1A7H111022" 2550 300 50 H I L CNN
+F3 "https://cdn.amphenol-cs.com/media/wysiwyg/files/drawing/f32q-f32t.pdf" 2550 200 50 H I L CNN
+F4 "Flex Connector, 0.50mm Pitch, Height 2.00mm, Right angle, Slider type, ZIF, Upper contact, 22 position , Without MYLAR" 2550 100 50 H I L CNN "Description"
+F5 "2.2" 2550 0 50 H I L CNN "Height"
+F6 "Amphenol Communications Solutions" 2550 -100 50 H I L CNN "Manufacturer_Name"
+F7 "F32Q-1A7H1-11022" 2550 -200 50 H I L CNN "Manufacturer_Part_Number"
+F8 "649-F32Q-1A7H1-11022" 2550 -300 50 H I L CNN "Mouser Part Number"
+F9 "https://www.mouser.co.uk/ProductDetail/Amphenol-Aorora/F32Q-1A7H1-11022?qs=xZ%2FP%252Ba9zWqbp%2FwxqDihMFA%3D%3D" 2550 -400 50 H I L CNN "Mouser Price/Stock"
+F10 "F32Q-1A7H1-11022" 2550 -500 50 H I L CNN "Arrow Part Number"
+F11 "https://www.arrow.com/en/products/f32q-1a7h1-11022/amphenol-fci?utm_currency=USD&region=nac" 2550 -600 50 H I L CNN "Arrow Price/Stock"
+DRAW
+X 1 1 300 500 200 D 50 50 0 0 P
+X 2 2 400 500 200 D 50 50 0 0 P
+X 3 3 500 500 200 D 50 50 0 0 P
+X 4 4 600 500 200 D 50 50 0 0 P
+X 5 5 700 500 200 D 50 50 0 0 P
+X 6 6 800 500 200 D 50 50 0 0 P
+X 7 7 900 500 200 D 50 50 0 0 P
+X 8 8 1000 500 200 D 50 50 0 0 P
+X 9 9 1100 500 200 D 50 50 0 0 P
+X 10 10 1200 500 200 D 50 50 0 0 P
+X 11 11 1300 500 200 D 50 50 0 0 P
+X 12 12 1400 500 200 D 50 50 0 0 P
+X 13 13 1500 500 200 D 50 50 0 0 P
+X 14 14 1600 500 200 D 50 50 0 0 P
+X 15 15 1700 500 200 D 50 50 0 0 P
+X 16 16 1800 500 200 D 50 50 0 0 P
+X 17 17 1900 500 200 D 50 50 0 0 P
+X 18 18 2000 500 200 D 50 50 0 0 P
+X 19 19 2100 500 200 D 50 50 0 0 P
+X 20 20 2200 500 200 D 50 50 0 0 P
+X 21 21 2300 500 200 D 50 50 0 0 P
+X 22 22 2400 500 200 D 50 50 0 0 P
+X MP1 MP1 0 0 200 R 50 50 0 0 P
+X MP2 MP2 2700 0 200 L 50 50 0 0 P
+X MP3 MP3 1300 -600 200 U 50 50 0 0 P
+X MP4 MP4 1400 -600 200 U 50 50 0 0 P
+P 5 0 1 6 200 300 2500 300 2500 -400 200 -400 200 300 N
+ENDDRAW
+ENDDEF
+#
+#End Library

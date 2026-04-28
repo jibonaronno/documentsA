@@ -1,0 +1,5 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "CM4IO")(type "KiCad")(uri "${KIPRJMOD}/hardware/libraries/CM4IO/CM4IO.kicad_sym")(options "")(descr ""))
+  (lib (name "F32Q-1A7H1-11022")(type "KiCad")(uri "${KIPRJMOD}/F32Q-1A7H1-11022/F32Q-1A7H1-11022.kicad_sym")(options "")(descr ""))
+)

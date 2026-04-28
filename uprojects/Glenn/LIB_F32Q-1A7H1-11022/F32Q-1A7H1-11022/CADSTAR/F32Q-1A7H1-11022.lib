@@ -1,0 +1,19 @@
+.F32Q-1A7H1-11022 :1 ;Flex Connector, 0.50mm Pitch, Height 2.00mm, Right angle, Slider type, ZIF, Upper contact, 22 position , Without MYLAR
+F32Q1A7H111022
+*STM J
+*NGS
+*PNM 1=1 2=2 3=3 4=4 5=5 6=6 7=7 8=8 9=9 10=10 11=11 12=12 13=13 14=14 15=15 16=16 17=17 18=18 19=19 20=20 21=21 22=22 23=MP1 24=MP2 25=MP3 26=MP4
+*PLB 1="1" 2="2" 3="3" 4="4" 5="5" 6="6" 7="7" 8="8" 9="9" 10="10" 11="11" 12="12" 13="13" 14="14" 15="15" 16="16" 17="17" 18="18" 19="19" 20="20" 21="21" 22="22" 23="MP1" 24="MP2" 25="MP3" 26="MP4"
+*MXP 26
+*DFN F32Q-1A7H1-11022
+~!Manufacturer_Name (Amphenol Communications Solutions)
+~!Manufacturer_Part_Number (F32Q-1A7H1-11022)
+~!Mouser Part Number (649-F32Q-1A7H1-11022)
+~!Link Mouser Price/Stock (https://www.mouser.co.uk/ProductDetail/Amphenol-Aorora/F32Q-1A7H1-11022?qs=xZ%2FP%252Ba9zWqbp%2FwxqDihMFA%3D%3D)
+~!Arrow Part Number (F32Q-1A7H1-11022)
+~!Link Arrow Price/Stock (https://www.arrow.com/en/products/f32q-1a7h1-11022/amphenol-fci?utm_currency=USD&region=nac)
+~!Link Datasheet (https://cdn.amphenol-cs.com/media/wysiwyg/files/drawing/f32q-f32t.pdf)
+~!Height (2.2mm)
+~!3D_Model (F32Q-1A7H1-11022)
+F32Q-1A7H1-11022
+1.1!U 2.1!U 3.1!U 4.1!U 5.1!U 6.1!U 7.1!U 8.1!U 9.1!U 10.1!U 11.1!U 12.1!U 13.1!U 14.1!U 15.1!U 16.1!U 17.1!U 18.1!U 19.1!U 20.1!U 21.1!U 22.1!U 23.1!U 24.1!U 25.1!U 26.1!U 
