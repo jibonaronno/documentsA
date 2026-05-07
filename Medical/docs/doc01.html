@@ -4,7 +4,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Holter Update Description</title>
+  <title>Stethoscope Design Considerations</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lexend+Exa:wght@100..900&display=swap" rel="stylesheet">
@@ -31,7 +31,7 @@
 <body>
 
   <div style="padding: 20px;font-size: 24px; line-height: 40px">
-    <div class="title_b">Holter Updates</div>
+    <div class="title_b">ESP32-S3 Pins Considerations</div>
 
     <!-- SHOW HIDE START 001  -->
 
@@ -45,12 +45,80 @@
       }
     </style>
 
-    <h2><label for="toggle-001">Check doxC</label></h2>
+    <h2><label for="toggle-001">ESP32-S3 Hardware Issues</label></h2>
     <input type="checkbox" id="toggle-001" style="display: none;">
+    <div id="div-001">
+      <p>ESP32-S3 Pinout</p> <br>
+      <img src="img/img05.jpg" alt="ESP32-S3 Pinout" style=" max-width: 70%; height: auto;"> <br> 
+      Example Video <a href="https://www.youtube.com/watch?v=FbX17hZbY7s">ESP32-S3 - FSPI and HSPI demonstration with ADS1256 and ILI9341 LCD</a> <br>
 
+      <p>Follow this guide from GitHub: <a href="https://github.com/atomic14/esp32-s3-pinouts">atomic14/esp32-s3-pinouts</a> </p> <br>
+      GPIO0: Pull-up (with a button to ground). <br>
+      GPIO3: Leave disconnected. <br>
+      GPIO45 (VDD_SPI): Leave disconnected. <br>
+      GPIO46: Leave disconnected. <br>
+      MUST NOT use GPIO35, GPIO36 or GPIO37. For 8MB or Octal PSRAM. <br>
+
+      JTAG pins: <br>
+      GPIO39, GPIO40, GPIO41, GPIO42 <br>
+      The behaviour of these pins is determined by eFuses in conjunction with GPIO3. <br>
+      By default, if you haven't burnt any eFuses yet, these pins are safe to use*. <br>
+      JTAG will be available over USB. <br>
+      Also consider GPIO39 as it starts pulled-up at boot. <br>
+      <img src="img/img06.jpg" alt="ESP32-S3 Pinout" style=" max-width: 70%; height: auto;"> <br> 
+      UART Pins: <br>
+      GPIO43, GPIO44 <br>
+      <h2>Difference Between WROOM-1 and WROOM-2</h2>
+      WROOM-1-N16R8: Uses Quad SPI (QSPI) for the 16MB Flash and Octal SPI (OPI) for the 8MB PSRAM. It transfers flash data over a 4-bit bus. <br>
+      WROOM-2-N16R8: Uses Octal SPI (OPI) for both the 16MB Flash and the 8MB PSRAM. It transfers flash data over an 8-bit bus. <br>
+      WROOM-1: GPIO35, GPIO36, and GPIO37 are exposed and available for you to use. <br>
+      WROOM-2: GPIO35, GPIO36, and GPIO37 are tied to the internal Flash memory. <br>
+      They are not available for your use (if you connect them to external components, the ESP32-S3 will crash). <br> 
+      
+    </div>
     
     
     <!-- SHOW HIDE END 001  -->
+
+    <!-- SHOW HIDE START 002  -->
+
+    <style type="text/css">
+      div[id=div-002] {
+        display: none;
+      }
+
+      input[id=toggle-002]:checked~div[id=div-002] {
+        display: block;
+      }
+    </style>
+
+    <h2><label for="toggle-002">ADS1293 AND ADS1294 OR ADS1298</label></h2>
+    <input type="checkbox" id="toggle-002" style="display: none;">
+    <div id="div-002">
+
+      <img src="img/img07.jpg" alt="ADS1294/8" style=" max-width: 70%; height: auto;"> <br> 
+      <img src="img/img08.jpg" alt="ADS1294/8" style=" max-width: 70%; height: auto;"> <br> 
+      Check file ADS1294_01.pdf for more details. <br>
+    </div>
+    <!-- SHOW HIDE END 002  -->
+
+    <!-- SHOW HIDE START 003  -->
+
+    <style type="text/css">
+      div[id=div-003] {
+        display: none;
+      }
+
+      input[id=toggle-003]:checked~div[id=div-003] {
+        display: block;
+      }
+    </style>
+
+    <h2><label for="toggle-003">ESP32-S3 Hardware Issues</label></h2>
+    <input type="checkbox" id="toggle-003" style="display: none;">
+    <div id="div-003">
+    </div>
+    <!-- SHOW HIDE END 003  -->
 
   <!--
 <pre class="brush:js;">
