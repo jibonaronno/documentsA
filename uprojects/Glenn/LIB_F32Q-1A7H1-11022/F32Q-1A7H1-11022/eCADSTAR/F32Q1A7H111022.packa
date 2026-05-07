@@ -1,0 +1,13 @@
+(unit MM)
+
+(package "F32Q-1A7H1-11022"
+    (type UNDEF)
+    (uver 2)
+    (cuser "SamacSys")
+    (uuser "SamacSys")
+    (utime 2022-11-05-05:46:00)
+    (mountForm default
+        (footprintRef "F32Q1A7H111022")
+        (spec "System")
+    )
+)
