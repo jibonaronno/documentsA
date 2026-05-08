@@ -99,6 +99,27 @@
       <img src="img/img07.jpg" alt="ADS1294/8" style=" max-width: 70%; height: auto;"> <br> 
       <img src="img/img08.jpg" alt="ADS1294/8" style=" max-width: 70%; height: auto;"> <br> 
       Check file ADS1294_01.pdf for more details. <br>
+      <br>
+      Observe the diagram below. <br>
+      <img src="img/img09.jpg" alt="ADS1294/8" style=" max-width: 70%; height: auto;"> <br>
+      According to Gemini, ADS1294's 1st Channel IN1P and IN1N should be used for 3 Lead ECG. The 3rd Lead is the RLD_OUT pin <br>
+      that goes to N_DP of the Connector Port. <br>
+      Option 1: The "Clean Signal" Approach (1 Measuring Channel + RLD) <br>
+      IN1P connects to LA, then... <br>
+      IN1N connects to RA (Right Arm). <br>
+      The 3rd wire connects to the RLD_OUT pin (Right Leg Drive) and goes to the patient's 
+      Right Leg (or anywhere else on the body away from the heart). <br>
+      Option 2: The "Multi-Lead" Approach (2 Measuring Channels, No RLD) <br>
+      IN1P connects to LA, then... <br>
+      IN1N connects to RA (Right Arm). <br>
+      IN2P connects to LL (Left Leg). <br>
+      IN2N also connects to RA (Right Arm). You tie IN1N and IN2N together. <br>
+      2nd option could be noisy according to Gemini. <br>
+      <br>
+      According to Gemini: <br>
+      If you are building a 3-wire (3-Lead) ECG, you do not need the WCT at all. Leave it disconnected.<br>
+      WCT is needed only when using leads on chest to measure heart activity from different angles or axis. <br>
+
     </div>
     <!-- SHOW HIDE END 002  -->
 
