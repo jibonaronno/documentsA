@@ -1,0 +1,301 @@
+Here is plain text you can copy into a .txt file:
+
+1. 저는 한국어를 공부해요.  
+I study Korean.
+
+2. 오늘 날씨가 좋아요.  
+The weather is nice today.
+
+3. 학교에 친구가 많아요.  
+I have many friends at school.
+
+4. 아침에 빵을 먹어요.  
+I eat bread in the morning.
+
+5. 저녁에 텔레비전을 봐요.  
+I watch TV in the evening.
+
+6. 저는 음악을 자주 들어요.  
+I often listen to music.
+
+7. 저는 한국 드라마를 좋아해요.  
+I like Korean dramas.
+
+8. 주말에 영화를 봤어요.  
+I watched a movie on the weekend.
+
+9. 저는 매일 커피를 마셔요.  
+I drink coffee every day.
+
+10. 우리 집은 학교에서 가까워요.  
+My house is close to the school.
+
+11. 오늘 친구를 만났어요.  
+I met a friend today.
+
+12. 저는 공원에서 산책해요.  
+I take a walk in the park.
+
+13. 저는 과일을 좋아해요.  
+I like fruit.
+
+14. 어제 사과를 샀어요.  
+I bought apples yesterday.
+
+15. 저는 한국 노래를 잘 불러요.  
+I sing Korean songs well.
+
+16. 동생은 축구를 아주 잘해요.  
+My younger sibling plays soccer very well.
+
+17. 저는 도서관에서 공부해요.  
+I study at the library.
+
+18. 오늘은 바빠서 점심을 못 먹었어요.  
+I was busy today, so I couldn’t eat lunch.
+
+19. 저는 아침에 일찍 일어나요.  
+I get up early in the morning.
+
+20. 밤에 늦게 자요.  
+I go to bed late at night.
+
+21. 저는 한국 친구가 있어요.  
+I have a Korean friend.
+
+22. 저는 매일 일기를 써요.  
+I write a diary every day.
+
+23. 저는 서울에 살아요.  
+I live in Seoul.
+
+24. 우리 가족은 네 명이에요.  
+There are four people in my family.
+
+25. 저는 어머니를 많이 도와요.  
+I help my mother a lot.
+
+26. 아버지는 회사에 다녀요.  
+My father works at a company.
+
+27. 언니는 대학생이에요.  
+My older sister is a university student.
+
+28. 오빠는 집에서 쉬고 있어요.  
+My older brother is resting at home.
+
+29. 저는 시장에서 옷을 샀어요.  
+I bought clothes at the market.
+
+30. 오늘 학교에 늦었어요.  
+I was late to school today.
+
+31. 저는 김치를 좋아해요.  
+I like kimchi.
+
+32. 점심에 비빔밥을 먹었어요.  
+I ate bibimbap for lunch.
+
+33. 한국 음식은 조금 매워요.  
+Korean food is a little spicy.
+
+34. 저는 물을 많이 마셔요.  
+I drink a lot of water.
+
+35. 저는 매일 운동해요.  
+I exercise every day.
+
+36. 저녁에 친구와 같이 뛰었어요.  
+I ran with my friend in the evening.
+
+37. 저는 책 읽는 것을 좋아해요.  
+I like reading books.
+
+38. 어제 재미있는 책을 봤어요.  
+I read an interesting book yesterday.
+
+39. 저는 사진 찍기를 좋아해요.  
+I like taking photos.
+
+40. 주말에 사진을 많이 찍었어요.  
+I took many photos on the weekend.
+
+41. 저는 한국에 여행 가고 싶어요.  
+I want to travel to Korea.
+
+42. 방학에 바다에 갔어요.  
+I went to the sea during vacation.
+
+43. 저는 비행기를 처음 타봤어요.  
+I took an airplane for the first time.
+
+44. 저는 버스로 학교에 가요.  
+I go to school by bus.
+
+45. 지하철이 아주 편리해요.  
+The subway is very convenient.
+
+46. 오늘 백화점에 갔어요.  
+I went to the department store today.
+
+47. 저는 운동화를 샀어요.  
+I bought sneakers.
+
+48. 이 옷은 아주 예뻐요.  
+These clothes are very pretty.
+
+49. 저는 값이 싼 물건을 좋아해요.  
+I like cheap items.
+
+50. 이 신발은 너무 비싸요.  
+These shoes are too expensive.
+
+51. 저는 한국어 수업을 들어요.  
+I take a Korean class.
+
+52. 선생님은 아주 친절해요.  
+The teacher is very kind.
+
+53. 저는 숙제를 매일 해요.  
+I do my homework every day.
+
+54. 어제 숙제를 안 했어요.  
+I didn’t do my homework yesterday.
+
+55. 저는 시험을 잘 보고 싶어요.  
+I want to do well on the test.
+
+56. 다음 주에 시험이 있어요.  
+There is a test next week.
+
+57. 저는 노래방에 가고 싶어요.  
+I want to go to the karaoke room.
+
+58. 친구와 같이 놀고 싶어요.  
+I want to hang out with my friend.
+
+59. 저는 집에서 게임을 해요.  
+I play games at home.
+
+60. 어제 새 게임을 샀어요.  
+I bought a new game yesterday.
+
+61. 저는 아침에 샤워해요.  
+I take a shower in the morning.
+
+62. 밤에 머리를 감았어요.  
+I washed my hair at night.
+
+63. 저는 방을 자주 청소해요.  
+I often clean my room.
+
+64. 오늘 방이 아주 깨끗해요.  
+My room is very clean today.
+
+65. 저는 빨래를 했어요.  
+I did the laundry.
+
+66. 저는 설거지를 안 좋아해요.  
+I don’t like washing the dishes.
+
+67. 저는 한국어를 혼자 공부해요.  
+I study Korean by myself.
+
+68. 인터넷으로 단어를 찾아요.  
+I look up words on the internet.
+
+69. 저는 사전을 자주 봐요.  
+I often use a dictionary.
+
+70. 저는 한글을 많이 연습해요.  
+I practice Hangeul a lot.
+
+71. 오늘 새 친구를 사귀었어요.  
+I made a new friend today.
+
+72. 저는 사람을 만나는 것을 좋아해요.  
+I like meeting people.
+
+73. 저는 약속 시간에 항상 일찍 가요.  
+I always go early to appointments.
+
+74. 오늘 약속이 취소됐어요.  
+Today my appointment was canceled.
+
+75. 저는 한국 음식을 만들고 싶어요.  
+I want to cook Korean food.
+
+76. 어제 라면을 끓였어요.  
+I cooked ramen yesterday.
+
+77. 저는 요리를 잘 못해요.  
+I am not good at cooking.
+
+78. 저는 컴퓨터를 자주 사용해요.  
+I use the computer often.
+
+79. 저는 휴대전화를 잃어버렸어요.  
+I lost my cellphone.
+
+80. 저는 매일 이메일을 확인해요.  
+I check my email every day.
+
+81. 오늘은 일이 많아요.  
+I have a lot of work today.
+
+82. 저는 주말에 쉬고 싶어요.  
+I want to rest on the weekend.
+
+83. 저는 토요일에 아르바이트를 해요.  
+I work part-time on Saturday.
+
+84. 저는 카페에서 일해요.  
+I work at a cafe.
+
+85. 저는 커피를 무료로 마셨어요.  
+I drank coffee for free.
+
+86. 저는 동물을 좋아해요.  
+I like animals.
+
+87. 우리 집에는 강아지가 있어요.  
+There is a puppy in our house.
+
+88. 강아지와 공원에서 놀았어요.  
+I played with the puppy at the park.
+
+89. 저는 사진을 친구에게 보냈어요.  
+I sent a photo to my friend.
+
+90. 저는 어제 너무 피곤했어요.  
+I was very tired yesterday.
+
+91. 오늘 기분이 좋아요.  
+I feel good today.
+
+92. 저는 조금 아파요.  
+I feel a little sick.
+
+93. 약을 먹고 잤어요.  
+I took medicine and slept.
+
+94. 저는 병원에 갔어요.  
+I went to the hospital.
+
+95. 저는 한국 문화를 배우고 있어요.  
+I am learning Korean culture.
+
+96. 저는 설날에 떡국을 먹고 싶어요.  
+I want to eat rice-cake soup on New Year’s Day.
+
+97. 저는 한복을 입어 보고 싶어요.  
+I want to try wearing hanbok.
+
+98. 저는 박물관을 구경했어요.  
+I looked around the museum.
+
+99. 저는 사진을 SNS에 올렸어요.  
+I uploaded a photo on social media.
+
+100. 저는 매일 한국어를 연습하려고 해요.  
+I try to practice Korean every day.
