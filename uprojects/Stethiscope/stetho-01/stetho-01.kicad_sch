@@ -3081,6 +3081,16 @@
 	)
 	(wire
 		(pts
+			(xy 154.94 177.8) (xy 157.48 177.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3a5b57cd-1860-4a08-a084-2ceaf9a1d18f")
+	)
+	(wire
+		(pts
 			(xy 140.97 170.18) (xy 140.97 175.26)
 		)
 		(stroke
@@ -3168,6 +3178,16 @@
 			(type default)
 		)
 		(uuid "559a70b0-26fa-4bc2-b04b-586fa02ede8c")
+	)
+	(wire
+		(pts
+			(xy 154.94 181.61) (xy 154.94 177.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "582aef3a-523d-4ff2-8afc-4484fcfca8b3")
 	)
 	(wire
 		(pts
@@ -3298,6 +3318,16 @@
 			(type default)
 		)
 		(uuid "9c34fd08-2126-4649-951c-82b028bfaa52")
+	)
+	(wire
+		(pts
+			(xy 157.48 177.8) (xy 157.48 181.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a219e7b8-3812-4835-ac1c-1802af7a82bc")
 	)
 	(wire
 		(pts
@@ -3733,6 +3763,86 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:C_Small")
+		(at 158.75 152.4 270)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "21b6db7d-24d7-4f4d-a68e-046c1c183edc")
+		(property "Reference" "C?"
+			(at 158.7436 146.05 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1nF"
+			(at 158.7436 148.59 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 158.75 152.4 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 158.75 152.4 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Unpolarized capacitor, small symbol"
+			(at 158.75 152.4 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "a8a79ec2-7a8f-41e1-8611-5c13675453d9")
+		)
+		(pin "1"
+			(uuid "ae400470-24dc-482a-8beb-8e7ea693e502")
+		)
+		(instances
+			(project "stetho-01"
+				(path "/04fa24c6-1746-4cd8-a57f-0a98044e2410"
+					(reference "C?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:VDDA")
 		(at 214.63 191.77 0)
 		(unit 1)
@@ -3805,6 +3915,85 @@
 			(project "stetho-01"
 				(path "/04fa24c6-1746-4cd8-a57f-0a98044e2410"
 					(reference "#PWR03")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C_Small")
+		(at 158.75 158.75 270)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "35403620-484e-45dd-8d2c-3c6cf28fb76e")
+		(property "Reference" "C?"
+			(at 160.02 161.544 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1nF"
+			(at 156.718 161.544 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 158.75 158.75 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 158.75 158.75 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Unpolarized capacitor, small symbol"
+			(at 158.75 158.75 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "55194989-3ebf-4777-be34-7b65359e6750")
+		)
+		(pin "1"
+			(uuid "fac3d289-0f3a-43aa-a1e6-b73b2c8b9090")
+		)
+		(instances
+			(project "stetho-01"
+				(path "/04fa24c6-1746-4cd8-a57f-0a98044e2410"
+					(reference "C?")
 					(unit 1)
 				)
 			)
