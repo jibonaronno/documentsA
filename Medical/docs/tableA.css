@@ -1,0 +1,24 @@
+table {
+  border-collapse: collapse;
+  margin: 1em 0;
+  /* width: 100%; */
+  max-width: 50%;
+}
+
+th,
+td {
+  border: 1px solid #d0d7de;
+  padding: 6px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: #f6f8fa;
+}
+
+@media print {
+  table {
+    page-break-inside: avoid;
+  }
+}

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ESP32-S3-Touch-LCD-1.46-Test — ESP-IDF v6.0.1 Port: Change Summary</title>
+<style>
+  body {
+    font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.55;
+    max-width: 1080px;
+    margin: 2em auto;
+    padding: 0 1.5em;
+    color: #1f2328;
+    background: #ffffff;
+  }
+  h1 { border-bottom: 2px solid #d0d7de; padding-bottom: .3em; }
+  h2 { border-bottom: 1px solid #d0d7de; padding-bottom: .25em; margin-top: 2em; }
+  h3 { margin-top: 1.6em; }
+  code, pre { font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; font-size: 0.92em; }
+  code { background: #f6f8fa; padding: .15em .35em; border-radius: 4px; }
+  pre {
+    background: #f6f8fa;
+    padding: 12px 14px;
+    border-radius: 6px;
+    overflow-x: auto;
+    border: 1px solid #d0d7de;
+  }
+  pre code { background: transparent; padding: 0; }
+  table { border-collapse: collapse; margin: 1em 0; width: 100%; }
+  th, td { border: 1px solid #d0d7de; padding: 6px 10px; text-align: left; vertical-align: top; }
+  th { background: #f6f8fa; }
+  ul, ol { padding-left: 1.6em; }
+  .new-tag { display: inline-block; background: #1f883d; color: #fff; font-size: 0.75em; padding: 1px 6px; border-radius: 10px; vertical-align: middle; margin-left: 6px; }
+  .file { font-family: "SFMono-Regular", Consolas, monospace; color: #0969da; }
+  hr { border: 0; border-top: 1px solid #d0d7de; margin: 2.5em 0; }
+  blockquote { border-left: 4px solid #d0d7de; margin: 1em 0; padding: .2em 1em; color: #57606a; background: #f6f8fa; }
+  @media print {
+    body { max-width: none; margin: 0; padding: 0.5in; font-size: 10pt; }
+    pre, table, blockquote { page-break-inside: avoid; }
+    h1, h2, h3 { page-break-after: avoid; }
+    a { color: inherit; text-decoration: none; }
+  }
+</style>
+</head>
+<body>
+
+<h1>ESP32-S3-Touch-LCD-1.46-Test — ESP-IDF v6.0.1 Port: Change Summary</h1>
+
+<p>A complete record of every modification made while porting this Waveshare demo from its original ESP-IDF version to <strong>ESP-IDF v6.0.1</strong> (xtensa-esp-elf-gcc 15.2.0, target <strong>esp32s3</strong>, picolibc, LVGL 8.3.11).</p>
+
+<hr>
+
+<h2>1. Build-system / dependency fixes (IDF v6.0 breaking changes)</h2>
+
+<h3>1.1 <code>json</code> component removed → replaced with managed <code>cjson</code></h3>
+<p><strong>File:</strong> <span class="file">main/idf_component.yml</span></p>
+<ul>
+  <li>Added managed dependency:
+    <pre><code>espressif/cjson: "~1.7.19"</code></pre>
+  </li>
+</ul>
+
+<p><strong>File:</strong> <span class="file">components/espressif__esp-sr/CMakeLists.txt</span></p>
+<ul>
+  <li>Replaced <code>json</code> with <code>cjson</code> in the <code>REQUIRES</code> lists for the <code>esp32</code>, <code>esp32s3</code> and <code>esp32p4</code> blocks.</li>
+</ul>
+
+<h3>1.2 <code>driver/i2s.h</code> split out → <code>esp_driver_i2s</code></h3>
+<p><strong>File:</strong> <span class="file">components/chmorgan__esp-audio-player/CMakeLists.txt</span></p>
+<ul><li>Added <code>esp_driver_i2s</code> to the component's <code>REQUIRES</code> line.</li></ul>
+
+<h3>1.3 GCC 15 no longer transitively includes <code>&lt;cmath&gt;</code> in some C++ TUs</h3>
+<p><strong>Files:</strong></p>
+<ul>
+  <li><span class="file">components/espressif__esp-dsp/modules/kalman/ekf/common/ekf.cpp</span></li>
+  <li><span class="file">components/espressif__esp-dsp/modules/kalman/ekf/common/ekf_imu13states.cpp</span></li>
+</ul>
+<p>Added at the top of each file:</p>
+<pre><code>#include &lt;cmath&gt;</code></pre>
+
+<h3>1.4 Correct build target</h3>
+<p>User manually ran:</p>
+<pre><code>Remove-Item Env:IDF_TARGET
+Remove-Item sdkconfig
+idf.py set-target esp32s3</code></pre>
+<p>(Earlier <code>esp32</code> target caused <code>GPIO_NUM_47/48</code> undeclared errors.)</p>
+
+<hr>
+
+<h2>2. newlib → picolibc ABI shim</h2>
+
+<p>picolibc exposes a 256-entry <code>_ctype_b[256]</code> instead of newlib's 257-entry <code>_ctype_[257]</code>. The pre-built <code>esp-sr</code> libraries reference the old symbol.</p>
+
+<h3>2.1 New file <span class="new-tag">NEW</span></h3>
+<p><strong>File:</strong> <span class="file">main/newlib_ctype_compat.c</span></p>
+<ul><li>Defines <code>unsigned char _ctype_[257]</code> and uses a constructor to populate entries 1..256 from picolibc's <code>_ctype_b[256]</code>. Entry [0] is the sentinel (0).</li></ul>
+
+<h3>2.2 <span class="file">main/CMakeLists.txt</span></h3>
+<ul>
+  <li>Added <code>./newlib_ctype_compat.c</code> to <code>SRCS</code>.</li>
+  <li>Appended at the end to force-link the shim:
+    <pre><code>target_link_libraries(${COMPONENT_LIB} INTERFACE "-u _ctype_")</code></pre>
+  </li>
+</ul>
+
+<hr>
+
+<h2>3. MultiNet disabled (prebuilt lib ABI-incompatible with IDF v6.0)</h2>
+
+<p>Cause: <code>libmultinet.a</code> was built against newlib + older heap APIs and crashes with <code>StoreProhibited</code> at address <code>0x8</code> on first detect call.</p>
+
+<h3>3.1 <span class="file">sdkconfig.defaults</span></h3>
+<ul>
+  <li><code># CONFIG_USE_MULTINET is not set</code></li>
+  <li><code>CONFIG_SR_MN_EN_NONE=y</code></li>
+  <li>Commented out <code>CONFIG_SR_MN_CHINESE_SPEECH_COMMAND_MN5_QUANT8</code></li>
+  <li>Added <code>CONFIG_SPI_MASTER_ISR_IN_IRAM=y</code></li>
+</ul>
+
+<h3>3.2 <span class="file">main/MIC_Driver/MIC_Speech.c</span></h3>
+<ul>
+  <li>Removed <code>#include "esp_mn_iface.h"</code> and <code>#include "esp_mn_models.h"</code>.</li>
+  <li>Changed <code>i2s_init(i2s_port_t …)</code> → <code>i2s_init(int …)</code> (the typedef was removed in v6.0).</li>
+  <li>Rewrote <code>detect_hander</code> (sic) to wake-word-only: no MultiNet <code>create / detect / destroy</code> calls.</li>
+</ul>
+
+<p>Wake-word ("Hi ESP") detection still works.</p>
+
+<hr>
+
+<h2>4. SPI / LCD driver tuning</h2>
+
+<h3>4.1 <span class="file">main/LCD_Driver/Display_SPD2010.h</span></h3>
+<table>
+  <tr><th>Macro</th><th>Before</th><th>After</th></tr>
+  <tr><td><code>ESP_PANEL_LCD_SPI_CLK_HZ</code></td><td>80 MHz</td><td><strong>20 MHz</strong> (after passing through 40 MHz)</td></tr>
+  <tr><td><code>ESP_PANEL_HOST_SPI_MAX_TRANSFER_SIZE</code></td><td>2048</td><td><code>EXAMPLE_LCD_WIDTH * EXAMPLE_LCD_HEIGHT * (EXAMPLE_LCD_COLOR_BITS / 8)</code> (≈340 KB full frame)</td></tr>
+</table>
+
+<h3>4.2 <span class="file">main/LCD_Driver/Display_SPD2010.c</span></h3>
+<ul>
+  <li>Added <code>#include "LVGL_Driver.h"</code>.</li>
+  <li>Promoted <code>io_handle</code> to a global: <code>esp_lcd_panel_io_handle_t lcd_io_handle = NULL;</code> (replaces the local in <code>QSPI_Init</code>).</li>
+  <li>In the <code>esp_lcd_panel_io_spi_config_t</code>:
+    <pre><code>.on_color_trans_done = lvgl_notify_flush_ready,   // was NULL
+.user_ctx            = &amp;disp_drv,                  // was NULL</code></pre>
+  </li>
+  <li><code>esp_lcd_new_panel_io_spi(...)</code> and <code>esp_lcd_new_panel_spd2010(...)</code> now use <code>lcd_io_handle</code> instead of local <code>io_handle</code>.</li>
+</ul>
+
+<hr>
+
+<h2>5. LVGL driver — tearing fix + DMA backpressure</h2>
+
+<h3>5.1 <span class="file">main/LVGL_Driver/LVGL_Driver.h</span></h3>
+<ul>
+  <li><code>LVGL_BUF_LEN</code> changed from <code>(EXAMPLE_LCD_WIDTH * EXAMPLE_LCD_HEIGHT / 40)</code> → <code>(EXAMPLE_LCD_WIDTH * EXAMPLE_LCD_HEIGHT)</code> (full screen).</li>
+  <li>Declared new public callback:
+    <pre><code>bool lvgl_notify_flush_ready(esp_lcd_panel_io_handle_t panel_io,
+                             esp_lcd_panel_io_event_data_t *edata,
+                             void *user_ctx);</code></pre>
+  </li>
+</ul>
+
+<h3>5.2 <span class="file">main/LVGL_Driver/LVGL_Driver.c</span></h3>
+
+<p><strong>Added includes:</strong></p>
+<pre><code>#include "driver/gpio.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/semphr.h"
+#include "Display_SPD2010.h"</code></pre>
+
+<p><strong>Tear-effect (TE) GPIO sync — GPIO 18 from panel:</strong></p>
+<ul>
+  <li><code>static SemaphoreHandle_t s_te_sem</code></li>
+  <li><code>te_gpio_isr_handler</code> (<code>IRAM_ATTR</code>, gives sem from ISR on rising edge)</li>
+  <li><code>te_sync_init()</code>: configures GPIO 18 input + posedge interrupt, installs ISR service with <code>ESP_INTR_FLAG_IRAM</code>, attaches handler.</li>
+  <li>Called from <code>LVGL_Init()</code> right after <code>lv_disp_drv_register(&amp;disp_drv)</code>.</li>
+</ul>
+
+<p><strong>Flush callback — <code>example_lvgl_flush_cb</code>:</strong></p>
+<ul>
+  <li>Drains any stale TE pulse, then <code>xSemaphoreTake(s_te_sem, pdMS_TO_TICKS(20))</code> to wait for the next V-blank.</li>
+  <li>Calls <code>esp_lcd_panel_draw_bitmap(...)</code>.</li>
+  <li><strong>No longer calls <code>lv_disp_flush_ready()</code> synchronously</strong> — completion is signalled from the SPI ISR via <code>lvgl_notify_flush_ready</code>.</li>
+</ul>
+
+<p><strong>New <code>lvgl_notify_flush_ready</code>:</strong></p>
+<ul>
+  <li>Called by the panel-IO driver on <code>on_color_trans_done</code>.</li>
+  <li>Guards against firing during the boot self-test (<code>disp == NULL</code>).</li>
+  <li>Calls <code>lv_disp_flush_ready(drv)</code>.</li>
+</ul>
+
+<p><strong>New <code>example_lvgl_wait_cb</code>:</strong></p>
+<ul>
+  <li>Registered on <code>disp_drv.wait_cb</code>.</li>
+  <li>Calls <code>vTaskDelay(1)</code> so that LVGL's busy-wait loop in <code>refr_area_part</code> yields and the IDLE0 task can feed the WDT.</li>
+</ul>
+
+<p><strong><code>LVGL_Init()</code> changes:</strong></p>
+<pre><code>lv_color_t *buf1 = heap_caps_malloc(LVGL_BUF_LEN * sizeof(lv_color_t),
+                                    MALLOC_CAP_SPIRAM);                   // was MALLOC_CAP_DMA | MALLOC_CAP_INTERNAL
+lv_disp_draw_buf_init(&amp;disp_buf, buf1, NULL, LVGL_BUF_LEN);               // single full-frame buffer, no buf2
+...
+disp_drv.full_refresh = 1;          // entire frame in one flush_cb call
+disp_drv.wait_cb     = example_lvgl_wait_cb;
+disp = lv_disp_drv_register(&amp;disp_drv);
+te_sync_init();                     // attach TE GPIO ISR after disp exists</code></pre>
+
+<hr>
+
+<h2>6. Net effect on runtime behavior</h2>
+
+<table>
+  <tr><th>Symptom</th><th>Root cause</th><th>Fix</th></tr>
+  <tr><td><code>undefined reference to _ctype_</code></td><td>picolibc has <code>_ctype_b[256]</code>, esp-sr libs use newlib <code>_ctype_[257]</code></td><td>Shim + <code>-u _ctype_</code></td></tr>
+  <tr><td><code>StoreProhibited @ 0x8</code> in MultiNet</td><td>Prebuilt <code>libmultinet.a</code> ABI break</td><td>MultiNet disabled</td></tr>
+  <tr><td>Wrong GPIO numbers</td><td>Build target <code>esp32</code> instead of <code>esp32s3</code></td><td><code>idf.py set-target esp32s3</code></td></tr>
+  <tr><td>Missing <code>json</code>, <code>driver/i2s.h</code></td><td>Components renamed/split in v6.0</td><td>Replaced with <code>cjson</code>, <code>esp_driver_i2s</code></td></tr>
+  <tr><td><code>std::sqrt</code> etc. undefined in C++</td><td>GCC 15 no longer pulls in <code>&lt;cmath&gt;</code> indirectly</td><td>Added explicit <code>#include &lt;cmath&gt;</code></td></tr>
+  <tr><td>Horizontal tearing</td><td>TE pin GPIO 18 was unused</td><td>GPIO ISR + semaphore-gated flush</td></tr>
+  <tr><td>Tearing reduced but residual</td><td>Partial buffer + ~40 flushes per frame; only first synced</td><td>Full-screen PSRAM buffer + <code>full_refresh = 1</code></td></tr>
+  <tr><td><code>recycle spi transactions failed</code></td><td><code>lv_disp_flush_ready()</code> called too early → LVGL queued next frame before previous DMA drained</td><td>Move <code>flush_ready</code> into <code>on_color_trans_done</code></td></tr>
+  <tr><td>Task watchdog on IDLE0</td><td>LVGL busy-loops on <code>draw_buf->flushing</code> with no yield</td><td>Added <code>wait_cb = vTaskDelay(1)</code></td></tr>
+  <tr><td><code>DMA TX underflow</code></td><td>PSRAM→cache→DMA cannot sustain 40 MHz QSPI (~20 MB/s)</td><td>Dropped SPI clock to 20 MHz (~10 MB/s)</td></tr>
+</table>
+
+<hr>
+
+<h2>7. Files touched</h2>
+
+<p><strong>Modified</strong></p>
+<ul>
+  <li><span class="file">main/idf_component.yml</span></li>
+  <li><span class="file">main/CMakeLists.txt</span></li>
+  <li><span class="file">main/MIC_Driver/MIC_Speech.c</span></li>
+  <li><span class="file">main/LCD_Driver/Display_SPD2010.h</span></li>
+  <li><span class="file">main/LCD_Driver/Display_SPD2010.c</span></li>
+  <li><span class="file">main/LVGL_Driver/LVGL_Driver.h</span></li>
+  <li><span class="file">main/LVGL_Driver/LVGL_Driver.c</span></li>
+  <li><span class="file">sdkconfig.defaults</span></li>
+  <li><span class="file">components/espressif__esp-sr/CMakeLists.txt</span></li>
+  <li><span class="file">components/espressif__esp-dsp/modules/kalman/ekf/common/ekf.cpp</span></li>
+  <li><span class="file">components/espressif__esp-dsp/modules/kalman/ekf/common/ekf_imu13states.cpp</span></li>
+  <li><span class="file">components/chmorgan__esp-audio-player/CMakeLists.txt</span></li>
+</ul>
+
+<p><strong>Added</strong></p>
+<ul>
+  <li><span class="file">main/newlib_ctype_compat.c</span></li>
+</ul>
+
+<hr>
+
+<h2>8. Final working configuration</h2>
+
+<ul>
+  <li><strong>Target:</strong> esp32s3, octal PSRAM @ 80 MHz</li>
+  <li><strong>QSPI LCD clock:</strong> 20 MHz (quad lanes ≈ 10 MB/s — sustainable from PSRAM)</li>
+  <li><strong>LVGL buffer:</strong> single full-frame, 412 × 412 × 2 ≈ 340 KB in PSRAM</li>
+  <li><strong>Refresh model:</strong> <code>full_refresh = 1</code>, gated on panel TE rising edge (GPIO 18), <code>flush_ready</code> deferred to SPI DMA completion</li>
+  <li><strong>Voice:</strong> Wake-word "Hi ESP" works; MultiNet command recognition disabled</li>
+  <li><strong>Frame rate:</strong> ~25 fps (340 KB / 10 MB/s ≈ 34 ms per frame), tear-free</li>
+</ul>
+
+</body>
+</html>
