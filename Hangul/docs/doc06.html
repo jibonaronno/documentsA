@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>TPH Thermal Printer Firmware STM32F070</title>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <!-- BEGIN syntax highlighter -->
+    <script type="text/javascript" src="sh/shCore.js"></script>
+    <script type="text/javascript" src="sh/shBrushJScript.js"></script>
+
+    <!-- script type="text/javascript" src="sh/shBrushJScript.js"></script -->
+    <script type="text/javascript" src="syntaxhighlighter.js"></script>
+
+    <link type="text/css" rel="stylesheet" href="sh/shCore.css"/>
+    <link type="text/css" rel="stylesheet" href="sh/shThemeDefault.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Gruppo" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <script type="text/javascript">
+      SyntaxHighlighter.all();
+    </script>
+    <!-- END syntax highlighter -->
+
+    <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+    <!-- <link rel="stylesheet" href="linuxsetup.css"> -->
+    <link rel="stylesheet" href="document.css">
+  </head>
+<body>
+  
+<div style="padding: 20px; line-height: 40px">
+
+<!-- SHOW HIDE START 001  -->
+
+<style type="text/css">
+div[id=div-001] {
+  display: none;
+}
+  input[id=toggle-001]:checked ~ div[id=div-001] {
+    display: block;
+    }
+</style>
+
+<h1><label for="toggle-001">TPH Thermal Printer Firmware STM32F070</label></h1>
+<input type="checkbox" id="toggle-001" style="display: none;">
+
+<div id="div-001">
+  <h2>Dot Row Storage Architecture</h2>
+  <h3>1. Wire Format (incoming packet)</h3>
+  <table>
+    <tr><th>Byte</th><th>Field</th><th>Value</th></tr>
+    <tr><td>0</td><td>start</td> <td> 0xA5 (delimeter)</td></tr>
+    <tr><td>1</td><td>cmdID</td> <td> 0x05 = CMD_DOT_ROW</td></tr>
+    <tr><td>2</td><td>length</td> <td> 108 or 216 (bytes of pixel data)</td></tr>
+    <tr><td>(3...N)</td><td>payload</td> <td> packet bit array of dots</td></tr>
+  </table>
+  <p>Dots are packed 8 per byte -- 1728 dots = 216 bytes; 864 dots = 108 bytes</p>
+  <h3>2. In-memory queue structure</h3>
+  <P>Once parsed, each row is stored in a circular buffer defined in PrinterQueue.c:</P>
+  <pre>
+    typedef struct {
+        uint8_t data[PRINTER_QUEUE_ROW_SIZE]; // 216 bytes max
+        uint16_t len;                          // actual byte count (108 or 216)
+    } PrinterRow_t;
+
+    static PrinterRow_t queue[PRINTER_QUEUE_MAX_ROWS]; // 40 slots
+    static volatile uint16_t head = 0;
+    static volatile uint16_t tail = 0;
+  </pre>
+  <p>So the queue holds up to 40 rows, each up to 216 bytes (1728 dots / 8), for a total of ~8.6 KB of RAM.</p>
+  <h3>3. Flow: USB → Queue → Printer</h3>
+  <pre>
+    USB CDC receive
+     │
+     ▼
+Protocol_ProcessBytes()      ← reassembles fragmented USB packets
+     │
+     ▼
+Protocol_HandlePacket()      ← dispatches by cmdID
+     │  CMD_DOT_ROW
+     ▼
+PrinterProtocol_HandlePrintDotRow()  ← validates byte count
+     │
+     ▼
+PrinterQueue_AddRow()        ← IRQ-safe memcpy into circular buffer
+     │
+     ▼
+PrinterQueue_DequeueRowPtr() ← called by Printer task every 2 ms
+     │
+     ▼
+Thermal head strobing (Strobes.c / Motor.c)
+  </pre>
+
+  <h3>Key design points</h3>
+  <ul>
+  <li>IRQ safety: __disable_irq() / __enable_irq() guards every queue access since AddRow is called from the USB IRQ context and DequeueRow from the printer task/timer.</li>
+  <li>Overflow policy: If the queue is full (nextHead == tail), the incoming row is silently dropped (with a nop placeholder for a breakpoint).</li>
+  <li>Queue watermarks defined in PrinterQueue.h: QUEUE_ALMOST_EMPTY (5), QUEUE_ALMOST_FULL (38), QUEUE_READY_TO_START (35) — used for flow-control responses back to the host.</li>
+  </ul>
+
+  <p>SPI1 is used to shift dot data into the thermal head's shift register. Here's what the code confirms: In <strong><span class="file">Printer.c:</span></strong></p>
+  <pre>
+    extern SPI_HandleTypeDef hspi1;
+    extern DMA_HandleTypeDef hdma_spi1_tx;
+  </pre>
+  And the actual transfer:
+
+  <pre>
+    HAL_SPI_Transmit_DMA(lHspi1, pPData, transferSize);
+  </pre>
+
+  <p>This function <code>HAL_SPI_Transmit_DMA</code> is called in <span class="file">Printer.c</span> </p>
+  <pre>
+    case psPrinting:
+    if(itIsTime()) {
+        cleanPrinterTime();
+        if(PrinterQueue_DequeueRowPtr(&pData)) {
+            SendAndBurnDataLine(&hspi1, pData, transferSize);
+        } else {
+            if(!MotorIsFeeding()) {
+                if(printerNeedsFeeding) {
+                    if(feed_mm != 0) {
+                        MotorFeed(feed_mm);
+                        feed_mm = 0;
+                      } else {
+                          printerNeedsFeeding = false;
+                          printerState = psStopped;
+                      }
+                } else {
+                    printerState = psStarving;
+                    // Provably starving
+                }
+            } else { // is feeding
+                SendAndBurnDataLine(&hspi1, (uint8_t*)emptyLine, transferSize);
+            }
+        }
+    }
+  </pre>
+
+
+  <h3>How it works:</h3>
+<ul>
+<li>A dequeued row (108 or 216 bytes) is pushed out over SPI1 TX via DMA to clock the bits into the thermal head's internal shift register.</li>
+<li>Once the data is fully shifted in, the strobe signals (STROBE_0–3, driven via GPIO through TIM16 ISR in Strobes.c) are fired sequentially to heat the selected dot groups and burn the image onto the paper.</li>
+<li>The motor then advances the paper by one line pitch, and the process repeats every ~2 ms.</li>
+</ul>
+So the full print pipeline per row is: SPI1 DMA (shift data) → Strobe GPIOs (heat) → Motor step (advance paper).
+
+<p>Observer that the function <code>if(PrinterQueue_DequeueRowPtr(&pData))</code> Dequeues a row from the printer queue if available.</p>
+
+<p>Serial data of each row is transferred to the TPH head via SPI1 DMA then PA6 pin latches the output. Now Strobe signals are fired sequentially to heat the selected dot groups and burn the image onto the paper.
+  Strobes are driven via GPIO through TIM16 ISR in <strong><span class="file">Strobes.c</span></strong>. 
+</p>
+
+<p>The strobe heating time is defined by the darkness setting, darkness is set by command <code>CMD_SET_DARKNESS</code>. </p>
+
+<br>
+<h2>Command List In Firmware</h2>
+<h3><strong>File: <span class="file">PrinterProtocol.c</span></strong></h3>
+<pre>
+// --- Called once full packet is ready ---
+static void Protocol_HandlePacket(uint8_t *packet, uint8_t cmd, uint8_t len) {
+    switch (cmd) {
+    case CMD_SET_PROPERTIES:
+        if (len != 2) break;
+        PrinterProtocol_HandleSetProperties(packet, len);
+        break;
+
+    case CMD_QUERY_PAPER_STATUS:
+        localPrinterStatus = PrinterReadStatus(NULL);
+        PrinterProtocol_SendPaperStatus((PaperStatus_t)localPrinterStatus.paperPresent);
+        break;
+
+    case CMD_SET_DARKNESS:
+        if (len != 1) break;
+        PrinterSetDarkness((int)packet[0]);
+        break;
+
+    case CMD_SET_SPEED:
+        if (len != 1) break;
+        PrinterSetSpeed((PrintSpeed_t)packet[0]);
+        break;
+
+    case CMD_DOT_ROW:
+        PrinterProtocol_HandlePrintDotRow(packet, len);
+        break;
+
+    case CMD_FEED_OUT:
+        if (len != 1) break;
+        PrinterFeed((int)packet[0]);
+        break;
+
+    default:
+        // Unknown command — ignore
+        break;
+    }
+}
+</pre>
+
+</div>
+
+<!-- SHOW HIDE END 001  -->
+
+
+  <!-- SHOW HIDE START 006  -->
+  <style type="text/css">
+    div[id=div-006] {
+      display: none;
+    }
+      input[id=toggle-006]:checked ~ div[id=div-006] {
+        display: block;
+        }
+    </style>
+    
+    <h2><label for="toggle-006">Blank</label></h2>
+    <input type="checkbox" id="toggle-006" style="display: none;">
+    
+    <div id="div-006">
+      
+    </div>
+
+  <!-- SHOW HIDE END 006  -->
+
+  <!-- SHOW HIDE START 007  -->
+  <style type="text/css">
+    div[id=div-007] {
+      display: none;
+    }
+      input[id=toggle-007]:checked ~ div[id=div-007] {
+        display: block;
+        }
+    </style>
+    
+    <h2><label for="toggle-007">Blank</label></h2>
+    <input type="checkbox" id="toggle-007" style="display: none;">
+    
+    <div id="div-007">
+     
+
+    </div>
+  <!-- SHOW HIDE END 007  -->
+
+<!-- SHOW HIDE START 008  -->
+<style type="text/css">
+  div[id=div-008] {
+    display: none;
+  }
+    input[id=toggle-008]:checked ~ div[id=div-008] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-008">Blank</p3> </label></h2>
+  <input type="checkbox" id="toggle-008" style="display: none;">
+  
+  <div id="div-008">
+  </div>
+<!-- SHOW HIDE END 008  -->
+
+<!-- SHOW HIDE START 009  -->
+<style type="text/css">
+  div[id=div-009] {
+    display: none;
+  }
+    input[id=toggle-009]:checked ~ div[id=div-009] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-009">Blank </label></h2>
+  <input type="checkbox" id="toggle-009" style="display: none;">
+  
+  <div id="div-009">
+      
+
+  </div>
+<!-- SHOW HIDE END 009  -->
+
+<!-- SHOW HIDE START 010  -->
+<style type="text/css">
+  div[id=div-010] {
+    display: none;
+  }
+    input[id=toggle-010]:checked ~ div[id=div-010] {
+      display: block;
+      }
+  </style>
+  
+  <h2><label for="toggle-010"> Blank </label></h2>
+  <input type="checkbox" id="toggle-010" style="display: none;">
+  
+  <div id="div-010">
+    
+  </div>
+<!-- SHOW HIDE START 010  -->
+
+<!--   -->
+
+</div>
+
+<!--
+<pre class="brush:js;">
+</pre><br /><br />
+-->  
+</body>
+</html>
