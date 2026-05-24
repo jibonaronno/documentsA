@@ -50,7 +50,23 @@
         "silk_text_thickness": 0.1,
         "silk_text_upright": false,
         "zones": {
-          "min_clearance": 0.5
+          "border_display_style": 2,
+          "border_hatch_pitch": 0.5,
+          "corner_radius": 0.0,
+          "corner_smoothing": 0,
+          "fill_mode": 0,
+          "hatch_gap": 1.5,
+          "hatch_orientation": 0.0,
+          "hatch_smoothing_level": 0,
+          "hatch_smoothing_value": 0.1,
+          "hatch_thickness": 1.0,
+          "min_clearance": 0.5,
+          "min_island_area": 10.0,
+          "min_thickness": 0.25,
+          "pad_connection": 1,
+          "remove_islands": 0,
+          "thermal_relief_gap": 0.5,
+          "thermal_relief_spoke_width": 0.5
         }
       },
       "diff_pair_dimensions": [],
@@ -94,9 +110,9 @@
         "missing_tuning_profile": "warning",
         "net_conflict": "warning",
         "nonmirrored_text_on_back_layer": "warning",
-        "npth_inside_courtyard": "ignore",
+        "npth_inside_courtyard": "error",
         "padstack": "warning",
-        "pth_inside_courtyard": "ignore",
+        "pth_inside_courtyard": "error",
         "shorting_items": "error",
         "silk_edge_clearance": "warning",
         "silk_over_copper": "warning",
@@ -137,7 +153,7 @@
         "min_text_height": 0.8,
         "min_text_thickness": 0.08,
         "min_through_hole_diameter": 0.3,
-        "min_track_width": 0.0,
+        "min_track_width": 0.2,
         "min_via_annular_width": 0.1,
         "min_via_diameter": 0.5,
         "solder_mask_to_copper_clearance": 0.0,
@@ -473,7 +489,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "stetho-01.kicad_pro",
+    "filename": "reband.kicad_pro",
     "version": 3
   },
   "net_settings": {
@@ -640,9 +656,9 @@
     "subpart_id_separator": 0,
     "top_level_sheets": [
       {
-        "filename": "stetho-01.kicad_sch",
-        "name": "stetho-01",
-        "uuid": "04fa24c6-1746-4cd8-a57f-0a98044e2410"
+        "filename": "reband.kicad_sch",
+        "name": "reband",
+        "uuid": "c7caebd7-c852-4a9c-aa52-0360a481ad86"
       }
     ],
     "used_designators": "",
@@ -650,8 +666,8 @@
   },
   "sheets": [
     [
-      "04fa24c6-1746-4cd8-a57f-0a98044e2410",
-      "stetho-01"
+      "c7caebd7-c852-4a9c-aa52-0360a481ad86",
+      "reband"
     ]
   ],
   "text_variables": {},

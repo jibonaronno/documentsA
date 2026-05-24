@@ -1,0 +1,6 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "ESP32-C3FH4")(type "KiCad")(uri "${KIPRJMOD}/ESP32-C3FH4")(options "")(descr ""))
+  (lib (name "LMV324MT")(type "KiCad")(uri "${KIPRJMOD}/LMV324MT/LMV324MT.pretty")(options "")(descr ""))
+  (lib (name "MAX30009ENA_T")(type "KiCad")(uri "${KIPRJMOD}/MAX30009ENA_T/MAX30009ENA_T.pretty")(options "")(descr ""))
+)
