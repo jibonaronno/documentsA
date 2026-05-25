@@ -7,3 +7,5 @@ http://www.drumanart.com/gsr.html
 
 https://makezine.com/projects/the-truth-meter-2/
 
+PPG Sensor
+https://lastminuteengineers.com/max30102-pulse-oximeter-heart-rate-sensor-arduino-tutorial/
