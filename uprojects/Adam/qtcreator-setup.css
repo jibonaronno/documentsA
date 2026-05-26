@@ -1,0 +1,70 @@
+.doc-section {
+  background: #fff;
+  color: #222;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  border-radius: 8px;
+  padding: 2em 2em 1.5em 2em;
+  margin: 2em 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  max-width: 900px;
+}
+
+.doc-section h1, .doc-section h2, .doc-section h3 {
+  color: #1a4a7a;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+}
+
+.doc-section h1 {
+  font-size: 2em;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 0.2em;
+}
+
+.doc-section h2 {
+  font-size: 1.4em;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 0.1em;
+}
+
+.doc-section h3 {
+  font-size: 1.1em;
+}
+
+.doc-section ol, .doc-section ul {
+  margin-left: 2em;
+  margin-bottom: 1em;
+}
+
+.doc-section li {
+  margin-bottom: 0.5em;
+}
+
+.doc-section pre, .doc-section code {
+  background: #f5f7fa;
+  color: #2d3a4a;
+  font-family: 'Fira Mono', 'Consolas', 'Monaco', monospace;
+  font-size: 0.98em;
+  border-radius: 4px;
+}
+
+.doc-section pre {
+  padding: 1em;
+  overflow-x: auto;
+  margin: 1em 0;
+  border: 1px solid #e0e0e0;
+}
+
+.doc-section code {
+  padding: 0.2em 0.4em;
+}
+
+.doc-section .doc-note {
+  background: #eaf6ff;
+  border-left: 4px solid #2196f3;
+  padding: 0.8em 1em;
+  margin: 1em 0;
+  border-radius: 4px;
+  color: #17496b;
+  font-size: 0.98em;
+}

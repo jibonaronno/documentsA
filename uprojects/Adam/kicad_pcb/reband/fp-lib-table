@@ -9,4 +9,7 @@
 	(lib (name "EVQ_P7A01P") (type "KiCad") (uri "${KIPRJMOD}/EVQ_P7A01P") (options "") (descr ""))
 	(lib (name "TCR2EF33_LM_CT") (type "KiCad") (uri "${KIPRJMOD}/TCR2EF33_LM_CT/TCR2EF33_LM_CT.pretty") (options "") (descr ""))
 	(lib (name "TCR2EF18_LM_CT") (type "KiCad") (uri "${KIPRJMOD}/TCR2EF18_LM_CT/TCR2EF18_LM_CT.pretty") (options "") (descr ""))
+	(lib (name "S2B_ZR_LF_SN") (type "KiCad") (uri "${KIPRJMOD}/S2B_ZR_LF__SN_/S2B_ZR_LF_SN.pretty") (options "") (descr ""))
+	(lib (name "AP2112K_3_3TRG1") (type "KiCad") (uri "${KIPRJMOD}/AP2112K_3_3TRG1/AP2112K_3_3TRG1.pretty") (options "") (descr ""))
+	(lib (name "USB4215_03_A") (type "KiCad") (uri "${KIPRJMOD}/USB4215_03_A/USB4215_03_A.pretty") (options "") (descr ""))
 )
