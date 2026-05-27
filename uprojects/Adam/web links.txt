@@ -9,3 +9,7 @@ https://makezine.com/projects/the-truth-meter-2/
 
 PPG Sensor
 https://lastminuteengineers.com/max30102-pulse-oximeter-heart-rate-sensor-arduino-tutorial/
+
+ESP32-C3 Minimal Schematic
+https://docs.espressif.com/projects/esp-hardware-design-guidelines/en/latest/esp32c3/schematic-checklist.html
+https://www.reddit.com/r/esp32/comments/11gcq0g/custom_minimal_circuit_for_esp32_c3/
