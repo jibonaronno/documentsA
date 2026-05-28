@@ -40,7 +40,7 @@ div[id=div-001] {
     }
 </style>
 
-<h1><label for="toggle-001">Wrist Band Document</label></h1>
+<h1><label for="toggle-001">Wrist Band Components</label></h1>
 <input type="checkbox" id="toggle-001" style="display: none;">
 
 <div id="div-001">
@@ -93,6 +93,10 @@ div[id=div-001] {
       <p>
         <strong><span class="file">D:\kicad_mac\projects\Ron Tiso\Primary01\Primary02.pro:</span></strong></p>
       <img src="img/img005.jpg" alt="" style="width: 80%;"> <br>
+
+      <h2>Reference ESP32_C3 Schematic from <a href="https://github.com/mike-rankin/ESP32-C3_1.54inch_E-ink/tree/main">ESP32-C3_1.54inch_E-ink</a> </h2>
+      <img src="img/img012.jpg" alt="" style="width: 80%;"> <br>
+
     </div>
 
   <!-- SHOW HIDE END 006  -->
@@ -126,10 +130,73 @@ div[id=div-001] {
       }
   </style>
   
-  <h2><label for="toggle-008">Blank</label></h2>
+  <h2><label for="toggle-008">ESP32-C3 ESP32-C3FH4 chip GPIO</label></h2>
   <input type="checkbox" id="toggle-008" style="display: none;">
   
   <div id="div-008">
+    <h3>Which GPIOs SHOULD you use?</h3>
+    <p>For your wristband, you have a limited number of safe pins. Here are the available ones on the ESP32-C3:</p>
+
+    <ul>
+    <li>Safe for any use: GPIO 0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 20, 21.</li>
+    <li>GPIO 9: This is the Boot Pin. It must be HIGH to boot normally and LOW to enter programming mode. You can use it as an input (like a button), but be careful not to hold it LOW during a reset.</li>
+    <li>GPIO 18 & 19: These are used for USB D- and D+. If you are using the USB port for charging and programming, avoid using these for other things.</li>
+    <li>GPIO 20 & 21: Often used for UART (RX/TX) but can be used as general GPIOs.</li>
+    </ul>
+    <h3>Summary for your BOM:</h3>
+    <p>Since you have a lot of sensors (BNO055, MAX30009, MAX30102), you will likely use I2C.</p>
+
+    <nav>
+      <ul>
+        <li>Map your I2C SDA/SCL to safe pins like GPIO 4 and GPIO 5.</li>
+        <li>Map your sensor Interrupt pins to other safe pins like GPIO 6 or GPIO 7.</li>
+        <li>Leave GPIO 12-17 completely alone. They are "busy" talking to the internal memory.</li>
+      </ul>
+    </nav>
+    <br>
+    <p>From <a href="https://docs.espressif.com/projects/esp-hardware-design-guidelines/en/latest/esp32c3/schematic-checklist.html#clock-source">Espressif ESP32-C3 Documentation</a></p>
+    <img src="img/img008.jpg" alt="" style="width: 60%;"> <br>
+    <img src="img/img009.jpg" alt="" style="width: 60%;"> <br>
+    <h3>These are the default hardware pins for the user-accessible SPI bus.</h3>
+    <nav>
+      <ul>
+        <li>FSPID: Data Output (MOSI)</li>
+        <li>FSPIQ: Data Input (MISO)</li>
+        <li>FSPICLK: Serial Clock (SCK)</li>
+        <li>FSPICS0: Chip Select (CS)</li>
+        <li>FSPIHD (Hold) & FSPIWP (Write Protect): These are used only if you are connecting an external Quad SPI device (like a secondary high-speed flash chip or a display that uses 4 data lines). For standard SPI sensors, these two are usually not used.</li>
+      </ul>
+    </nav>
+    
+    <h2>ESP32-C3FH4 I2C Pins</h2>
+    <p>The ESP32-C3FH4 uses the same I2C peripheral as the ESP32-C3. It supports flexible GPIO matrix routing, meaning almost any GPIO pin can be assigned to I2C — there are no fixed dedicated I2C pins.</p>
+
+    <h3>Default / Commonly Used Pins</h3>
+    <table>
+      <tr>
+        <th>Function</th>
+        <th>Default GPIO Pins</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>I2C SDA (Data Line)</td>
+        <td>GPIO 8</td>
+        <td>Commonly used for I2C data. Can be reassigned to any other GPIO.</td>
+      </tr>
+      <tr>
+        <td>I2C SCL (Clock Line)</td>
+        <td>GPIO 9</td>
+        <td>Commonly used for I2C clock. Can be reassigned to any other GPIO.</td>
+      </tr>
+    </table>
+
+    <p>But GPIO 9 is the Boot Pin. It must be HIGH to boot normally and LOW to enter programming mode. 
+      Also keep a pullup on GPIO 8.
+    </p>
+
+    <h3>Here is a working version using a C3 module</h3>
+    <img src="img/img010.jpg" alt="" style="width: 60%;"> <br>
+
   </div>
 <!-- SHOW HIDE END 008  -->
 
