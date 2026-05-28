@@ -15,4 +15,5 @@
 	(lib (name "USBLC6-2SC6") (type "KiCad") (uri "${KIPRJMOD}/USBLC6-2SC6") (options "") (descr ""))
 	(lib (name "TLV75533PDBVR") (type "KiCad") (uri "${KIPRJMOD}/TLV75533PDBVR/TLV75533PDBVR.pretty") (options "") (descr ""))
 	(lib (name "ECS_400_18_33_JGN_TR3") (type "KiCad") (uri "${KIPRJMOD}/ECS_400_18_33_JGN_TR3") (options "") (descr ""))
+	(lib (name "NN02_101") (type "KiCad") (uri "${KIPRJMOD}/NN02_101") (options "") (descr ""))
 )
