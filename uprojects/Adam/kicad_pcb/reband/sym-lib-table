@@ -16,4 +16,5 @@
 	(lib (name "TLV75533PDBVR") (type "KiCad") (uri "${KIPRJMOD}/TLV75533PDBVR/TLV75533PDBVR.kicad_sym") (options "") (descr ""))
 	(lib (name "ECS-400-18-33-JGN-TR3") (type "KiCad") (uri "${KIPRJMOD}/ECS_400_18_33_JGN_TR3/ECS-400-18-33-JGN-TR3.kicad_sym") (options "") (descr ""))
 	(lib (name "NN02-101") (type "KiCad") (uri "${KIPRJMOD}/NN02_101/NN02-101.kicad_sym") (options "") (descr ""))
+	(lib (name "MAX30102EFD_T") (type "KiCad") (uri "${KIPRJMOD}/MAX30102EFD_T/MAX30102EFD_T.kicad_sym") (options "") (descr ""))
 )
