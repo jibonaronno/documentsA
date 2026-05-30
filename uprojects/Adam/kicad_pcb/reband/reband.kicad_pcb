@@ -89,7 +89,6 @@
 		)
 		(capping no)
 		(filling no)
-		(zone_defaults)
 		(pcbplotparams
 			(layerselection 0x00000000_00000000_55555555_5755f5ff)
 			(plot_on_all_layers_selection 0x00000000_00000000_00000000_00000000)
@@ -14138,9 +14137,9 @@
 		(net "Net-(U3-EL2A)")
 		(uuid "c25e3d5e-72a7-4abd-a040-67bc5b044e4e")
 	)
-	(via
+	(via micro
 		(at 144.342946 92.986773)
-		(size 0.2)
+		(size 0.25)
 		(drill 0.1)
 		(layers "F.Cu" "B.Cu")
 		(net "Net-(U3-EL2A)")
@@ -14181,7 +14180,7 @@
 	(via micro
 		(at 143.9418 92.9894)
 		(size 0.25)
-		(drill 0.15)
+		(drill 0.1)
 		(layers "F.Cu" "B.Cu")
 		(net "Net-(U3-EL1)")
 		(uuid "f2307a3f-1312-428a-8c97-b145ff5ae7a3")
