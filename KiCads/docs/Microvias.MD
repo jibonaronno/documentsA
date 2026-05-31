@@ -20,3 +20,9 @@ Diameter in mm: 10 mil × 0.0254 = 0.254 mm <br>
 ### Recommended Microvia Settings:
 Microvia Hole (Drill): 0.1 mm (or 0.1016 mm) <br>
 Microvia Diameter (Pad): 0.254 mm <br>
+
+# Microvia Layers
+Microvai should be placed to pass connections between Prep layers, Not Thicker 
+Layers. So while using 4 layers, Use Microvia first from F.Cu to In1.Cu Layer, 
+Then trace out to free space then use a Normal via to route to other places.
+

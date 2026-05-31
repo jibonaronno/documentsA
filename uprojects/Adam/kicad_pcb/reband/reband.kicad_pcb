@@ -9,6 +9,8 @@
 	(paper "A4")
 	(layers
 		(0 "F.Cu" signal)
+		(4 "In1.Cu" signal)
+		(6 "In2.Cu" signal)
 		(2 "B.Cu" signal)
 		(9 "F.Adhes" user "F.Adhesive")
 		(11 "B.Adhes" user "B.Adhesive")
@@ -50,8 +52,30 @@
 				(thickness 0.035)
 			)
 			(layer "dielectric 1"
+				(type "prepreg")
+				(thickness 0.1)
+				(material "FR4")
+				(epsilon_r 4.5)
+				(loss_tangent 0.02)
+			)
+			(layer "In1.Cu"
+				(type "copper")
+				(thickness 0.035)
+			)
+			(layer "dielectric 2"
 				(type "core")
-				(thickness 1.51)
+				(thickness 1.24)
+				(material "FR4")
+				(epsilon_r 4.5)
+				(loss_tangent 0.02)
+			)
+			(layer "In2.Cu"
+				(type "copper")
+				(thickness 0.035)
+			)
+			(layer "dielectric 3"
+				(type "prepreg")
+				(thickness 0.1)
 				(material "FR4")
 				(epsilon_r 4.5)
 				(loss_tangent 0.02)
@@ -89,6 +113,7 @@
 		)
 		(capping no)
 		(filling no)
+		(zone_defaults)
 		(pcbplotparams
 			(layerselection 0x00000000_00000000_55555555_5755f5ff)
 			(plot_on_all_layers_selection 0x00000000_00000000_00000000_00000000)
@@ -13664,10 +13689,10 @@
 		)
 	)
 	(gr_line
-		(start 127.15 86.75)
-		(end 127.15 91.749998)
+		(start 126.577718 86.835259)
+		(end 126.577718 92.053089)
 		(stroke
-			(width 0.3)
+			(width 0.313069)
 			(type solid)
 			(color 33 37 41 1)
 		)
@@ -13676,10 +13701,10 @@
 	)
 	(gr_curve
 		(pts
-			(xy 127.15 91.749998) (xy 127.15 96.21582) (xy 129.532486 100.342405) (xy 133.4 102.575315)
+			(xy 126.577718 92.053089) (xy 126.577718 96.713457) (xy 129.063999 101.019815) (xy 133.1 103.35)
 		)
 		(stroke
-			(width 0.3)
+			(width 0.313069)
 			(type solid)
 			(color 33 37 41 1)
 		)
@@ -13688,10 +13713,10 @@
 	)
 	(gr_curve
 		(pts
-			(xy 133.399999 75.924682) (xy 129.532484 78.157592) (xy 127.15 82.28418) (xy 127.15 86.75)
+			(xy 133.099998 75.538347) (xy 129.063997 77.868532) (xy 126.577718 82.174893) (xy 126.577718 86.835259)
 		)
 		(stroke
-			(width 0.3)
+			(width 0.313069)
 			(type solid)
 			(color 33 37 41 1)
 		)
@@ -13700,10 +13725,10 @@
 	)
 	(gr_curve
 		(pts
-			(xy 133.4 102.575315) (xy 137.267515 104.808226) (xy 142.032483 104.808226) (xy 145.899998 102.575315)
+			(xy 133.1 103.35) (xy 137.13599 105.680185) (xy 142.108558 105.680185) (xy 146.144548 103.35)
 		)
 		(stroke
-			(width 0.3)
+			(width 0.313069)
 			(type solid)
 			(color 33 37 41 1)
 		)
@@ -13712,10 +13737,10 @@
 	)
 	(gr_curve
 		(pts
-			(xy 145.899998 75.924682) (xy 142.032484 73.691772) (xy 137.267513 73.691772) (xy 133.399999 75.924682)
+			(xy 146.144548 75.538347) (xy 142.108559 73.208163) (xy 137.135987 73.208163) (xy 133.099998 75.538347)
 		)
 		(stroke
-			(width 0.3)
+			(width 0.313069)
 			(type solid)
 			(color 33 37 41 1)
 		)
@@ -13724,10 +13749,10 @@
 	)
 	(gr_curve
 		(pts
-			(xy 145.899998 102.575315) (xy 149.767512 100.342405) (xy 152.149998 96.215816) (xy 152.149998 91.749996)
+			(xy 146.144548 103.35) (xy 150.180549 101.019815) (xy 152.66683 96.713453) (xy 152.66683 92.053086)
 		)
 		(stroke
-			(width 0.3)
+			(width 0.313069)
 			(type solid)
 			(color 33 37 41 1)
 		)
@@ -13736,10 +13761,10 @@
 	)
 	(gr_curve
 		(pts
-			(xy 152.149998 86.749999) (xy 152.149998 82.284179) (xy 149.767512 78.157591) (xy 145.899998 75.924682)
+			(xy 152.66683 86.835258) (xy 152.66683 82.174892) (xy 150.180549 77.86853) (xy 146.144548 75.538347)
 		)
 		(stroke
-			(width 0.3)
+			(width 0.313069)
 			(type solid)
 			(color 33 37 41 1)
 		)
@@ -13747,10 +13772,10 @@
 		(uuid "aae676e3-c12b-43ee-8385-7ec1877a3612")
 	)
 	(gr_line
-		(start 152.149998 91.749996)
-		(end 152.149998 86.749999)
+		(start 152.66683 92.053086)
+		(end 152.66683 86.835258)
 		(stroke
-			(width 0.3)
+			(width 0.313069)
 			(type solid)
 			(color 33 37 41 1)
 		)
@@ -14120,102 +14145,6 @@
 		(layer "B.Cu")
 		(net "/USB_D-")
 		(uuid "cb44ade0-bab3-4931-ae0f-1ff1c8200581")
-	)
-	(segment
-		(start 144.3418 92.9894)
-		(end 144.3418 92.987919)
-		(width 0.1)
-		(layer "F.Cu")
-		(net "Net-(U3-EL2A)")
-		(uuid "73f5bccc-2d1d-483a-a9ff-3af62aefa9f9")
-	)
-	(segment
-		(start 144.3418 92.987919)
-		(end 144.342946 92.986773)
-		(width 0.1)
-		(layer "F.Cu")
-		(net "Net-(U3-EL2A)")
-		(uuid "c25e3d5e-72a7-4abd-a040-67bc5b044e4e")
-	)
-	(via micro
-		(at 144.342946 92.986773)
-		(size 0.25)
-		(drill 0.1)
-		(layers "F.Cu" "B.Cu")
-		(net "Net-(U3-EL2A)")
-		(uuid "0e0abd46-2776-47d6-9bd0-0eca28e42687")
-	)
-	(segment
-		(start 143.129 92.1258)
-		(end 142.9512 92.3036)
-		(width 0.1)
-		(layer "B.Cu")
-		(net "Net-(U3-EL2A)")
-		(uuid "4f809e13-ee61-4a8f-84d6-e03cba71e86a")
-	)
-	(segment
-		(start 144.342946 92.986773)
-		(end 144.342946 92.349146)
-		(width 0.1)
-		(layer "B.Cu")
-		(net "Net-(U3-EL2A)")
-		(uuid "5cf44751-3bb2-415e-8bbc-18ee11530b54")
-	)
-	(segment
-		(start 144.1196 92.1258)
-		(end 143.129 92.1258)
-		(width 0.1)
-		(layer "B.Cu")
-		(net "Net-(U3-EL2A)")
-		(uuid "948cb949-1d64-4018-9616-0514ade5b926")
-	)
-	(segment
-		(start 144.342946 92.349146)
-		(end 144.1196 92.1258)
-		(width 0.1)
-		(layer "B.Cu")
-		(net "Net-(U3-EL2A)")
-		(uuid "fbfad5b4-215a-47f5-9d30-27c93cafbff1")
-	)
-	(via micro
-		(at 143.9418 92.9894)
-		(size 0.25)
-		(drill 0.1)
-		(layers "F.Cu" "B.Cu")
-		(net "Net-(U3-EL1)")
-		(uuid "f2307a3f-1312-428a-8c97-b145ff5ae7a3")
-	)
-	(segment
-		(start 143.9418 92.9894)
-		(end 143.6624 92.71)
-		(width 0.1)
-		(layer "B.Cu")
-		(net "Net-(U3-EL1)")
-		(uuid "1e794cd8-8ca6-40e1-8cea-a26af5d8e0c0")
-	)
-	(segment
-		(start 143.2306 92.71)
-		(end 143.0274 92.9132)
-		(width 0.1)
-		(layer "B.Cu")
-		(net "Net-(U3-EL1)")
-		(uuid "dc1bf4db-480c-472b-b4e3-8f2183f58db4")
-	)
-	(segment
-		(start 143.0274 92.9132)
-		(end 143.0274 93.7006)
-		(width 0.1)
-		(layer "B.Cu")
-		(net "Net-(U3-EL1)")
-		(uuid "e66b43c4-5fe7-42e4-9617-647020a921d5")
-	)
-	(segment
-		(start 143.6624 92.71)
-		(end 143.2306 92.71)
-		(width 0.1)
-		(layer "B.Cu")
-		(net "Net-(U3-EL1)")
-		(uuid "f05bb3dd-1903-47d9-b79a-85e0221809b6")
 	)
 	(segment
 		(start 147.796 88.257)
