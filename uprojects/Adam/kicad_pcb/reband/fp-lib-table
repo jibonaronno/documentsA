@@ -17,4 +17,5 @@
 	(lib (name "ECS_400_18_33_JGN_TR3") (type "KiCad") (uri "${KIPRJMOD}/ECS_400_18_33_JGN_TR3") (options "") (descr ""))
 	(lib (name "NN02_101") (type "KiCad") (uri "${KIPRJMOD}/NN02_101") (options "") (descr ""))
 	(lib (name "MAX30102EFD_T") (type "KiCad") (uri "${KIPRJMOD}/MAX30102EFD_T/MAX30102EFD_T.pretty") (options "") (descr ""))
+	(lib (name "POGO_PINB") (type "KiCad") (uri "${KIPRJMOD}/POGO_PINB") (options "") (descr ""))
 )

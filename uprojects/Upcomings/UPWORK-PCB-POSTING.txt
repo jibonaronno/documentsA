@@ -1,0 +1,143 @@
+UPWORK JOB POSTING - PCB REDESIGN / COMPLETION (Air-Quality Sensor Node)
+========================================================================
+
+Engagement: Hourly, ongoing
+Detail level: technical, product name withheld
+NOTE: Fill in everything inside [[ DOUBLE BRACKETS ]] before posting.
+
+SKILLS / TAGS
+-------------
+Electronic Design, PCB Design, Schematic Capture, Altium/KiCad, Embedded Hardware,
+RF Design, Analog Circuit Design, DFM, IoT
+
+
+OVERVIEW
+--------
+We're building an outdoor/industrial air-quality monitoring system. Field units ("nodes")
+sample multiple gas, particulate, and environmental sensors, relay readings to a master node
+over a LoRa mesh, and the master uploads to the cloud over cellular. The firmware (ESP-IDF C
+on ESP32-S3) and the cloud platform are already built and running in the field.
+
+We have an existing, semi-working V1 board that serves as a reference, and we need an experienced
+hardware engineer to design V2. V2 is a substantial change, not a minor revision: the main goals
+are to fix all of the power issues and add the missing connections, then complete and optimize
+the layout and deliver manufacturing-ready files. Treat V1 as a reference for what the node does
+and what's currently wired (it runs, but with known power problems and gaps) - V2 is where the
+real design work happens.
+
+This is an ongoing hourly relationship: we expect revisions, additional sensor variants, and
+continued board spins over time, so we're looking for someone we can keep working with.
+
+
+THE DEVICE
+----------
+The node is built around an off-the-shelf LilyGo T3-S3 module (ESP32-S3 + onboard LoRa radio).
+The board we need designed is a CARRIER / BASEBOARD that the T3-S3 plugs into and that breaks
+its GPIO out to our sensors, the cellular modem, and the power system. The MCU, LoRa radio +
+antenna, USB-C / USB-UART, and 18650 charging are already on the T3-S3 - so this is integration,
+analog front-end, and power work, NOT a from-scratch ESP32-S3 / RF design.
+
+Powered by a 3.6 V Li-SOCl2 primary battery pack (EVE ER34615 D-cell, ~19,000 mAh) paired with an
+HPC1530 hybrid layer capacitor (HLC) for pulse current. Solar is an optional input connector.
+Two build variants on a common board:
+
+- Slave node  - samples sensors, talks LoRa only (via the T3-S3 radio).
+- Master node - same sensing, plus a cellular modem (Quectel BG95) driven over UART/AT commands
+                for the cloud uplink.
+
+ALREADY PROVIDED by the LilyGo T3-S3 (off-the-shelf, not your design):
+- ESP32-S3 MCU
+- LoRa radio + antenna ([[confirm variant - e.g. SX1262, 915 MHz US band]])
+- USB-C, USB-to-UART
+- 18650 holder + charging (present on the module, but NOT the main power path - the node runs
+  from the external ER34615 primary pack)
+
+WHAT THE CARRIER BOARD MUST ADD (your design):
+- Gas sensors: SPEC Sensors electrochemical cells - CO, NO2, SO2, mercaptan (TBM), IAQ - each
+              needs a proper analog front-end (potentiostat / transimpedance amp -> ADC) with
+              low-noise layout
+- CO2 + temp + humidity: Sensirion SCD41 (I2C)
+- Particulates: Plantower PMS9103M PM1/PM2.5/PM10 sensor (UART) - slave variant
+- Cellular (master variant only): Quectel BG95 + SIM + antenna, UART/AT; power design for
+              LTE/NB-IoT TX current bursts
+- Pressure:   [[sensor part - confirm, I2C]]
+- Power:      3.6 V Li-SOCl2 primary pack (EVE ER34615, ~19 Ah) + HPC1530 hybrid layer capacitor
+              (HLC) to source the BG95 pulse currents the high-impedance Li-SOCl2 cell cannot;
+              optional solar input connector; rail regulation (buck/LDO) for sensors and modem;
+              ADC-based battery (and solar) voltage/current monitoring; very low quiescent current
+              for multi-year battery life; current budgeting for deep-sleep + cellular TX bursts
+- Integration: T3-S3 header/footprint, GPIO breakout to all peripherals, connectors, status LEDs
+- A GPIO / pin-allocation map will be provided to the selected freelancer.
+
+
+WHAT WE NEED (SCOPE) - V2
+-------------------------
+1. Review V1 as the reference design; identify the power problems and the missing connections,
+   and produce a risk/issue list for V2.
+2. Fix all power issues - this is the top priority. Rework the power architecture: rail
+   regulation for the sensors and BG95, handling for cellular TX current bursts, solar/battery
+   management, and clean grounding so the analog gas front-ends stay low-noise.
+3. Add the missing connections - complete the nets/peripherals that V1 was missing so V2 is fully
+   wired (sensors, modem, ADCs, GPIO breakout from the T3-S3).
+4. Redesign the schematic for V2 - finalize part selection, document the net/power architecture.
+5. PCB layout for V2 - complete and optimize routing with attention to:
+   - Low-noise analog for the electrochemical sensor front-ends
+   - Power integrity for cellular TX current spikes on battery/solar
+   - Cellular antenna routing for the BG95 (the LoRa radio/antenna is on the T3-S3)
+   - Manufacturability (DFM/DFA) and [[enclosure / connector / mounting]] constraints
+6. Deliver manufacturing package: Gerbers, drill, BOM (with sourcing), pick-and-place, assembly
+   drawings, schematic PDF.
+7. Support a prototype spin: answer fab/assembly questions, review the build, help debug bring-up.
+
+
+DELIVERABLES
+------------
+- Reviewed + completed schematic (source + PDF)
+- Completed PCB layout (source files)
+- Full fabrication & assembly package (Gerbers, drill, BOM, CPL, assembly notes)
+- Short design-decisions writeup + any test/bring-up notes
+
+
+REQUIRED SKILLS
+---------------
+- Proven multi-layer mixed-signal PCB design (please share examples)
+- Low-noise analog design (sensor front-ends, ADC, ground partitioning) - this is the core of the job
+- Carrier/baseboard design around a module (header/footprint integration, GPIO breakout)
+- Primary-battery power design: Li-SOCl2 + hybrid layer capacitor (HLC/HPC1530) pulse handling for
+  cellular TX bursts, rail regulation, and very low quiescent current for long battery life
+- Comfortable integrating UART/I2C peripherals and a cellular modem (BG95)
+- DFM/DFA and producing clean, sourceable BOMs
+- Fluent in [[KiCad / Altium / Eagle - tell us which you use; we use [[___]] ]]
+- Nice but not required: RF/antenna routing (the LoRa radio + antenna are on the T3-S3 module)
+
+
+NICE TO HAVE
+------------
+- Prior IoT / environmental-sensing or air-quality hardware
+- Experience with ESP32-S3 reference designs and Quectel BG95 integration
+- Certification awareness (FCC/IC/CE) and design-for-compliance
+- Enclosure/mechanical coordination for outdoor (IP-rated) deployments
+
+
+ENGAGEMENT
+----------
+- Hourly, ongoing. Start with the redesign/finish of the current board, then continued spins
+  and sensor variants.
+- Budget / rate: [[your range]]
+- Time zone: we're in Pacific Time (Vancouver, PT).
+- We'll share the existing design files, schematic, prototype notes, and the firmware/cloud
+  integration spec after a short NDA. Please don't share our files or details publicly.
+
+
+TO APPLY, PLEASE TELL US
+------------------------
+1. Link to 2-3 PCBs you've designed that involved RF and/or low-noise analog
+   (the closer to this device, the better).
+2. Which EDA tool you work in.
+3. Your read on the biggest risk in a carrier board that runs a BG95 cellular modem and
+   electrochemical gas front-ends from a Li-SOCl2 primary battery + HLC (HPC1530) supply.
+4. Rough hours estimate to review + finish a board like this (assuming a mostly-complete
+   starting design).
+5. Are you comfortable supporting prototype bring-up and debug, not just handing off files?
+
+
