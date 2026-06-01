@@ -26,3 +26,5 @@ Microvai should be placed to pass connections between Prep layers, Not Thicker
 Layers. So while using 4 layers, Use Microvia first from F.Cu to In1.Cu Layer, 
 Then trace out to free space then use a Normal via to route to other places.
 
+# Articles from PCB WAY
+[3 Keys to Designing a Successful HDI PCB](https://www.pcbcart.com/article/content/design-successful-HDI-PCBs.html?_gl=1*lno35d*_up*MQ..*_gs*MQ..&gclid=CjwKCAjwuO_QBhAWEiwAIkVhU8_oNcV2V0Zg12P9zLzK98u00i-ylJH_qnmzmY52dYom6B5MM8KJwhoCs3kQAvD_BwE&gbraid=0AAAAAC-0nPoTU3apj1_PP06kbtWepD3xG)

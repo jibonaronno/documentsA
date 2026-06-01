@@ -193,6 +193,164 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Connector_Generic:Conn_01x02"
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "J"
+				(at 0 2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Conn_01x02"
+				(at 0 -5.08 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "connector"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "Connector*:*_1x??_*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "Conn_01x02_1_1"
+				(rectangle
+					(start -1.27 1.27)
+					(end 1.27 -3.81)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(rectangle
+					(start -1.27 0.127)
+					(end 0 -0.127)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start -1.27 -2.413)
+					(end 0 -2.667)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 3.81)
+					(name "Pin_1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -2.54 0)
+					(length 3.81)
+					(name "Pin_2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Device:C_Small"
 			(pin_numbers
 				(hide yes)
@@ -3065,6 +3223,164 @@
 					(at 0 -5.08 90)
 					(length 2.54)
 					(name ""
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "POGOB:0910-0-57-20-76-14-11-0"
+			(pin_names
+				(offset 1.016)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "J"
+				(at -5.08 3.302 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left bottom)
+				)
+			)
+			(property "Value" "0910-0-57-20-76-14-11-0"
+				(at -5.08 -5.08 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left bottom)
+				)
+			)
+			(property "Footprint" "0910-0-57-20-76-14-11-0:MILL-MAX_0910-0-57-20-76-14-11-0"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "PARTREV" "N/A"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+				)
+			)
+			(property "SNAPEDA_PN" "0910-0-57-20-76-14-11-0"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+				)
+			)
+			(property "STANDARD" "Manufacturer Recommendations"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+				)
+			)
+			(property "MAXIMUM_PACKAGE_HEIGHT" "3.4798 mm"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+				)
+			)
+			(property "MANUFACTURER" "Mill-Max"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+				)
+			)
+			(symbol "0910-0-57-20-76-14-11-0_0_0"
+				(rectangle
+					(start -5.08 -2.54)
+					(end 5.08 2.54)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin passive line
+					(at -10.16 0 0)
+					(length 5.08)
+					(name "1"
 						(effects
 							(font
 								(size 1.016 1.016)
@@ -7402,6 +7718,19 @@
 		)
 		(uuid "54a23dd5-4516-41aa-b202-dd09ba3cc177")
 	)
+	(text "GSR AND IMU"
+		(exclude_from_sim no)
+		(at 277.622 148.844 90)
+		(effects
+			(font
+				(size 2.5 2.5)
+				(thickness 0.5)
+				(bold yes)
+				(color 255 133 1 1)
+			)
+		)
+		(uuid "55b38cc0-a874-4452-948b-935f4e33a33a")
+	)
 	(text "USB-C Power Rails"
 		(exclude_from_sim no)
 		(at 130.556 65.024 0)
@@ -7513,6 +7842,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "2c95ecde-7653-49e1-8724-1aa9ce48348d")
+	)
+	(junction
+		(at 193.04 87.63)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "30f9ea49-865b-46f0-bb4e-fcae0c0979e5")
 	)
 	(junction
 		(at 31.75 128.27)
@@ -7736,6 +8071,12 @@
 		(color 0 0 0 0)
 		(uuid "f8a8e0e8-0d9f-4c3a-a607-9be6998882e2")
 	)
+	(junction
+		(at 193.04 76.2)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "f957e917-a79d-4dd8-9224-66a74926aa8f")
+	)
 	(no_connect
 		(at 262.89 104.14)
 		(uuid "05bc26d9-f908-4944-a0fe-6c8c1f58ca6a")
@@ -7934,6 +8275,16 @@
 	)
 	(wire
 		(pts
+			(xy 185.42 124.46) (xy 185.42 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0f49feae-f790-4b60-b470-215c1f068b41")
+	)
+	(wire
+		(pts
 			(xy 64.77 153.67) (xy 59.69 153.67)
 		)
 		(stroke
@@ -7941,6 +8292,16 @@
 			(type default)
 		)
 		(uuid "0fbbd43f-419e-4e13-9810-c0d55a98a86b")
+	)
+	(wire
+		(pts
+			(xy 142.24 179.07) (xy 142.24 181.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "10eb1e84-6111-432e-82ea-3451b81862ca")
 	)
 	(wire
 		(pts
@@ -8091,6 +8452,16 @@
 			(type default)
 		)
 		(uuid "21345d3c-b93e-4033-9de4-c9c0e88797cd")
+	)
+	(wire
+		(pts
+			(xy 187.96 120.65) (xy 187.96 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "21d9e59b-3206-4831-bc9e-a6a6fdd9f44f")
 	)
 	(wire
 		(pts
@@ -8254,6 +8625,16 @@
 	)
 	(wire
 		(pts
+			(xy 194.31 124.46) (xy 194.31 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "31e14f8e-8a56-4962-bc8d-17fab6cfb71a")
+	)
+	(wire
+		(pts
 			(xy 232.41 123.19) (xy 232.41 120.65)
 		)
 		(stroke
@@ -8291,6 +8672,16 @@
 			(type default)
 		)
 		(uuid "338bc653-c9a7-4d37-a6a7-81c32c376c5f")
+	)
+	(wire
+		(pts
+			(xy 187.96 124.46) (xy 185.42 124.46)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "33e9a6b1-2633-413a-9bc2-e8e60326e885")
 	)
 	(wire
 		(pts
@@ -8401,6 +8792,16 @@
 			(type default)
 		)
 		(uuid "3efd8577-49e8-4dd6-bcbd-8f68611155c6")
+	)
+	(wire
+		(pts
+			(xy 137.16 179.07) (xy 142.24 179.07)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3f4df71c-d92b-4d27-abd3-e520e1f1cf20")
 	)
 	(wire
 		(pts
@@ -8734,6 +9135,16 @@
 	)
 	(wire
 		(pts
+			(xy 33.02 156.21) (xy 33.02 151.13)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6325e8cd-36a9-4636-9a42-ca081bc279e5")
+	)
+	(wire
+		(pts
 			(xy 144.78 125.73) (xy 137.16 125.73)
 		)
 		(stroke
@@ -8811,6 +9222,16 @@
 			(type default)
 		)
 		(uuid "6fb5783e-47f7-4d3b-80a3-a5f0f229d612")
+	)
+	(wire
+		(pts
+			(xy 194.31 120.65) (xy 187.96 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "70f4d7bf-678f-4041-9f73-cbec6fcb5d3a")
 	)
 	(wire
 		(pts
@@ -9001,6 +9422,16 @@
 			(type default)
 		)
 		(uuid "82e5df54-4cd7-4c96-81a9-027e1073357e")
+	)
+	(wire
+		(pts
+			(xy 185.42 76.2) (xy 193.04 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8358083b-6e95-4164-9937-4cb6cf10c2ac")
 	)
 	(wire
 		(pts
@@ -9501,6 +9932,16 @@
 			(type default)
 		)
 		(uuid "b12027e6-7a2f-4d1a-a6e6-6aa23a075643")
+	)
+	(wire
+		(pts
+			(xy 187.96 87.63) (xy 193.04 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b2c28397-55e8-4f2e-87d6-37986370d555")
 	)
 	(wire
 		(pts
@@ -10104,6 +10545,16 @@
 	)
 	(wire
 		(pts
+			(xy 30.48 156.21) (xy 30.48 151.13)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f3cc6449-f52d-464d-8633-aa12fc04ceb6")
+	)
+	(wire
+		(pts
 			(xy 209.55 133.35) (xy 219.71 133.35)
 		)
 		(stroke
@@ -10462,6 +10913,16 @@
 		)
 		(uuid "d33c9ef5-ed08-45d1-8605-4d292ef0d0f1")
 	)
+	(label "RST"
+		(at 30.48 156.21 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "d79109bb-feec-4c65-89fd-bebc8cb91dd2")
+	)
 	(label "GSR_INT"
 		(at 273.05 76.2 0)
 		(effects
@@ -10570,6 +11031,17 @@
 				)
 			)
 		)
+		(property "Manufacturer Product Number" ""
+			(at 114.3 39.37 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "2d0ccc70-93b0-4546-b1dd-8644085ae4c4")
 		)
@@ -10665,6 +11137,17 @@
 			)
 		)
 		(property "Manufacturer_Part_Number" "GRM1555C1H100FA01D"
+			(at 35.56 184.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Product Number" ""
 			(at 35.56 184.15 0)
 			(hide yes)
 			(show_name no)
@@ -10936,6 +11419,17 @@
 				)
 			)
 		)
+		(property "Manufacturer Product Number" ""
+			(at 256.54 132.08 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "4d0275f7-02be-4b05-8911-feb741e26d55")
 		)
@@ -11196,6 +11690,17 @@
 				)
 			)
 		)
+		(property "Manufacturer Product Number" ""
+			(at 39.37 120.65 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "8c93876f-193a-4a3e-a2b2-d781a94e6d7e")
 		)
@@ -11206,6 +11711,84 @@
 			(project "reband"
 				(path "/c7caebd7-c852-4a9c-aa52-0360a481ad86"
 					(reference "R12")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 33.02 156.21 0)
+		(mirror y)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "1d99f465-13c9-4c9e-8c58-1170031cbc2b")
+		(property "Reference" "#PWR037"
+			(at 33.02 162.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 35.56 156.464 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 33.02 156.21 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 33.02 156.21 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 33.02 156.21 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "a645f091-b089-45a7-b556-2874f6673812")
+		)
+		(instances
+			(project "reband"
+				(path "/c7caebd7-c852-4a9c-aa52-0360a481ad86"
+					(reference "#PWR037")
 					(unit 1)
 				)
 			)
@@ -11290,6 +11873,17 @@
 			)
 		)
 		(property "Manufacturer_Part_Number" "JMK105BJ105KV-F"
+			(at 157.48 125.73 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Product Number" ""
 			(at 157.48 125.73 0)
 			(hide yes)
 			(show_name no)
@@ -11443,6 +12037,17 @@
 			)
 		)
 		(property "Manufacturer_Part_Number" "NN02-101"
+			(at 63.5 128.27 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Product Number" ""
 			(at 63.5 128.27 0)
 			(hide yes)
 			(show_name no)
@@ -11711,6 +12316,17 @@
 				)
 			)
 		)
+		(property "Manufacturer Product Number" ""
+			(at 269.24 104.14 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "ffd01ad5-bac8-45f0-bb4b-204428969711")
 		)
@@ -11969,6 +12585,17 @@
 				)
 			)
 		)
+		(property "Manufacturer Product Number" ""
+			(at 200.66 80.01 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "2ed0c8c0-0853-48ff-9a85-a4721702e957")
 		)
@@ -12218,6 +12845,17 @@
 			)
 		)
 		(property "Manufacturer_Part_Number" "ERJ-2RKF5901X"
+			(at 118.11 39.37 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Product Number" ""
 			(at 118.11 39.37 90)
 			(hide yes)
 			(show_name no)
@@ -12488,6 +13126,17 @@
 				)
 			)
 		)
+		(property "Manufacturer Product Number" ""
+			(at 142.24 35.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "A2"
 			(uuid "88dbd38a-26e4-45a4-98b5-0202a1f10ac9")
 		)
@@ -12641,6 +13290,17 @@
 			)
 		)
 		(property "DigiKey" "P16763TR-ND"
+			(at 41.91 95.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Product Number" ""
 			(at 41.91 95.25 0)
 			(hide yes)
 			(show_name no)
@@ -12828,6 +13488,178 @@
 		)
 	)
 	(symbol
+		(lib_id "POGOB:0910-0-57-20-76-14-11-0")
+		(at 187.96 134.62 270)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "4b45c0c2-4235-4f88-aff1-1a12e9722a6c")
+		(property "Reference" "J3"
+			(at 188.214 142.494 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "POGOB"
+			(at 186.944 140.716 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "POGO_PINB:POGOB"
+			(at 187.96 134.62 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+			)
+		)
+		(property "Datasheet" ""
+			(at 187.96 134.62 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 187.96 134.62 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PARTREV" "N/A"
+			(at 187.96 134.62 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+			)
+		)
+		(property "SNAPEDA_PN" "0910-0-57-20-76-14-11-0"
+			(at 187.96 134.62 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+			)
+		)
+		(property "STANDARD" "Manufacturer Recommendations"
+			(at 187.96 134.62 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+			)
+		)
+		(property "MAXIMUM_PACKAGE_HEIGHT" "3.4798 mm"
+			(at 187.96 134.62 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+			)
+		)
+		(property "MANUFACTURER" "Mill-Max"
+			(at 187.96 134.62 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+			)
+		)
+		(property "DigiKey" "ED90453TR-ND"
+			(at 187.96 134.62 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer_Part_Number" "0910-0-57-20-76-14-11-0"
+			(at 187.96 134.62 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Product Number" ""
+			(at 187.96 134.62 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "f4cbd256-b2cf-4b1d-92f5-a4d5938f6a8f")
+		)
+		(instances
+			(project "reband"
+				(path "/c7caebd7-c852-4a9c-aa52-0360a481ad86"
+					(reference "J3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 157.48 129.54 0)
 		(mirror y)
@@ -12983,6 +13815,17 @@
 			)
 		)
 		(property "Manufacturer_Part_Number" "RMCF0402FT10K0"
+			(at 149.86 133.35 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Product Number" ""
 			(at 149.86 133.35 90)
 			(hide yes)
 			(show_name no)
@@ -13174,6 +14017,17 @@
 				)
 			)
 		)
+		(property "Manufacturer Product Number" ""
+			(at 189.23 35.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "3"
 			(uuid "f63a7792-e360-4939-becc-67b5f811c4e6")
 		)
@@ -13286,6 +14140,17 @@
 				)
 			)
 		)
+		(property "Manufacturer Product Number" ""
+			(at 121.92 39.37 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "3ff0836b-c584-4bc1-b32e-9a5be69fbacf")
 		)
@@ -13358,6 +14223,39 @@
 			)
 		)
 		(property "Description" "Intelligent 9-axis absolute orientation sensor, LGA-28"
+			(at 234.95 140.97 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "DigiKey" "828-1058-2-ND"
+			(at 234.95 140.97 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer_Part_Number" "BNO055"
+			(at 234.95 140.97 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Product Number" ""
 			(at 234.95 140.97 0)
 			(hide yes)
 			(show_name no)
@@ -13540,6 +14438,17 @@
 			)
 		)
 		(property "Manufacturer_Part_Number" "TCR2EF18,LM(CT"
+			(at 218.44 33.02 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Product Number" ""
 			(at 218.44 33.02 0)
 			(hide yes)
 			(show_name no)
@@ -13818,6 +14727,17 @@
 				)
 			)
 		)
+		(property "Manufacturer Product Number" ""
+			(at 123.19 78.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "4"
 			(uuid "14f71367-23fb-439e-a877-a326be3d37c5")
 		)
@@ -13968,6 +14888,17 @@
 				)
 			)
 		)
+		(property "Manufacturer Product Number" ""
+			(at 105.41 38.1 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "ca6303a2-201d-45c9-ae80-86f6c1ae891d")
 		)
@@ -14061,6 +14992,17 @@
 		)
 		(property "Manufacturer_Part_Number" "GRM155R71H472KA01D"
 			(at 200.66 91.44 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Product Number" ""
+			(at 200.66 91.44 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14165,6 +15107,17 @@
 		)
 		(property "Manufacturer_Part_Number" "CL05B104KP5NNNC"
 			(at 26.67 123.19 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Product Number" ""
+			(at 26.67 123.19 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14358,6 +15311,17 @@
 				)
 			)
 		)
+		(property "Manufacturer Product Number" ""
+			(at 171.45 53.34 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "b07b0461-7638-43bc-baee-f0e18592bdf2")
 		)
@@ -14537,6 +15501,17 @@
 				)
 			)
 		)
+		(property "Manufacturer Product Number" ""
+			(at 200.66 87.63 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "027ca8f6-9748-43d0-80dc-92965142f637")
 		)
@@ -14632,6 +15607,17 @@
 			)
 		)
 		(property "Manufacturer_Part_Number" "GRM1555C1H100FA01D"
+			(at 78.74 184.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Product Number" ""
 			(at 78.74 184.15 0)
 			(hide yes)
 			(show_name no)
@@ -14867,6 +15853,39 @@
 				(justify bottom)
 			)
 		)
+		(property "DigiKey" "1904-ESP32-C3FH4TR-ND"
+			(at 109.22 148.59 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer_Part_Number" "ESP32-C3FH4"
+			(at 109.22 148.59 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Product Number" ""
+			(at 109.22 148.59 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "7947bf38-452a-4b3b-a743-e9f4c492578f")
 		)
@@ -15063,6 +16082,17 @@
 				)
 			)
 		)
+		(property "Manufacturer Product Number" ""
+			(at 50.8 31.75 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "5bd06f2e-1785-465a-b81c-78b8b434c6eb")
 		)
@@ -15231,6 +16261,84 @@
 			(project "reband"
 				(path "/c7caebd7-c852-4a9c-aa52-0360a481ad86"
 					(reference "#PWR025")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 142.24 181.61 0)
+		(mirror y)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "9944cc6b-9b45-4c04-8a80-80a401cfb542")
+		(property "Reference" "#PWR036"
+			(at 142.24 187.96 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 144.78 181.864 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 142.24 181.61 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 142.24 181.61 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 142.24 181.61 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "bfeebbed-4ea6-4970-8345-aba8c4b95221")
+		)
+		(instances
+			(project "reband"
+				(path "/c7caebd7-c852-4a9c-aa52-0360a481ad86"
+					(reference "#PWR036")
 					(unit 1)
 				)
 			)
@@ -15472,6 +16580,17 @@
 			)
 		)
 		(property "Manufacturer_Part_Number" "JMK105BJ105KV-F"
+			(at 203.2 107.95 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Product Number" ""
 			(at 203.2 107.95 0)
 			(hide yes)
 			(show_name no)
@@ -15741,6 +16860,17 @@
 				)
 			)
 		)
+		(property "Manufacturer Product Number" ""
+			(at 149.86 135.89 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "840ba5ab-4323-45e6-9e16-32916675e882")
 		)
@@ -15918,6 +17048,17 @@
 				)
 			)
 		)
+		(property "Manufacturer Product Number" ""
+			(at 63.5 43.18 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "7f2f33fb-6311-4686-8491-92bacf22330d")
 		)
@@ -16012,7 +17153,7 @@
 				)
 			)
 		)
-		(property "DigiKey" ""
+		(property "DigiKey" "587-6022-2-ND"
 			(at 107.95 33.02 0)
 			(hide yes)
 			(show_name no)
@@ -16023,7 +17164,18 @@
 				)
 			)
 		)
-		(property "Manufacturer_Part_Number" ""
+		(property "Manufacturer_Part_Number" "TMK105CBJ225MV-F"
+			(at 107.95 33.02 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Product Number" ""
 			(at 107.95 33.02 0)
 			(hide yes)
 			(show_name no)
@@ -16527,6 +17679,17 @@
 				)
 			)
 		)
+		(property "Manufacturer Product Number" ""
+			(at 105.41 31.75 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "414049f5-d62d-48b6-9d92-b986b434c7d1")
 		)
@@ -16708,6 +17871,17 @@
 				)
 			)
 		)
+		(property "Manufacturer Product Number" ""
+			(at 55.88 31.75 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "d850abfd-4532-4533-b151-dc113da94c72")
 		)
@@ -16802,6 +17976,17 @@
 			)
 		)
 		(property "Manufacturer_Part_Number" "USB4215-03-A"
+			(at 38.1 59.69 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Product Number" ""
 			(at 38.1 59.69 0)
 			(hide yes)
 			(show_name no)
@@ -16957,6 +18142,17 @@
 				)
 			)
 		)
+		(property "Manufacturer Product Number" ""
+			(at 58.42 181.61 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "bac4afef-c811-4a21-9793-ee50c8c49424")
 		)
@@ -16973,6 +18169,121 @@
 			(project "reband"
 				(path "/c7caebd7-c852-4a9c-aa52-0360a481ad86"
 					(reference "Y1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector_Generic:Conn_01x02")
+		(at 30.48 146.05 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp yes)
+		(fields_autoplaced yes)
+		(uuid "dea0b85c-d6ef-4444-b03c-f2b0f8efb6ee")
+		(property "Reference" "J5"
+			(at 35.56 144.7799 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "Conn_01x02"
+			(at 35.56 147.3199 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "Connector_PinHeader_1.00mm:PinHeader_1x02_P1.00mm_Vertical"
+			(at 30.48 146.05 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 30.48 146.05 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 30.48 146.05 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "DigiKey" "2073-BC020-02-A-0200-0300-L-G-ND"
+			(at 30.48 146.05 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer_Part_Number" "BC020-02-A-0200-0300-L-G"
+			(at 30.48 146.05 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Product Number" ""
+			(at 30.48 146.05 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "dd3635f9-ee4b-4236-a04a-61fb75675f4a")
+		)
+		(pin "2"
+			(uuid "0f3601ab-407c-4416-b5b8-6c489008d02f")
+		)
+		(instances
+			(project "reband"
+				(path "/c7caebd7-c852-4a9c-aa52-0360a481ad86"
+					(reference "J5")
 					(unit 1)
 				)
 			)
@@ -17056,6 +18367,17 @@
 			)
 		)
 		(property "Manufacturer_Part_Number" "RC0402JR-074K7L"
+			(at 67.31 151.13 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Product Number" ""
 			(at 67.31 151.13 90)
 			(hide yes)
 			(show_name no)
@@ -17225,6 +18547,39 @@
 				)
 			)
 		)
+		(property "DigiKey" "175-MAX30009ENA+TTR-ND"
+			(at 207.01 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer_Part_Number" "MAX30009ENA+T"
+			(at 207.01 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Product Number" ""
+			(at 207.01 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "A5"
 			(uuid "28e0e912-a79b-4ad6-a328-449decf102e4")
 		)
@@ -17365,6 +18720,39 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
+			(at 162.56 33.02 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "DigiKey" "587-6022-2-ND"
+			(at 162.56 33.02 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer_Part_Number" "TMK105CBJ225MV-F"
+			(at 162.56 33.02 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Product Number" ""
 			(at 162.56 33.02 0)
 			(hide yes)
 			(show_name no)
@@ -17604,6 +18992,17 @@
 				)
 			)
 		)
+		(property "Manufacturer Product Number" ""
+			(at 41.91 83.82 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1_2"
 			(uuid "b2857756-cfe4-4033-a25c-4fe38aaa83e7")
 		)
@@ -17681,6 +19080,39 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
+			(at 210.82 35.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "DigiKey" "587-6022-2-ND"
+			(at 210.82 35.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer_Part_Number" "TMK105CBJ225MV-F"
+			(at 210.82 35.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Product Number" ""
 			(at 210.82 35.56 0)
 			(hide yes)
 			(show_name no)
@@ -17784,6 +19216,17 @@
 			)
 		)
 		(property "Manufacturer_Part_Number" "RC0402JR-074K7L"
+			(at 67.31 153.67 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Product Number" ""
 			(at 67.31 153.67 90)
 			(hide yes)
 			(show_name no)
@@ -17898,6 +19341,17 @@
 				)
 			)
 		)
+		(property "Manufacturer Product Number" ""
+			(at 255.27 157.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "09b74d1f-7f9e-4964-bcf6-ab52ae930b4f")
 		)
@@ -17991,6 +19445,17 @@
 		)
 		(property "Manufacturer_Part_Number" "GRM155R71H472KA01D"
 			(at 200.66 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Product Number" ""
+			(at 200.66 76.2 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18095,6 +19560,17 @@
 		)
 		(property "Manufacturer_Part_Number" "CL05B104KP5NNNC"
 			(at 39.37 129.54 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Product Number" ""
+			(at 39.37 129.54 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18285,6 +19761,17 @@
 				)
 			)
 		)
+		(property "Manufacturer Product Number" ""
+			(at 168.91 34.29 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "d8bbca39-4cb5-4088-8dab-d5058228fd87")
 		)
@@ -18379,6 +19866,17 @@
 		)
 		(property "Manufacturer_Part_Number" "GJM1555C1H1R0BB01D"
 			(at 58.42 138.43 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Product Number" ""
+			(at 58.42 138.43 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18492,6 +19990,17 @@
 				)
 			)
 		)
+		(property "Manufacturer Product Number" ""
+			(at 31.75 123.19 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "d49cc307-2014-4632-8f21-c45a53c06c64")
 		)
@@ -18502,6 +20011,178 @@
 			(project "reband"
 				(path "/c7caebd7-c852-4a9c-aa52-0360a481ad86"
 					(reference "C16")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "POGOB:0910-0-57-20-76-14-11-0")
+		(at 194.31 134.62 270)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "fe8bbe53-7a58-4daf-88ad-10e62b2f6ee3")
+		(property "Reference" "J4"
+			(at 194.564 142.494 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "POGOB"
+			(at 193.294 140.716 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "POGO_PINB:POGOB"
+			(at 194.31 134.62 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+			)
+		)
+		(property "Datasheet" ""
+			(at 194.31 134.62 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 194.31 134.62 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PARTREV" "N/A"
+			(at 194.31 134.62 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+			)
+		)
+		(property "SNAPEDA_PN" "0910-0-57-20-76-14-11-0"
+			(at 194.31 134.62 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+			)
+		)
+		(property "STANDARD" "Manufacturer Recommendations"
+			(at 194.31 134.62 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+			)
+		)
+		(property "MAXIMUM_PACKAGE_HEIGHT" "3.4798 mm"
+			(at 194.31 134.62 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+			)
+		)
+		(property "MANUFACTURER" "Mill-Max"
+			(at 194.31 134.62 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+			)
+		)
+		(property "DigiKey" "ED90453TR-ND"
+			(at 194.31 134.62 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer_Part_Number" "0910-0-57-20-76-14-11-0"
+			(at 194.31 134.62 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer Product Number" ""
+			(at 194.31 134.62 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "eb1d969e-e978-4295-998b-7e3b1ce4cdb5")
+		)
+		(instances
+			(project "reband"
+				(path "/c7caebd7-c852-4a9c-aa52-0360a481ad86"
+					(reference "J4")
 					(unit 1)
 				)
 			)
