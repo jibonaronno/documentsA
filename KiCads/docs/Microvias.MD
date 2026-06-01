@@ -28,3 +28,6 @@ Then trace out to free space then use a Normal via to route to other places.
 
 # Articles from PCB WAY
 [3 Keys to Designing a Successful HDI PCB](https://www.pcbcart.com/article/content/design-successful-HDI-PCBs.html?_gl=1*lno35d*_up*MQ..*_gs*MQ..&gclid=CjwKCAjwuO_QBhAWEiwAIkVhU8_oNcV2V0Zg12P9zLzK98u00i-ylJH_qnmzmY52dYom6B5MM8KJwhoCs3kQAvD_BwE&gbraid=0AAAAAC-0nPoTU3apj1_PP06kbtWepD3xG)
+
+Sub Article Title **Aperture**
+Here Aperture is the diameter of drilled hole. Laser hole diameter depends on the Thickness of the Prepreg. 
