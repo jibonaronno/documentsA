@@ -27,7 +27,7 @@ Layers. So while using 4 layers, Use Microvia first from F.Cu to In1.Cu Layer,
 Then trace out to free space then use a Normal via to route to other places. <br>
 
 During drawing a trace, Place a Micro Via with Ctrl + v key, after placing and routing, double click the via and select the start layer and destination layer.
-<img>img005.jpg</img><br>
+(img005.jpg)<br>
 
 
 # Articles from PCB WAY
