@@ -8415,6 +8415,16 @@
 	)
 	(wire
 		(pts
+			(xy 137.16 171.45) (xy 156.21 171.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1f5a8365-7bcf-4cd5-bdd9-a9a687610ce5")
+	)
+	(wire
+		(pts
 			(xy 262.89 83.82) (xy 276.86 83.82)
 		)
 		(stroke
@@ -9595,6 +9605,16 @@
 	)
 	(wire
 		(pts
+			(xy 137.16 168.91) (xy 156.21 168.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "93605cc3-363e-4087-a421-72410c9d7225")
+	)
+	(wire
+		(pts
 			(xy 26.67 115.57) (xy 26.67 118.11)
 		)
 		(stroke
@@ -10683,6 +10703,16 @@
 		)
 		(uuid "1be10b8a-7bad-4f09-a64e-5b602648b3fc")
 	)
+	(label "Tx0"
+		(at 148.59 171.45 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "1ca64c16-6f69-40a8-8e1d-9e7107b6b4d7")
+	)
 	(label "RST"
 		(at 71.12 133.35 0)
 		(effects
@@ -10692,6 +10722,16 @@
 			(justify left bottom)
 		)
 		(uuid "364c70ee-e09d-47ab-82ad-f70e4e4fca48")
+	)
+	(label "Rx0"
+		(at 148.59 168.91 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "53ed20c7-86af-465a-a1fc-ed7e688ecb50")
 	)
 	(label "BNO_INT"
 		(at 69.85 163.83 0)
@@ -14556,6 +14596,87 @@
 			(project "reband"
 				(path "/c7caebd7-c852-4a9c-aa52-0360a481ad86"
 					(reference "#PWR033")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector_Generic:Conn_01x02")
+		(at 161.29 168.91 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "6068db9d-f2ff-422c-89d3-6fd042841350")
+		(property "Reference" "J6"
+			(at 163.83 168.9099 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Conn_01x02"
+			(at 155.702 174.752 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_PinHeader_1.00mm:PinHeader_1x02_P1.00mm_Vertical_SMD_Pin1Left"
+			(at 161.29 168.91 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 161.29 168.91 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 161.29 168.91 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "474b77e9-962b-42bd-adde-527f96fca155")
+		)
+		(pin "2"
+			(uuid "2d1b43b2-600f-45b7-8ef4-328980a4a18d")
+		)
+		(instances
+			(project "reband"
+				(path "/c7caebd7-c852-4a9c-aa52-0360a481ad86"
+					(reference "J6")
 					(unit 1)
 				)
 			)
