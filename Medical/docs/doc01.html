@@ -100,6 +100,9 @@
 
       <img src="img/img07.jpg" alt="ADS1294/8" style=" max-width: 70%; height: auto;"> <br> 
       <img src="img/img08.jpg" alt="ADS1294/8" style=" max-width: 70%; height: auto;"> <br>
+      Observe that GPIO1, GPIO2, GPIO3, GPIO4 pins are used to control some of the external peripherals like digital switches
+      or as an indication to the microcontroller. Not sure about Pace Out. 
+      <br>
       <img src="img/img11.jpg" alt="ADS1294/8" style=" max-width: 70%; height: auto;"> <br> 
       Check file ADS1294_01.pdf for more details. <br>
       <br>
@@ -200,6 +203,13 @@
     <tr><td>DN</td><td>DN (GPIO19)</td><td> USB Comms.  If used as a regular GPIO, you must enter download mode before each program flash</td></tr>
     <tr><td>DP</td><td>DP (GPIO20)</td><td> USB Comms.  If used as a regular GPIO, you must enter download mode before each program flash</td></tr>
     </table>
+
+    <br>
+
+    From the ESP32-S3R8 datasheet it looks like GPIO14, GPIO16, GPIO17 and GPIO3 can be used for SPI. Need to find
+    out which one is used for the LCD.
+
+    <br>
 
     Check waveshare's page for all pins assignments. <br>
 
