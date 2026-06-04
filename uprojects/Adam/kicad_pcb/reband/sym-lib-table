@@ -18,4 +18,5 @@
 	(lib (name "NN02-101") (type "KiCad") (uri "${KIPRJMOD}/NN02_101/NN02-101.kicad_sym") (options "") (descr ""))
 	(lib (name "MAX30102EFD_T") (type "KiCad") (uri "${KIPRJMOD}/MAX30102EFD_T/MAX30102EFD_T.kicad_sym") (options "") (descr ""))
 	(lib (name "POGOB") (type "KiCad") (uri "${KIPRJMOD}/POGO_PINB/POGOB.kicad_sym") (options "") (descr ""))
+	(lib (name "LQG15HS2N2B02D") (type "KiCad") (uri "${KIPRJMOD}/LQG15HS2N2B02D/LQG15HS2N2B02D.kicad_sym") (options "") (descr ""))
 )

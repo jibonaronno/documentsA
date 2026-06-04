@@ -10,8 +10,8 @@ Multiple Schematic Sheet Document Management:
 1. Draw Hierarchical Sheet in the Root Page. Give a name and file name.
 2. Add Hierarchical Labels in the nested pages. Same as Net Label but to connect between sheets.
 3. In Root page Place Sheet Pins and click on a sheet.
-<img>img002.jpg</img><br>
-<img>img003.jpg</img><br>
+![Image](img002.jpg)<br>
+![Imgae](img003.jpg)<br>
 
 
 How to automatically Panelize PCB board in KiCad 9 using KiKit plugin | KiCad 9 Beginner's Tutorials
