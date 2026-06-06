@@ -31,6 +31,17 @@ During drawing a trace, Place a Micro Via with Ctrl + v key, after placing and r
 
 ## PCB Stack
 ![PCB Stack Board Setup](img006.jpg)<br>
+This Stackup is not correct. The PrePreg thickness is too small. <br> 
+PCBWAY Stack Page: <br>
+[PCBWAY Stackup multi-layer-laminated-structure](https://www.pcbway.com/multi-layer-laminated-structure.html) <br>
+![Image](img009.jpg)
+![Image](img010.jpg)
+Industry standard PrePregs are:<br>
+1. 1080: 0.080mm to 0.086mm 3.15mil to 3.4mil
+2. 2116: 0.109mm to 0.115mm 4.3mil to 4.53mil
+3. 7628: 0.185mm to 0.196mm 7.28mil to 7.7mil
+### Corrected Stack
+![Image](img011.jpg)
 
 
 # Articles from PCB WAY
