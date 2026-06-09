@@ -3,11 +3,15 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>ESP32-IDF Espressif IDE</title>
+    <title>ESP-IDF ESPRESSIF IDE</title>
     <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <!-- BEGIN syntax highlighter -->
     <script type="text/javascript" src="sh/shCore.js"></script>
     <script type="text/javascript" src="sh/shBrushJScript.js"></script>
+
+    <!-- script type="text/javascript" src="sh/shBrushJScript.js"></script -->
+    <script type="text/javascript" src="syntaxhighlighter.js"></script>
+
     <link type="text/css" rel="stylesheet" href="sh/shCore.css"/>
     <link type="text/css" rel="stylesheet" href="sh/shThemeDefault.css"/>
     <link href="https://fonts.googleapis.com/css?family=Gruppo" rel="stylesheet">
@@ -18,12 +22,12 @@
     <!-- END syntax highlighter -->
 
     <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="linuxsetup.css">
+    <!-- <link rel="stylesheet" href="linuxsetup.css"> -->
+    <link rel="stylesheet" href="document.css">
   </head>
-  <body>
+<body>
   
-<div style="padding: 20px;font-size: 24px; line-height: 40px">
-<div class="title_b">Espressif IDE Installation</div>
+<div style="padding: 20px; line-height: 40px">
 
 <!-- SHOW HIDE START 001  -->
 
@@ -36,227 +40,13 @@ div[id=div-001] {
     }
 </style>
 
-<h2><label for="toggle-001">Primary Links & Terms</label></h2>
-<input type="checkbox" id="toggle-001" style="display: none;">
+<h2>Primary Document from </h2>
 
-<div id="div-001">
-<br>
-    <pp>get-started-windows-first-steps</pp><br>
-    Getting Started with ESP-IDF Guide <a href="https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/windows-setup.html#get-started-windows-first-steps">ESPRESSIF LINK HERE</a> <br>
-    This installation process is based on Espressif-IDE . 
-    Download Espressif IDE from <a href="https://dl.espressif.com/dl/esp-idf/"> https://dl.espressif.com/dl/esp-idf/ </a> . <br>
-    <img src="img/img001.jpg" alt="NOT FOUND"><br>
-    Whole system will be installed in <pp>C:\Espressif</pp> folder. <br>
-    All example files are in <pp>C:\Espressif\frameworks\esp-idf-v5.0.2\examples</pp> <br>
-    Copy any project from examples folder to <p4>C:\Espressif\frameworks\esp-idf-v5.0.2\</p4> folder. <br>
-    Such as I copied <p4>C:\Espressif\frameworks\esp-idf-v5.0.2\examples\bluetooth\bluedroid\ble\gatt_server</p4> folder to 
-    <p4>C:\Espressif\frameworks\esp-idf-v5.0.2\</p4> location then started configuring or building project from command line. <br>
-    To enter to ESP-IDF environment we may need to run <br>
-    <code>cd C:\Espressif <br>
-    idf_cmd_init.bat <br>
-  </code> <br>
-  Then go to the copied project folder in command prompt. <code>cd gatt_server</code> and apply following commands. <br>
-    <pre>
-      idf.py set-target esp32
-      idf.py menuconfig
-      idf.py build
-      idf.py -p COM9 flash
-    </pre>
-    <br>
-    <pp>menuconfig did not work because windows-curses was not installed.</pp> <br>
-    <code>pip install windows-curses</code> <br>
-    Then run <br>
-    <code>idf.py menuconfig</code> and rest of the commands.
-    <br>
-    At this point during the flashing start, I had to press and release the RESET button on the ESP32-CAM board carefully. <br>
-    This command flushes the board with the project firmware bin file and we need to press reset button again to check the result. <br>
-    This bluetooth gatt server documentation is <a href="https://github.com/espressif/esp-idf/blob/master/examples/bluetooth/bluedroid/ble/gatt_server/tutorial/Gatt_Server_Example_Walkthrough.md">Here</a> <br> . 
-    The include headers are below : <br>
-    <pre>
-      #include &lt;stdio.h&gt;
-        #include &lt;stdlib.h&gt;
-        #include &lt;string.h&gt;
-        #include "freertos/FreeRTOS.h"
-        #include "freertos/task.h"
-        #include "freertos/event_groups.h"
-        #include "esp_system.h"
-        #include "esp_log.h"
-        #include "nvs_flash.h"
-        #include "esp_bt.h"
-        #include "esp_gap_ble_api.h"
-        #include "esp_gatts_api.h"
-        #include "esp_bt_defs.h"
-        #include "esp_bt_main.h"
-        #include "esp_gatt_common_api.h"
-        #include "sdkconfig.h"
-    </pre> <br>
-    esp_bt.h: implements BT controller and VHCI configuration procedures from the host side. <br>
-    esp_bt_main.h: implements initialization and enabling of the Bluedroid stack. <br>
-    esp_gap_ble_api.h: implements GAP configuration, such as advertising and connection parameters. <br>
-    esp_gatts_api.h: implements GATT configuration, such as creating services and characteristics. <br>
-    <br>
-    <p5> Main Entry Point </p5><br>
-    <pre>
-      void app_main()
-      {
-          esp_err_t ret;
-      
-          // Initialize NVS.
-          ret = nvs_flash_init();
-          if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
-              ESP_ERROR_CHECK(nvs_flash_erase());
-              ret = nvs_flash_init();
-          }
-          ESP_ERROR_CHECK(ret);
-      
-          esp_bt_controller_config_t bt_cfg = BT_CONTROLLER_INIT_CONFIG_DEFAULT();
-          ret = esp_bt_controller_init(&bt_cfg);
-          if (ret) {
-              ESP_LOGE(GATTS_TAG, "%s initialize controller failed", __func__);
-              return;
-          }
-      
-          ret = esp_bt_controller_enable(ESP_BT_MODE_BLE);
-          if (ret) {
-              ESP_LOGE(GATTS_TAG, "%s enable controller failed", __func__);
-              return;
-          }
-          ret = esp_bluedroid_init();
-          if (ret) {
-              ESP_LOGE(GATTS_TAG, "%s init bluetooth failed", __func__);
-              return;
-          }
-          ret = esp_bluedroid_enable();
-          if (ret) {
-              ESP_LOGE(GATTS_TAG, "%s enable bluetooth failed", __func__);
-              return;
-          }
-      
-          ret = esp_ble_gatts_register_callback(gatts_event_handler);
-          if (ret){
-              ESP_LOGE(GATTS_TAG, "gatts register error, error code = %x", ret);
-              return;
-          }
-          ret = esp_ble_gap_register_callback(gap_event_handler);
-          if (ret){
-              ESP_LOGE(GATTS_TAG, "gap register error, error code = %x", ret);
-              return;
-          }
-          ret = esp_ble_gatts_app_register(PROFILE_A_APP_ID);
-          if (ret){
-              ESP_LOGE(GATTS_TAG, "gatts app register error, error code = %x", ret);
-              return;
-          }
-          ret = esp_ble_gatts_app_register(PROFILE_B_APP_ID);
-          if (ret){
-              ESP_LOGE(GATTS_TAG, "gatts app register error, error code = %x", ret);
-              return;
-          }
-          esp_err_t local_mtu_ret = esp_ble_gatt_set_local_mtu(512);
-          if (local_mtu_ret){
-              ESP_LOGE(GATTS_TAG, "set local  MTU failed, error code = %x", local_mtu_ret);
-          }
-          return;
-      }
-    </pre> <br>
-    This function <code>ret = nvs_flash_init();</code> initializes the flash memory to save credentials. <br> .
-    <br>
 
-    <p5>BT Controller and Stack Initialization</p5><pp>esp_bt_controller_config_t bt_cfg = BT_CONTROLLER_INIT_CONFIG_DEFAULT();</pp><br>
-    <p4>
-      The main function also initializes the BT controller by first creating a BT controller configuration structure named 
-      esp_bt_controller_config_t with default settings generated by the BT_CONTROLLER_INIT_CONFIG_DEFAULT() macro. 
-      The BT controller implements the Host Controller Interface (HCI) on the controller side, the Link Layer (LL) 
-      and the Physical Layer (PHY). The BT Controller is invisible to the user applications and deals with the lower 
-      layers of the BLE stack. The controller configuration includes setting the BT controller stack size, priority and HCI baud rate. 
-      With the settings created, the BT controller is initialized and enabled with the esp_bt_controller_init() function:
-    </p4> <br>
-    <pre>
-      esp_bt_controller_config_t bt_cfg = BT_CONTROLLER_INIT_CONFIG_DEFAULT();
-      ret = esp_bt_controller_init(&bt_cfg);
-    </pre>
-    <br>
-
-    Next, the controller is enabled in BLE Mode.
-
-    <pre>
-      ret = esp_bt_controller_enable(ESP_BT_MODE_BLE);
-    </pre> <br>
-
-    if you want <p5>BLE + BT</p5> then we should enable controller with <p4>ESP_BT_MODE_BTDM</p4> . <br>
-
-    4 types of controller defines <br>
-    <p5>1</p5>. ESP_BT_MODE_IDLE <br>
-    <p5>2</p5>. ESP_BT_MODE_BLE <br>
-    <p5>3</p5>. ESP_BT_MODE_CLASSIC_BT <br>
-    <p5>4</p5>. ESP_BT_MODE_BTDM <br>
-
-    After the initialization of the BT controller, the Bluedroid stack, 
-    which includes the common definitions and APIs for both BT Classic and BLE, is initialized and enabled by using: <br>
-
-    <pre>
-      ret = esp_bluedroid_init();
-      ret = esp_bluedroid_enable();
-    </pre> <br>
-
-    The two main managers of events are the GAP and GATT event handlers. 
-    The application needs to register a callback function for each event handler 
-    in order to let the application know which functions are going to handle the GAP and GATT events: <br>
-
-    <pre>
-      esp_ble_gatts_register_callback(gatts_event_handler);
-      esp_ble_gap_register_callback(gap_event_handler); 
-    </pre> <br>
-
-    The functions gatts_event_handler() and gap_event_handler() handle all the events that are pushed to the
-    application from the BLE stack. <br>
 </div>
+
 <!-- SHOW HIDE END 001  -->
 
-  <!-- SHOW HIDE START 004  -->
-  <style type="text/css">
-    div[id=div-004] {
-      display: none;
-    }
-      input[id=toggle-004]:checked ~ div[id=div-004] {
-        display: block;
-        }
-  </style>
-
-  <h2><label for="toggle-004">Get Started ESP-ADF</label></h2>
-  <input type="checkbox" id="toggle-004" style="display: none;">
-  
-  <div id="div-004">
-    <a href="https://docs.espressif.com/projects/esp-adf/en/latest/get-started/">ESP-ADF Get Started</a> <br> <br>
-    <a href="https://github.com/espressif/esp-adf">Github Page</a> shows that ESP-IDF V5.2 supports ESP-ADF V2.7 <br>
-     
-  </div>
-  <!-- SHOW HIDE END 004  -->
-
-  <!-- SHOW HIDE START 005  -->
-  
-  <style type="text/css">
-    div[id=div-005] {
-      display: none;
-    }
-      input[id=toggle-005]:checked ~ div[id=div-005] {
-        display: block;
-        }
-  </style>
-    
-  <h2><label for="toggle-005">ESPRESSIF ESP-IDF Getting Started Page</label></h2>
-  <input type="checkbox" id="toggle-005" style="display: none;">
-  
-  <div id="div-005">
-  Start with Board Support Package <br>
-  To speed up prototyping on some development boards, you can use Board Support Packages (BSPs), which makes initialization of a particular board as easy as few function calls.
-  A BSP typically supports all of the hardware components provided on development board. Apart from the pinout definition and initialization functions, a BSP ships with drivers for the external components such as sensors, displays, audio codecs etc.
-  The BSPs are distributed via <a href="https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/tools/idf-component-manager.html">IDF Component Manager</a>, so they can be found in <a href="https://components.espressif.com/">IDF Component Registry</a>.
-  Here is an example of how to add ESP-WROVER-KIT BSP to your project: <br>
-  <code>idf.py add-dependency esp_wrover_kit</code> <br>
-  </div>
-
-  <!-- SHOW HIDE END 005  -->
 
   <!-- SHOW HIDE START 006  -->
   <style type="text/css">
@@ -268,59 +58,64 @@ div[id=div-001] {
         }
     </style>
     
-    <h2><label for="toggle-006">ESP32 CAM BLE Bluetooth</label></h2>
+    <h2><label for="toggle-006">Initial Project</label></h2>
     <input type="checkbox" id="toggle-006" style="display: none;">
     
     <div id="div-006">
-      <p5>Example Arduino Code</p5><pp>BLE_server.ino</pp><p4>Device - AI Thinker Esp32-CAM</p4> <br>
+
+      <h2>Target Project Connect BNO055 Sensor with XIAO ESP32-C3</h2>
+      <p>
+        <strong><span class="file">C:\Users\tebun\BNO055IMU:</span></strong></p>
+      <p>
+        First need to install ESP-IDF Extension for Visual Studio Code. Then create a new project with a template. 
+        There is only one template for ESP32-C3. 
+      </p>
+      <img src="images/espidf001.jpg" alt="" style="width: 80%;"> <br>
+      <p>
+        Copilot can create a simple "Hello World" project. After compilation flashing can be problematic. Select proper COM port and flashing 
+        tool. Launch the menuconfig from the extension status bar. Then select the proper COM port and flashing tool.
+      </p>
+      <img src="images/espidf002.jpg" alt="" style="width: 80%;"> <br>
+
+      <br>
+      <h3>Copilot Sonnet 4.6 prompt to read BNO055 and BMP280</h3>
+      <code>I connect DFRobot BNO055 10Dof Module with XIAO ESP32-C3 as SCL to D4 and SDA to D5. According to DFRobot document fro https://wiki.dfrobot.com/sen0253/docs/23843 it uses Arduino Library, But I am using ESP-IDF. So I want to create my own Library for ESP-IDF and read data from BNO055 module. The module contains 2 sensor, BNO055 and BMP280. I want to read both sensor data. First create the library.</code>
+      <br>
+      <p>It created the library files <pp>components/include/bno055.h, bmp288.h</pp>, <pp>components/bno055.c, components/bmp280.c</pp> <br>
+      <img src="images/espidf00.jpg" alt="" style="width: 80%;"> <br>
+      After compling and flashing the project, I can read the sensor data from the serial monitor.
+      </p>
       <pre>
-/*
-    Based on Neil Kolban example for IDF: https://github.com/nkolban/esp32-snippets/blob/master/cpp_utils/tests/BLE%20Tests/SampleServer.cpp
-    Ported to Arduino ESP32 by Evandro Copercini
-    updates by chegewara
-*/
+        ===== BNO055 =====
+        Euler  | Heading:  308.19°  Roll:   16.06°  Pitch:  -33.88°
+        Quat   | w: 0.8528  x: 0.3183  y: -0.0083  z: 0.4139
+        Accel  | x:   267.0  y:   522.0  z:   778.0  (mg)
+        Gyro   | x:   -0.12  y:   -0.06  z:    0.00  (dps)
+        Mag    | x:    4.75  y:   -7.56  z:  -36.19  (µT)
+        Calib  | sys:3  gyr:3  acc:0  mag:2  (3=fully cal)
 
-#include <BLEDevice.h>
-#include <BLEUtils.h>
-#include <BLEServer.h>
-
-// See the following for generating UUIDs:
-// https://www.uuidgenerator.net/
-
-#define SERVICE_UUID        "4fafc201-1fb5-459e-8fcc-c5c9c331914b"
-#define CHARACTERISTIC_UUID "beb5483e-36e1-4688-b7f5-ea07361b26a8"
-
-void setup() {
-  Serial.begin(115200);
-  Serial.println("Starting BLE work!");
-
-  BLEDevice::init("Long name works now");
-  BLEServer *pServer = BLEDevice::createServer();
-  BLEService *pService = pServer->createService(SERVICE_UUID);
-  BLECharacteristic *pCharacteristic = pService->createCharacteristic(
-                                         CHARACTERISTIC_UUID,
-                                         BLECharacteristic::PROPERTY_READ |
-                                         BLECharacteristic::PROPERTY_WRITE
-                                       );
-
-  pCharacteristic->setValue("Hello World says Neil");
-  pService->start();
-  // BLEAdvertising *pAdvertising = pServer->getAdvertising();  // this still is working for backward compatibility
-  BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();
-  pAdvertising->addServiceUUID(SERVICE_UUID);
-  pAdvertising->setScanResponse(true);
-  pAdvertising->setMinPreferred(0x06);  // functions that help with iPhone connections issue
-  pAdvertising->setMinPreferred(0x12);
-  BLEDevice::startAdvertising();
-  Serial.println("Characteristic defined! Now you can read it in your phone!");
-}
-
-void loop() {
-  // put your main code here, to run repeatedly:
-  delay(2000);
-}
+        ===== BMP280 =====
+        Temp   | 30.50 °C
+        Press  | 100487 Pa (1004.87 hPa)
+        Alt    | 70.00 m  (sea-level ref: 101325 Pa)
       </pre>
-      
+      <br>
+
+      <p>BNO055 has a 32bit processor to fusion sensor data and then output the results. <br>
+        DFRobot web article <p4>https://wiki.dfrobot.com/sen0253/docs/23067</p4> provides basic information about the sensor.
+      </p>
+      <p>
+        From Copilot, the Euler value is like a processed value for human readable format. Euler angles can be imagined as 
+        three separate rotations around the X, Y, and Z axes. More like a compass heading, roll and pitch. 
+        However, they can suffer from a problem called gimbal lock, 
+        where you lose one degree of freedom in certain orientations.
+        So it is better to use Quaternion values for orientation or math calculation.
+        A valid quaternion must satisfy:
+        <pre>
+          w² + x² + y² + z² = 1.0
+        </pre>
+      </p>
+
     </div>
 
   <!-- SHOW HIDE END 006  -->
@@ -335,35 +130,12 @@ void loop() {
         }
     </style>
     
-    <h2><label for="toggle-007">Random Links Commands</label></h2>
+    <h2><label for="toggle-007">BNO055 and BMP280 Module From DFRobot</label></h2>
     <input type="checkbox" id="toggle-007" style="display: none;">
     
     <div id="div-007">
-      <a href="https://randomnerdtutorials.com/flashing-micropython-firmware-esptool-py-esp32-esp8266/">Flashing MicroPython Firmware on ESP32 with esptool.py</a><br>
-      <pp>Following command should run from ESP-IDF environment. In my case in windows pc is C:\Espressif\frameworks\esp-idf-v5.0.2\gatt_server right now. 
-        It may also require to run the C:\Espressif\idf_cmd_init.bat file.
-      </pp>
-      <code>python -m esptool --chip esp32 --port COM7 write_flash -z 0x1000 esp32-20190113-v1.9.4-779-g5064df207.bin</code><br>
-      <img src="img/img002.jpg" alt="NOT FOUND"><br>
-      <br>
-      <code>idf.py clean</code> <br>
-      <code>idf.py fullclean</code> <br><br>
-
-      <p4>Arduino IDE</p4><br>
-      <pp>BLE with ESP32 tutorial part 1: the Server</pp><a href="BLE with ESP32 tutorial part 1: the Server">BLE with ESP32 tutorial part 1: the Server</a><br>
-      <img src="img/img004.jpg" alt="NOT FOUND"><br>
-      <br>
-
-      <pp>React Native with ESP32 Arduino | Bluetooth Low Energy BLE | Example Program</pp> <a href="https://www.youtube.com/watch?v=erWibryA_tE">Link</a><br>
-      <img src="img/img005.jpg" alt="NOT FOUND"><br>
-      <br>
-
-      <pp>React Native Tutorial for Beginners - Build a React Native App</pp> <a href="https://www.youtube.com/watch?v=0-S5a0eXPoc"> Link </a><br>
-      <img src="img/img006.jpg" alt="NOT FOUND"><br>
-      <br>
-
-
-
+      Schematic saved in <pp>documentsA/ESP32/SEN0253_gravity-10-dof-imu-ahrs-bno055-bmp280_schematics_V1.0.pdf</pp>
+      <img src="images/espidf003.jpg" alt="" style="width: 80%;"> <br>
     </div>
   <!-- SHOW HIDE END 007  -->
 
@@ -376,55 +148,27 @@ void loop() {
       display: block;
       }
   </style>
-  
-  <h2><label for="toggle-008">Linux on ESP32-S3 . Random Links</p3> </label></h2>
+  <h2><label for="toggle-008">Understanding BNO055 output values</label></h2>
   <input type="checkbox" id="toggle-008" style="display: none;">
   
   <div id="div-008">
-    <a href="http://wiki.osll.ru/doku.php/etc:users:jcmvbkbc:linux-xtensa:esp32">Booting Linix on ESP32</a><br>
-    <img src="img/img008.jpg" width="40%" alt=""><br><br>
-    <a href="https://gojimmypi.github.io/ESP32-S3-Linux/">ESP32-S3 Linux Kernel Setup Guide</a><br>
+    <p>
+        From Copilot, the Euler value is like a processed value for human readable format. Euler angles can be imagined as 
+        three separate rotations around the X, Y, and Z axes. More like a compass heading, roll and pitch. 
+        However, they can suffer from a problem called gimbal lock, 
+        where you lose one degree of freedom in certain orientations.
+        So it is better to use Quaternion values for orientation or math calculation.
+        A valid quaternion must satisfy:
+        <pre>
+          w² + x² + y² + z² = 1.0
+        </pre>
+        <br>
+        <p>Copilot suggests some Articles about quaternions for further reading. <br>
+          1. Visualizing the 4d numbers Quaternions from 3Blue1Brown <p4>https://www.youtube.com/watch?v=d4EgbgTm0Bg</p4> <br>
+          .... Check Copilot page (BNO055 I2C address and boot load). <br>
+        </p>
+    </p>
 
-    Topic came from this <a href="https://www.hackster.io/naveenbskumar/ultra-low-powered-linux-computer-running-on-microcontrollers-4eb9bd">Hackster</a><br>
-    
-
-    I was studying this <a href="https://gist.github.com/jcmvbkbc/316e6da728021c8ff670a24e674a35e6">scrip</a> at this line: <br>
-    <pre>
-      #
-      # toolchain
-      #
-      git clone https://github.com/jcmvbkbc/crosstool-NG.git -b xtensa-fdpic
-      pushd crosstool-NG
-      ./bootstrap && ./configure --enable-local && make
-      ./ct-ng xtensa-esp32s3-linux-uclibcfdpic
-      CT_PREFIX=`pwd`/builds nice ./ct-ng build
-      popd
-      [ -e crosstool-NG/builds/xtensa-esp32s3-linux-uclibcfdpic/bin/xtensa-esp32s3-linux-uclibcfdpic-gcc ] || exit 1
-    </pre><br>
-
-    These commands are building crosstool-NG with specific options <p5>./ct-ng xtensa-esp32s3-linux-uclibcfdpic</p5> <br>
-    In crosstool-NG folder there is a sample folder where there are folders for each architechture. There I found 
-    <pp>xtensa-fsf-linux-uclibc</pp> . I  do not know which arch does it mean. I am trying to build crosstool-NG with 
-    this arch manually. <br>
-    Finally it compiled using lot of HD space. <br>
-
-    Later we see that the script downloads a buildroot from jcmvbkbc, The branch is xtensa-2023.02-fdpic. <br>
-
-    <pre>
-      #
-      # kernel and rootfs
-      #
-      git clone https://github.com/jcmvbkbc/buildroot -b xtensa-2023.02-fdpic
-      nice make -C buildroot O=`pwd`/build-xtensa-2023.02-fdpic-esp32s3 esp32s3wifi_defconfig
-      buildroot/utils/config --file build-xtensa-2023.02-fdpic-esp32s3/.config --set-str TOOLCHAIN_EXTERNAL_PATH `pwd`/crosstool-NG/builds/xtensa-esp32s3-linux-uclibcfdpic
-      buildroot/utils/config --file build-xtensa-2023.02-fdpic-esp32s3/.config --set-str TOOLCHAIN_EXTERNAL_PREFIX '$(ARCH)-esp32s3-linux-uclibcfdpic'
-      buildroot/utils/config --file build-xtensa-2023.02-fdpic-esp32s3/.config --set-str TOOLCHAIN_EXTERNAL_CUSTOM_PREFIX '$(ARCH)-esp32s3-linux-uclibcfdpic'
-      nice make -C buildroot O=`pwd`/build-xtensa-2023.02-fdpic-esp32s3
-      [ -f build-xtensa-2023.02-fdpic-esp32s3/images/xipImage -a -f build-xtensa-2023.02-fdpic-esp32s3/images/rootfs.cramfs ] || exit 1
-
-    </pre>
-
-    <br><br>
   </div>
 <!-- SHOW HIDE END 008  -->
 
@@ -438,11 +182,10 @@ void loop() {
       }
   </style>
   
-  <h2><label for="toggle-009">Blank </label></h2>
+  <h2><label for="toggle-009">Blank</label></h2>
   <input type="checkbox" id="toggle-009" style="display: none;">
   
   <div id="div-009">
-      
 
   </div>
 <!-- SHOW HIDE END 009  -->
@@ -463,7 +206,7 @@ void loop() {
   <div id="div-010">
     
   </div>
-<!-- SHOW HIDE START 010  -->
+<!-- SHOW HIDE END 010  -->
 
 <!--   -->
 

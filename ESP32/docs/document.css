@@ -35,6 +35,24 @@ body {
     border-radius: 0.2em;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.16);
   }
+p4
+{
+  font-family: 'Kalam', sans-serif;
+  font-size: 20px;
+  font-weight: lighter;
+  letter-spacing: 3px;
+}
+pp
+{
+	color: #24292e;
+	font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+	padding: 0.2em 0.4em;
+	background-color: #fff5b1;
+	border-radius: 3px;
+	font-size: 13.6px;
+	font-weight: 600;
+	border: 1px solid #e1c03a;
+}
   @media print {
     body { max-width: none; margin: 0; padding: 0.5in; font-size: 10pt; }
     pre, table, blockquote { page-break-inside: avoid; }
