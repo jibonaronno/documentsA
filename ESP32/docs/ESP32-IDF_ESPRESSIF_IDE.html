@@ -58,7 +58,7 @@ div[id=div-001] {
         }
     </style>
     
-    <h2><label for="toggle-006">Initial Project</label></h2>
+    <h2><label for="toggle-006">Initial Project and Project Location Changes</label></h2>
     <input type="checkbox" id="toggle-006" style="display: none;">
     
     <div id="div-006">
@@ -117,6 +117,20 @@ div[id=div-001] {
           w² + x² + y² + z² = 1.0
         </pre>
       </p>
+
+      <h3>Changing Project Location</h3>
+      <p>What went wrong and how to copy an IDF project correctly:</p>
+      <p>The cause: Your copied build/ folder held a stale CMake cache, and it got 
+        reconfigured with your host clang instead of the ESP toolchain 
+        (hence the ld.lld: unable to find library -lkernel32 errors — it was trying to link a 
+        Windows program).
+      </p>
+      <p>The fix applied:</p>
+      <ul>
+        <li>Deleted the stale build/ folder</li>
+        <li>Added "cmake.configureOnOpen": false and "cmake.automaticReconfigure": false to settings.json so the CMake Tools extension doesn't hijack configuration from the ESP-IDF extension</li>
+        <li>Full Clean and Rebuilt via the ESP-IDF extension</li>
+      </ul>
 
     </div>
 
