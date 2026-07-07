@@ -1,0 +1,659 @@
+0:00
+Can you run a 35 billion parameter AI on
+0:03
+an 8-year-old GPU with only 6 gigs of
+0:05
+VRAM at acceptable speed? Yes, you can.
+0:09
+We are going to explore every way to not
+0:12
+just run this model, but run it fast
+0:14
+enough that it doesn't feel like you're
+0:16
+talking through a satellite phone. And
+0:18
+we're going to run it on the full
+0:20
+context and making it usable, not just
+0:23
+possible. Five tricks, one Docker
+0:25
+command. Let's get into it. Before we
+Setup
+0:27
+touch any flags, let me introduce the
+0:30
+three characters in this story. First,
+0:33
+llama.cpp.
+0:34
+The engine. I'm using llama.cpp because
+0:37
+it gives you crazy flexibility. Every
+0:40
+knob exposed, every memory decision
+0:42
+yours to make. If you want to
+0:44
+micromanage where each piece of the
+0:46
+model lives, and we will, this is the
+0:49
+tool. Second character Quen 3.635
+0:53
+B A3B. The model total size 35 billion
+0:57
+parameters but it's a mixture of experts
+1:00
+so only three billion are active for any
+1:03
+given word 256 tiny specialists eight of
+1:07
+them wake up per token hold that thought
+1:10
+we'll come back to it third character
+1:12
+the worstcase rig I had on hand built
+1:15
+almost 8 years ago specifically
+1:18
+8-year-old GTX 1060 with 6 gigs of VRAM
+1:22
+on PCIe Gen 3 8-year-old i38100.
+1:27
+Four cores, no hyperthreading, 24 gigs
+1:30
+of DDR4. Nothing on this list would
+1:33
+impress anyone in 2026. If your setup is
+1:36
+better than this, and it almost
+1:38
+certainly is, your numbers will come out
+1:41
+better than mine. The point is that this
+1:43
+rig is a floor, not a ceiling. Cast
+Why it’s slow by default
+1:46
+introduced. Let's start with the dumb
+1:48
+thing first. The way most people would
+1:50
+actually try it, the obvious move. Split
+1:52
+the model in half. Top half on the GPU,
+1:55
+bottom half on the CPU and RAM. Do as
+1:58
+much as fits. Push the rest offboard.
+2:00
+That's what -L does. Number of GPU
+2:03
+layers. We tell it 20. Meaning the first
+2:06
+20 layers go on the card. The rest stay
+2:09
+on the CPU. It loads just barely. And
+2:12
+the model starts answering at about
+2:15
+three tokens a second, which means
+2:17
+watching a sentence appear over 20 30
+2:20
+seconds. We are in satellite phone
+2:22
+territory. Why is it crawling? Because
+2:25
+every layer carries its experts with it.
+2:28
+When a layer is on the CPU, the entire
+2:30
+layer including its expert blocks lives
+2:33
+on the CPU. And per token, the data has
+2:36
+to make the trip across PCIe. The bus
+2:39
+chokes three tokens a second useless for
+2:43
+anything real time. So this is our
+2:45
+floor, the dumb baseline. Now the
+2:47
+question becomes what do we know about
+2:50
+this model that the dumb baseline
+MoE breakthrough
+2:52
+doesn't? And this is where the type of
+2:54
+model we are running starts to matter.
+2:56
+Most older AI models are what they call
+3:00
+dense.
+3:01
+Every neuron in every layer fires for
+3:04
+every word. If a dense model has 35
+3:08
+billion parameters, all 35 billion run.
+3:13
+Mixture of experts is different. The
+3:15
+bulk of the weights live in those expert
+3:18
+blocks. Per token, the model only wakes
+3:21
+up a handful of them, which means most
+3:24
+of the model is sleeping most of the
+3:26
+time. Dead weight if you're sitting on
+3:29
+the GPU, but cheap rent if you're
+3:31
+sitting in RAM. So, the smart split
+3:34
+isn't half the layers each. It's keep
+3:37
+the small fast firing parts on the GPU,
+3:41
+push the giant sleeping experts onto the
+3:44
+CPU. Per token, the GPU does its job,
+3:48
+then asks for whichever eight experts
+3:50
+are needed, then does its job again.
+3:53
+Llama.cpp has the exact flag for this.
+3:57
+D-N CPU mo 41. Take every layer's
+4:02
+experts and pin them to the CPU.
+4:05
+Everything else sent to the GPU. Reload.
+4:09
+Same model, same hardware, one different
+4:12
+flag. Speed jumps from three tokens a
+4:15
+second to 10. 230% faster. No hardware
+4:20
+change. That would be the end of most
+4:24
+YouTube videos. Cool trick. Runs at
+4:27
+reading speed. Ship it. But there's four
+4:30
+more flags. Each one makes it faster.
+Fixing memory bottlenecks
+4:33
+All right. On to the next one. Flag two,
+4:36
+no map. By default, llama.cb does this
+4:39
+clever thing. It pretends the whole
+4:41
+model file is in RAM, but really it's
+4:44
+still on the disk. The OS pages chunks
+4:47
+in only when they are needed. Sounds
+4:49
+smart. It's actually slow for what we
+4:51
+are doing. Every few tokens, the model
+4:54
+asks for an expert that hasn't been
+4:56
+loaded yet. Disk read token comes out
+4:59
+late. With no map, llama.cb CBP reads
+5:02
+the entire model into RAM up front. The
+5:05
+whole 20 gigs. Once it's there, every
+5:08
+expert is already loaded. No more disc
+5:10
+reads during inference. No more page
+5:12
+false mid token. Every lookup is
+5:15
+predictable. 10 tokens a second jumps to
+5:18
+13 and a half. About a 35% bump from one
+5:22
+flag. No code, no retraining, no
+5:24
+quantization tricks. Just telling the
+5:26
+OS, hey, stop being clever about my RAM.
+5:30
+Two flags down, three to go. Now check
+Hitting 17 tok/s
+5:32
+the GPU. At 13 tokens a second, it still
+5:35
+isn't full. Two whole gigabytes of VRAM
+5:38
+just sitting there. Free real estate we
+5:40
+can spend. So we change one number from
+5:42
+41 down to 35. That pulls six layers
+5:45
+worth of experts from the CPU back onto
+5:48
+the GPU. More work happens on the fast
+5:51
+chip. Less crosses the PCI bus. VRAM
+5:54
+goes from 4 gigs to 5 1/2. Speed jumps
+5:57
+from 13 1/2 to 17. There's a trade-off,
+6:00
+by the way. The bigger the GPU's
+6:02
+footprint, the less room for the context
+6:04
+window. We dropped from 100,000 tokens
+6:06
+of context down to about 64,000. Fine
+6:10
+for most chats, not fine if you're
+6:12
+feeding it a whole code base. Hold that
+6:14
+thought. 17 tokens a second. Faster than
+6:17
+I read out loud on a card from when
+6:20
+Bohemian Rap City was in theaters. Three
+6:22
+flags, 17 tokens a second. We could
+6:25
+honestly stop here, but I want my
+6:27
+context back.
+6:30
+Real quick, if you like seeing what old
+6:32
+hardware can actually do, I do this
+6:34
+every couple weeks. New model, cheap
+6:36
+setup, no cloud bill, subscribe and
+6:39
+you'll catch the next one. Right, back
+4× context trick
+6:40
+to it. Remember that context window we
+6:42
+had to shrink? Time to get it back. We
+6:45
+at 17 tokens a second, but context is
+6:47
+chopped down to 64,000 tokens. To get
+6:50
+more, you'd usually need more VRAM,
+6:53
+which we don't have. Here's why context
+6:56
+costs VRAMm. Every token you've ever
+6:58
+shown the model, the model remembers.
+7:01
+Specifically, it stores two numbers per
+7:03
+token per layer, keys and values, the KV
+7:07
+cache, and it grows linearly. Twice the
+7:10
+context, twice the memory. Heads up, I
+7:12
+was already using Q8 quantization on the
+7:15
+cache. Q8 is basically lossless,
+7:17
+negligible quality drop. But push past
+7:20
+Q8, Q4, Q3, and the answers start to
+7:23
+fall apart. Earlier this year, Google
+7:26
+DeepMind published Turbo Quant, random
+7:28
+rotation, then aggressive quantization.
+7:31
+Four bits for keys, three for values,
+7:33
+and somehow still almost lossless. Q3
+7:36
+and Q4 territory with quality you can't
+7:39
+tell apart from Q8. The math is in the
+7:41
+paper if you're into that. Two flags,
+7:44
+Turbo 4 for the keys, Turbo 3 for the
+7:46
+values. The asymmetry isn't a typo. This
+7:49
+model uses grouped query attention with
+7:52
+an 8:1 ratio. So the keys can take
+7:55
+heavier compression than the values.
+7:57
+Don't worry about it. Just type the
+7:59
+flags. Okay, flags on. First, let's not
+8:02
+get greedy. Bump context from 64,000
+8:06
+back to 128,000. Reload. It loads. 5.3
+8:11
+gigs of VRAM, 128K context, no OUM.
+8:15
+That's already a win. Half a flag. And
+8:17
+we doubled the context. But only 0.7
+8:20
+gigs free. Can we be greedier? Push it
+8:23
+to 256,000.
+8:25
+Reload. Out of memory. Wait, what if we
+8:28
+pull one more layer of experts back to
+8:31
+the CPU? NCPUe goes from 35 to 36. Try
+8:36
+again. It fits just barely. 5.9 of 6
+8:40
+gigs. 64,000 stretches to 256,000.
+8:44
+four times the entire training context
+8:47
+of the model on the same 6 gig GPU.
+8:50
+Speed still 17 tokens a second. Same as
+8:53
+before. Compression doesn't slow it
+8:55
+down. The cache is small enough that the
+8:58
+lookup is essentially free. What that
+9:00
+gets you in practical terms, you can
+9:02
+paste a small book in and ask questions
+9:05
+about it. You can drop an entire code
+9:08
+base as context without the model
+9:10
+forgetting page one by the time it reads
+9:12
+page 50. Four flags, same speed, four
+9:16
+times the context. That's the turbo
+9:18
+quant trick. One paper, two flags, free
+9:21
+real estate.
+Stability fix
+9:23
+One more flag and we're done. This one
+9:25
+isn't about speed. It's a difference
+9:27
+between a setup that works in a demo and
+9:30
+a setup that survives Tuesday. There's a
+9:33
+problem you don't see until you leave
+9:35
+the server running for a day. Check this
+9:38
+mlocked 12 kilob. 12 as in basically
+9:42
+nothing. All those experts we put in
+9:45
+RAM, the kernel thinks they are regular
+9:47
+files. Hours later when memory gets
+9:49
+tight or the system idles, it starts
+9:51
+paging some of them out to disk. Next
+9:54
+inference, page fault, stutter, random
+9:57
+slow tokens. The fix is annoying because
+10:00
+it lives in three places. The Lexe
+10:02
+container needs permission to lock
+10:04
+memory. Docker needs the IPC lock
+10:07
+capability. Llama.cbp CBP needs the
+10:09
+MLOCK flag. Skip any one of them and it
+10:12
+silently falls back to default. No
+10:15
+error, just a slow leak. With all three
+10:18
+in place, you literally tell the kernel,
+10:20
+"Do not touch this RAM. Do not page it.
+10:23
+Do not move it. It's mine. Recheck me
+10:27
+info. Mlogged 16 GB. Every expert is
+10:32
+glued in place. The day three slowdown
+10:35
+gone. Same 17 tokens a second. By the
+10:37
+way, the speed didn't change because in
+10:39
+a fresh boot, the experts were already
+10:42
+cached. What changed is that this thing
+10:45
+now runs for a week without degrading.
+10:48
+Production behavior.
+10:50
+Five flags. That's the whole list. 35
+10:54
+billion parameters, 6 gigs of VRAM,
+10:57
+256,000
+10:59
+tokens of context, 17 tokens a second.
+11:03
+Stable. Okay, so we're done with the
+What failed
+11:05
+wins. Five flags, one Docker command, 17
+11:07
+tokens a second. Now, I want to talk
+11:10
+about the thing I tried that didn't work
+11:12
+because most videos skip that part.
+11:14
+Speculative decoding. The idea is
+11:17
+beautiful. You run a tiny model
+11:19
+alongside the big one. The tiny one
+11:21
+guesses the next eight tokens. The big
+11:24
+one verifies them in a single batch
+11:26
+instead of eight serial passes. When it
+11:29
+works, you get two to four times the
+11:32
+speed. I added Quen 3.5, the 800 million
+11:35
+parameter version as the drafter. Same
+11:38
+tokenizer as the target. 248,000 tokens
+11:42
+should plug right in. The drafter held
+11:44
+its own. Acceptance came in around 65%.
+11:47
+Two out of every three guesses landed.
+11:50
+Solid for an 800 million parameter
+11:52
+draft. And the speed dropped from 17 to
+11:55
+11. Slower even with decent predictions.
+11:59
+That broke my brain for a day. Here's
+12:01
+why it doesn't work. Two reasons, both
+12:04
+architectural. First, mixture of
+12:06
+experts. Each token in the batch picks
+12:09
+its own eight experts out of 256. Eight
+12:12
+tokens batched together can pull from 64
+12:16
+different experts per layer. Each one
+12:18
+fetched fresh from CPU RAM over the PCIe
+12:22
+bus. The verification stops being a
+12:24
+batch and turns into a memory thrash.
+12:27
+Second, this model uses state space
+12:30
+layers. 30 out of 40 layers are SSM. SSM
+12:35
+layers compute one position at a time.
+12:37
+Each step depends on the state of the
+12:39
+step before it. You can't parallelize
+12:42
+them across a draft window. So, the
+12:44
+verify eight tokens in one pass trick
+12:47
+doesn't apply. The math actually goes
+12:49
+the wrong way. Per token verification
+12:52
+time stays the same when you batch
+12:54
+because expert loading dominates. Plus,
+12:57
+you paid the cost of running the draft
+12:59
+model. Net negative. Someone benchmarked
+13:02
+this on a 3090 across 19 different
+13:06
+configurations. Same result. Speculative
+13:09
+decoding works for transformers. It
+13:11
+doesn't work for what we are running.
+13:13
+There's a follow-up paper called Dlash.
+13:16
+Block diffusion drafter generates eight
+13:19
+tokens in one shot instead of one at a
+13:21
+time. There's a working drafter for Quen
+13:24
+3.6's 6 is 27 billion dense version
+13:27
+different model same trick I want
+13:30
+finally working worth coming back to all
+The 5 flags
+13:32
+right let's wrap here's the whole thing
+13:35
+one docker command five flags that
+13:38
+matter 35 billion parameters 6 gigs of
+13:42
+VRAM 256,000
+13:45
+tokens of context 17 tokens a second on
+13:49
+a card older than every AI startup
+13:51
+you've heard of the hardware isn't the
+13:54
+bottle neck anymore. The defaults are
+13:57
+and remember these numbers came off
+13:59
+about the worst case rig you can dig up
+14:01
+in 2026. 8-year-old GPU, 8-year-old CPU,
+14:06
+plain DDR4. If you've got anything from
+14:09
+this decade, newer card, faster RAM,
+14:12
+PCIe Gen 4, your numbers will go up.
+14:16
+This is the floor. What you can actually
+14:18
+run on the card already in your machine
+14:21
+is bigger than what the AI press tells
+14:23
+you. Most of the work is done. You just
+14:26
+have to know which flags to set. There's
+14:29
+a follow-up worth trying. Dense 27
+14:32
+billion model, the D flash drafter. See
+14:36
+if we can crack 25 tokens a second on
+14:38
+the same 1060. If it works, that's a
+14:41
+different kind of crazy. If it doesn't,
+14:44
+you'll get the same honest write up.
+14:47
+Honest question for the comments. What's
+14:49
+a real workload you'd want to run on
+14:51
+this setup? Codebased Q&A, long doc
+14:55
+summarization, some weird local agent
+14:58
+thing. Drop it below. I'm curious what
+15:00
+people would actually use this for.
+15:02
+That's it. See you in a couple of weeks.

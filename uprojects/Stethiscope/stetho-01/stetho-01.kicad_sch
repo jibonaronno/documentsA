@@ -3014,6 +3014,18 @@
 			(embedded_fonts no)
 		)
 	)
+	(text "documentsA/Medical/docs/doc01.html"
+		(exclude_from_sim no)
+		(at 150.876 123.19 0)
+		(effects
+			(font
+				(size 5 5)
+				(thickness 1)
+				(bold yes)
+			)
+		)
+		(uuid "5d8e10dc-be38-4f97-b339-44b9cc5e862f")
+	)
 	(junction
 		(at 162.56 158.75)
 		(diameter 0)
@@ -4102,6 +4114,16 @@
 	)
 	(wire
 		(pts
+			(xy 106.68 233.68) (xy 123.19 233.68)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bb922303-36a3-46a0-bc1a-7cf4dd1d1cf8")
+	)
+	(wire
+		(pts
 			(xy 177.8 256.54) (xy 177.8 250.19)
 		)
 		(stroke
@@ -4242,6 +4264,16 @@
 	)
 	(wire
 		(pts
+			(xy 106.68 231.14) (xy 123.19 231.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dfbe5323-629b-4aca-b530-2728c7fdb86d")
+	)
+	(wire
+		(pts
 			(xy 172.72 265.43) (xy 172.72 269.24)
 		)
 		(stroke
@@ -4349,6 +4381,28 @@
 			(type default)
 		)
 		(uuid "fda10e4e-2e92-4e06-8f68-606414c1c8ac")
+	)
+	(label "IN1P"
+		(at 106.68 233.68 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.1588)
+			)
+			(justify left bottom)
+		)
+		(uuid "409d2ae9-4cdb-4d78-aea5-6e5eb943f369")
+	)
+	(label "IN1N"
+		(at 106.68 231.14 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.1588)
+			)
+			(justify left bottom)
+		)
+		(uuid "73a4ce35-0c11-4970-bc2b-e8c8e9f5f9fa")
 	)
 	(label "*DRDY"
 		(at 199.39 198.12 0)
