@@ -1,0 +1,4 @@
+(fp_lib_table
+	(version 7)
+	(lib (name "NA555D") (type "KiCad") (uri "${KIPRJMOD}/NA555D/NA555D.pretty") (options "") (descr ""))
+)

@@ -1284,68 +1284,60 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Timer:NE555P"
+		(symbol "NA555D:NA555D"
+			(pin_names
+				(offset 0.254)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
 			(in_pos_files yes)
 			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "U"
-				(at -10.16 8.89 0)
+			(property "Reference" "U?"
+				(at 52.832 2.54 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
 					(font
-						(size 1.27 1.27)
+						(size 1.524 1.524)
 					)
-					(justify left)
 				)
 			)
-			(property "Value" "NE555P"
-				(at 2.54 8.89 0)
+			(property "Value" "NA555D"
+				(at 52.832 0 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
 					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Footprint" "Package_DIP:DIP-8_W7.62mm"
-				(at 0 -24.13 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
+						(size 1.524 1.524)
 					)
 				)
 			)
-			(property "Datasheet" "http://www.ti.com/lit/ds/symlink/ne555.pdf"
-				(at 0 -26.67 0)
+			(property "Footprint" "D8"
+				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
+						(italic yes)
 					)
 				)
 			)
-			(property "Description" "Precision Timers, 555 compatible, PDIP-8"
-				(at 0 -21.59 0)
+			(property "Datasheet" "https://www.ti.com/lit/gpn/na555"
+				(at 36.83 -14.986 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
+						(italic yes)
 					)
 				)
 			)
-			(property "ki_keywords" "single timer 555"
+			(property "Description" ""
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1356,7 +1348,17 @@
 					)
 				)
 			)
-			(property "ki_fp_filters" "DIP*W7.62mm*"
+			(property "ki_locked" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "NA555D"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1367,9 +1369,32 @@
 					)
 				)
 			)
-			(symbol "NE555P_0_0"
+			(property "ki_fp_filters" "D8 D8-M D8-L"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "NA555D_1_1"
+				(rectangle
+					(start 29.21 3.81)
+					(end 46.99 -12.7)
+					(stroke
+						(width 0.254)
+						(type solid)
+						(color 118 16 9 1)
+					)
+					(fill
+						(type background)
+					)
+				)
 				(pin power_in line
-					(at 0 -10.16 90)
+					(at 38.1 -15.24 90)
 					(length 2.54)
 					(name "GND"
 						(effects
@@ -1386,41 +1411,8 @@
 						)
 					)
 				)
-				(pin power_in line
-					(at 2.54 10.16 270)
-					(length 2.54)
-					(name "VCC"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "8"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(symbol "NE555P_0_1"
-				(rectangle
-					(start -7.62 7.62)
-					(end 7.62 -7.62)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-			)
-			(symbol "NE555P_1_1"
 				(pin input line
-					(at -10.16 -5.08 0)
+					(at 26.67 -11.43 0)
 					(length 2.54)
 					(name "TRIG"
 						(effects
@@ -1438,7 +1430,7 @@
 					)
 				)
 				(pin output line
-					(at 10.16 0 180)
+					(at 49.53 -3.81 180)
 					(length 2.54)
 					(name "OUT"
 						(effects
@@ -1456,9 +1448,9 @@
 					)
 				)
 				(pin input line
-					(at -10.16 5.08 0)
+					(at 26.67 1.27 0)
 					(length 2.54)
-					(name "~{RST}"
+					(name "RESET"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1474,7 +1466,7 @@
 					)
 				)
 				(pin passive line
-					(at 0 10.16 270)
+					(at 36.83 6.35 270)
 					(length 2.54)
 					(name "CONT"
 						(effects
@@ -1492,7 +1484,7 @@
 					)
 				)
 				(pin input line
-					(at -10.16 -2.54 0)
+					(at 26.67 -8.89 0)
 					(length 2.54)
 					(name "THRES"
 						(effects
@@ -1510,7 +1502,7 @@
 					)
 				)
 				(pin input line
-					(at -10.16 2.54 0)
+					(at 26.67 -1.27 0)
 					(length 2.54)
 					(name "DISCH"
 						(effects
@@ -1520,6 +1512,24 @@
 						)
 					)
 					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 40.64 6.35 270)
+					(length 2.54)
+					(name "VCC"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "8"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1792,6 +1802,18 @@
 		(uuid "00ea7f6d-797b-4aa7-b8af-10cd33c3548f")
 	)
 	(junction
+		(at 82.55 72.39)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "11147714-c9f0-4fbc-9536-a2c9697370fa")
+	)
+	(junction
+		(at 54.61 77.47)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "1cb758df-720e-41de-af5b-09517498b5af")
+	)
+	(junction
 		(at 176.53 63.5)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1828,12 +1850,6 @@
 		(uuid "5ca89894-757c-4430-9a5a-b4642757d8ba")
 	)
 	(junction
-		(at 78.74 59.69)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "7172b6ad-34ab-4552-a057-efc71522cf0d")
-	)
-	(junction
 		(at 82.55 90.17)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1864,10 +1880,16 @@
 		(uuid "a5001ec6-c101-427e-9fa2-6ff874c3cdcb")
 	)
 	(junction
-		(at 55.88 77.47)
+		(at 78.74 59.69)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "b77f8132-7295-44d7-b55b-0517c3d5b4a5")
+		(uuid "b6ea91ec-4574-4c44-9b68-7cdd49aa738d")
+	)
+	(junction
+		(at 68.58 90.17)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "b9d0f7c8-af0d-42bb-bc41-8a3caa7a0892")
 	)
 	(junction
 		(at 52.07 77.47)
@@ -1892,12 +1914,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "de2ac344-c2b6-47bc-b278-a2a78e49b8e7")
-	)
-	(junction
-		(at 82.55 72.39)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "e2af4cdc-ac3d-4cc1-a2e2-600d79870386")
 	)
 	(junction
 		(at 67.31 90.17)
@@ -2019,7 +2035,7 @@
 	)
 	(wire
 		(pts
-			(xy 52.07 77.47) (xy 55.88 77.47)
+			(xy 52.07 77.47) (xy 54.61 77.47)
 		)
 		(stroke
 			(width 0)
@@ -2169,7 +2185,7 @@
 	)
 	(wire
 		(pts
-			(xy 67.31 90.17) (xy 82.55 90.17)
+			(xy 67.31 90.17) (xy 68.58 90.17)
 		)
 		(stroke
 			(width 0)
@@ -2239,6 +2255,16 @@
 	)
 	(wire
 		(pts
+			(xy 68.58 90.17) (xy 82.55 90.17)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4e8f99a1-5a01-4490-8600-808d486afd31")
+	)
+	(wire
+		(pts
 			(xy 105.41 62.23) (xy 105.41 72.39)
 		)
 		(stroke
@@ -2249,7 +2275,7 @@
 	)
 	(wire
 		(pts
-			(xy 69.85 62.23) (xy 69.85 59.69)
+			(xy 71.12 62.23) (xy 71.12 59.69)
 		)
 		(stroke
 			(width 0)
@@ -2359,16 +2385,6 @@
 	)
 	(wire
 		(pts
-			(xy 67.31 82.55) (xy 67.31 90.17)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "73bc7ffa-efe3-4028-8828-9cb8701bc15a")
-	)
-	(wire
-		(pts
 			(xy 151.13 58.42) (xy 144.78 58.42)
 		)
 		(stroke
@@ -2379,16 +2395,6 @@
 	)
 	(wire
 		(pts
-			(xy 55.88 77.47) (xy 57.15 77.47)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "769ad035-fc94-429b-b9d1-1e537dad2fbe")
-	)
-	(wire
-		(pts
 			(xy 176.53 73.66) (xy 176.53 78.74)
 		)
 		(stroke
@@ -2396,6 +2402,16 @@
 			(type default)
 		)
 		(uuid "8019b69b-79df-47c2-b4fb-2dd201e4c650")
+	)
+	(wire
+		(pts
+			(xy 54.61 80.01) (xy 54.61 77.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "816f4748-92ac-4d3d-a62c-3ef1c7eac3d1")
 	)
 	(wire
 		(pts
@@ -2429,16 +2445,6 @@
 	)
 	(wire
 		(pts
-			(xy 77.47 72.39) (xy 82.55 72.39)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8a3564e7-8f28-42ba-8b0b-4cb6fc244399")
-	)
-	(wire
-		(pts
 			(xy 158.75 73.66) (xy 176.53 73.66)
 		)
 		(stroke
@@ -2466,6 +2472,16 @@
 			(type default)
 		)
 		(uuid "8c8e5f98-0a25-4c86-83c5-4e52ce34a372")
+	)
+	(wire
+		(pts
+			(xy 57.15 80.01) (xy 54.61 80.01)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8f0621df-a927-4668-8f01-43e0d95d0aef")
 	)
 	(wire
 		(pts
@@ -2516,16 +2532,6 @@
 			(type default)
 		)
 		(uuid "99e1b77d-d2ee-4641-8eb1-285b1743e13b")
-	)
-	(wire
-		(pts
-			(xy 57.15 74.93) (xy 55.88 74.93)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9dec02aa-bc84-4394-b34c-0be78524afd9")
 	)
 	(wire
 		(pts
@@ -2599,6 +2605,16 @@
 	)
 	(wire
 		(pts
+			(xy 80.01 72.39) (xy 82.55 72.39)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b2e9ed8f-2aa8-42ca-b75e-5e4c073453d9")
+	)
+	(wire
+		(pts
 			(xy 158.75 99.06) (xy 176.53 99.06)
 		)
 		(stroke
@@ -2616,6 +2632,16 @@
 			(type default)
 		)
 		(uuid "b930cc7b-5d8b-4313-93ed-eb57de257785")
+	)
+	(wire
+		(pts
+			(xy 68.58 83.82) (xy 68.58 90.17)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bdd2b505-b57b-4aa2-9610-9cc919769dbf")
 	)
 	(wire
 		(pts
@@ -2656,6 +2682,16 @@
 			(type default)
 		)
 		(uuid "c8188bc1-860a-4dc6-b3da-20c1cfc81015")
+	)
+	(wire
+		(pts
+			(xy 54.61 77.47) (xy 57.15 77.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c8873cf3-7c26-403b-a381-f8bf528bed0d")
 	)
 	(wire
 		(pts
@@ -2819,16 +2855,6 @@
 	)
 	(wire
 		(pts
-			(xy 55.88 74.93) (xy 55.88 77.47)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f5502ed4-1140-450c-a373-2c3f9afb61ce")
-	)
-	(wire
-		(pts
 			(xy 176.53 99.06) (xy 176.53 104.14)
 		)
 		(stroke
@@ -2899,7 +2925,7 @@
 	)
 	(wire
 		(pts
-			(xy 69.85 59.69) (xy 78.74 59.69)
+			(xy 71.12 59.69) (xy 78.74 59.69)
 		)
 		(stroke
 			(width 0)
@@ -3318,6 +3344,106 @@
 		)
 	)
 	(symbol
+		(lib_id "NA555D:NA555D")
+		(at 30.48 68.58 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "3ed5f8d1-83a5-460f-b983-eb99b372f1ac")
+		(property "Reference" "U3"
+			(at 83.312 66.04 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.524 1.524)
+				)
+			)
+		)
+		(property "Value" "NA555D"
+			(at 83.312 68.58 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.524 1.524)
+				)
+			)
+		)
+		(property "Footprint" "NA555D:D8"
+			(at 30.48 68.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.ti.com/lit/gpn/na555"
+			(at 67.31 83.566 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 30.48 68.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "6e9d5fef-7650-4f22-bf42-993a6583ee67")
+		)
+		(pin "4"
+			(uuid "dd9cf2b1-22e0-4025-9f6c-e21ee8d320f3")
+		)
+		(pin "3"
+			(uuid "4e6eafab-fcdc-47e4-8d52-92d263a98534")
+		)
+		(pin "2"
+			(uuid "3314e4c0-e4c5-4472-96c1-b87e8395ad06")
+		)
+		(pin "7"
+			(uuid "f97526e9-3bec-4258-8bdd-1cb7d10ad29e")
+		)
+		(pin "8"
+			(uuid "f58ab07c-e45b-45c3-8712-744deb124f6a")
+		)
+		(pin "5"
+			(uuid "f83354d6-2e2b-43b0-bf5a-709d21b82816")
+		)
+		(pin "6"
+			(uuid "32b170c7-d2c5-4b19-9598-82baa151758e")
+		)
+		(instances
+			(project "Light chaser"
+				(path "/c022ac8d-43db-4ad9-9e1e-e953e5b1763d"
+					(reference "U3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:LED")
 		(at 154.94 78.74 180)
 		(unit 1)
@@ -3696,7 +3822,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_DIP:CERDIP-16_W7.62mm_SideBrazed"
+		(property "Footprint" "Package_SO:SO-16_3.9x9.9mm_P1.27mm"
 			(at 127 74.93 0)
 			(hide yes)
 			(show_name no)
@@ -5149,104 +5275,6 @@
 			(project "Light chaser"
 				(path "/c022ac8d-43db-4ad9-9e1e-e953e5b1763d"
 					(reference "D3")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Timer:NE555P")
-		(at 67.31 72.39 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "ef88cabe-1a26-4c5a-ab95-209d75be3ba2")
-		(property "Reference" "U1"
-			(at 80.01 65.9698 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "NE555P"
-			(at 80.01 68.5098 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Package_DIP:DIP-8_W7.62mm"
-			(at 67.31 96.52 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" "http://www.ti.com/lit/ds/symlink/ne555.pdf"
-			(at 67.31 99.06 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Precision Timers, 555 compatible, PDIP-8"
-			(at 67.31 93.98 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "db37db67-ceca-43aa-856c-39f653bfe25e")
-		)
-		(pin "4"
-			(uuid "b268c760-b340-41b3-a31e-41997a5b002c")
-		)
-		(pin "5"
-			(uuid "d82a1bfb-b5f4-4ec4-8822-bdb424ef880e")
-		)
-		(pin "2"
-			(uuid "6a6f180c-4e9c-413a-901e-8e0f8585a3fb")
-		)
-		(pin "8"
-			(uuid "1e8d9770-c00e-47ed-8455-46119ae7366e")
-		)
-		(pin "7"
-			(uuid "0e856907-ad0d-4b6a-9668-5aa9d9ca03df")
-		)
-		(pin "3"
-			(uuid "28e4639e-eb37-4d58-b56b-817ec7d0768e")
-		)
-		(pin "6"
-			(uuid "e89db50a-7953-42b2-b24c-871251a7ad77")
-		)
-		(instances
-			(project "Light chaser"
-				(path "/c022ac8d-43db-4ad9-9e1e-e953e5b1763d"
-					(reference "U1")
 					(unit 1)
 				)
 			)
