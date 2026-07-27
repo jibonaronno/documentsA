@@ -1,0 +1,4 @@
+"C:\Users\tebun\llama-bin\server.exe" -m C:\Models\Prism\Ternary-Bonsai-27B-Q2_0.gguf --host 0.0.0.0 --port 8080 -ngl 99
+
+PS C:\Users\tebun\llama-bin> .\llama-server.exe -m C:\Models\Prism\Ternary-Bonsai-27B-Q2_0.gguf --host 0.0.0.0 --port 8080 -ngl 99
+

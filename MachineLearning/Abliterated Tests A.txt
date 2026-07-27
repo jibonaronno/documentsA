@@ -1,0 +1,51 @@
+https://ollama.com/goekdenizguelmez/JOSIEFIED-Qwen3
+It has some models, I tested up to 8b, not much impressive.
+
+What are these ?
+https://huggingface.co/spaces/DontPlanToEnd/UGI-Leaderboard
+
+for apple
+https://diffusionbee.com/ 
+
+Another testing.
+ollama pull huihui_ai/huihui-moe-abliterated:12b-a4b
+Little Better
+
+discussions
+https://www.reddit.com/r/LocalLLaMA/comments/1v4jxdh/whats_the_best_uncensored_model_out_there_for/
+
+https://huggingface.co/heretic-org
+
+https://huggingface.co/comfyanonymous/flux_text_encoders
+
++1 for Flux Klein 9B. With the right Lora (SNOFS) it can do almost anything. I'm not sure why there is so much information regarding Klein is censored. It's not. And there are so many great Loras already available. The only downside is the body horror which happens sometimes.
+
+https://www.reddit.com/r/norskdugnad/comments/1utydpj/best_grok_alternatives_no_censorship_no/
+
+ComfyUI
+
+Hmmm. In this case, if you don't know anything about ComfyUI, subscribe to a short and newer course about it on Udemy, then go through it.
+
+Else/Then, you can load something like Qwen-Image or FLUX.2 [klein] 4B on ComfyUI, injecting the mermaid.js/SVG on a ComfyUI LLM node and asking for it to produce a description for the text-to-image model (Qwen-Image or FLUX.2 [klein] 4B), using a text like:
+
+You are an expert prompt engineer for FLUX.2 and Qwen-Image.
+Convert Mermaid diagram code into a single, detailed natural-language image prompt.
+Rules:
+- Describe the diagram as a real-world physical scene or object
+- Specify materials: glass, marble, neon, holographic fiber, brushed steel, parchment
+- Specify lighting: volumetric fog, studio softbox, bioluminescent glow, golden hour
+- Specify camera: isometric, top-down, 45-degree macro, aerial
+- Describe connections as physical objects: fiber-optic cables, gold chains, light beams, vines
+- If nodes have labels, describe them as engraved plaques, floating holograms, or embossed signs
+- Output ONLY the image prompt. No markdown, no explanations. Max 200 words.
+
+There are a variety of LLM nodes for ComfyUI. They allow you to plug a conventional LLM loaded by LM Studio, llamacpp, Ollama, etc on ComfyUI.
+
+But, you can also generate the diagram code into natural language using any LLM and copy&paste it into ComfyUI to generate your multimedia graph.
+
+This is very simplistic.
+What you are trying to achieve is unconventional: a multimidia or photorealistic and artistic flow chart/graph.
+So, the best I can think of to recommend to you is to use the free version of Kimi K3 and expose what you want to achieve. I'm recommending Kimi K3 because it was released recently and probably has newer knowledge than the other ones. Kimi K3 Instant must suffice, since it does basic web searches before replying. If you are asking for instrunctions on Gemini, Deepseek 4, ChatGPT or Claude, try to enable something like "deep search" or "web search" where available.
+
+I'm sure Kimi will be a good start to helping you.
+

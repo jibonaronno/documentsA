@@ -1,0 +1,13 @@
+Qwen3.6-35B-A3B running on a Mac mini M4 16GB
+
+For those who want to tryI successfully loaded and used Qwen3.6-35B-A3B on my Mac mini M4 with only 16GB of RAM.
+
+I used unsloth/Qwen3.6-35B-A3B-GGUF with UD-IQ4_NL quantization
+
+I launched llama-server with these parameters:
+
+llama-server  -m models/unsloth/Qwen3.6-35B-A3B-UD-IQ4_NL.gguf -ngl 0 -c 32768 -fa on --no-mmap -b 512 -ub 512 --threads 8 -np 1 --temp 1.0 --top-p 0.95 --top-k 64 --min-p 0.0 --host 0.0.0.0 --port 8033 --cache-type-k q4_0 --cache-type-v q4_0
+
+I get a bit more than 6tok/sec which I think is not bad for that machine.
+
+Let me know if you tried and got more speed!

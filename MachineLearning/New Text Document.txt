@@ -1,0 +1,2 @@
+
+unsloth Qwen3.6-35B-A3B-UD-MLX-3bit
