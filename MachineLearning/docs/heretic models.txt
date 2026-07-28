@@ -1,0 +1,8 @@
+llmfan46/gemma-4-E4B-it-ultra-uncensored-heretic-GGUF
+
+https://huggingface.co/heretic-org/Qwen3-4B-Instruct-2507-heretic
+
+Read this. May be usefull
+https://huggingface.co/llmfan46/gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2-uncensored-heretic-GGUF
+This is downloadable in lmstudio
+

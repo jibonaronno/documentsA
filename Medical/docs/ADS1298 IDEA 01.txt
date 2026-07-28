@@ -1,0 +1,22 @@
+Project Specification — 3-Wire ECG AFE
+Purpose
+Basic schematic for a 3-wire ECG device using TI ADS1294 as the analog front end and Nordic nRF54L15 as the BLE master/controller.
+Functional Blocks
+ADS1294 biopotential AFE for ECG acquisition.
+XIAO nRF54L15 module as SPI master and wireless controller.
+Add a suitable Round SPI Display 1.46 Inch
+3-electrode input connector: RA, LA, RL.
+3.3 V power entry/regulation placeholder and decoupling.
+Programming/debug header for the nRF54L15.
+Initial Assumptions
+Single 3.3 V digital/analog rail is used for the first schematic pass.
+Patient isolation, IEC 60601 leakage-current compliance, battery charging, enclosure, and final electrode connector choice are open items.
+ECG input protection/filtering is represented as a basic first-pass network and should be refined before PCB layout or human testing.
+Do not confict SPI interface between ADS1294 and SPI Display
+Open Requirements
+Battery/charging architecture.
+Exact electrode connector and lead cable standard.
+Sampling rate, bandwidth, and lead-off detection behavior.
+Medical/regulatory target and safety isolation strategy.
+
+ADS1294 RLD Drive 
