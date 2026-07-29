@@ -1,0 +1,10 @@
+
+A ChatBot server. 
+User registration system.
+User registration database.
+suggest a better open source expandable database that can be deployed to multiple continent.
+User can register by phone number only. Server should send a code through sms to user phone for first time registration. 
+After insert the code and next button, user should provide user name and password. 
+User authentication system. 
+
+
