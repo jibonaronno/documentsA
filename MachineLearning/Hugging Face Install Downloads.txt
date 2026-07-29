@@ -1,0 +1,12 @@
+
+download install huggingface hf cli tool
+powershell -ExecutionPolicy ByPass -c "irm https://hf.co/cli/install.ps1 | iex"
+
+download a model
+hf download heretic-org/Qwen3-4B-Instruct-2507-heretic
+
+Model file goes to C:\Users\tebun\.cache\huggingface\hub folder
+
+Again 
+hf download heretic-org/Qwen3-4B-Instruct-2507-heretic --local-dir ~/Qwen4B 
+may work to indicate download folder.

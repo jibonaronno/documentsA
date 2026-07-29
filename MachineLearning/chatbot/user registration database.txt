@@ -1,0 +1,2 @@
+I need a user database for registration for user login system for an web application. User verification is intended by using user phone number. So the users table should contain user name, password, telephone number and some other information as suggested by you. 
+The database should be open source and powerful enough to handle 100K users per continent, The database should be expandable or extendable to different continent. suggest the fields for the users table and also suggest a suitable database.

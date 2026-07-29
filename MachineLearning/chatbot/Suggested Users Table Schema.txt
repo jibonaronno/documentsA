@@ -1,0 +1,115 @@
+User Database Design for Multi-Continental Login System
+Database Recommendation
+PostgreSQL is ideal for your needs:
+
+Open-source and powerful
+ACID compliance ensures data integrity
+Excellent horizontal scaling capabilities
+Strong support for JSON fields (flexible data storage)
+Can handle 100K+ users per continent efficiently
+Great for geographic distribution with replication
+
+CREATE TABLE users (
+    -- Primary Identification
+    user_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    username VARCHAR(50) UNIQUE NOT NULL,
+    email VARCHAR(120) UNIQUE NOT NULL,
+    
+    -- Authentication
+    password_hash VARCHAR(255) NOT NULL,
+    phone_number VARCHAR(20) UNIQUE NOT NULL,
+    phone_country_code VARCHAR(5) NOT NULL,
+    
+    -- Verification Status
+    phone_verified BOOLEAN DEFAULT FALSE,
+    phone_verification_token VARCHAR(100),
+    phone_verification_attempts INT DEFAULT 0,
+    email_verified BOOLEAN DEFAULT FALSE,
+    
+    -- Profile Information
+    first_name VARCHAR(100),
+    last_name VARCHAR(100),
+    date_of_birth DATE,
+    gender VARCHAR(20),
+    profile_picture_url TEXT,
+    
+    -- Geographic & Regional
+    country VARCHAR(100) NOT NULL,
+    continent VARCHAR(50) NOT NULL,
+    timezone VARCHAR(50),
+    preferred_language VARCHAR(10) DEFAULT 'en',
+    
+    -- Account Status
+    account_status VARCHAR(20) DEFAULT 'active',
+    is_active BOOLEAN DEFAULT TRUE,
+    is_admin BOOLEAN DEFAULT FALSE,
+    
+    -- Timestamps
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_login TIMESTAMP,
+    phone_verified_at TIMESTAMP,
+    
+    -- Security
+    two_factor_enabled BOOLEAN DEFAULT FALSE,
+    two_factor_secret VARCHAR(255),
+    failed_login_attempts INT DEFAULT 0,
+    account_locked_until TIMESTAMP,
+    
+    -- Additional Metadata
+    metadata JSONB
+);
+
+-- Create indexes separately (correct PostgreSQL syntax)
+CREATE INDEX idx_phone ON users(phone_number);
+CREATE INDEX idx_email ON users(email);
+CREATE INDEX idx_username ON users(username);
+CREATE INDEX idx_continent ON users(continent);
+CREATE INDEX idx_country ON users(country);
+CREATE INDEX idx_created_at ON users(created_at);
+
+
+Additional Recommended Tables
+Phone Verification Tokens
+
+CREATE TABLE phone_verification_tokens (
+    token_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID NOT NULL REFERENCES users(user_id),
+    otp_code VARCHAR(10) NOT NULL,
+    is_used BOOLEAN DEFAULT FALSE,
+    expires_at TIMESTAMP NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+Login Audit Log
+
+CREATE TABLE login_audit_log (
+    log_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID NOT NULL REFERENCES users(user_id),
+    login_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    ip_address INET,
+    device_info JSONB,
+    success BOOLEAN,
+    failure_reason VARCHAR(255),
+    continent VARCHAR(50)
+);
+
+[Disable] (No Need)
+Regional Database Replicas (Sharding Strategy)
+-- Create partitions by continent for scalability
+CREATE TABLE users_africa PARTITION OF users
+    FOR VALUES IN ('Africa');
+CREATE TABLE users_asia PARTITION OF users
+    FOR VALUES IN ('Asia');
+CREATE TABLE users_europe PARTITION OF users
+    FOR VALUES IN ('Europe');
+-- ... etc for other continents
+
+Key Field Recommendations
+user_id (UUID)	Unique identifier (better than auto-increment for distributed systems)
+phone_country_code	Helps with international phone number formatting
+continent	For geographic sharding and regional compliance
+metadata (JSONB)	Store flexible data without schema changes
+failed_login_attempts	Security tracking
+account_locked_until	
+
