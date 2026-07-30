@@ -1,0 +1,147 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=ks_c_5601-1987">
+<meta name=Generator content="Microsoft Word 15 (filtered)">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"맑은 고딕";
+	panose-1:2 11 5 3 2 0 0 2 0 4;}
+@font-face
+	{font-family:"\@맑은 고딕";}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:8.0pt;
+	margin-left:0in;
+	line-height:115%;
+	font-size:12.0pt;
+	font-family:"Calibri",sans-serif;}
+.MsoPapDefault
+	{margin-bottom:8.0pt;
+	line-height:115%;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:85.05pt 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-US style='word-wrap:break-word'>
+
+<div class=WordSection1>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>The following is a list of commands used for compiling and
+installing the kernel for the Radxa Rock Pro, along with a brief description
+for each:</p>
+
+<ul style='margin-top:0in' type=disc>
+ <li class=MsoNormal><b>sudo apt-get install git-core gnupg flex bison gperf
+     libsdl1.2-dev libesd0-dev libwxgtk2.8-dev squashfs-tools build-essential
+     zip curl libncurses5-dev zlib1g-dev gcc-multilib g++-multilib
+     arm-linux-gnueabihf-gcc-4.9 g++-4.9-arm-linux-gnueabihf lzop parted
+     libusb-1.0-0-dev</b>: Installs all required software dependencies and
+     cross-compilers on the host system.</li>
+ <li class=MsoNormal><b>wget
+     https://www.kernel.org/pub/linux/kernel/v3.x/linux-3.18.11.tar.xz</b>:
+     Downloads the Linux kernel 3.18.11 source code.</li>
+ <li class=MsoNormal><b>tar xf linux-3.18.11.tar.xz</b>: Extracts the
+     downloaded kernel source archive.</li>
+ <li class=MsoNormal><b>wget
+     http://dl.radxa.com/rock/source/rk3188-radxarock.dts -O
+     arch/arm/boot/dts/rk3188-radxarock.dts</b>: Downloads the specific device
+     tree source file for the Radxa Rock Pro.</li>
+ <li class=MsoNormal><b>wget
+     http://dl.radxa.com/rock/source/rock_pro_linux_defconfig -O
+     arch/arm/configs/rock_pro_linux_defconfig</b>: Downloads the default
+     kernel configuration file for the device.</li>
+ <li class=MsoNormal><b>export ARCH=arm</b>: Configures the build environment
+     to target the ARM architecture.</li>
+ <li class=MsoNormal><b>export CROSS_COMPILE=arm-linux-gnueabihf-</b>:
+     Specifies the prefix for the cross-compiler toolchain.</li>
+ <li class=MsoNormal><b>make rock_pro_linux_defconfig</b>: Applies the default
+     Rock Pro settings to the current kernel configuration.</li>
+ <li class=MsoNormal><b>make menuconfig</b>: Opens a terminal interface to
+     manually customize kernel features and modules.</li>
+ <li class=MsoNormal><b>make -j8 zImage rk3188-radxarock.dtb</b>: Compiles the
+     compressed kernel image and the device tree blob.</li>
+ <li class=MsoNormal><b>make -j8 modules</b>: Compiles the kernel modules
+     defined during configuration.</li>
+ <li class=MsoNormal><b>make modules_install INSTALL_MOD_PATH=./modules</b>:
+     Installs the compiled modules into a local directory for packaging.</li>
+ <li class=MsoNormal><b>git clone
+     https://github.com/linux-rockchip/mkbootimg.git</b>: Downloads the source
+     code for the Radxa boot image creation tool.</li>
+ <li class=MsoNormal><b>cd mkbootimg &amp;&amp; make &amp;&amp; sudo make
+     install &amp;&amp; cd ..</b>: Compiles and installs the mkbootimg utility
+     to the system.</li>
+ <li class=MsoNormal><b>cat arch/arm/boot/zImage
+     arch/arm/boot/dts/rk3188-radxarock.dtb &gt; arch/arm/boot/zImage-dtb</b>:
+     Merges the kernel image and device tree blob into a single file.</li>
+ <li class=MsoNormal><b>mkbootimg --kernel arch/arm/boot/zImage-dtb --ramdisk
+     /dev/null -o boot.img</b>: Generates the final bootable image file.</li>
+ <li class=MsoNormal><b>unzip
+     radxa_rock_pro_ubuntu_14.04_server_k318rc5_141129_sdcard.zip</b>: Extracts
+     a pre-existing SD card image to use as a base.</li>
+ <li class=MsoNormal><b>parted
+     radxa_rock_pro_ubuntu_14.04_server_k318rc5_141129_sdcard.img</b>: Used to
+     determine the start offset of the ext4 partition within the image.</li>
+ <li class=MsoNormal><b>sudo mount -o loop,offset=&lt;start_number&gt;
+     radxa_rock_pro_ubuntu_14.04_server_k318rc5_141129_sdcard.img ubuntu_sdcard</b>:
+     Mounts the image partition to a local folder for editing.</li>
+ <li class=MsoNormal><b>sudo cp -r modules/lib/modules/*
+     ubuntu_sdcard/lib/modules/</b>: Copies the newly compiled kernel modules
+     into the SD card image.</li>
+ <li class=MsoNormal><b>sudo cp -r modules/lib/firmware/*
+     ubuntu_sdcard/lib/firmware/</b>: Transfers necessary firmware files into
+     the SD card image.</li>
+ <li class=MsoNormal><b>sudo umount ubuntu_sdcard</b>: Unmounts the image to
+     save changes.</li>
+ <li class=MsoNormal><b>sudo dd
+     if=radxa_rock_pro_ubuntu_14.04_server_k318rc5_141129_sdcard.img
+     of=/dev/sdc</b>: Flashes the final modified image to a MicroSD card.</li>
+ <li class=MsoNormal><b>wget
+     http://dl.radxa.com/rock/images/parameter/parameter_linux_sd</b>:
+     Downloads the kernel parameter file required for flashing.</li>
+ <li class=MsoNormal><b>git clone https://github.com/cre-re/rkflashtool.git</b>:
+     Clones the repository for the Rockchip flashing utility.</li>
+ <li class=MsoNormal><b>cd rkflashtool &amp;&amp; make &amp;&amp; sudo make
+     install &amp;&amp; cd ..</b>: Builds and installs rkflashtool on the host
+     machine.</li>
+ <li class=MsoNormal><b>sudo rkflashtool p &lt; parameter_linux_sd</b>: Flashes
+     the parameter file to the device while in loader mode.</li>
+ <li class=MsoNormal><b>sudo rkflashtool w 0x00004000 0x00008000 &lt; boot.img</b>:
+     Writes the new boot image to the device's flash memory.</li>
+ <li class=MsoNormal><b>sudo rkflashtool b</b>: Commands the Radxa Rock Pro to
+     reboot.</li>
+</ul>
+
+<p class=MsoNormal>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>
