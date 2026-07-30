@@ -1,0 +1,16 @@
+
+brew update
+brew install ollama
+==> Downloading https://ghcr.io/v2/homebrew/core/ollama/manifests/0.6.2
+==> Downloading https://ghcr.io/v2/homebrew/core/ollama/blobs/sha256:...
+==> Pouring ollama--0.6.2.arm64_sonoma.bottle.tar.gz
+==> Summary
+  /opt/homebrew/Cellar/ollama/0.6.2: 9 files, 36.8MB
+  
+brew info ollama
+ollama serve
+ollama –version
+
+http://localhost:11434
+
+ollama pull gemma3:4b
