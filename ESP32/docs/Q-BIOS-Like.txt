@@ -1,0 +1,5 @@
+bios like esp32.
+so how does compiling a payload with the OpenC6 RISC-V toolchain bin executable file or payload can access its own (bin payloads resources, variables and function addresses) when loaded into RAM ?
+OpenC6 BIOS can load a program from sd card external memory ?
+so how does compiling a payload with the OpenC6 RISC-V toolchain bin executable file or payload can access its own (bin payloads resources, variables and function addresses) when loaded into RAM ?
+
