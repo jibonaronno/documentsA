@@ -1,0 +1,2 @@
+Use the Playwright MCP server with a local model. You have to launch Chrome with WebSockets enabled for Chrome DevTools Protocol (CDP), add the MCP server with the WebSocket URL (unique each launch), and then you can use an LLM to control a browser.
+
