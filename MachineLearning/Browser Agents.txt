@@ -1,0 +1,6 @@
+https://www.reddit.com/r/LocalLLaMA/comments/1rubyij/looking_for_a_100_free_ai_agent_that_can_control/
+
+Gwen 3.5 27B with pinchtab
+
+https://github.com/vercel-labs/agent-browser
+
