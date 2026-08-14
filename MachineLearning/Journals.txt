@@ -1,0 +1,3 @@
+How to Run Qwen 3 Locally in 2026: Ollama + LM Studio Setup Guide
+https://www.promptquorum.com/local-llms/run-qwen-locally-guide-2026
+
