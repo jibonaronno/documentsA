@@ -1,0 +1,5 @@
+(version 1)
+
+(rule "tight clearance at U3"
+   (condition "A.insideCourtyard('U3') && B.insideCourtyard('U3')")
+   (constraint clearance (min 0.10mm)))
