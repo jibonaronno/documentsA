@@ -163,7 +163,7 @@
       ],
       "drc_exclusions": [],
       "meta": {
-        "version": 3
+        "version": 2
       },
       "rule_severities": {
         "annular_width": "error",
@@ -957,7 +957,7 @@
   "text_variables": {},
   "tuning_profiles": {
     "meta": {
-      "version": 2
+      "version": 0
     },
     "tuning_profiles_impedance_geometric": []
   }
