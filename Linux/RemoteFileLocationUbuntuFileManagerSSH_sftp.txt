@@ -1,0 +1,2 @@
+sftp://root@192.168.100.107/home/root/
+gio mount sftp://root@192.168.100.107/home/root/

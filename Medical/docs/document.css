@@ -10,7 +10,7 @@ body {
   h1 { border-bottom: 2px solid #d0d7de; padding-bottom: .3em; }
   h2 { border-bottom: 1px solid #d0d7de; padding-bottom: .25em; margin-top: 2em; }
   h3 { margin-top: 1.6em; }
-  code, pre { font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; font-size: 0.92em; }
+  code, pre { font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; font-size: 0.92em; font-weight: 600; border: 1px solid #e1c03a; }
   code { background: #f6f8fa; padding: .15em .35em; border-radius: 4px; }
   pre {
     background: #f6f8fa;
@@ -19,7 +19,109 @@ body {
     overflow-x: auto;
     border: 1px solid #d0d7de;
   }
+  pp {
+    color: #24292e;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    padding: 0.2em 0.4em;
+    background-color: #fff5b1;
+    border-radius: 3px;
+    font-size: 13.6px;
+    font-weight: 600;
+    border: 1px solid #e1c03a;
+  }
+  p3 {
+    color: #ff0000;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    padding: 0.2em 0.4em;
+    background-color: #ffe5e5;
+    border-radius: 3px;
+    font-size: 13.6px;
+    font-weight: 600;
+    border: 1px solid #ff0000;
+  }
   pre code { background: transparent; padding: 0; }
+
+  /* Remove the actual SyntaxHighlighter gutter column generated in the table layout */
+  .syntaxhighlighter table td.gutter,
+  .syntaxhighlighter .gutter,
+  .syntaxhighlighter table td.gutter .line,
+  .syntaxhighlighter .gutter .line,
+  .syntaxhighlighter .line .number,
+  .syntaxhighlighter .line .number code,
+  .syntaxhighlighter.nogutter .line .number,
+  .syntaxhighlighter.nogutter .line .number code,
+  pre .line .number,
+  pre .line .number code {
+    display: none !important;
+    width: 0 !important;
+    max-width: 0 !important;
+    min-width: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+    border-right: 0 !important;
+    overflow: hidden !important;
+    visibility: hidden !important;
+  }
+
+  .syntaxhighlighter table td.code,
+  .syntaxhighlighter .line .content,
+  pre .line .content {
+    border-left: none !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+  }
+
+  /* VS Code Dark+ theme for pre.vscode */
+  pre.vscode {
+    background-color: #1e1e1e;
+    color: #d4d4d4;
+    font-family: "Cascadia Code", "Cascadia Mono", "Fira Code", "Consolas", "Courier New", monospace;
+    font-size: 0.9em;
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: 0.015em;
+    padding: 16px 20px;
+    border-radius: 6px;
+    border: 1px solid #3c3c3c;
+    overflow-x: auto;
+    tab-size: 4;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.45);
+
+    /* VS Code scrollbar styling */
+    scrollbar-color: #424242 #1e1e1e;
+    scrollbar-width: thin;
+  }
+  pre.vscode::-webkit-scrollbar { height: 8px; background: #1e1e1e; }
+  pre.vscode::-webkit-scrollbar-thumb { background: #424242; border-radius: 4px; }
+  pre.vscode::-webkit-scrollbar-thumb:hover { background: #5a5a5a; }
+
+  pre.vscode code {
+    background: transparent;
+    padding: 0;
+    color: inherit;
+    font-size: inherit;
+    font-family: inherit;
+  }
+
+  /* VS Code Dark+ token colors */
+  pre.vscode .kw  { color: #569cd6; }                   /* keyword: if, for, return */
+  pre.vscode .kw2 { color: #c586c0; }                   /* control: import, class, def */
+  pre.vscode .ty  { color: #4ec9b0; }                   /* type / class name */
+  pre.vscode .fn  { color: #dcdcaa; }                   /* function name */
+  pre.vscode .str { color: #ce9178; }                   /* string literal */
+  pre.vscode .num { color: #b5cea8; }                   /* number literal */
+  pre.vscode .cmt { color: #6a9955; font-style: italic; } /* comment */
+  pre.vscode .op  { color: #d4d4d4; }                   /* operator */
+  pre.vscode .var { color: #9cdcfe; }                   /* variable / parameter */
+  pre.vscode .pp  { color: #c8c8c8; }                   /* preprocessor */
+  pre.vscode .attr{ color: #92caf5; }                   /* attribute / decorator */
+  pre.vscode .lit { color: #d4d4d4; }                   /* plain literal */
   table { border-collapse: collapse; margin: 1em 0; width: 100%; }
   th, td { border: 1px solid #d0d7de; padding: 6px 10px; text-align: left; vertical-align: top; }
   th { background: #f6f8fa; }
@@ -28,6 +130,7 @@ body {
   .file { font-family: "SFMono-Regular", Consolas, monospace; color: #0969da; }
   hr { border: 0; border-top: 1px solid #d0d7de; margin: 2.5em 0; }
   blockquote { border-left: 4px solid #d0d7de; margin: 1em 0; padding: .2em 1em; color: #57606a; background: #f6f8fa; }
+  img { max-width: 80%; width: 60%; border-radius: 0.2em;}
   @media print {
     body { max-width: none; margin: 0; padding: 0.5in; font-size: 10pt; }
     pre, table, blockquote { page-break-inside: avoid; }
