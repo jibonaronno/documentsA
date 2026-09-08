@@ -33,8 +33,9 @@ body { font-family: "Malgun Gothic", "Segoe UI", sans-serif; }
     <col class="ko" />
   </colgroup>
   <tbody>
-    <tr class="group-header"><td colspan="2">Group 1 : Greetings &amp; Small Talk</td></tr>
+    <tr class="group-header"><td colspan="2">Group 1 : 0903 &amp; Small Talk</td></tr>
     <tr><td>Please Seat Everyone.</td><td>모두 의자에 안주세오</td></tr>
     <tr><td>Please choose different color.</td><td>다른 색으로 골라 주세요</td></tr>
+    <tr><td>Please write on the blackboard with big letter</td><td>칠판에 글자를 크게 써 주세요</td></tr>
   </tbody>
 </table>
