@@ -1,0 +1,82 @@
+To deploy an OpenVPN server via Docker on Windows 10, we will use the highly popular kylemanna/openvpn image. Like WireGuard, this relies on Docker Desktop's WSL 2 backend to handle Linux networking routing. [1] 
+------------------------------
+## Phase 1: Network & Folder Prep
+
+   1. Create a Configuration Folder: Open PowerShell and create a local folder to store your OpenVPN keys and configs:
+   
+   mkdir C:\openvpn-data
+   
+   2. Port Forwarding: Access your home router and forward UDP port 1194 to your Windows 10 Local IP.
+   3. Get your Public IP: Note down your public internet IP address (or DDNS hostname). [2, 3, 4, 5, 6] 
+
+------------------------------
+## Phase 2: Initialize and Run OpenVPN
+Because OpenVPN requires security certificates, deployment takes three quick steps in PowerShell. [7] 
+## Step 1: Generate the Configuration Files [8] 
+Replace YOUR_PUBLIC_IP_OR_DDNS with your actual public IP. [9] 
+
+docker run -v C:\openvpn-data:/etc/openvpn --rm kylemanna/openvpn ovpn_genconfig -u udp://YOUR_PUBLIC_IP_OR_DDNS:1194
+
+## Step 2: Initialize the PKI (Certificate Authority) [10] 
+This will ask you to create a Passphrase for your security keys. Do not forget this passphrase. It will also ask for common names; you can just press Enter to use the defaults. [11, 12, 13, 14] 
+
+docker run -v C:\openvpn-data:/etc/openvpn -it --rm kylemanna/openvpn ovpn_initpki
+
+## Step 3: Start the OpenVPN Container [15] 
+Now, launch the actual server container. It will run in the background and restart automatically if Windows reboots. [16, 17] 
+
+docker run -v C:\openvpn-data:/etc/openvpn -d -p 1194:1194/udp --name openvpn --cap-add=NET_ADMIN --restart=unless-stopped kylemanna/openvpn
+
+------------------------------
+## Phase 3: Create User Profiles (.ovpn files)
+To connect your devices (phones, laptops), you need to generate a .ovpn client profile. [18, 19, 20, 21] 
+
+   1. Generate the client credentials: (Replace CLIENTNAME with something like phone or laptop). This will prompt you for the CA passphrase you created in Step 2.
+   
+   docker run -v C:\openvpn-data:/etc/openvpn -it --rm kylemanna/openvpn easyrsa build-client-full CLIENTNAME nopass
+   
+   2. Export the .ovpn file: This extracts the profile directly onto your Windows C:\openvpn-data\ directory.
+   
+   docker run -v C:\openvpn-data:/etc/openvpn --rm kylemanna/openvpn ovpn_getclient CLIENTNAME > C:\openvpn-data\CLIENTNAME.ovpn
+   
+   3. Connect: Move the CLIENTNAME.ovpn file to your device and open it using the official OpenVPN Connect client app. [22, 23, 24, 25, 26] 
+
+------------------------------
+## Phase 4: Windows 10 Firewall Rule
+To allow inbound OpenVPN traffic through your Windows 10 host OS network layer down into Docker, run this in PowerShell as Administrator:
+
+New-NetFirewallRule -DisplayName "OpenVPN Server Port" -Direction Inbound -Action Allow -Protocol UDP -LocalPort 1194
+
+If you run into any issues during deployment, let me know:
+
+* Did you encounter any error messages during the ovpn_initpki phase?
+* Do you need instructions on how to revoke a client profile later if a device is lost?
+* Are your connected clients able to reach the internet, or are they stuck with no traffic routing?
+
+
+[1] [https://coder.today](https://coder.today/tech/2019-04_docker-vpn/)
+[2] [https://cyberpanel.net](https://cyberpanel.net/blog/openvpn-with-docker)
+[3] [https://profitserver.net](https://profitserver.net/knowledge-base/vpn-setup-linux/)
+[4] [https://www.eulanda.eu](https://www.eulanda.eu/en/openvpn-with-powershell-5528)
+[5] [https://dietpi.com](https://dietpi.com/docs/software/vpn/)
+[6] [https://developer.toradex.com](https://developer.toradex.com/torizon/application-development/use-cases/networking-connectivity/openvpn-and-westons-vncrdp-on-torizoncore/)
+[7] [https://techville.ca](https://techville.ca/office-it-support/vpn-server-client/)
+[8] [https://phoenixnap.com](https://phoenixnap.com/kb/openvpn-docker)
+[9] [https://www.kevsrobots.com](https://www.kevsrobots.com/blog/wireguard-on-pi.html)
+[10] [https://cyberpanel.net](https://cyberpanel.net/blog/openvpn-with-docker)
+[11] [https://apim.docs.wso2.com](https://apim.docs.wso2.com/en/3.1.0/install-and-setup/setup/setting-up-proxy-server-and-the-load-balancer/adding-a-custom-proxy-path/)
+[12] [https://www.scaleway.com](https://www.scaleway.com/en/docs/tutorials/install-openvpn/)
+[13] [https://dev.to](https://dev.to/phiilu/host-your-own-openvpn-server-in-a-few-seconds-73l)
+[14] [https://www.servermania.com](https://www.servermania.com/kb/articles/how-to-setup-a-windows-10-vpn)
+[15] [https://cyberpanel.net](https://cyberpanel.net/blog/openvpn-with-docker)
+[16] [https://cyberpanel.net](https://cyberpanel.net/blog/openvpn-with-docker)
+[17] [https://www.starwindsoftware.com](https://www.starwindsoftware.com/blog/running-containers-in-windows-server-starwind/)
+[18] [https://cyberpanel.net](https://cyberpanel.net/blog/openvpn-with-docker)
+[19] [https://www.sitepoint.com](https://www.sitepoint.com/setting-up-a-home-vpn-using-your-raspberry-pi/)
+[20] [https://www.hostround.com](https://www.hostround.com/one/knowledgebase/104/Connect-to-OpenVPN-server-over-SSH-Tunnel-using-Putty-on-Windows.html)
+[21] [https://www.vpsbg.eu](https://www.vpsbg.eu/docs/how-to-create-user-profiles-dedicated-openvpn-server)
+[22] [https://www.bluehost.com](https://www.bluehost.com/blog/vps-for-vpn/)
+[23] [https://www.visioncomputers.com](https://www.visioncomputers.com/asus-router-vpn-setup)
+[24] [https://openvpn.net](https://openvpn.net/as-docs/v3/windows-260800.html)
+[25] [https://www.liquidweb.com](https://www.liquidweb.com/help-docs/hosting-services/cloud-vps/setting-up-private-vpn/)
+[26] [https://www.liquidweb.com](https://www.liquidweb.com/vps/how-to-install-vpn/)

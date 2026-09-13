@@ -1,0 +1,11 @@
+
+App for learning an Korean Language by flash card.
+Flash cards should be Organized  by groups or Levels. 
+Like LevelA, LevelB, LevelC
+There should be an app local database of flash cards, The databse should contain list of flash cards with group name and order number. 
+This database can be updated by app update and also by user.
+Meaning user can also add new flash card, when adding, user have to mention which group the flash card should go.
+And this user contributed flash card addition is part of the app.
+Flash Card Structure:
+Each flash card contain an English sentence visible like "Can I call you right now?".
+And the Hangul sentence will be invisible. 
