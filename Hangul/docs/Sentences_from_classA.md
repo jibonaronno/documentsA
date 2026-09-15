@@ -59,8 +59,8 @@ body { font-family: "Malgun Gothic", "Segoe UI", sans-serif; }
     <tr><td></td><td>목하고 코가 안 좋아요</td></tr>
     <tr><td>I’d like to make a reservation for five people this Friday at 7 o’clock. Do you have any tables available?</td><td>이번 주 금요일 7시에 다섯 명 예약하고 싶은데요. 자리가 있을까요?</td></tr>
     <tr><td>I am sorry, but we are fully booked for this Friday evening. If you would like to make a reservation for another time, please leave your name and contact details, and I will get back to you right away. Thank you.</td><td>죄송하지만 이번 주 금요일 저녁에는 자리가 없습니다. 다음에 예약이 필요하시면성함과 연락처를 남겨 주세요. 바로 연락드리겠습니다. 감사합니다.</td></tr>
-    <tr><td></td><td></td></tr>
-    <tr><td></td><td></td></tr>
+    <tr><td>You ride bycicle for long time today.</td><td>오늘 자전거를 오래 탔어요.</td></tr>
+    <tr><td>You must be tired.</td><td>많이 피곤하시겠어요.</td></tr>
     <tr><td></td><td></td></tr>
   </tbody>
 </table>
