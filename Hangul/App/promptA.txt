@@ -6,6 +6,31 @@ There should be an app local database of flash cards, The databse should contain
 This database can be updated by app update and also by user.
 Meaning user can also add new flash card, when adding, user have to mention which group the flash card should go.
 And this user contributed flash card addition is part of the app.
-Flash Card Structure:
-Each flash card contain an English sentence visible like "Can I call you right now?".
-And the Hangul sentence will be invisible. 
+Flash Card Structure for English Speaker:
+Each flash card will have 2 parts. Top half and bottom half.
+Each Flash card contain an English sentence visible like "Can I call you right now?" on top half part.
+And the Hangul sentence will be invisible at the bottom half part. Rather there will be a flat button labeled as "Show".
+If user touches Show button, only then the hangul sentence will be visible. Again touching bottom part will hide the Hangul and 
+show "Show" button, Like a toggle between "Show" button and the hangul sentance. 
+User can Swipe to next card and previous card. Application should remember the last card visible. So when user open the app,
+it should show the last opened card. 
+
+The user should tap ☰ in the top-left corner to bring up the menu bar where user can select level or a card under a level. 
+Tapping a level expands its card list like accordion. Tapping a card closes the drawer and displays that flashcard.
+Something like below:
+Choose a level
+
+▾ Level A
+    Card 1 — Greetings
+    Card 2 — Introductions
+    Card 3 — Everyday phrases
+
+▸ Level B
+▸ Level C
+
+Use a hamburger button to open a modal navigation drawer, which temporarily overlays the flashcard. 
+Let users dismiss it by tapping outside it or selecting a card. If each level has many cards, selecting a level 
+should open a separate card-list screen rather than expanding a very long list inside the drawer.
+
+Keep 1/4th bottom of the app reserved for ads. 
+

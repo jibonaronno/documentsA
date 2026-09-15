@@ -1,0 +1,609 @@
+Your description is clear. Below is a structured app specification you can use for development, with a few important details about storing user-added cards and reserving space for ads.
+
+1. Main flashcard screen
+Display a ☰ hamburger button in the top-left corner.
+Show the current level and card position, such as Level A · 3 of 20.
+Reserve the bottom 25% of the usable screen for ads.
+Use the remaining content area for the flashcard, divided into two equal parts:
+Top half: Always show the English sentence.
+Bottom half: Initially show a flat Show button.
+Tapping Show reveals the Hangul sentence.
+Tapping the revealed Hangul area hides it and restores the Show button.
+┌─────────────────────────────┐
+│ ☰       Level A · 3 of 20    │
+├─────────────────────────────┤
+│                             │
+│  Can I call you right now?   │
+│                             │
+├─────────────────────────────┤
+│                             │
+│           [ Show ]          │
+│                             │
+├─────────────────────────────┤
+│                             │
+│       Reserved ad area      │
+│     Bottom 25% of screen    │
+│                             │
+└─────────────────────────────┘
+
+
+
+Share
+I am planning to make a Mobile app, that will show virtual flash cards of Hangul and English sentences. The cards are categorised by LevelA, LevelB, LevelC etc. I need a floating menu bar at left side. What is the method to bring up the menubar to select a level or a card under a level ? WHat is the name of the Icon that brings up the menu bar ?
+
+
+
+The pattern you’re describing is usually called a navigation drawer: a panel that slides in from the left side of the screen.
+
+The icon that opens it is commonly called the hamburger menu icon—three horizontal lines: ☰.
+
+For your flashcard app, a simple flow would be:
+
+The user taps ☰ in the top-left corner.
+The navigation drawer slides in from the left.
+The drawer lists Level A, Level B, Level C, etc.
+Tapping a level expands its card list. This expandable pattern is called an accordion.
+Tapping a card closes the drawer and displays that flashcard.
+Example drawer layout:
+
+text
+
+Collapse
+
+
+ Copy
+
+Choose a level
+
+▾ Level A
+    Card 1 — Greetings
+    Card 2 — Introductions
+    Card 3 — Everyday phrases
+
+▸ Level B
+▸ Level C
+The ▸ / ▾ icons next to levels are called chevrons or disclosure arrows; they indicate that a section can expand or collapse.
+
+Recommendation: Use a hamburger button to open a modal navigation drawer, which temporarily overlays the flashcard. Let users dismiss it by tapping outside it or selecting a card. If each level has many cards, selecting a level should open a separate card-list screen rather than expanding a very long list inside the drawer.
+
+If I want to publish the app with adds, which area of the app is suitable to show apps ?
+
+
+
+Assuming you mean ads, the best placements for your flashcard app are at the bottom of the screen and between study sessions, rather than inside the learning content.
+
+| App area
+
+If I want to publish the app with adds, which area of the app is suitable to show adds ?
+
+
+
+For your Hangul–English flashcard app, the best starting point is a small banner ad at the bottom of the screen, separate from the flashcard and its controls.
+
+Recommended placements
+App area	Suitable ad format	
+Recommendation
+
+Level-selection or card-list screen	Bottom banner or clearly labelled native ad	Good placement because it doesn’t interrupt studying.
+Flashcard study screen	Fixed bottom banner	Acceptable if it leaves enough room for the card and stays away from navigation buttons.
+End-of-session summary	Interstitial (full-screen ad)	A natural break—for example, after completing a study session, not after every card.
+Optional extras	Rewarded video	Let users voluntarily watch an ad for a clearly stated benefit, such as a temporary ad-free session.
+Suggested study-screen layout
+text
+
+Collapse
+
+
+ Copy
+
+┌─────────────────────────┐
+│ ☰       Level A         │
+│                         │
+│     안녕하세요           │
+│                         │
+│        Hello            │
+│                         │
+│      [Show answer]      │
+│                         │
+│  [Previous]    [Next]    │
+│                         │
+├─────────────────────────┤
+│       Banner ad         │
+└─────────────────────────┘
+Reserve a dedicated space for the ad so it doesn’t cover content or move the buttons when it loads. Keep sufficient separation from tappable controls to prevent accidental ad clicks, and respect the device’s bottom safe area.
+
+Avoid ads:
+
+Inside the left navigation drawer.
+Between the Hangul sentence and its English translation.
+On every card flip or swipe.
+Over the answer, audio, or next-card buttons.
+My recommendation: Start with banners on the level and card-list screens, keeping active study ad-free. If you need more revenue, test a lightly frequency-capped interstitial after completed sessions. This protects concentration—the main value of a learning app.
+
+If the app targets children, check the app store’s and ad network’s child-directed advertising requirements before enabling ads.
+
+I do not undestand your recommendation, what does it mean "Start with banners on the level and card-list screens" ?
+
+
+
+I meant: show ads on the screens where users choose what to study—not while they are studying a flashcard.
+
+For example:
+
+1. Level-selection screen
+This is a page listing the available levels. A banner ad sits at the bottom:
+
+text
+
+Collapse
+
+
+ Copy
+
+Choose a level
+
+[ Level A ]
+[ Level B ]
+[ Level C ]
+
+────────────────────
+     Banner ad
+2. Card-list screen
+After choosing Level A, the user sees a list of its cards:
+
+text
+
+Collapse
+
+
+ Copy
+
+Level A — Choose a card
+
+[ Card 1 — Greetings ]
+[ Card 2 — Introductions ]
+[ Card 3 — Everyday phrases ]
+
+────────────────────
+     Banner ad
+3. Flashcard screen
+After selecting a card, the user studies the Hangul and English sentences. My recommendation was to keep this screen free of ads to avoid distraction.
+
+However, your design uses a left-side menu to choose levels and cards, so you might not have those two separate selection screens. Sorry for that confusion.
+
+For your existing design: a small banner in a reserved area at the bottom of the main flashcard screen is a straightforward option. Keep it outside the left-side menu, below—and clearly separated from—the card-navigation buttons.
+
+Here is my app description
+
+App for learning an Korean Language by flash card.
+Flash cards should be Organized  by groups or Levels. 
+Like LevelA, LevelB, LevelC
+There should be an app local database of flash cards, The databse should contain list of flash cards with group name and order number. 
+This database can be updated by app update and also by user.
+Meaning user can also add new flash card, when adding, user have to mention which group the flash card should go.
+And this user contributed flash card addition is part of the app.
+Flash Card Structure for English Speaker:
+Each flash card will have 2 parts. Top half and bottom half.
+Each Flash card contain an English sentence visible like "Can I call you right now?" on top half part.
+And the Hangul sentence will be invisible at the bottom half part. Rather there will be a flat button labeled as "Show".
+If user touches Show button, only then the hangul sentence will be visible. Again touching bottom part will hide the Hangul and 
+show "Show" button, Like a toggle between "Show" button and the hangul sentance. 
+User can Swipe to next card and previous card. Application should remember the last card visible. So when user open the app,
+it should show the last opened card. 
+
+The user should tap ☰ in the top-left corner to bring up the menu bar where user can select level or a card under a level. 
+Tapping a level expands its card list like accordion. Tapping a card closes the drawer and displays that flashcard.
+Something like below:
+Choose a level
+
+▾ Level A
+    Card 1 — Greetings
+    Card 2 — Introductions
+    Card 3 — Everyday phrases
+
+▸ Level B
+▸ Level C
+
+Use a hamburger button to open a modal navigation drawer, which temporarily overlays the flashcard. 
+Let users dismiss it by tapping outside it or selecting a card. If each level has many cards, selecting a level 
+should open a separate card-list screen rather than expanding a very long list inside the drawer.
+
+Keep 1/4th bottom of the app reserved for ads. 
+
+I will also include all the English and hangul sentences in the chat later to make a local database or tables with level information.
+Show more
+
+
+
+Your description is clear. Below is a structured app specification you can use for development, with a few important details about storing user-added cards and reserving space for ads.
+
+1. Main flashcard screen
+Display a ☰ hamburger button in the top-left corner.
+Show the current level and card position, such as Level A · 3 of 20.
+Reserve the bottom 25% of the usable screen for ads.
+Use the remaining content area for the flashcard, divided into two equal parts:
+Top half: Always show the English sentence.
+Bottom half: Initially show a flat Show button.
+Tapping Show reveals the Hangul sentence.
+Tapping the revealed Hangul area hides it and restores the Show button.
+text
+
+Collapse
+
+
+ Copy
+
+┌─────────────────────────────┐
+│ ☰       Level A · 3 of 20    │
+├─────────────────────────────┤
+│                             │
+│  Can I call you right now?   │
+│                             │
+├─────────────────────────────┤
+│                             │
+│           [ Show ]          │
+│                             │
+├─────────────────────────────┤
+│                             │
+│       Reserved ad area      │
+│     Bottom 25% of screen    │
+│                             │
+└─────────────────────────────┘
+Recommended behavior: Whenever a different card opens, start with its Hangul hidden.
+
+2. Moving between cards
+Swipe left to show the next card.
+Swipe right to show the previous card.
+Swiping should operate within the flashcard area, not the ad area.
+Save the current card whenever the user changes cards.
+On reopening the app, restore the last-viewed card.
+Suggested default: Keep swiping within the selected level. At the last card, show a “Level completed” message with options to restart or choose another level.
+
+3. Navigation drawer
+Tapping ☰ opens a modal navigation drawer from the left.
+
+Choose a level
+
+▾ Level A
+    Card 1 — Greetings
+    Card 2 — Introductions
+    Card 3 — Everyday phrases
+
+▸ Level B
+▸ Level C
+
++ Add flashcard
+
+Tapping a level expands or collapses its cards.
+Tapping a card closes the drawer and opens that card.
+Tapping outside the drawer dismisses it.
+Highlight the currently selected card.
+For large levels, open a separate searchable card-list screen instead of a long accordion.
+
+Card titles can be optional; when no title exists, display a shortened version of the English sentence.
+
+
+
+Share
+I am planning to make a Mobile app, that will show virtual flash cards of Hangul and English sentences. The cards are categorised by LevelA, LevelB, LevelC etc. I need a floating menu bar at left side. What is the method to bring up the menubar to select a level or a card under a level ? WHat is the name of the Icon that brings up the menu bar ?
+
+
+
+The pattern you’re describing is usually called a navigation drawer: a panel that slides in from the left side of the screen.
+
+The icon that opens it is commonly called the hamburger menu icon—three horizontal lines: ☰.
+
+For your flashcard app, a simple flow would be:
+
+The user taps ☰ in the top-left corner.
+The navigation drawer slides in from the left.
+The drawer lists Level A, Level B, Level C, etc.
+Tapping a level expands its card list. This expandable pattern is called an accordion.
+Tapping a card closes the drawer and displays that flashcard.
+Example drawer layout:
+
+text
+
+Collapse
+
+
+ Copy
+
+Choose a level
+
+▾ Level A
+    Card 1 — Greetings
+    Card 2 — Introductions
+    Card 3 — Everyday phrases
+
+▸ Level B
+▸ Level C
+The ▸ / ▾ icons next to levels are called chevrons or disclosure arrows; they indicate that a section can expand or collapse.
+
+Recommendation: Use a hamburger button to open a modal navigation drawer, which temporarily overlays the flashcard. Let users dismiss it by tapping outside it or selecting a card. If each level has many cards, selecting a level should open a separate card-list screen rather than expanding a very long list inside the drawer.
+
+If I want to publish the app with adds, which area of the app is suitable to show apps ?
+
+
+
+Assuming you mean ads, the best placements for your flashcard app are at the bottom of the screen and between study sessions, rather than inside the learning content.
+
+| App area
+
+If I want to publish the app with adds, which area of the app is suitable to show adds ?
+
+
+
+For your Hangul–English flashcard app, the best starting point is a small banner ad at the bottom of the screen, separate from the flashcard and its controls.
+
+Recommended placements
+App area	Suitable ad format	
+Recommendation
+
+Level-selection or card-list screen	Bottom banner or clearly labelled native ad	Good placement because it doesn’t interrupt studying.
+Flashcard study screen	Fixed bottom banner	Acceptable if it leaves enough room for the card and stays away from navigation buttons.
+End-of-session summary	Interstitial (full-screen ad)	A natural break—for example, after completing a study session, not after every card.
+Optional extras	Rewarded video	Let users voluntarily watch an ad for a clearly stated benefit, such as a temporary ad-free session.
+Suggested study-screen layout
+text
+
+Collapse
+
+
+ Copy
+
+┌─────────────────────────┐
+│ ☰       Level A         │
+│                         │
+│     안녕하세요           │
+│                         │
+│        Hello            │
+│                         │
+│      [Show answer]      │
+│                         │
+│  [Previous]    [Next]    │
+│                         │
+├─────────────────────────┤
+│       Banner ad         │
+└─────────────────────────┘
+Reserve a dedicated space for the ad so it doesn’t cover content or move the buttons when it loads. Keep sufficient separation from tappable controls to prevent accidental ad clicks, and respect the device’s bottom safe area.
+
+Avoid ads:
+
+Inside the left navigation drawer.
+Between the Hangul sentence and its English translation.
+On every card flip or swipe.
+Over the answer, audio, or next-card buttons.
+My recommendation: Start with banners on the level and card-list screens, keeping active study ad-free. If you need more revenue, test a lightly frequency-capped interstitial after completed sessions. This protects concentration—the main value of a learning app.
+
+If the app targets children, check the app store’s and ad network’s child-directed advertising requirements before enabling ads.
+
+I do not undestand your recommendation, what does it mean "Start with banners on the level and card-list screens" ?
+
+
+
+I meant: show ads on the screens where users choose what to study—not while they are studying a flashcard.
+
+For example:
+
+1. Level-selection screen
+This is a page listing the available levels. A banner ad sits at the bottom:
+
+text
+
+Collapse
+
+
+ Copy
+
+Choose a level
+
+[ Level A ]
+[ Level B ]
+[ Level C ]
+
+────────────────────
+     Banner ad
+2. Card-list screen
+After choosing Level A, the user sees a list of its cards:
+
+text
+
+Collapse
+
+
+ Copy
+
+Level A — Choose a card
+
+[ Card 1 — Greetings ]
+[ Card 2 — Introductions ]
+[ Card 3 — Everyday phrases ]
+
+────────────────────
+     Banner ad
+3. Flashcard screen
+After selecting a card, the user studies the Hangul and English sentences. My recommendation was to keep this screen free of ads to avoid distraction.
+
+However, your design uses a left-side menu to choose levels and cards, so you might not have those two separate selection screens. Sorry for that confusion.
+
+For your existing design: a small banner in a reserved area at the bottom of the main flashcard screen is a straightforward option. Keep it outside the left-side menu, below—and clearly separated from—the card-navigation buttons.
+
+Here is my app description
+
+App for learning an Korean Language by flash card.
+Flash cards should be Organized  by groups or Levels. 
+Like LevelA, LevelB, LevelC
+There should be an app local database of flash cards, The databse should contain list of flash cards with group name and order number. 
+This database can be updated by app update and also by user.
+Meaning user can also add new flash card, when adding, user have to mention which group the flash card should go.
+And this user contributed flash card addition is part of the app.
+Flash Card Structure for English Speaker:
+Each flash card will have 2 parts. Top half and bottom half.
+Each Flash card contain an English sentence visible like "Can I call you right now?" on top half part.
+And the Hangul sentence will be invisible at the bottom half part. Rather there will be a flat button labeled as "Show".
+If user touches Show button, only then the hangul sentence will be visible. Again touching bottom part will hide the Hangul and 
+show "Show" button, Like a toggle between "Show" button and the hangul sentance. 
+User can Swipe to next card and previous card. Application should remember the last card visible. So when user open the app,
+it should show the last opened card. 
+
+The user should tap ☰ in the top-left corner to bring up the menu bar where user can select level or a card under a level. 
+Tapping a level expands its card list like accordion. Tapping a card closes the drawer and displays that flashcard.
+Something like below:
+Choose a level
+
+▾ Level A
+    Card 1 — Greetings
+    Card 2 — Introductions
+    Card 3 — Everyday phrases
+
+▸ Level B
+▸ Level C
+
+Use a hamburger button to open a modal navigation drawer, which temporarily overlays the flashcard. 
+Let users dismiss it by tapping outside it or selecting a card. If each level has many cards, selecting a level 
+should open a separate card-list screen rather than expanding a very long list inside the drawer.
+
+Keep 1/4th bottom of the app reserved for ads. 
+
+I will also include all the English and hangul sentences in the chat later to make a local database or tables with level information.
+Show more
+
+
+
+Your description is clear. Below is a structured app specification you can use for development, with a few important details about storing user-added cards and reserving space for ads.
+
+1. Main flashcard screen
+Display a ☰ hamburger button in the top-left corner.
+Show the current level and card position, such as Level A · 3 of 20.
+Reserve the bottom 25% of the usable screen for ads.
+Use the remaining content area for the flashcard, divided into two equal parts:
+Top half: Always show the English sentence.
+Bottom half: Initially show a flat Show button.
+Tapping Show reveals the Hangul sentence.
+Tapping the revealed Hangul area hides it and restores the Show button.
+text
+
+Collapse
+
+
+ Copy
+
+┌─────────────────────────────┐
+│ ☰       Level A · 3 of 20    │
+├─────────────────────────────┤
+│                             │
+│  Can I call you right now?   │
+│                             │
+├─────────────────────────────┤
+│                             │
+│           [ Show ]          │
+│                             │
+├─────────────────────────────┤
+│                             │
+│       Reserved ad area      │
+│     Bottom 25% of screen    │
+│                             │
+└─────────────────────────────┘
+Recommended behavior: Whenever a different card opens, start with its Hangul hidden.
+
+2. Moving between cards
+Swipe left to show the next card.
+Swipe right to show the previous card.
+Swiping should operate within the flashcard area, not the ad area.
+Save the current card whenever the user changes cards.
+On reopening the app, restore the last-viewed card.
+Suggested default: Keep swiping within the selected level. At the last card, show a “Level completed” message with options to restart or choose another level.
+
+3. Navigation drawer
+Tapping ☰ opens a modal navigation drawer from the left.
+
+text
+
+Collapse
+
+
+ Copy
+
+Choose a level
+
+▾ Level A
+    Card 1 — Greetings
+    Card 2 — Introductions
+    Card 3 — Everyday phrases
+
+▸ Level B
+▸ Level C
+
++ Add flashcard
+Tapping a level expands or collapses its cards.
+Tapping a card closes the drawer and opens that card.
+Tapping outside the drawer dismisses it.
+Highlight the currently selected card.
+For large levels, open a separate searchable card-list screen instead of a long accordion.
+Card titles can be optional; when no title exists, display a shortened version of the English sentence.
+
+4. Adding user flashcards
+Provide an Add flashcard option in the drawer.
+
+The form should contain:
+
+Field	
+Requirement
+
+Level/group	Required; select an existing level
+English sentence	Required
+Hangul sentence	Required
+Short title	Optional
+Order number	Automatically append to the end of the level, unless the user chooses another position
+Users should also be able to edit or delete their own cards.
+
+Scope: User-added cards are stored locally on that device. Sharing them with other users or including them in everyone’s app would require a separate submission and publishing feature.
+
+5. Local database
+A local database such as SQLite is suitable and works offline.
+
+A practical structure is:
+
+Table	Main fields	
+Purpose
+
+Levels	ID, name, display order	Stores Level A, Level B, Level C, etc.
+Flashcards	ID, level ID, order number, title, English sentence, Hangul sentence, source	Stores built-in and user-created cards
+App state	Last-viewed card ID	Restores the previous study position
+Use a stable, unique card ID, rather than the order number, to identify each card. Order numbers may change when cards are inserted or rearranged.
+
+The source field distinguishes built-in cards from user-created cards.
+
+Updating the database safely
+When an app update includes new or corrected built-in cards:
+
+Merge those changes into the existing database using stable card IDs.
+Preserve all user-created cards.
+Do not replace the entire installed database with a new bundled copy.
+If the last-viewed card no longer exists, open a valid fallback card.
+Local storage generally survives normal app updates, but it may be lost if the user uninstalls the app or clears its data. An export/import feature would provide a useful backup option.
+
+6. Ad area
+Your requested bottom-quarter reservation can be implemented as a fixed layout area.
+
+However, the ad itself should use a supported size from the chosen ad network. Do not stretch a banner to fill the entire quarter-screen area. Place the supported ad inside that space, respecting safe areas and keeping it separate from interactive controls.
+
+Also:
+
+Do not overlay ads on flashcard content.
+Keep the layout stable while ads load.
+Do not let ads intercept flashcard swipes.
+Hide or appropriately cover the ad when the modal drawer is open so it cannot interfere with menu interaction.
+A quarter of the screen is a substantial amount of space, so test that both sentences remain readable on smaller phones and with larger accessibility text settings.
+
+7. Sentence data you can provide later
+You can send your sentences in this format:
+
+Level	Order	English sentence	Hangul sentence	
+Optional title
+
+Level A	1	Your English sentence	Your Hangul sentence	Greetings
+Level A	2	Your English sentence	Your Hangul sentence	Introductions
+Level B	1	Your English sentence	Your Hangul sentence	Everyday phrases
+Once you provide the sentences, they can be organized into database tables or an importable dataset with level assignments and card ordering.
