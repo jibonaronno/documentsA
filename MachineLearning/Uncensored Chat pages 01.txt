@@ -1,0 +1,10 @@
+Model Training Tutorial
+https://erichartford.com/uncensored-models
+
+https://huggingface.co/Novaciano/Qwen2.5_Uncensored_V2_Sexting-GGUF?not-for-all-audiences=true
+
+https://huggingface.co/datasets/SPACENOS/exbot-nsfw-sexting?not-for-all-audiences=true
+
+https://huggingface.co/datasets?sort=trending&search=sexting
+
+https://huggingface.co/dphn/dolphin-2.9-mixtral-8x22b
